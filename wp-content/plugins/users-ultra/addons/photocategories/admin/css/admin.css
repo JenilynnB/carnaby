@@ -1,0 +1,24 @@
+/*Admin - Main*/
+
+
+#loading-animation{display:none}
+#uultra-sync-results{display:none}
+
+#uultra-validation-results{display:none}
+.user-ultra-sect h3{ margin-left:0px}
+.user-ultra-sect h3{ font-size:20px;}
+
+.user-ultra-btn-red{ background: #F00 !important;  color:#FFF !important}
+
+/*users module*/
+.uuultra-users-membership-edition {  margin:10px 0px 10px 0px; padding-left:15px;}
+
+/**/
+
+
+.uuultra-top-noti-admin {  margin:10px 0px 10px 0px}
+
+.uultra-frame-impo{ background:#F2F2F2}
+
+.user-ultra-rounded {-moz-border-radius: 5px; border-radius:5px;}
+.user-ultra-sect { background:#FFF; position:relative; clear:both; width:98%; margin-top:20px; padding:20px 10px 10px 10px; height:auto !important}

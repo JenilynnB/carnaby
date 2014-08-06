@@ -1,0 +1,1337 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pimp v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-06-03 14:57+0800\n"
+"Last-Translator: Өлзийбат <olziinaa@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"Language: en_US\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ themeton
+#: 404.php:24
+msgid "Page Not Found"
+msgstr ""
+
+# @ themeton
+#: 404.php:28
+msgid "Nothing Found"
+msgstr ""
+
+# @ themeton
+#: 404.php:29 search.php:98
+msgid ""
+"Sorry, the post you are looking for is not available. Maybe you want to "
+"perform a search?"
+msgstr ""
+
+# @ themeton
+#: 404.php:31 search.php:101
+msgid "For best search results, mind the following suggestions:"
+msgstr ""
+
+# @ themeton
+#: 404.php:33 search.php:103
+msgid "Always double check your spelling."
+msgstr ""
+
+# @ themeton
+#: 404.php:34 search.php:104
+msgid "Try similar keywords, for example: tablet instead of laptop."
+msgstr ""
+
+# @ themeton
+#: 404.php:35 search.php:105
+msgid "Try using more than one keyword."
+msgstr ""
+
+# @ themeton
+#: archive.php:50 framework/common-functions.php:509
+msgid "Written by "
+msgstr ""
+
+# @ themeton
+#: archive.php:60
+msgid "The author didnt add any information to his profile yet"
+msgstr ""
+
+# @ themeton
+#: archive.php:77
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+# @ themeton
+#: archive.php:79
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+# @ themeton
+#: archive.php:81
+msgid "Archives"
+msgstr ""
+
+# @ themeton
+#: archive.php:126 framework/Pagebuilder/inc/loop_layouts.php:31
+#: framework/Pagebuilder/items/blog/blog.php:74
+#: framework/Pagebuilder/items/portfolio/portfolio.php:43 index.php:23
+#: search.php:68
+msgid "Read more"
+msgstr ""
+
+# @ themeton
+#: comments.php:4
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+# @ themeton
+#: comments.php:24 comments.php:38
+msgid "Comment navigation"
+msgstr ""
+
+# @ themeton
+#: comments.php:25 comments.php:39
+msgid "&larr; Older Comments"
+msgstr ""
+
+# @ themeton
+#: comments.php:26 comments.php:40
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+# @ themeton
+#: comments.php:47
+msgid "Comments are closed."
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/inc/loop_layouts.php:405
+#: framework/Pagebuilder/inc/loop_layouts.php:479 single.php:48
+msgid "In"
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/items/blog_row/blog_row.php:135
+#: framework/Pagebuilder/items/blog_row/blog_row.php:144
+#: framework/Pagebuilder/items/portfolio/portfolio.php:219
+#: framework/Pagebuilder/items/portfolio/portfolio.php:228
+#: framework/Pagebuilder/items/portfolio_row/portfolio_row.php:143
+#: framework/Pagebuilder/items/portfolio_row/portfolio_row.php:147
+msgid "All"
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/items/portfolio/portfolio.php:225
+msgid "Sort Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/items/progress/progress.php:27
+msgid "Complete"
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/render.php:230
+msgid "Blox Content Builder"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:164
+#: framework/addons/tgmplugin/plugin-install.php:57
+msgid "Install Required Plugins"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:165
+#: framework/addons/tgmplugin/plugin-install.php:58
+msgid "Install Plugins"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:167
+msgid "Something went wrong."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:177
+#: framework/addons/tgmplugin/plugin-install.php:69
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:178
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:179
+#: framework/addons/tgmplugin/plugin-install.php:70
+msgid "Activate installed plugin"
+msgid_plural "Activate installed plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:180
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:510
+#: framework/addons/tgmplugin/plugin-install.php:71
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:181
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1908
+#: framework/addons/tgmplugin/plugin-install.php:72
+msgid "Plugin activated successfully."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:537
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2120
+msgid "Return to the Dashboard"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:738
+msgid "Dismiss this notice"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1125
+msgid "External Link"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1130
+msgid "Private Repository"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1133
+msgid "Pre-Packaged"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1137
+msgid "WordPress Repository"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1140
+msgid "Required"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1140
+msgid "Recommended"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1143
+msgid "Not Installed"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1145
+msgid "Installed But Not Activated"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1147
+msgid "Not Updated"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1149
+msgid "Active"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1359
+msgid "Plugin"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1360
+msgid "Source"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1361
+msgid "Type"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1362
+msgid "Status"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1380
+msgid "Install"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1381
+msgid "Activate"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1606
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1891
+msgid "Install package not available."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1893
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1894
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1895
+msgid "Plugin install failed."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1896
+msgid "Plugin installed successfully."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1907
+msgid "Plugin activation failed."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2017
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2018
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2027
+msgid "Show Details"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2018
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2027
+msgid "Hide Details"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2019
+msgid "All installations and activations have been completed."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2024
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2028
+msgid "All installations have been completed."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/plugin-install.php:60
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+# @ themeton
+#: framework/addons/woocommerce/config.php:168
+msgid "Sale!"
+msgstr ""
+
+# @ themeton
+#: framework/addons/woocommerce/config.php:171
+msgid "Out Of Stock!"
+msgstr ""
+
+# @ themeton
+#: framework/admin-panel/classes/class.options_machine.php:564
+msgid "Last Backup : "
+msgstr ""
+
+# @ themeton
+#: framework/admin-panel/front-end/options.php:45
+#: framework/admin-panel/front-end/options.php:69
+msgid "Save All Changes"
+msgstr ""
+
+# @ themeton
+#: framework/admin-panel/front-end/options.php:70
+msgid "Options Reset"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:288
+msgid "Comments"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:290
+msgid "Comment"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:293
+msgid "No Comment"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:411
+msgid "Cart"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:420
+msgid "Please install Woocommerce."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:432
+msgid "Please install WPML."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:449
+msgid "Login / Register"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:459
+msgid "My Account"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:486 framework/common-functions.php:487
+msgid "Name"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:488 framework/common-functions.php:489
+msgid "Email"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:490 framework/common-functions.php:491
+msgid "Website"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:517
+msgid "The author didnt add any Information to his profile yet"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:536
+msgid "Share"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:635
+msgid "Related Posts"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:663
+msgid "Theme Options"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:782 framework/common-functions.php:794
+msgid "Prev"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:783 framework/common-functions.php:826
+msgid "Next"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:855
+msgid "Pingback:"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:855 framework/common-functions.php:883
+msgid "Edit"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:887
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:896
+msgid "Reply <span>&darr;</span>"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:912
+msgid "Type & Enter ..."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:914 framework/common-functions.php:928
+msgid "Go!"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:926
+msgid "Search for products ..."
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:218
+msgid ""
+"Please create a menu in <b>Appearance->Menus</b> and select it on Primary "
+"location!"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:251
+msgid "Menu Options"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:469
+msgid "Move up"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:482
+msgid "Move down"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:484 framework/mega-menu/mega-menu.php:486
+msgid "Edit Menu Item"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:495
+msgid "URL"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:502
+msgid "Navigation Label"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:508
+msgid "Title Attribute"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:515
+msgid "Open link in a new window/tab"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:520
+msgid "CSS Classes (optional)"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:526
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:532
+msgid "Description"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:534
+msgid ""
+"The description will be displayed in the menu if the current theme supports "
+"it."
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:560
+msgid "Active Mega Menu"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:568
+msgid "Full width mega menu"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:587
+msgid "Label with Sidebar"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:624
+msgid "Remove"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:625
+msgid "Cancel"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:5
+#: framework/post-type/portfolio-options.php:6
+msgid "Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:7
+msgid "Edit Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:8
+msgid "New Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:9
+msgid "All Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:10
+msgid "View Portfolio"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:11
+msgid "Portfolio Items"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:29
+#: framework/post-type/portfolio-options.php:49
+msgid "Categories"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:30
+msgid "Portfolio Category"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:48
+msgid "Portfolio Title"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:50
+msgid "Date"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/post-options.php:147
+msgid "Delete image"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/post-options.php:147
+msgid "Delete"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/post-options.php:156
+msgid "Add post gallery images"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/post-options.php:163
+msgid "Post Gallery"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/renderer.php:202
+msgid "Choose page..."
+msgstr ""
+
+# @ themeton
+#: framework/widgets/authors_widget.php:33
+msgid "posts"
+msgstr ""
+
+# @ themeton
+#: framework/widgets/authors_widget.php:33
+msgid "post"
+msgstr ""
+
+# @ themeton
+#: framework/widgets/authors_widget.php:61
+#: framework/widgets/iconbox_widget.php:52
+#: framework/widgets/most_commented_widget.php:70
+#: framework/widgets/most_liked_widget.php:75
+#: framework/widgets/recent_posts_widget.php:85
+msgid "Title:"
+msgstr ""
+
+# @ themeton
+#: framework/widgets/iconbox_widget.php:56
+msgid "Icon:"
+msgstr ""
+
+# @ themeton
+#: framework/widgets/iconbox_widget.php:60
+msgid "Link:"
+msgstr ""
+
+# @ themeton
+#: framework/widgets/iconbox_widget.php:65
+msgid "Open in a new tab"
+msgstr ""
+
+# @ themeton
+#: functions.php:51
+msgid "Primary Navigation"
+msgstr ""
+
+# @ themeton
+#: functions.php:52
+msgid "Top Bar Navigation"
+msgstr ""
+
+# @ themeton
+#: functions.php:53
+msgid "Mobile Navigation (optional)"
+msgstr ""
+
+# @ themeton
+#: functions.php:54
+msgid "Footer Navigation"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/parsers.php:42
+#: framework/addons/wordpress-importer/parsers.php:72
+#: framework/addons/wordpress-importer/parsers.php:80
+msgid "There was an error when reading this WXR file"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/parsers.php:84
+#: framework/addons/wordpress-importer/parsers.php:89
+#: framework/addons/wordpress-importer/parsers.php:279
+#: framework/addons/wordpress-importer/parsers.php:466
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:137
+#: framework/addons/wordpress-importer/wordpress-importer.php:146
+#: framework/addons/wordpress-importer/wordpress-importer.php:197
+#: framework/addons/wordpress-importer/wordpress-importer.php:201
+#: framework/addons/wordpress-importer/wordpress-importer.php:210
+msgid "Sorry, there has been an error."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:138
+msgid "The file does not exist, please try again."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:181
+msgid "All done."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:181
+msgid "Have fun!"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:182
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:269
+msgid "Assign Authors"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:270
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:282
+msgid "Import Attachments"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:285
+msgid "Download and import file attachments"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:289
+msgid "Submit"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:302
+msgid "Import author:"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:313
+msgid "or create new user with login name:"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:316
+msgid "as a new user:"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:324
+msgid "assign posts to an existing user:"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:326
+msgid "or assign posts to an existing user:"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:327
+msgid "- Select -"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:786
+msgid "Menu item skipped due to missing menu slug"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:856
+msgid "Fetching attachments is not enabled"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:869
+msgid "Invalid file type"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:913
+msgid "Remote server did not respond"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:926
+msgid "Remote file is incorrect size"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:931
+msgid "Zero size file downloaded"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:1036
+msgid "Import WordPress"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:1058
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:1059
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+
+# @ themeton
+#: single-portfolio.php:156 single.php:66 template-page.php:36
+msgid "Pages:"
+msgstr ""
+
+# @ themeton
+#: single.php:55
+msgid "Tagged: "
+msgstr ""
+
+# @ themeton
+#: 404.php:23
+msgid "404"
+msgstr ""
+
+# @ themeton
+#: archive.php:68
+#, php-format
+msgid "Portfolio Entries : %s"
+msgstr ""
+
+# @ themeton
+#: archive.php:70
+#, php-format
+msgid "Category : %s"
+msgstr ""
+
+# @ themeton
+#: archive.php:72
+#, php-format
+msgid "Tag Archives: %s"
+msgstr ""
+
+# @ themeton
+#: archive.php:75
+#, php-format
+msgid "Daily Archives: %s"
+msgstr ""
+
+# @ themeton
+#: archive.php:77
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr ""
+
+# @ themeton
+#: archive.php:79
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr ""
+
+# @ themeton
+#: comments.php:17
+#, php-format
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/Pagebuilder/inc/loop_layouts.php:404 single.php:47
+msgid "By "
+msgstr ""
+
+# @ themeton
+#: framework/Pagebuilder/items/blog_row/blog_row.php:141
+msgid "Sort Blog"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:166
+#: framework/addons/tgmplugin/plugin-install.php:59
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:168
+#: framework/addons/tgmplugin/plugin-install.php:61
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:169
+#: framework/addons/tgmplugin/plugin-install.php:62
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:170
+#, php-format
+msgid "There is a new update for %1$s."
+msgid_plural "There are several plugins updates available %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:171
+#: framework/addons/tgmplugin/plugin-install.php:63
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"installed."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:172
+#: framework/addons/tgmplugin/plugin-install.php:64
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:173
+#: framework/addons/tgmplugin/plugin-install.php:65
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:174
+#: framework/addons/tgmplugin/plugin-install.php:66
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugin. Contact the administrator of this site for help on getting the "
+"plugin activated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:175
+#: framework/addons/tgmplugin/plugin-install.php:67
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:176
+#: framework/addons/tgmplugin/plugin-install.php:68
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"updated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:182
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:565
+#, php-format
+msgid "The following plugin was activated successfully: %s."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1343
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:1892
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2018
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2020
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2025
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2026
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2027
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/class-tgm-plugin-activation.php:2029
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+# @ themeton
+#: framework/addons/tgmplugin/plugin-install.php:73
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:202
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:218
+#, php-format
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:243
+#, php-format
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:272
+#, php-format
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:377
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:428
+#, php-format
+msgid "Failed to import category %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:468
+#, php-format
+msgid "Failed to import post tag %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:514
+#: framework/addons/wordpress-importer/wordpress-importer.php:655
+#, php-format
+msgid "Failed to import %s %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:540
+#, php-format
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:562
+#, php-format
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:621
+#, php-format
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:793
+#, php-format
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:919
+#, php-format
+msgid "Remote server returned error response %1$d %2$s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:937
+#, php-format
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+# @ wordpress-importer
+#: framework/addons/wordpress-importer/wordpress-importer.php:1043
+#, php-format
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:364
+#, php-format
+msgid "Your%20message%20here!"
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:371
+msgid "Please add your socials."
+msgstr ""
+
+# @ themeton
+#: framework/common-functions.php:670
+msgid "Site Customize"
+msgstr ""
+
+# @ themeton
+#. translators: 1: comment author, 2: date and time
+#: framework/common-functions.php:872
+#, php-format
+msgid "%1$s on %2$s <span class=\"says\">said:</span>"
+msgstr ""
+
+# @ themeton
+#. translators: 1: date, 2: time
+#: framework/common-functions.php:878
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+# @ themeton
+#. translators: %s: title of menu item which is invalid
+#: framework/mega-menu/mega-menu.php:441
+#, php-format
+msgid "%s (Invalid)"
+msgstr ""
+
+# @ themeton
+#. translators: %s: title of menu item in draft status
+#: framework/mega-menu/mega-menu.php:445
+#, php-format
+msgid "%s (Pending)"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:544
+msgid "Menu icon (allows custom icon by url)"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:552
+msgid "Image for mega menu links"
+msgstr ""
+
+# @ themeton
+#: framework/mega-menu/mega-menu.php:611
+#, php-format
+msgid "Original: %s"
+msgstr ""
+
+# @ themeton
+#: framework/post-type/portfolio-options.php:14
+msgid "portfolio-item"
+msgstr ""
+
+# @ themeton
+#: search.php:34
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+# @ themeton
+#: search.php:97
+msgid "Your search term cannot be found"
+msgstr ""
+
+# @ themeton
+#: single-portfolio.php:42
+msgid "<i class=\"glyph\" data-icon=\"&#xe07a;\"></i>"
+msgstr ""
+
+# @ themeton
+#: single-portfolio.php:46
+msgid "<i class=\"glyph\" data-icon=\"&#xe079;\"></i>"
+msgstr ""

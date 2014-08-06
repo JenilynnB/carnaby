@@ -1,0 +1,186 @@
+.section-normal {
+	padding-bottom: floor(@primary-padding / 2);
+	
+	&:last-child {
+		padding-bottom: 0;
+	}
+	
+}
+.section-fullwidth {
+	padding-top: @primary-padding;
+	padding-bottom: @primary-padding;
+	.transition(background .0s linear);
+	position: relative;
+	
+	.section-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	&:first-child {
+		margin-top: -(@primary-padding);
+	}
+	
+	&:last-child {
+		margin-bottom: -(@primary-padding);
+	}
+	
+	&:first-child:last-child {
+		margin-top: -(@primary-padding);
+		margin-bottom: -(@primary-padding);
+	}
+	
+	& + .section-normal {
+		padding-top: floor(@primary-padding / 2);
+	}
+	
+	&.light {
+		color: #FFF !important;
+		
+		a,
+		h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+		h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, {
+			color: #FFF !important;	
+		}
+		h1 .btn-default, h2 .btn-default, h3 .btn-default, h4 .btn-default, h5 .btn-default, h6 .btn-default {
+			color: #000 !important;
+		}
+		
+		.quote-pager span {
+			border-color: #FFF;
+		}
+		
+		.container .section-normal .portfolio .relative .entry-title a {
+			color: #000 !important;
+		}
+		.container .section-normal .portfolio .relative .entry-title h2 a {
+			color: @brand-primary !important;
+		}
+		
+		.blox-heading.default .heading-title:after, .blox-heading.default .heading-title:before,
+		.blox-heading.style1 .lead:after, .blox-heading.style1 .lead:before,
+		.blox-heading.style2 .heading-icon:after, .blox-heading.style2 .heading-icon:before,
+		.blox-heading.style3 .heading-line, .blox-heading.style5 .heading-title:after {
+			background-color: #FFF;
+		}
+		.btn-default, .pagination > li > a, .pagination > li > span {
+		    background-color: rgba(0, 0, 0, .1);
+		    border-color: rgba(0, 0, 0, .1);
+		}
+		.pagination > li.active > a, .pagination > li.active > span {
+		    background-color: @brand-primary;
+		}
+		
+		.boxed {
+		    background-color: rgba(0,0,0,.1);
+		    
+		    &.grid-loop {
+		        .entry {
+		            background-color: rgba(0,0,0,.1);        
+		        }
+		    }
+		    
+		}
+		.bordered {
+		    border-color: rgba(0,0,0,.1);
+		    
+		    &.grid-loop {
+		        .entry {
+		            border-color: rgba(0,0,0,.1);
+		        }
+		    }
+		}
+	}
+	
+	.container > .section-normal {
+	    &:first-child, &:last-child {
+	        padding-top: 0;
+	        padding-bottom: 0;
+	    }
+	}
+}
+
+//  Firefox negative margin bug fixes
+@-moz-document url-prefix() { 
+  .section-fullwidth {
+     &:first-child {
+     	display: table;
+     }
+     
+     &:last-child {
+     	display: table;
+     }
+     
+     &:first-child:last-child {
+     	display: table;
+     }
+  }
+}
+
+//   IE negative margin bug fixes
+.oldie {
+    .section-fullwidth {
+       &:first-child {
+           position: relative;
+           display: table;
+       }
+       
+       &:last-child {
+            position: relative;
+            display: table;
+       }
+       
+       &:first-child:last-child {
+            position: relative;
+            display: table;
+       }
+    }
+}
+.row.no-padding-columns {
+	padding-left: floor(@grid-gutter-width / 2);
+	padding-right: floor(@grid-gutter-width / 2);
+	margin-left: 0;
+	margin-right: 0;
+	
+	.boxed, .bordered {
+	    .border-radius(0);
+	    
+	    &.grid-loop {
+	        .entry {
+	            .border-radius(0);
+	            .entry-media {
+	                .border-radius(0);
+	                img, blockquote, iframe {
+	                    .border-radius(0);
+	                }
+	            }     
+	        }
+	    }
+	}
+}
+.row.no-padding-columns .col-xs-1, .row.no-padding-columns .col-xs-2, .row.no-padding-columns .col-xs-3, .row.no-padding-columns .col-xs-4, .row.no-padding-columns .col-xs-5, .row.no-padding-columns .col-xs-6, .row.no-padding-columns .col-xs-7, .row.no-padding-columns .col-xs-8, .row.no-padding-columns .col-xs-9, .row.no-padding-columns .col-xs-10, .row.no-padding-columns .col-xs-11, .row.no-padding-columns .col-xs-12, .row.no-padding-columns .col-sm-1, .row.no-padding-columns .col-sm-2, .row.no-padding-columns .col-sm-3, .row.no-padding-columns .col-sm-4, .row.no-padding-columns .col-sm-5, .row.no-padding-columns .col-sm-6, .row.no-padding-columns .col-sm-7, .row.no-padding-columns .col-sm-8, .row.no-padding-columns .col-sm-9, .row.no-padding-columns .col-sm-10, .row.no-padding-columns .col-sm-11, .row.no-padding-columns .col-sm-12, .row.no-padding-columns .col-md-1, .row.no-padding-columns .col-md-2, .row.no-padding-columns .col-md-3, .row.no-padding-columns .col-md-4, .row.no-padding-columns .col-md-5, .row.no-padding-columns .col-md-6, .row.no-padding-columns .col-md-7, .row.no-padding-columns .col-md-8, .row.no-padding-columns .col-md-9, .row.no-padding-columns .col-md-10, .row.no-padding-columns .col-md-11, .row.no-padding-columns .col-md-12, .row.no-padding-columns .col-lg-1, .row.no-padding-columns .col-lg-2, .row.no-padding-columns .col-lg-3, .row.no-padding-columns .col-lg-4, .row.no-padding-columns .col-lg-5, .row.no-padding-columns .col-lg-6, .row.no-padding-columns .col-lg-7, .row.no-padding-columns .col-lg-8, .row.no-padding-columns .col-lg-9, .row.no-padding-columns .col-lg-10, .row.no-padding-columns .col-lg-11, .row.no-padding-columns .col-lg-12 {
+	padding-left: 0;
+	padding-right:0;	
+}
+.row.no-padding-columns .blox-woocommerce .woocommerce ul.products {
+	margin-left: -(floor(@grid-gutter-width / 2)) !important;
+	margin-right: -(floor(@grid-gutter-width / 2)) !important;
+}
+.row.no-padding-columns .blox-woocommerce .woocommerce ul.products li.product, .no-padding-columns .blox-carousel.swiper-container {
+	padding-left: 0 !important;
+	padding-right:0 !important;
+}
+.row.no-padding-columns .relative {
+	padding-left: floor(@grid-gutter-width / 2);
+	padding-right: floor(@grid-gutter-width / 2);
+}
+.no-padding-columns .grid-loop article.entry.hover, .no-padding-columns .grid-loop article.entry.hover .entry-media,
+.no-padding-columns .blox-element.grid-loop.bordered, .no-padding-columns .blox-element.grid-loop.boxed {
+	margin-bottom: 0;
+}
+.no-padding-columns .grid-loop .row.masonry-container > div:last-child {
+	margin-bottom: @grid-loop-entry-margin;
+}

@@ -1,0 +1,13 @@
+pre {
+	border-color: #e5e5e5;
+	background:transparent;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#50990000,endColorstr=#50990000); 
+}
+header#header .container {
+	position:relative !important;
+}
+
+section.primary .content, section.primary .sidebar {
+	padding-top: 80px !important;
+	padding-bottom: 80px !important;
+}

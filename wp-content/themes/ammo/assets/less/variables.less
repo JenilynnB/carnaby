@@ -1,0 +1,156 @@
+//
+// Theme Variables
+// --------------------------------------------------
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+@brand-primary:         #63BC0D;
+
+
+//== Scaffolding
+//
+// ## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+@body-bg:               #fff;
+//** Global text color on `<body>`.
+@text-color:            #788991;
+
+//** Global textual link color.
+@link-color:            @brand-primary;
+//** Link hover color set via `darken()` function.
+@link-hover-color:      darken(@link-color, 10%);
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+@base-font-body:        "Roboto Condensed";
+@base-font-heading:     "Oswald";
+@base-font-menu:        "Roboto Condensed";
+
+@font-family-base:        @base-font-body, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@headings-font-family:	  @base-font-heading, "Helvetica Neue", Helvetica, Arial, sans-serif;;
+
+@font-weight-base:		  300;
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            ceil((@font-size-base * 3.25)); // ~36px
+@font-size-h2:            ceil((@font-size-base * 2.5)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.5)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            ceil((@font-size-base * 1));
+@font-size-h6:            ceil((@font-size-base * .85));
+
+//** Unit-less `line-height` for use in components like buttons.
+@line-height-base:        1.5; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+//** By default, this inherits from the `<body>`.
+//@headings-font-family:    inherit;
+@headings-font-weight:    100;
+@headings-line-height:    1.1;
+@headings-color:          darken(@text-color, 5%);
+
+
+
+//-- Structure
+//
+
+// Top Bar
+@top-bar-height:				40px;
+@top-bar-background:			#fff;        // * Must provide a value
+@top-bar-text-color:            '';          // * optional
+@top-bar-link-color:            '';          // * optional
+@top-bar-link-hover:            '';          // * optional
+@top-bar-font-size:				11px;
+@top-bar-padding-vertical:		((@top-bar-height - floor((@top-bar-font-size * @line-height-base))) / 2);
+@top-bar-padding-horizontal:	floor((@grid-gutter-width / 2));
+
+//	Header
+@header-height:					60px;
+@header-background:				#fff;
+@header-transparent-opacity:	80%;
+@logo-height:					35px;
+@logo-width:					116px;
+@logo-padding-horizontal:		floor((@grid-gutter-width / 2));
+@logo-padding-vertical:			floor((@header-height - @logo-height) / 2);
+
+//	Menu
+@menu-font-family:              @base-font-menu;
+@menu-font-size:				13px;
+@menu-text-color:				@text-color;
+@menu-link-color:				'';
+@menu-link-hover-color:			@brand-primary;
+@menu-link-active-color:		@brand-primary;
+@menu-padding-horizontal:		ceil((@grid-gutter-width / 2) + 5);
+@menu-padding-vertical:			floor((@header-height - floor((@menu-font-size * @line-height-base))) / 2);
+
+@sub-menu-width:				180px;
+@sub-menu-font-size:			11px;
+@sub-menu-background:			@header-background;
+@sub-menu-text-color:			'';
+@sub-menu-link-color:			@text-color;
+@sub-menu-link-hover-color:		@brand-primary;
+@sub-menu-link-active-color:	@brand-primary;
+@sub-menu-background-hover:		@sub-menu-background;
+@sub-menu-background-active:	@sub-menu-background;
+@sub-menu-item-padding-horizontal: 	floor((@grid-gutter-width / 2));
+@sub-menu-item-padding-vertical: 	floor((@font-size-small));
+
+//	Title
+@title-padding:					30px;
+@title-background:				#fff;
+@title-text-color:              '';
+
+
+//	Primary
+@primary-padding:				60px;
+@primary-background:			#f6f6f6;
+@primary-text-color:            '';
+@primary-heading-color:         '';
+
+//	Content
+@content-padding:				@primary-padding;
+
+//	Sidebar
+@sidebar-padding:				@primary-padding;
+
+
+//	Footer
+@footer-font-size:				13px;
+@footer-background:				#252525;
+@footer-text-color:				#FFF;
+@footer-heading-color:          '';
+@footer-link-color:             '';
+@footer-link-hover:             @brand-primary;
+@footer-padding:				80px;
+
+@footer-bar-background:			darken(@footer-background, 2%);
+@footer-bar-text-color:			lighten(@footer-background, 20%);
+@footer-bar-link-color:         @brand-primary;
+@footer-bar-link-hover:         darken(@brand-primary, 10%);
+@footer-bar-padding:			20px;
+@footer-bar-font-size:			12px;
+
+//	Loops
+@grid-gutter-width:				30px;
+@grid-loop-entry-margin:		floor(@primary-padding / 2);
+@grid-loop-entry-title:			16px;
+
+@medium-loop-entry-margin:		floor(@primary-padding / 1.5);
+@medium-loop-entry-title:		24px;
+
+
+//	Elements
+@element-margin-bottom:			floor(@primary-padding / 2);
+@padding-base-vertical:     	10px;
+@padding-base-horizontal:   	12px;
+@border-radius-base:			3px;

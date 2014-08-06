@@ -1,0 +1,60 @@
+.tparrows {
+	&.default {
+		background: none !important;
+		background-color: #FFF !important;
+		font-size: 26px;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		text-align: center;
+		line-height: 26px;
+		.border-radius(@border-radius-base);
+		color: @brand-primary;
+		.box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.1));
+		font-family: FontAwesome;
+		-webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        &.tparrows {
+        	&:before, &:after {
+        		display: none;
+        	}
+        }
+		&.tp-leftarrow{
+			&:after {
+				content: "\f104";
+				display: block;
+			}
+			&:before {
+				display: none;
+			}
+		}
+		&.tp-rightarrow{
+			&:after {
+				content: "\f105";
+				display: block;
+			}
+			&:before {
+				display: none;
+			}
+		}
+	}
+
+}
+
+.tp-bullets.simplebullets.round .bullet {
+	background: none;
+	background-color: #FFF;
+	.border-radius(5px);
+	height: 10px !important;
+	width: 10px !important;
+	.box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.1));
+
+	&.selected {
+		background-color: @brand-primary;
+	}
+}
+.tp-bannertimer {
+	height: 2px;
+	background-color: @brand-primary;
+	opacity: 1;
+}

@@ -1,0 +1,101 @@
+// TOP BAR
+
+.top-bar {
+	height: (@top-bar-height);
+	font-size: @top-bar-font-size;
+	background-color: @top-bar-background;
+	border-bottom: 1px solid darken(@header-background, 10%);
+	
+	.text-color (@top-bar-background, @top-bar-text-color);
+	
+	a {
+	    color: @top-bar-link-color;
+	    
+	    &:hover, &:focus {
+	        color: @top-bar-link-hover;
+	    }
+	}
+	
+	.top-bar-left {
+		float: left;
+		
+		.topbar-item:first-child {
+			padding-left: 0;
+		}
+		.topbar-item.woocommerce-shcart .shcart-content{
+			left: 0px;
+			right: auto;
+		}
+	}
+	.top-bar-right {
+		float: right;
+		
+		.topbar-item:last-child {
+			padding-right: 0;
+		}
+		.topbar-item.woocommerce-shcart .shcart-content{
+			left: auto;
+			right: 0px;
+		}
+	}
+	.topbar-item {
+		float: left;
+		padding: @top-bar-padding-vertical @top-bar-padding-horizontal;
+	}
+	.topbar-item.woocommerce-shcart {
+		.transition(background .2s ease-in-out);
+		cursor: pointer;
+		position: relative;
+		background: transparent;
+		
+		i {
+			padding-right: (@top-bar-padding-horizontal/2);
+		}
+		.total-cart {
+			background-color: @brand-primary;
+			.dark-light(@brand-primary);
+			font-size: .8em;
+			position: relative;
+			top: .1em;
+			margin-left: .2em;
+			padding: .1em .5em;
+			line-height: 1em;
+			
+			.border-radius(@border-radius-base);
+		}
+		
+		&:hover .shcart-content {
+			visibility: visible;
+			.opacity(1);
+		}
+	}
+	.topbar-item.woocommerce-shcart:hover {
+		background: transparent;
+		color: darken(@text-color, 90%);
+	}
+	.topbar-item.woocommerce-shcart:last-child {
+		padding-right: 0;
+	}
+	.topbar-item.woocommerce-shcart .shcart-content {
+		.transition(opacity .2s ease-in-out);
+		position: absolute;
+		visibility: hidden;
+		.opacity(0);
+		background-color: #FFF;
+		position: absolute;
+		top: @top-bar-height;
+		z-index: 6;
+		text-align: left;
+		width: 300px;
+		padding: 15px;
+		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+		-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	}
+}
+@-moz-document url-prefix() { 
+  .top-bar + .container {
+     display: table;
+     position: relative;
+  }
+}

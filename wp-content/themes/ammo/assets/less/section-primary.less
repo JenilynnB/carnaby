@@ -1,0 +1,38 @@
+//	PRIMARY
+
+.section.primary {
+	background-color: @primary-background;
+	position: relative;
+	
+	.text-color(@primary-background, @primary-text-color);
+	
+	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+	h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
+		.heading-color(@primary-background, @primary-heading-color);
+	}
+	
+	.content {
+		padding: @primary-padding 0;
+		-ms-word-wrap: break-word;
+		word-wrap: break-word;
+		
+		.entry-media img {
+			width: 100%;
+			height: auto;
+		}
+		
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+	}
+	
+	.sidebar {
+		padding: @primary-padding 0;
+		-ms-word-wrap: break-word;
+		word-wrap: break-word;
+		font-size: @font-size-small;
+		.text-color(@primary-background, @primary-text-color);
+	}
+}

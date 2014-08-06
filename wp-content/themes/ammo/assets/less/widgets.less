@@ -1,0 +1,116 @@
+.widget {
+	margin-bottom: ceil(@primary-padding / 2);	
+
+	h3.widget-title {
+		margin-top: 0;
+		margin-bottom: 20px;
+		text-transform: uppercase;
+		font-size: @font-size-small;
+
+		&:after {
+			content: " ";
+			width: 30%;
+			height: 2px;
+			background-color: darken(@primary-background, 5%);
+			display: block;
+			margin-top: 1em;
+			border-radius: 1px;
+			-moz-border-radius: 1px;
+			-webkit-border-radius: 1px;
+		}
+	}
+	
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		
+		li {
+			padding-bottom: 10px;
+			margin-bottom: 10px;
+			border-bottom: 1px solid darken(@primary-background, 1%);
+
+			&:last-child {
+				padding-bottom: 0;
+				margin-bottom: 0;
+				border-bottom: none;
+			}
+		}
+	}
+
+	&.widget_search {
+		.input-group-btn:last-child>.btn {
+			border: 1px solid darken(@primary-background, 10%);
+			height: (@line-height-computed + (@padding-base-vertical * 2)); // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+		  	padding: @padding-base-vertical @padding-base-horizontal;
+		  	font-size: @font-size-base;
+		  	line-height: 1;
+		  	.border-radius(0);
+		}
+	}
+}
+
+.tt-widget {
+	ul {
+		li {
+			min-height: 51px;
+			
+			.widget-thumb {
+				height: 40px;
+				width: 40px;
+				font-size: 14px;
+				padding: 13px 0;
+				text-align: center;
+				display: block;
+				float: left;
+				background-color: darken(@footer-background, 1%);
+				.text-color(@footer-background, @footer-text-color);
+				line-height: 14px;
+				.border-radius(@border-radius-base);
+				margin-right: floor(@grid-gutter-width / 2);
+				
+				.day {
+					margin-top: -5px;
+					position: relative;
+					display: block;
+				}
+				.month {
+					font-size: 9px;
+					display: block;
+					text-transform: uppercase;
+				}
+				
+				img {
+					margin: -13px 0;
+					.border-radius(@border-radius-base);
+				}
+				
+			}
+			
+			a {
+				margin-left: 55px;
+				display: block;
+				line-height: 1.2em;
+			}
+			ul.list-inline {
+				font-size: 11px;
+				margin-left: 50px;
+				text-transform: uppercase;
+				display: block;
+				margin-top: 3px;
+				
+				li {
+					border-bottom: none;
+					padding: 0;
+					margin: 0;
+					margin-right: 5px;
+					min-height: 11px;
+					
+					a {
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+}

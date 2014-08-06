@@ -1,0 +1,502 @@
+.swipy-slider{
+	display: none;
+}
+.blox_element_center {
+    width:100%;
+    display:block;
+    text-align:center;
+}
+/*	Gallery
+*/
+.blox_gallery{
+    text-align: center;	
+}
+.blox_gallery .gallery_preview{
+	display: none;
+}
+.blox_gallery.gallery_layout2 .gallery_preview{
+	display: block;
+	text-align: center;
+	background-color: #333;
+	margin-bottom: 10px;
+	border: 1px solid #ededed;
+	background-color: #f6f6f6;
+	padding: 5px;
+}
+.blox_gallery .gallery_preview .preview_panel{
+	position: relative;
+	min-height: 100px;
+	display: block;
+}
+.blox_gallery .gallery_preview .preview_panel img{
+	width: 100%;
+}
+.blox_gallery .gallery_preview .preview_panel .thumb{
+	display: block;
+}
+.blox_gallery .gallery_preview .preview_panel .hover i{
+	position: relative;
+	top: 49%;
+	color: #fff;
+	font-size: 22px;
+}
+.blox_gallery .gallery_preview a{
+	
+}
+
+.blox_gallery .gallery_thumbs{
+	
+}
+.blox_gallery .gallery_thumbs .thumb{
+	position: relative;
+	line-height: 0px;
+	display: inline-block;
+	width: 100%;
+}
+.blox_gallery .gallery_thumbs a{
+	display: inline-block;
+	border: 1px solid #ededed;
+	padding: 5px;
+	line-height: 0px;
+	background-color: #f6f6f6;
+	position: relative;
+	margin: 1%;
+}
+.blox_gallery .gallery_thumbs a img{
+	width: 100%;
+}
+.blox_gallery .gallery_preview .preview_panel .hover,
+.blox_gallery .gallery_thumbs .hover{
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,180,203, 0.8);
+	top: 0px;
+	left: 0px;
+	text-align: center;
+	display: none;
+	-webkit-transition: all 0.25s ease-out;
+}
+.blox_gallery .gallery_thumbs .hover i{
+	position: relative;
+	top: 48%;
+	color: #fff;
+	font-size: 18px;
+}
+.blox_gallery .gallery_preview .preview_panel a:hover .hover,
+.blox_gallery .gallery_thumbs a:hover .hover{
+	display: block;
+}
+
+
+/* Layout - 2 */
+.blox_gallery.gallery_layout2{
+
+}
+.blox_gallery.gallery_layout2 .gallery_thumbs{
+	display: block;
+	text-align: center;
+}
+.blox_gallery.gallery_layout2 .gallery_thumbs .thumb{
+	width: 50px;
+}
+.blox_gallery.gallery_layout2 .gallery_thumbs .hover i{
+	font-size: 14px;
+	top: 38%;
+}
+
+
+/* Layout - iMac */
+.blox_gallery.gallery_imac,
+.blox_gallery.gallery_laptop,
+.blox_gallery.gallery_iphone{
+	position: relative;
+	display: block;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.blox_gallery.gallery_imac .gallery_prev,
+.blox_gallery.gallery_laptop .gallery_prev,
+.blox_gallery.gallery_iphone .gallery_prev{
+	font-size: 1.8em;
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	margin-top: -1.8em;
+}
+.blox_gallery.gallery_imac .gallery_next,
+.blox_gallery.gallery_laptop .gallery_next,
+.blox_gallery.gallery_iphone .gallery_next{
+	font-size: 1.8em;
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	margin-top: -1.8em;
+}
+
+.blox_gallery.gallery_laptop .gallery_prev,
+.blox_gallery.gallery_laptop .gallery_next{
+	margin-top: 0px;
+}
+.blox_gallery .gallery_viewport{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left: 0px;
+}
+.blox_gallery .gallery_viewport > div{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left: 0px;
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:center top;
+}
+
+/* Blox Gallery Layout slider */
+.blox_gallery.gallery_layout_slider{
+	display: block;
+	border: 1px solid #ededed;
+	background-color: #f6f6f6;
+	padding: 5px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.blox_gallery.gallery_layout_slider .gallery_preview{
+	display: block;
+}
+.blox_gallery.gallery_layout_slider .gallery_preview img{
+	width: 100%;
+}
+.blox_gallery.gallery_layout_slider .gallery_pager{
+	position: absolute;
+	bottom: 25px;
+	display: block;
+	text-align: center;
+	width: 100%;
+	z-index: 100;
+}
+.blox_gallery.gallery_layout_slider .gallery_pager span{
+	display: inline-block;
+	border-radius: 50%;
+	border: 3px solid #cdcdcd;
+	background-color: #fff;
+	color: #fff;
+	line-height: 0px;
+	padding: 4px;
+	width: 9px;
+	height: 9px;
+	margin-right: 3px;
+	margin-left: 3px;
+	cursor: pointer;
+}
+.blox_gallery.gallery_layout_slider .gallery_pager span.cycle-pager-active{
+	border-color: #00b4cc;
+}
+
+
+
+
+
+
+
+
+
+
+.blox_testimonial.full_color{
+	border-width: 1px;
+	border-style: solid;
+}
+.blox_testimonial.full_color .testimonial_item .testy_desc{
+	background-color: transparent;
+	box-shadow: none;
+	margin-bottom: 0px;
+}
+.blox_testimonial.full_color .testimonial_item .testy_meta{
+	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-left: 40px;
+	background-color: rgba(0,0,0,0.2);
+	position: relative;
+}
+.blox_testimonial.full_color .testimonial_item .testy_meta:after{
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: rgba(0,0,0,0.2);
+	border-width: 8px;
+	left: 50%;
+	margin-left: -8px;
+}
+.blox_testimonial.full_color .testy_actions{
+	bottom: 18px;
+}
+.blox_testimonial.full_color .testy_actions a{
+	background-color: rgba(0,0,0,0.1);
+	border-color: rgba(255,255,255,0.5);
+}
+
+.blox_testimonial.full_color.dark .testimonial_item .testy_meta{
+	background-color: rgba(255,255,255,0.2);
+}
+.blox_testimonial.full_color.dark .testimonial_item .testy_meta:after{
+	border-bottom-color: rgba(255,255,255,0.2);
+}
+
+
+
+
+
+
+
+
+
+/* Blox Fullwidth Row */
+.section-fullwidth{
+	visibility: hidden;
+	position: relative;
+	padding-top: 65px;
+	padding-bottom: 15px;
+}
+
+
+/* Blox Row Background Video */
+.section-video-wrapper{
+	position: relative;
+	overflow: hidden;
+
+}
+.section-video-wrapper .section-video{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+}
+.section-video-wrapper .section-video video{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+}
+.section-video-wrapper .mk-section-video .mejs-container .mejs-controls,
+.section-video-wrapper .mejs-overlay-loading{
+	display: none!important;
+}
+.section-video-wrapper .section-background{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+
+
+.blox-gmap img{
+    max-width: none !important;
+    max-height: none !important;
+}
+.blox-element-socials span {
+	box-sizing: initial;
+}
+
+
+
+
+.blox-viewport{
+    position: relative;
+}
+.blox-viewport .viewport-screen{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100%;
+    /*
+    -webkit-transition:background 0.5s linear 0.25s;
+    transition: background 0.5s linear 0.25s;
+    */
+    -webkit-transition: all 0.9s linear;
+    -moz-transition: all 0.9s linear;
+    -ms-transition: all 0.9s linear;
+    -o-transition: all 0.9s linear;
+    transition: all 0.9s linear;
+}
+.blox-viewport .viewport-screen:hover{
+    background-position: left bottom;
+}
+.blox-viewport .viewport-screen a{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+.blox-viewport .viewport-screen:hover a::after{
+    content: '\e08d';
+    font-family: 'Simple-Line-Icons';
+    font-size: 18px;
+    color: #fff;
+    font-weight: normal;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    padding: 16px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -27px;
+    margin-left: -27px;
+    line-height: 100%;
+    display: inline-block;
+}
+
+
+
+
+
+/*==================================================*\
+- Browser Template
+\*==================================================*/
+
+
+.browser{
+    height:inherit;
+    margin:0 auto;
+    position:relative;
+}
+.browser .clear{
+    clear:both;
+    margin:0;
+    padding:0;
+    position:relative;
+}
+
+/*==================================================*\
+- Browser Top
+\*==================================================*/
+
+.browser .browser-top-container{
+    left:0;
+    top:0;
+    right:0;
+    height:56px;
+    height:28px;
+    -webkit-border-radius:5px 5px 0px 0px;
+    -moz-border-radius:5px 5px 0px 0px;
+    border-radius:5px 5px 0px 0px;
+    border:2px solid #ccc;
+    background-color:#ccc;
+}
+
+/*==================================================*\
+- Browser Title
+\*==================================================*/
+
+.browser .browser-title{
+    margin:5px 7px;
+    font-family:Helvetica,Arial,Verdana,Geneva,sans-serif;
+    font-size:11px;
+    line-height:12px;
+    color:#6d6d6d;
+    float:left;
+    cursor:default;
+}
+.browser .browser-title::selection{
+    background-color:transparent;
+}
+.browser .browser-title::-moz-selection{
+    background-color:transparent;
+}
+
+/*==================================================*\
+- Browser Buttons Top Right
+\*==================================================*/
+
+.browser .browser-right-buttons{
+    float:right;
+    margin:5px 7px;
+}
+.browser .browser-right-buttons li{
+    float:left;
+    margin-right:5px;
+    width:10px;
+    height:10px;
+    display:block;
+    background-color:#ababab;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    line-height:0;
+    text-height:0;
+}
+.browser .browser-right-buttons li:last-of-type{
+    margin-right:0px;
+    background-color:#909090;
+}
+.browser .bb-last{
+    margin-right:0px !important;
+    background-color:#909090;
+}
+
+
+/*==================================================*\
+- Browser Content
+\*==================================================*/
+
+.browser .browser-middle-container{
+    background-color:#fff;
+    border:2px solid #CCCCCC;
+    height:100%;
+    left:0;
+    position:relative;
+    right:0;
+    overflow:hide;
+}
+/*==================================================*\
+- Browser Footer
+\*==================================================*/
+
+.browser .browser-bottom-container{
+    position:relative;
+    left:0;
+    right:0;
+    height:14px;
+    -webkit-border-radius:0px 0px 5px 5px;
+    -moz-border-radius:0px 0px 5px 5px;
+    border-radius:0px 0px 5px 5px;
+    border:2px solid #ccc;
+    background-color:#ccc;
+}
+
+.blox-column-content{
+    z-index: 10;
+    position: relative;
+}
+.blox-column-wrapper{
+
+}
+.blox-column-before{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}

@@ -1,0 +1,294 @@
+# Copyright (C) 2014 Business Directory Plugin - Ratings Module
+# This file is distributed under the same license as the Business Directory Plugin - Ratings Module package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Business Directory Plugin - Ratings Module 3.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-ratings\n"
+"POT-Creation-Date: 2014-06-19 03:40:20+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin.php:8
+msgid "review pending"
+msgstr ""
+
+#: admin.php:9
+msgid "reviews pending"
+msgstr ""
+
+#: admin.php:16
+msgid "User/IP"
+msgstr ""
+
+#: admin.php:17 business-directory-ratings.php:244
+msgid "Rating"
+msgstr ""
+
+#: admin.php:18
+msgid "Comment"
+msgstr ""
+
+#: admin.php:19
+msgid "Listing"
+msgstr ""
+
+#: admin.php:54
+msgid "Submitted on <i>%s</i>"
+msgstr ""
+
+#: admin.php:63
+msgid "Approve"
+msgstr ""
+
+#: admin.php:66 templates/admin-rating-row.tpl.php:30
+msgid "Delete"
+msgstr ""
+
+#: admin.php:115
+msgid "Listing ratings pending review"
+msgstr ""
+
+#: admin.php:116
+msgid "Ratings for review"
+msgstr ""
+
+#: admin.php:136
+msgid "The rating was approved."
+msgstr ""
+
+#: admin.php:140
+msgid "The rating was deleted."
+msgstr ""
+
+#: admin.php:163
+msgid "Listing Ratings"
+msgstr ""
+
+#: business-directory-ratings.php:84
+msgid "Rating (average)"
+msgstr ""
+
+#: business-directory-ratings.php:157 templates/ratings.tpl.php:4
+msgid "Ratings"
+msgstr ""
+
+#: business-directory-ratings.php:159
+msgid "General Settings"
+msgstr ""
+
+#: business-directory-ratings.php:160
+msgid "Enable ratings"
+msgstr ""
+
+#: business-directory-ratings.php:161
+msgid "Ratings threshold"
+msgstr ""
+
+#: business-directory-ratings.php:161
+msgid "Minimum number of reviews before ratings are displayed on a listing"
+msgstr ""
+
+#: business-directory-ratings.php:162
+msgid "Allow unregistered users to post reviews?"
+msgstr ""
+
+#: business-directory-ratings.php:166
+msgid "Rating comments"
+msgstr ""
+
+#: business-directory-ratings.php:169
+msgid ""
+"Decide whether rating comments should be required, optional or not used at "
+"all."
+msgstr ""
+
+#: business-directory-ratings.php:171
+msgid "Required"
+msgstr ""
+
+#: business-directory-ratings.php:172
+msgid "Optional"
+msgstr ""
+
+#: business-directory-ratings.php:173
+msgid "Disabled"
+msgstr ""
+
+#: business-directory-ratings.php:176
+msgid "Admin must approve reviews?"
+msgstr ""
+
+#: business-directory-ratings.php:178
+msgid "E-mail Settings"
+msgstr ""
+
+#: business-directory-ratings.php:181
+msgid "Notify listing owner of new ratings?"
+msgstr ""
+
+#: business-directory-ratings.php:186
+msgid "Notify site admin of approved/submitted ratings?"
+msgstr ""
+
+#: business-directory-ratings.php:191
+msgid "Notification E-Mail"
+msgstr ""
+
+#: business-directory-ratings.php:198
+msgid ""
+"You can use the placeholders [listing] for the listing title, "
+"[rating_author] for the author of the rating, [rating_comment] for the "
+"rating comment, [rating_rating] for the actual rating and [date] for the "
+"date the rating was posted."
+msgstr ""
+
+#: business-directory-ratings.php:210
+msgid "Rating Tooltips"
+msgstr ""
+
+#: business-directory-ratings.php:214
+msgid "%d stars"
+msgstr ""
+
+#: business-directory-ratings.php:245
+msgid "Rating Count"
+msgstr ""
+
+#: business-directory-ratings.php:410
+msgid "Please enter your name."
+msgstr ""
+
+#: business-directory-ratings.php:414
+msgid "Please select a valid rating."
+msgstr ""
+
+#: business-directory-ratings.php:418
+msgid "Please enter a comment."
+msgstr ""
+
+#: business-directory-ratings.php:449
+msgid "An unknown error occurred"
+msgstr ""
+
+#: business-directory-ratings.php:518
+msgid "[%s] Rating pending approval"
+msgstr ""
+
+#: business-directory-ratings.php:531
+msgid ""
+"Dear admin,\n"
+"\n"
+"A new rating has been submitted to the listing [listing] and is pending "
+"approval. You can see the listing and take care of approving it or rejecting "
+"it by visiting [url].\n"
+"Rating details are below:\n"
+"\n"
+"Posted on: [date]\n"
+"Posted by: [rating_author]\n"
+"Rating: [rating_rating]\n"
+"Comments: [rating_comment]\n"
+msgstr ""
+
+#: class-ratings-field.php:27
+msgid "Rate this listing"
+msgstr ""
+
+#: class-ratings-field.php:60
+msgid "(More feedback needed)"
+msgstr ""
+
+#: class-ratings-field.php:82
+msgid "at least "
+msgstr ""
+
+#: templates/admin-post-review.tpl.php:3
+#: templates/admin-post-review.tpl.php:26
+msgid "Add Review"
+msgstr ""
+
+#: templates/admin-post-review.tpl.php:9
+msgid "Author:"
+msgstr ""
+
+#: templates/admin-post-review.tpl.php:11
+msgid "WordPress username or arbitrary username."
+msgstr ""
+
+#: templates/admin-post-review.tpl.php:15 templates/form.tpl.php:20
+msgid "Rating:"
+msgstr ""
+
+#: templates/admin-post-review.tpl.php:27
+#: templates/admin-rating-row.tpl.php:24 templates/ratings.tpl.php:31
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin-rating-row.tpl.php:25 templates/ratings.tpl.php:32
+msgid "Save"
+msgstr ""
+
+#: templates/admin-rating-row.tpl.php:29
+msgid "Edit"
+msgstr ""
+
+#: templates/admin-ratings.tpl.php:6
+msgid "This listing has not been rated yet."
+msgstr ""
+
+#: templates/form.tpl.php:4 templates/form.tpl.php:38
+msgid "Post your review"
+msgstr ""
+
+#: templates/form.tpl.php:26
+msgid "Name:"
+msgstr ""
+
+#: templates/form.tpl.php:33
+msgid "Your review."
+msgstr ""
+
+#: templates/ratings.tpl.php:6
+msgid "There are no reviews yet."
+msgstr ""
+
+#: templates/ratings.tpl.php:60
+msgid "Your review has been saved and is waiting for approval."
+msgstr ""
+
+#: templates/ratings.tpl.php:62
+msgid "Your review has been saved."
+msgstr ""
+
+#: templates/ratings.tpl.php:68
+msgid "(You have already rated this listing)"
+msgstr ""
+
+#: templates/ratings.tpl.php:70
+msgid "(Please login to rate this listing)"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Business Directory Plugin - Ratings Module"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.businessdirectoryplugin.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Business Directory Ratings.  Allows your users to rate businesses, search by "
+"rating, and enter comments about listings."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "D. Rodenbaugh"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.skylineconsult.com"
+msgstr ""

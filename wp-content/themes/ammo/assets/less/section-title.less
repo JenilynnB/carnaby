@@ -1,0 +1,52 @@
+// TITLE
+
+
+
+.page-title.section {
+	padding: @title-padding 0;
+	background-color: @title-background;
+	border-bottom: 1px solid darken(@title-background, 10%);
+	.text-color (@title-background, @title-text-color);
+	position: relative;
+	
+	.title-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	h1 {
+		.text-color (@title-background, @title-text-color);
+		margin: 0;
+		font-size: 20px;
+		text-transform: uppercase;
+		font-weight: @headings-font-weight;
+	}
+	p.lead {
+		font-weight: 300;
+		margin-top: .25em;
+		margin-bottom: 0;
+		font-size: 18px;
+	}
+	ul {
+		margin-bottom: 0;
+		margin-top: 1em;
+		line-height: 1em;
+	}
+	a {
+		color: @link-color;
+		
+		&:hover {
+			color: @link-color, 100%;
+		}
+	}
+
+	&.dark {
+		.text-color(darken(@title-background, 90%), @title-text-color);
+		h1 {
+			.text-color(darken(@title-background, 90%), @title-text-color);
+		}
+	}
+}

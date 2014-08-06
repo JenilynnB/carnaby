@@ -1,0 +1,17 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">portfolio</custom-type>
+    </custom-types>
+    <taxonomies>
+        <taxonomy translate="1">portfolio_entries</taxonomy>
+    </taxonomies>
+    <admin-texts>
+        <key name="theme_mods_spare">
+			<key name="portfolio_slug" />
+            <key name="top_bar_text1" />
+            <key name="top_bar_text2" />
+            <key name="footer_bar_text1" />
+            <key name="footer_bar_text2" />
+        </key>
+    </admin-texts>
+</wpml-config>

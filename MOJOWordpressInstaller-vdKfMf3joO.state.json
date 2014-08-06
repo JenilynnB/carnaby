@@ -1,0 +1,69 @@
+{
+    "steps": [],
+    "failures": [],
+    "skip": {
+        "plugin.akismet\/akismet.php": "skip",
+        "plugin.hello.php": "skip",
+        "plugin.jetpack\/jetpack.php": "skip",
+        "plugin.mojo-marketplace\/mojo-marketplace.php": "skip"
+    },
+    "output": {
+        "logs": [
+            "Starting up.",
+            "Starting step addWPDieHandler",
+            "Completed step addWPDieHandler.",
+            "Starting step prepareForInstallationProcess",
+            "Completed step prepareForInstallationProcess.",
+            "Starting step checkRequiredFiles",
+            "Completed step checkRequiredFiles.",
+            "Starting step checkCoreCompatibility",
+            "Completed step checkCoreCompatibility.",
+            "Starting step wp_check_mysql_version",
+            "Completed step wp_check_mysql_version.",
+            "Starting step wp_cache_flush",
+            "Completed step wp_cache_flush.",
+            "Starting step installDatabaseTables",
+            "Applied database changes: \nCreated table wp_bycl_users\nCreated table wp_bycl_usermeta\nCreated table wp_bycl_terms\nCreated table wp_bycl_term_taxonomy\nCreated table wp_bycl_term_relationships\nCreated table wp_bycl_commentmeta\nCreated table wp_bycl_comments\nCreated table wp_bycl_links\nCreated table wp_bycl_options\nCreated table wp_bycl_postmeta\nCreated table wp_bycl_posts",
+            "Completed step installDatabaseTables.",
+            "Starting step populate_options",
+            "Completed step populate_options.",
+            "Starting step populate_roles",
+            "Completed step populate_roles.",
+            "Starting step setUpSiteOptions",
+            "Completed step setUpSiteOptions.",
+            "Starting step createAdminUser",
+            "created admin user {\"user_id\":1,\"update\":{\"user_pass\":\"$P$B38j4zj6zehQgmk8ktTS.xwcCPwnNr.\"},\"userName\":\"jenniferlbrandes@gmail.com\"}",
+            "Completed step createAdminUser.",
+            "Starting step installDefaults",
+            "Completed step installDefaults.",
+            "Starting step flush_rewrite_rules",
+            "Completed step flush_rewrite_rules.",
+            "Starting step wp_cache_flush",
+            "Completed step wp_cache_flush.",
+            "Starting step theme.activate",
+            "Skipping theme setup",
+            "Completed step theme.activate.",
+            "Starting step plugin.activateAll",
+            "Activating plugin akismet\/akismet.php",
+            "Activated plugin akismet\/akismet.php",
+            "Activating plugin hello.php",
+            "Activated plugin hello.php",
+            "Activating plugin jetpack\/jetpack.php",
+            "Activated plugin jetpack\/jetpack.php",
+            "Activating plugin mojo-marketplace\/mojo-marketplace.php",
+            {
+                "Hit an error inside step plugin.activateAll": {
+                    "errno": 8,
+                    "errstr": "Undefined index: HTTP_USER_AGENT",
+                    "errfile": "\/home4\/carnabyu\/public_html\/wp-content\/plugins\/mojo-marketplace\/inc\/user-experience-tracking.php",
+                    "errline": 33,
+                    "trace": "#0 \/home4\/carnabyu\/public_html\/wp-content\/plugins\/mojo-marketplace\/inc\/user-experience-tracking.php(33): MOJOOutput::error_handler(8, 'Undefined index...', '\/home4\/carnabyu...', 33, Array)\n#1 \/home4\/carnabyu\/public_html\/wp-content\/plugins\/mojo-marketplace\/inc\/user-experience-tracking.php(112): mm_ux_log(Array)\n#2 [internal function]: mm_ux_log_activated(false)\n#3 \/home4\/carnabyu\/public_html\/wp-includes\/plugin.php(470): call_user_func_array('mm_ux_log_activ...', Array)\n#4 \/home4\/carnabyu\/public_html\/wp-admin\/includes\/plugin.php(573): do_action('activate_mojo-m...', false)\n#5 [internal function]: activate_plugin('mojo-marketplac...', NULL)\n#6 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(113): call_user_func_array('activate_plugin', Array)\n#7 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(1624): MOJOControlInverter->__call('mockable_activa...', Array)\n#8 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(1624): MOJOWordpressPluginHandler->mockable_activate_plugin('mojo-marketplac...', NULL)\n#9 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(1191): MOJOWordpressPluginHandler->activateAll()\n#10 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(1244): MOJOBaseHandler->exec('plugin.activate...')\n#11 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(843): MOJOBaseHandler->runStep()\n#12 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(819): MOJOProcess->executeSteps(Object(MOJOWordpressHandler))\n#13 \/home4\/carnabyu\/public_html\/MOJOWordpressInstaller-vdKfMf3joO.php(1700): MOJOProcess->execute()\n#14 {main}"
+                }
+            },
+            "Activated plugin mojo-marketplace\/mojo-marketplace.php",
+            "Completed plugin activation",
+            "Completed step plugin.activateAll."
+        ],
+        "softFailures": []
+    }
+}

@@ -1,0 +1,11 @@
+.wpfp-hide { display: none; }
+.wpfp-img { border: 0; vertical-align: middle; margin-right: 2px; }
+
+.wpfp-link {
+font-family: "Font Awesome";
+color: #788991;
+}
+
+.wpfp-link :hover {
+color: #788991;
+}

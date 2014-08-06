@@ -1,0 +1,79 @@
+/* Font Dialog */
+
+#themeton_modal_font_selector{
+	padding: 10px 20px;
+	padding-left: 25px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+#themeton_modal_font_selector a{
+	display: inline-block;
+	text-transform: uppercase;
+	text-decoration: none;
+	margin-right: 20px;
+	padding-right: 20px;
+	border-right: 1px solid #ccc;
+	font-weight: bold;
+}
+#themeton_modal_font_selector input{
+	width: 100%;
+	box-shadow: none;
+	font-size: 12px;
+	padding: 8px;
+}
+#themeton_modal_font{
+	text-align: left;
+}
+#themeton_modal_font a{
+	font-size: 30px;
+	display: inline-block;
+	padding: 8px;
+	margin: 5px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	color: #444;
+	width: 32px;
+	border-radius: 5px;
+	text-decoration: none;
+	text-align: center;
+}
+#themeton_modal_font a:hover{
+	background-color: #eee;
+	color: #d54e21;
+}
+
+
+/* Blox Switcher */
+/* ================================ */
+ .blox_switcher {
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    display: inline-block;
+    width: 50px;
+    position: relative;
+    height: 25px;
+    cursor: pointer;
+    margin-bottom: -10px;
+    margin-right: 7px;
+    transition: all .2s ease-in-out;
+}
+.blox_switcher .handle {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    position: absolute;
+    box-shadow: 0px 2px 4px rgba(0,0,0,.2);
+    transition: all .2s ease-in-out;
+}
+.blox_switcher.on {
+    background: #4cd864;
+    border-color: #4cd864;
+}
+.blox_switcher:active .handle {
+    width: 40px;
+    border-radius: 24px;
+}
+.blox_switcher.on .handle {
+    right: 0;
+}
