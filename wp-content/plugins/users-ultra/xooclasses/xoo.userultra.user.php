@@ -440,6 +440,7 @@ class XooUserUser {
 		
 	}
 	
+        
 	
 	
 	public function get_user_meta ($meta)
@@ -5042,7 +5043,7 @@ class XooUserUser {
 	{
 		
 		$array = get_option('usersultra_profile_fields');
-
+                
 		foreach($array as $key=>$field) 
 		{
 		    // Optimized condition and added strict conditions 
