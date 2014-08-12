@@ -1022,7 +1022,7 @@ class XooUserUltra
 				'type' => 'separator', 
 				'name' => __('Account Info','xoousers'),
 				'private' => 0,
-				'show_in_register' => 1,
+				'show_in_register' => 0,
 				'deleted' => 0
 			),
 			690 => array(
