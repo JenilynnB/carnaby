@@ -1,14 +1,21 @@
 <?php
 class XooUserLogin {
+	
+	var $mIsSocialLogin;
 
 	function __construct() 
 	{
 		/*-----------Referece Social Users Types*/
 		/* 1 - Facebook, 2 - LinkedIn,  3- Yahoo, 4 - Google, 5 - Twitter , 6 - yammer */
+		
 		/*------------------------------*/
+		
+		$this->mIsSocialLogin = false;
 		
 		if (isset($_GET['uultrasocialsignup'])) 
 		{
+			$this->mIsSocialLogin = true;
+			
 			session_start();
 			$_SESSION['google_token']  = NULL;
 			/* get social links */
@@ -20,6 +27,7 @@ class XooUserLogin {
 		
 		if( isset( $_GET['code'] ) && isset($_REQUEST['uultraplus']) && $_REQUEST['uultraplus'] == '1' ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize */
 			$this->google_authorize();
 			
@@ -28,12 +36,14 @@ class XooUserLogin {
 		
 		if ( isset( $_REQUEST['oauth_verifier'] ) && isset( $_REQUEST['oauth_token'] ) && !isset($_REQUEST['uultralinkedin']) ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize twitter*/
 			$this->twitter_authorize();
 		}
 		
 		if( isset( $_GET['code'] ) && isset($_REQUEST['uultryammer']) && $_REQUEST['uultryammer'] == '1' ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize yammer*/
 			$this->yammer_authorize();
 		}
@@ -60,6 +70,7 @@ class XooUserLogin {
 		//facebook						
 		if (isset($_GET['code']) && !isset($_REQUEST['uultraplus']) && !isset($_REQUEST['uultryammer'])) 
 		{
+			$this->mIsSocialLogin = true;
 						
 			// Setting default to false;
 			$this->errors = false;			
@@ -71,6 +82,7 @@ class XooUserLogin {
 		//yahooo and google
 		if (isset($_GET["openid_ns"])) 
 		{
+			$this->mIsSocialLogin = true;
 			// Setting default to false;
 			$this->errors = false;			
 			/* */
@@ -89,6 +101,7 @@ class XooUserLogin {
 		//linkedin
 		if (isset($_GET['oauth_token']) && isset($_REQUEST['uultralinkedin']) ) 
 		{
+			$this->mIsSocialLogin = true;
 						
 			// Setting default to false;
 			$this->errors = false;			
@@ -1671,9 +1684,16 @@ class XooUserLogin {
 	  }elseif($activation_type==3){
 		  
 		  //manually approved
-		  update_user_meta ($user_id, 'usersultra_account_status', 'pending_admin');
+		  update_user_meta ($user_id, 'usersultra_account_status', 'pending_admin');	  
 	  
+	  }
 	  
+	   //special rule for social registration added on 08-08-2014	  
+	  if($this->mIsSocialLogin)
+	  {
+		  //automatic activation
+		  update_user_meta ($user_id, 'usersultra_account_status', 'active');
+		  
 	  }
 	
   }

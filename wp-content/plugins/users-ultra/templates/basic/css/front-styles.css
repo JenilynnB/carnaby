@@ -1,15 +1,5 @@
 
 
-.avatar {
-    -moz-border-radius: 50%x;
-    -webkit-border-radius: 50%;
-    border-radius: 50%px;
-    //left: -100px;
-    padding: 0;
-    //position: absolute;
-    top: .5em;
-}
-
 .usersultra-front-directory-wrap{
 	margin:15px auto 10px auto;
 	width:100%;
@@ -2472,7 +2462,6 @@ form.uultra-search-form {
 
 .uultra-search-input
 {
-	font-family: Open Sans;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;

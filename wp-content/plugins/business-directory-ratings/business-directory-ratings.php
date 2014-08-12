@@ -335,6 +335,19 @@ class BusinessDirectory_RatingsModule {
         $reviews = $wpdb->get_results($query);
         return $reviews;
     }
+    
+    public function get_reviews_by_user($user_id, $only_approved=true){
+        global $wpdb;
+
+        if ($only_approved) {
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id = %d AND approved = %d ORDER BY id DESC", $user_id, 1);
+        } else {
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id = %d ORDER BY id DESC", $user_id);
+        }
+
+        $reviews = $wpdb->get_results($query);
+        return $reviews;
+    }
 
     private function get_client_ip_address() {
         $ip = '0.0.0.0';

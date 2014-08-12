@@ -325,7 +325,6 @@ color: #888;
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block !important;
-    font-family: "Open Sans Condensed",Calibri,Helvetica,sans-serif;
     font-size: 20px;
     font-weight: 600;
     line-height: 2em;
@@ -464,7 +463,6 @@ input.btnuultra {
 	position:relative;
 	width: 100%;
 	
-	font-family: Open Sans;
 	margin-left: auto !important;
 	margin-right: auto !important;
 	background-color:#FFF;
@@ -480,7 +478,6 @@ input.btnuultra {
 .usersultra-dahsboard-cont .usersultra-dahsboard-left{
 	display:inline-block;
 	vertical-align:top;
-	font-family: Open Sans;
 	margin: 0px 2% 20px auto;
 	padding:0px 10px 0px 5px;
 	border-right:solid 1px #EFEFEF;
@@ -682,7 +679,6 @@ width:90%
 	vertical-align:top;
 	
 	width: 76%;
-	font-family: Open Sans;
 	margin: 0px auto 20px auto;
 	
 	
@@ -707,7 +703,6 @@ width:90%
 .usersultra-dahsboard-cont .usersultra-dahsboard-right{
 	float: right;
 	width: 15%;	
-	font-family: Open Sans;
 	margin: 0px auto 5px auto;
 	border:solid 1px #EFEFEF;
 	
@@ -1291,7 +1286,6 @@ box-shadow: 0px ;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	font-family: Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif;
 	color: #333;
 	line-height: 1;
 	margin-top:15px !important;
@@ -1308,7 +1302,6 @@ box-shadow: 0px ;
 }
 #table-3 th {
 	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
-	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
 	font-weight: normal;
 	padding: 7px 7px 8px;
 	text-align: left;

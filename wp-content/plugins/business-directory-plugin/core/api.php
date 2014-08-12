@@ -682,6 +682,27 @@ function get_top_parent_category($catid) {
     
 }
 
+function get_listing_name($listing_id){
+    $listing = WPBDP_Listing::get( $listing_id );
+    
+}
+
+function get_top_apparel_categories($listing_id){
+    
+    $listing = WPBDP_Listing::get( $listing_id );
+    $wpbdp_categories = $listing->get_categories( 'all' );
+    
+    $top_categories = array();
+    
+    foreach($wpbdp_categories as $cat){
+        if($cat->name=="Women" || $cat->name =="Men" || $cat->name == "Girls" || $cat->name == "Boys" || $cat->name=="Baby"):
+            $top_categories[] = $cat;
+        endif;
+    }
+    return $top_categories;
+}
+
+
 function get_largest_and_smallest_sizes($sizes){
     $res = array("largest","smallest");
     

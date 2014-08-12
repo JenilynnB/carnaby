@@ -3,7 +3,6 @@
 	float:none;
 	width: 100%;
 	max-width: 750px ;
-	font-family: Open Sans;
 	margin: 0 auto 20px auto;
 }
 
@@ -312,7 +311,6 @@ label.xoouserultra-checkbox input[type=checkbox] {
 }
 
 input.xoouserultra-input, select.xoouserultra-input, textarea.xoouserultra-input {
-	font-family: Open Sans;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -335,7 +333,6 @@ textarea.xoouserultra-input {
 .xoouserultra-help{
 	float: left;
 	margin: 8px 0 0 0;
-	font-family: Tahoma;
 	font-size: 11px;
 	line-height: 17px;
 }
@@ -357,7 +354,6 @@ textarea.xoouserultra-input {
 .xoouserultra-hide-from-public, .xoouserultra-rememberme {
 	/*loat: left;*/
 	cursor: pointer;
-	font-family: Tahoma;
 	font-size: 11px;
 	line-height: 17px;
 }
