@@ -4,7 +4,7 @@ Donate link: http://usersultra.com/donate.html
 Tags: users, password, users community, community, users directory, search, sign up, sign in, login, profiles, subscription, recurring, paypal, publisher, custom, customize, listing, list, drag, drop, widget, post,  wp avatar, images, lightbox, social, private, messages, user, members, authors, rating, stars, stars, likes, friends, facebook, yahoo, linkedin, google, access-control, user control, access, network, networking, mailchimp, email, membership, packages, csv, import, paid, artist, profile builder, custom fields, front-end users listing, conditional fields, advanced search, users searching box, meta fields, front-end users registration, custom registration page, custom login page, mailing list, users avatar, photo gallery, photo album, restricts content to registered users, premium content, woocommerce, shipping information, sync woocommerce, authentication, OAuth, OAuth for google, google plus signup, access token, twitter, login with twitter, registration with twitter, twitter sign up, twitter authentication, google sign up, google sign in, registration with google, linkedin sign up, linkedin authentication, linkedin login, pricing tables, member, yammer, member registration, member access, user tweet, email newsletter subscribers, mailchimp newsletter, wp user avatar, badges, achievement, medallions, bbpress
 Requires at least: 3.0.1
 Tested up to: 3.9
-Stable tag: 1.3.5
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,7 @@ When it comes to ease of use, Users Ultra comes in first.  <strong>Users Communi
 
 
 <h3><strong>USERS ULTRA FREE VERSION INCLUDES: </strong></h3>
+
 <strong>CSV Users Import</strong><br>
 This great feature allows you to import users into the Users Ultra System easily through a CSV file. You may also to notify users once the importing process has been finished. Besides, you can set a default status for the imported users.
 
@@ -257,6 +258,12 @@ Initial release.
 9. Dahsboard
 
 == Changelog ==
+
+= 1.3.7 (08-08-2014) =
+* Improvements - Now, when the users register by using a social login option they are automatically approved and they don't need to confirm their accounts.
+
+= 1.3.6 (08-07-2014) =
+* Improvements - Due some complaints we have removed the defaul font family from the plugin. this will avoid some confilc with your current theme's font family.
 
 = 1.3.5 (08-06-2014) =
 * Improvements - CSS tweaks. Now the user's dashboard looks more elegant and some font sizes has been fixed.
