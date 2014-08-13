@@ -1,4 +1,9 @@
 <?php
+	get_header();
+?>
+
+
+<?php
 	global $post, $wp_query;
 
 	/* include header
@@ -24,12 +29,12 @@
 			<div class="col-md-12">
                                 <div class="row">
                                         <div class="<?php echo $content_class; ?>">
-						<div class="content">
-							
+						<!--<div class="content">-->
 							<div class="row">
-								<div class="col-md-12 single-content">
+								<div class="col-md-6 pull-left">
 									<?php
-										the_content();
+										echo do_shortcode("[usersultra_login]");
+                                                                                the_content();
 
 										// WP pages
 	                                    wp_link_pages(array(
@@ -46,6 +51,9 @@
                                     ?>
 
 								</div>
+                                                                <div class="col-md pull-right">
+                                                                    <img src="/carnaby/wp-content/uploads/2014/08/iStock_000021272175Large-2.jpg" />
+                                                                </div>
 							</div>
 							
 							<!-- Page Comment -->
@@ -59,7 +67,7 @@
 							</div>
 							<?php endif; ?>
 
-						</div>
+						<!--</div>-->
 						
 					</div>
 					<?php
@@ -79,3 +87,8 @@
 </section>
 <!-- End Content
 ================================================== -->
+
+
+<?php
+	get_footer();
+?>

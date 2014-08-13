@@ -180,7 +180,7 @@ input.xoouserultra-input:focus, select.xoouserultra-input:focus, textarea.xoouse
 	padding:0 0 10px 0;
 	color: #333;
 }
-
+/*
 a.xoouserultra-button-alt, .xoouserultra-wrap a.xoouserultra-button-alt, .xoouserultra-wrap .xoouserultra-button-alt, .xoouserultra-wrap input.xoouserultra-button-alt {
 	color: #666;
 	border: 1px solid #ddd;
@@ -235,7 +235,7 @@ input[type=submit].xoouserultra-button:disabled, input[type=submit].xoouserultra
 	background-image: none;
 }
 
-
+*/
 .xoouserultra-errors  {
 	background: #ffdbdb;
 	border: 1px solid #ffb4b4;
@@ -284,13 +284,12 @@ input[type=submit].xoouserultra-button:disabled, input[type=submit].xoouserultra
 
 a.xoouserultra-login-forgot-link, a.xoouserultra-login-register-link
 {
-	color:#888;
 	text-decoration:none;
 }
 
 a.xoouserultra-login-forgot-link:hover, a.xoouserultra-login-register-link:hover
 {
-	color:#21759b;
+	color:#66cccc;
 }
 .xoouserultra-hide-from-public xoouserultra-remember-me {
 color: #888;
@@ -320,12 +319,12 @@ color: #888;
 .btnuultra,  [class^="btnuultra-"], [class="btnuultra-"] {
     background: none repeat scroll 0 0 #92D400;
     border: 1px solid #55B100;
-    border-radius: 4px;
+    border-radius: 0    px;
     box-shadow: none;
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block !important;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 2em;
     padding: 0 20px 0px 0px;
@@ -347,6 +346,7 @@ color: #888;
 .btnuultra span, [class^="btnuultra-"] span,  {
     font-weight: 600;
 }
+
 input.btnuultra {
     line-height: 40px;
     min-height: 40px;
@@ -381,13 +381,18 @@ input.btnuultra {
     border: 0 none;
     box-shadow: none;
     min-width:250px;
-    font-size: 1.5em;
+    width: 275px;   
+    font-size: 16px;
     font-weight: normal;
-    padding: 2px 15px 0  10px;
+    padding: 5px 15px 5px;  10px;
     color:#FFF !important;
 }
 .btnuultra-facebook {
     background: none repeat scroll 0 0 #6481BE;
+}
+.btnuultra-facebook .uultra-icon-facebook{
+    font-size: 18px;
+    padding-right: 8px; 
 }
 .btnuultra-facebook:hover {
     background-color: #314D89;
@@ -404,6 +409,10 @@ input.btnuultra {
 }
 .btnuultra-google {
     background: none repeat scroll 0 0 #D55707;
+}
+.btnuultra-google .uultra-icon-google{
+    font-size: 18px;
+    padding-right: 8px;
 }
 .btnuultra-google:hover {
     background-color: #EF7122;
