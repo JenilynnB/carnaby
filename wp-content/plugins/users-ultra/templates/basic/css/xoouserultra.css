@@ -386,6 +386,17 @@ textarea.xoouserultra-input {
 	display: block;
 }
 
+#first_name-container {
+	display: inline-block;
+        width: 49%;
+}
+#last_name-container {
+    display: inline-block;
+    width: 49%;
+    margin-left: 8px;
+}
+
+
 .xoouultra-login-fields{
     padding: 15px;
 }
