@@ -69,6 +69,10 @@ input.xoouserultra-input:focus, select.xoouserultra-input:focus, textarea.xoouse
 	/*box-shadow: inset 0 -1px 2px #ddd;*/
 }
 
+input.xoouserultra-input:invalid {
+    color: #D55707;
+}
+
 .xoouserultra-help {
 	color: #666;
 }
@@ -343,7 +347,7 @@ color: #888;
 .btnuultra.active,  .active[class^="btnuultra-"] {
     background: none repeat scroll 0 0 #CCCCCC;
 }
-.btnuultra span, [class^="btnuultra-"] span,  {
+.btnuultra span, [class^="btnuultra-"] span  {
     font-weight: 600;
 }
 
@@ -384,7 +388,7 @@ input.btnuultra {
     width: 275px;   
     font-size: 16px;
     font-weight: normal;
-    padding: 5px 15px 5px;  10px;
+    padding: 5px 15px 5px 10px;
     color:#FFF !important;
 }
 .btnuultra-facebook {
@@ -1391,10 +1395,10 @@ background: #F9F9F9;
 
 .formError .formErrorContent {
 	width: 100%;
-	background: #ee0101;
+	//background: #ee0101;
 	position:relative;
 	top:5px;
-	color: #fff;
+	color: #EE0101;
 	min-width: 120px;
 	font-size: 11px;
 	border: 2px solid #ddd;

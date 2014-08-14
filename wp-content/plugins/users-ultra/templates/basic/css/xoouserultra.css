@@ -268,6 +268,10 @@
 	width: 100%;
 }
 
+.xoouserultra-input:invalid{
+    border-color: #F31212;
+}
+
 .xoouserultra-field-type span, .xoouserultra-field-value span {
 	float: left;
 	line-height: 26px;
@@ -393,7 +397,7 @@ textarea.xoouserultra-input {
 #last_name-container {
     display: inline-block;
     width: 49%;
-    margin-left: 8px;
+    margin-left: 1%;
 }
 
 

@@ -52,7 +52,7 @@
 
 								</div>
                                                                 <div class="col-md pull-right">
-                                                                    <img src="/carnaby/wp-content/uploads/2014/08/iStock_000021272175Large-2.jpg" />
+                                                                    <img src="/carnaby/wp-content/uploads/2014/08/iStock_000021272175Large-2.jpg" class="hidden-md hidden-sm hidden-xs"/>
                                                                 </div>
 							</div>
 							

@@ -2,6 +2,128 @@
 global $xoouserultra;
 
 ?>
+
+<?php
+    $first_name = $xoouserultra->userpanel->get_user_meta('first_name');
+    $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
+    $location = $xoouserultra->userpanel->get_user_meta('location');
+    $description = $xoouserultra->userpanel->get_user_meta('description');
+    $website = $xoouserultra->userpanel->get_user_meta('user_url');
+    $facebook = $xoouserultra->userpanel->get_user_meta('facebook');
+    $google = $xoouserultra->userpanel->get_user_meta('google');
+    $twitter = $xoouserultra->userpanel->get_user_meta('twitter');
+?>
+
+
+<div class="col-md-3">
+    <div class="avatar">
+        <?php echo $xoouserultra->userpanel->get_user_pic( $user_id, $pic_size, $pic_type, $pic_boder_type,  $pic_size_type)?>
+    </div>
+    <div class="profile-sidebar-info">
+        <div class="profile-location">
+            <?php 
+                if($location != ""){
+                    echo $location;
+                }
+            ?>
+        </div>
+         <div class="profile-description">
+            <?php
+                if($description != ""){
+                    echo "My style: " . $description;
+                }
+            ?>
+        </div>
+        <div class="profile-website">
+            <?php
+                if($website != ""){
+                    echo "Favorite website: " . $website;
+                }
+            ?>
+        </div>
+        <div class="profile-facebook">
+            <?php
+                if($facebook != ""){
+                    echo $facebook;
+                }
+            ?>
+        </div>
+         <div class="profile-twitter">
+            <?php
+                if($twitter != ""){
+                    echo $twitter;
+                }
+            ?>
+        </div>
+         <div class="profile-google">
+            <?php
+                if($google != ""){
+                    echo $google;
+                }
+            ?>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-5">
+    <h2><?php    
+        echo  $first_name . ' ' . $last_name;
+        ?>
+    </h2>
+
+    <div class="profile-headline">
+        <h5>"<?php echo $xoouserultra->userpanel->get_user_meta('headline') ?>"</h5>
+    </div>
+    <div class="profile-favorite-listings">
+        <h4>Favorite Stores</h4>
+        <?php echo do_shortcode("[wp-favorite-posts]"); ?>
+    </div>
+    <div class="profile-user-reviews">
+        <h4>My Reviews</h4>
+            
+        <?php 
+            $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
+            foreach($user_reviews as $ur){
+                $review_html = '';                
+                //get the listing with $ur->listing_id;
+        ?>
+        
+            <div class="profile-review-business-name">
+                <?php echo get_the_title($ur->listing_id); ?>
+            </div>
+
+            <div class="profile-review-business-categories">
+                <?php
+                    $top_listing_categories = get_top_apparel_categories($ur->listing_id);
+                    foreach($top_listing_categories as $tc){
+                        $top_listing_categories_names[] .= $tc->name;
+                    }
+                    echo "Categories: " . implode (", ", $top_listing_categories_names);
+                ?>
+            
+            </div>
+
+            <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+            <meta itemprop="worstRating" content="0" />
+            <meta itemprop="ratingValue" content="<?php echo $ur->rating; ?>" />
+            <meta itemprop="bestRating" content="5" />
+            <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="<?php echo $ur->rating; ?>" itemprop="ratingValue"></span>
+            </span>   
+
+            <span class="date" itemprop="datePublished" content="<?php echo $ur->created_on ?>">
+                <?php echo date_i18n(get_option('date_format'), strtotime($ur->created_on)) ?>
+            </span>
+
+            <div class="rating-comment" itemprop="description">
+                <?php echo $ur->comment ?>
+            </div>
+        <?php
+            } 
+        ?> 
+    </div>
+</div>
+    
+<!--
 <div class="uultra-profile-basic-wrap" style="width:<?php echo $template_width?>">
 
 <div class="commons-panel xoousersultra-shadow-borers" >
@@ -43,7 +165,7 @@ global $xoouserultra;
             
         </div>
         
-        
+ <!--       
         <div class="uu-right">
         
         
@@ -62,12 +184,12 @@ global $xoouserultra;
                
              </div>
          </div>
-         
+        
           <?php }?>
+   -->      
          
          
-         
-         
+  <!--       
          <?php if($display_private_message=="yes"){?>
          
              <div class="uu-private-messaging rounded" id="uu-pm-box">
@@ -211,7 +333,7 @@ global $xoouserultra;
          
               
              
-    
+   --> 
     
         </div>
         

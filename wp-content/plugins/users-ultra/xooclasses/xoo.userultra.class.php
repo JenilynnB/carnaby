@@ -1624,38 +1624,38 @@ class XooUserUltra
 		// this is the forgot password form
 		$forgot_pass = '';
 		
+                
 		$forgot_pass .= '<div class="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-holder">';
 		
+		//$forgot_pass .= "<div class='notimessage'>";
 		
-		$forgot_pass .= "<div class='notimessage'>";
+		//$forgot_pass .= "<h4>".__(" Enter your email address or Username to reset your password. ", 'xoousers')."</h4>";
 		
-		$forgot_pass .= "<div class='uupublic-ultra-warning'>".__(" A quick access link will be sent to your email that will let you get in your account and change your password. ", 'xoousers')."</div>";
-		
-		$forgot_pass .= "</div>";
+		//$forgot_pass .= "</div>";
 		
 		
 		$forgot_pass .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
 		
 		
 		
-		$forgot_pass .= '<label class="xoouserultra-field-type" for="user_name_email-'.$this->login_code_count.'"><i class="fa fa-user"></i><span>'.__('Username or Email','xoousers').'</span></label>';
+		//$forgot_pass .= '<label class="xoouserultra-field-type" for="user_name_email-'.$this->login_code_count.'"><i class="fa fa-user"></i><span>'.__('Username or Email','xoousers').'</span></label>';
 		$forgot_pass .= '<div class="xoouserultra-field-value">';
 		
 		
-		$forgot_pass .= '<input type="text" class="xoouserultra-input" name="user_name_email" id="user_name_email" value=""></div>';
+		$forgot_pass .= '<input type="text" class="xoouserultra-input" name="user_name_email" id="user_name_email" value="" placeholder="Username or Email"></div>';
 		$forgot_pass .= '</div>';
 		    
 		$forgot_pass.='<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
-		$forgot_pass.='<label class="xoouserultra-field-type xoouserultra-blank-lable">&nbsp;</label>';
+		//$forgot_pass.='<label class="xoouserultra-field-type xoouserultra-blank-lable">&nbsp;</label>';
 		$forgot_pass.='<div class="xoouserultra-field-value">';
 		$forgot_pass.='<div class="xoouserultra-back-to-login">';
-		$forgot_pass.='<a href="javascript:void(0);" title="'.__('Back to Login','xoousers').'" id="xoouserultra-back-to-login-'.$this->login_code_count.'">'.__('Back to Login','xoousers').'</a> | '.$register_link;
+		//$forgot_pass.='<a href="javascript:void(0);" title="'.__('Back to Login','xoousers').'" id="xoouserultra-back-to-login-'.$this->login_code_count.'">'.__('Back to Login','xoousers').'</a> | '.$register_link;
 		
 		$forgot_pass.='</div>';
 		
 	
 		            
-		            $forgot_pass.='<input type="button" name="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-btn-confirm" class="xoouserultra-button xoouserultra-login" value="'.__('Send me Password','xoousers').'">';
+		            $forgot_pass.='<input type="button" name="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-btn-confirm" class="xoouserultra-button xoouserultra-login" value="'.__('Reset Password','xoousers').'">';
 					
 					$forgot_pass.='<div class="xoouserultra-signin-noti-block" id="uultra-signin-ajax-noti-box"> ';
 		
@@ -1963,11 +1963,11 @@ class XooUserUltra
 					switch($field) {
 					
 						case 'textarea':
-							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="'.$meta.'" title="'.$name.'"  placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
+							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="'.$meta.'" title="'.$name.'"  placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
 							break;
 							
 						case 'text':
-							$display .= '<input type="text" class="'.$required_class.'xoouserultra-input"  name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
+							$display .= '<input type="text" class="'.$required_class.'xoouserultra-input"  name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
 							break;	
                                                         						
 							
@@ -1989,7 +1989,7 @@ class XooUserUltra
 							
 							if (isset($loop)) 
 							{
-								$display .= '<select class=" xoouserultra-input '.$required_class.'" name="'.$meta.'" id="'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">';
+								$display .= '<select class=" xoouserultra-input '.$required_class.'" name="'.$meta.'" id="'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">';
 								
 								foreach($loop as $option)
 								{
@@ -2071,7 +2071,7 @@ class XooUserUltra
 							{
 								
 									
-								$display .= '<input type="file" class="'.$required_class.'xoouserultra-input uultra-fileupload-field"  name="'.$meta.'" style="display:block;" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
+								$display .= '<input type="file" class="'.$required_class.'xoouserultra-input uultra-fileupload-field"  name="'.$meta.'" style="display:block;" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
 							
 							} //end if meta
 
@@ -2162,11 +2162,11 @@ class XooUserUltra
 					switch($field) {
 						
 						case 'textarea':
-							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
+							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
 							break;
 						
 						case 'text':
-							$display .= '<input type="text" class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
+							$display .= '<input type="text" class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'"  data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
 							
 							if (isset($this->registration_fields[$key]['help']) && $help != '') {
 								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
@@ -2176,7 +2176,7 @@ class XooUserUltra
 							
 							case 'datetime':
 							    
-							    $display .= '<input type="text" class="'.$required_class.' xoouserultra-input xoouserultra-datepicker" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
+							    $display .= '<input type="text" class="'.$required_class.' xoouserultra-input xoouserultra-datepicker" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
 							    
 							    if (isset($this->registration_fields[$key]['help']) && $help != '') {
 							        $display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
@@ -2185,10 +2185,11 @@ class XooUserUltra
 							
 						case 'password':
 
-							$display .= '<input type="password" class="'.$required_class.' xoouserultra-input password" name="'.$meta.'" id="reg_'.$meta.'" value="" autocomplete="off" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'" />';
+							$display .= '<input type="password" class="'.$required_class.' xoouserultra-input password" name="'.$meta.'" id="reg_'.$meta.'" value="" autocomplete="off" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'" />';
 							
 							if (isset($this->registration_fields[$key]['help']) && $help != '') {
-								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
+								//  $display .= '<i class="fa fa-info-circle" ></i>';
+                                                                //$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
 							}
 
 							break;
