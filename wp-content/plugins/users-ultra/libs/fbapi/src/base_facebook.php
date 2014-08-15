@@ -847,7 +847,7 @@ abstract class BaseFacebook
    * @return mixed The decoded response object
    * @throws FacebookApiException
    */
-  protected function _graph($path, $method = 'GET', $params = array()) {
+  protected function _graph($path, $method = 'GET', $params = array()) {    
     if (is_array($method) && empty($params)) {
       $params = $method;
       $method = 'GET';
@@ -859,12 +859,12 @@ abstract class BaseFacebook
     } else {
       $domainKey = 'graph';
     }
-
+    
     $result = json_decode($this->_oauthRequest(
       $this->getUrl($domainKey, $path),
       $params
     ), true);
-
+    
     // results are returned, errors are thrown
     if (is_array($result) && isset($result['error'])) {
       $this->throwAPIException($result);
@@ -886,7 +886,7 @@ abstract class BaseFacebook
    */
   protected function _oauthRequest($url, $params) {
     if (!isset($params['access_token'])) {
-      $params['access_token'] = $this->getAccessToken();
+      $params['access_token'] = $this->getAccessToken();  
     }
 
     // json_encode all params values that are not strings
@@ -895,7 +895,7 @@ abstract class BaseFacebook
         $params[$key] = json_encode($value);
       }
     }
-
+    
     return $this->makeRequest($url, $params);
   }
 

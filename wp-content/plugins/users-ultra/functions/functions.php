@@ -176,3 +176,94 @@ if(!function_exists('is_active'))
 			return true;
 		return false;
 	}}
+        
+if(!function_exists('createthumb'))
+{
+        function createthumb($imagen,$newImage,$toWidth, $toHeight,$extorig)
+	{             				
+				
+                 $ext=strtolower($extorig);
+                 switch($ext)
+                  {
+                   case 'png' : $img = imagecreatefrompng($imagen);
+                   break;
+                   case 'jpg' : $img = imagecreatefromjpeg($imagen);
+                   break;
+                   case 'jpeg' : $img = imagecreatefromjpeg($imagen);
+                   break;
+                   case 'gif' : $img = imagecreatefromgif($imagen);
+                   break;
+                  }
+
+               
+                $width = imagesx($img);
+                $height = imagesy($img);  
+				
+
+				
+				$xscale=$width/$toWidth;
+				$yscale=$height/$toHeight;
+				
+				// Recalculate new size with default ratio
+				if ($yscale>$xscale){
+					$new_w = round($width * (1/$yscale));
+					$new_h = round($height * (1/$yscale));
+				}
+				else {
+					$new_w = round($width * (1/$xscale));
+					$new_h = round($height * (1/$xscale));
+				}
+				
+				
+				
+				if($width < $toWidth)  {
+					
+					$new_w = $width;	
+				
+				//}else {					
+					//$new_w = $current_w;			
+				
+				}
+				
+				if($height < $toHeight)  {
+					
+					$new_h = $height;	
+				
+				//}else {					
+					//$new_h = $current_h;			
+				
+				}
+			
+				
+				
+				
+                $dst_img = imagecreatetruecolor($new_w,$new_h);
+				
+				/* fix PNG transparency issues */                       
+				imagefill($dst_img, 0, 0, IMG_COLOR_TRANSPARENT);         
+				imagesavealpha($dst_img, true);      
+				imagealphablending($dst_img, true); 				
+                imagecopyresampled($dst_img,$img,0,0,0,0,$new_w,$new_h,imagesx($img),imagesy($img));
+               
+                
+				
+				 switch($ext)
+                  {
+                   case 'png' : $img = imagepng($dst_img,"$newImage",9);
+                   break;
+                   case 'jpg' : $img = imagejpeg($dst_img,"$newImage",100);
+                   break;
+                   case 'jpeg' : $img = imagejpeg($dst_img,"$newImage",100);
+                   break;
+                   case 'gif' : $img = imagegif($dst_img,"$newImage");
+                   break;
+                  }
+				  
+				   imagedestroy($dst_img);	
+				
+				
+				
+                return true;
+
+        }
+}
