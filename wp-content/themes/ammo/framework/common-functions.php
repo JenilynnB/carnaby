@@ -957,3 +957,48 @@ function tt_product_search_form( $form ) {
 
 add_filter( 'get_search_form', 'tt_search_form' );
 add_filter( 'get_product_search_form', 'tt_product_search_form' );
+
+
+add_filter( 'wp_nav_menu_items', 'my_custom_menu_item');
+function my_custom_menu_item($items)
+{
+    if(is_user_logged_in())
+    {
+        global $xoouserultra;   
+        $user=wp_get_current_user();
+        //$name=$user->display_name; // or user_login , user_firstname, user_lastname
+        
+        $user_last_name = $user->last_name;
+        $user_last_initial = substr($user_last_name,0,1);
+        $name=$user->first_name." ".$user_last_initial.".";
+        
+        $user_profile_url = site_url("/profile");
+        $user_account_url = site_url("/myaccount");
+        $logout_url = site_url("/logout");
+        
+        //$user_photo = get_avatar($user->ID, 40);
+        $user_photo = $xoouserultra->userpanel->get_user_pic_url( $user->ID, 40, "avatar");
+        
+        $items .= '<li class="menu-item has-children menu-item-user-name">';
+        $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
+        $items .=    '<a style="display:inline;"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
+        $items .=       '<ul class="dropdown-menu" style="display:none;">';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$user_profile_url.'"><span class="menu-text">My Profile</span></a>';
+        $items .=           '</li>';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$user_account_url.'"><span class="menu-text">My Account</span></a>';
+        $items .=           '</li>';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$logout_url.'"><span class="menu-text">Logout</span></a>';
+        $items .=           '</li>';        
+        $items .=       '</ul>';
+        
+    }else{
+        $login_url = site_url('/login');
+        $items .= '<li class="menu-item menu-item-user-name">';
+        $items .= '<a href="'.$login_url.'" id="user-name-menu"><span class="menu-icon icon-user"></span><span class="menu-text" >Login</span></a>';
+        $items .= '</ul>';
+    }
+    return $items;
+}
