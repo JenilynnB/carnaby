@@ -8,12 +8,12 @@
  * @copyright 2014 Designs & Code
  */
 
-class Search_Filter_Handle_Posts
+class Search_Filter_Handle_Ajax_Post
 {
 	private $has_form_posted = false;
-	private $hasqmark = false;
+	private $hasqmark = true;
 	private $hassearchquery = false;
-	private $urlparams = "/";
+	private $urlparams = "?action=get_results";
 	
 	private $frmreserved = array(); // a list of all field types that are reserved - good for deducing the field type, from the field name, by subtracting known types in this list...
 	//private $frmqreserved = array();
@@ -23,7 +23,6 @@ class Search_Filter_Handle_Posts
 		$this->plugin_slug = $plugin_slug;
 		$this->form_settings = "";
 		$this->using_custom_template = false;
-		$this->using_new_ajax = false;
 		$this->page_slug = "";
 		
 		$this->handle_posted();
@@ -35,7 +34,6 @@ class Search_Filter_Handle_Posts
 	//use wp array walker to enable hierarchical display
 	public function handle_posted()
 	{
-		
 		$fields = array();
 		
 		if(isset($_POST[SF_FPRE.'submitted']))
@@ -44,33 +42,13 @@ class Search_Filter_Handle_Posts
 			{
 				//set var to confirm the form was posted
 				$this->has_form_posted = true;
-				echo "farts";
+				
 				//get form id, and check if this form is using a template
 				if(isset($_POST[SF_FPRE.'form_id']))
 				{
 					$lookup_form_id = (int)esc_attr($_POST[SF_FPRE.'form_id']);
 					
 					$this->form_settings = get_post_meta( $lookup_form_id , '_search-filter-settings' , true );
-					
-					if((isset($this->form_settings['use_results_shortcode']))&&(isset($this->form_settings['use_ajax_toggle'])))
-					{
-						if(($this->form_settings['use_results_shortcode']==1)&&($this->form_settings['use_ajax_toggle']==1))
-						{
-							$this->using_new_ajax = true;
-							$this->urlparams = "?action=get_results";
-							
-							if(isset($_GET['paged']))
-							{
-								$this->urlparams .= "&paged=".(int)$_GET['paged'];
-							}
-							
-							$this->hasqmark = true;
-						}
-					}
-					else
-					{
-						$this->form_settings['use_results_shortcode'] = 0;
-					}
 					
 					if(isset($this->form_settings['use_template_manual_toggle']))
 					{
@@ -288,8 +266,7 @@ class Search_Filter_Handle_Posts
 		
 		if((isset($_POST[SF_FPRE.'form_id']))&&($this->has_form_posted))
 		{
-			if(((!$this->using_custom_template)||($this->page_slug=="")||(!get_option('permalink_structure')))||($this->using_new_ajax==true))
-			{
+			
 				$form_id = esc_attr($_POST[SF_FPRE.'form_id']);
 			
 				if(!$this->hasqmark)
@@ -302,7 +279,7 @@ class Search_Filter_Handle_Posts
 					$this->urlparams .= "&";
 				}
 				$this->urlparams .=  "sfid=".$form_id;
-			}
+			
 		}
 		
 		if(isset($_POST[SF_FPRE.'ajax_timestamp']))
@@ -335,14 +312,7 @@ class Search_Filter_Handle_Posts
 		if($this->has_form_posted)
 		{//if the search has been posted, redirect to the newly formed url with all the right params
 			
-			if($this->using_new_ajax==false)
-			{
-				$home_url = home_url();
-			}
-			else
-			{
-				$home_url = admin_url( 'admin-ajax.php' );
-			}
+			$home_url = admin_url( 'admin-ajax.php' );
 			
 			if($this->urlparams=="/")
 			{//check to see if url params are set, if not ("/") then add "?s=" to force load search results, without this it would redirect to the homepage, which may be a custom page with no blog items/results
@@ -350,14 +320,9 @@ class Search_Filter_Handle_Posts
 				$this->urlparams .= "?s=";
 			}
 			
-			if(($this->using_custom_template)&&($this->page_slug!="")&&(get_option('permalink_structure'))&&($this->using_new_ajax==false))
-			{
-				$redirect_url = (trailingslashit($home_url).$this->page_slug.$this->urlparams);
-			}
-			else
-			{
-				$redirect_url = ($home_url.$this->urlparams);
-			}
+			
+			$redirect_url = ($home_url.$this->urlparams);
+			
 			
 			if ( function_exists('icl_get_home_url') )
 			{
@@ -433,14 +398,7 @@ class Search_Filter_Handle_Posts
 			$categories = implode($operator,$catarr);
 			
 			//check to see if permalinks are enabled
-			if((get_option('permalink_structure'))&&($this->using_new_ajax==false))
-			{//grab the base
-				$category_base = (get_option( 'category_base' )=="") ? "category" : get_option( 'category_base' );
-				$category_path = $category_base."/".$categories."/";
-				$this->urlparams .= $category_path;
-			}
-			else
-			{
+			
 				if(!$this->hasqmark)
 				{
 					$this->urlparams .= "?";
@@ -451,7 +409,7 @@ class Search_Filter_Handle_Posts
 					$this->urlparams .= "&";
 				}
 				$this->urlparams .= "category_name=".$categories;
-			}
+			
 		}
 	}
 	

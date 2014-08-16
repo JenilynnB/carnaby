@@ -95,7 +95,7 @@
 			<strong><?php _e("Set a slug?", $this->plugin_slug); ?></strong>
 			<br /><?php echo trailingslashit(home_url()); ?>
 			
-			<input class="page_slug" id="{0}[{1}][page_slug]" name="page_slug" type="text" value="<?php echo esc_attr($values['page_slug']); ?>" placeholder="?sfid=<?php echo $this->toBase($post->ID); ?>"  />
+			<input class="page_slug" id="{0}[{1}][page_slug]" name="page_slug" type="text" value="<?php echo esc_attr($values['page_slug']); ?>" placeholder="?sfid=<?php echo $post->ID; ?>"  />
 			
 			<input type="hidden"  name="page_slug" id="{0}[{1}][page_slug]" class="page_slug_hidden"  value="<?php echo $values['page_slug']; ?>" disabled="disabled" />
 		</label>

@@ -59,6 +59,7 @@ class Search_Filter_Display_Shortcode {
 		$this->is_template_loaded = false; 
 		
 		$this->create_input = new Search_Filter_Generate_Input($plugin_slug);
+		$this->display_results = new Search_Filter_Display_Results($plugin_slug);
 	}
 	
 	public function set_is_template($is_template)
@@ -96,7 +97,7 @@ class Search_Filter_Display_Shortcode {
 
 		//grab search term for prefilling search input
 		if(isset($wp_query->query['s']))
-		{//!"£$%^&*()
+		{//!"ï¿½$%^&*()
 			$this->searchterm = trim(get_search_query());
 		}
 
@@ -281,145 +282,157 @@ class Search_Filter_Display_Shortcode {
 	
 	public function display_shortcode($atts, $content = null)
 	{
-		$this->set_defaults();
+		
+                $this->set_defaults();
 				
 		//load scripts on this page where the shortcode is called
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
+		wp_enqueue_script( $this->plugin_slug . '-plugin-ajax-script' );
 		wp_enqueue_script( 'jquery-ui-datepicker' ); 
 		
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
 		
-			'id' => ''			
+			'id' => '',
+			'show' => 'form'
 			
 		), $atts));
 		
 		$returnvar = "";
-		
 		//make sure its set
 		if($id!="")
 		{
-			$base_form_id = $this->toBase($id);
+			$base_form_id = $id;
 			
 			$fields = get_post_meta( $id , '_search-filter-fields' , true );
 			$settings = get_post_meta( $id , '_search-filter-settings' , true );
 			$addclass = "";
 			
-			/* TODO  set auto count somewhere else */
-			global $sf_form_data;
-			if(isset($settings["enable_auto_count"]))
+
+			if($show=="form")
 			{
-				if($settings["enable_auto_count"]==1)
+				
+				/* TODO  set auto count somewhere else */
+				global $sf_form_data;
+				if(isset($settings["enable_auto_count"]))
 				{
-					$term_relationships = new Search_Filter_Relationships($this->plugin_slug);
-					$term_relationships->init_relationships();
-					$sf_form_data->set_count_table($term_relationships->get_count_table());
+					if($settings["enable_auto_count"]==1)
+					{
+						$term_relationships = new Search_Filter_Relationships($this->plugin_slug);
+						$term_relationships->init_relationships();
+						$sf_form_data->set_count_table($term_relationships->get_count_table());
+					}
 				}
+				//make sure there are results
+				if(isset($fields))
+				{
+					//make sure results are in array format as expected
+					if(is_array($fields))
+					{
+						
+						$use_ajax = isset($settings['use_ajax_toggle']) ? (bool)$settings['use_ajax_toggle'] : false;
+						$use_history_api = true;
+						$ajax_target = isset($settings['ajax_target']) ? esc_attr($settings['ajax_target']) : '';
+						$ajax_links_selector = isset($settings['ajax_links_selector']) ? esc_attr($settings['ajax_links_selector']) : '';
+						$ajax_auto_submit = isset($settings['auto_submit']) ? (int)$settings['auto_submit'] : '';
+						$auto_count = isset($settings['enable_auto_count']) ? (int)$settings['enable_auto_count'] : '';
+						$use_results_shortcode = isset($settings['use_results_shortcode']) ? (int)$settings['use_results_shortcode'] : '';
+						
+						if($use_results_shortcode!="")
+						{//if we're using a shortcode, grab the selector automatically from the id
+							$ajax_target = "#sf-results-".$base_form_id;
+						}
+						
+						$post_types = isset($settings['post_types']) ? $settings['post_types'] : '';
+						
+						
+						//url
+						/*$ajax_url = "";
+						$start_url = home_url();
+						$full_url = $this->get_current_URL();
+						if(substr($full_url, 0, strlen($start_url)) == $start_url)
+						{
+							$ajax_url = substr($full_url, strlen($start_url));
+						}*/
+						
+						$ajax_url = $this->get_current_URL();
+						
+						$form_attr = ' data-sf-form-id="'.$base_form_id.'"';
+						$form_attr .= ' data-use-history-api="'.(int)$use_history_api.'"';
+						$form_attr .= ' data-template-loaded="'.(int)$this->is_template_loaded.'"';
+						
+						if($use_ajax)
+						{
+							$form_attr.=' data-ajax="'.(int)$use_ajax.'"';
+							
+							if($ajax_target!="")
+							{
+								$form_attr.=' data-ajax-target="'.$ajax_target.'"';
+							}
+							
+							if($ajax_links_selector!="")
+							{
+								$form_attr.=' data-ajax-links-selector="'.$ajax_links_selector.'"';
+							}
+							
+							$form_attr.=' data-auto-update="'.$ajax_auto_submit.'"';
+							
+							if($ajax_url!="")
+							{
+								$form_attr.=' data-ajax-url="'.esc_attr($ajax_url).'"';
+							}
+							
+							if($use_results_shortcode!="")
+							{
+								$form_attr.=' data-ajax-shortcode="'.esc_attr($use_results_shortcode).'"';
+							}
+							
+						}
+						if($auto_count==1)
+						{
+							$form_attr.=' data-auto-count="'.esc_attr($auto_count).'"';
+						}
+						$returnvar .= '<form action="" method="post" class="searchandfilter'.$addclass.'"'.$form_attr.'>';
+						$returnvar .= "<ul>";
+						
+						//loop through each field and grab html
+						foreach ($fields as $field)
+						{
+							$returnvar .= $this->get_field($field, $post_types);
+						}
+						
+						$returnvar .= '<input type="hidden" name="'.SF_FPRE.'submitted" value="1" />';
+						$returnvar .= '<input type="hidden" name="'.SF_FPRE.'form_id" value="'.esc_attr($base_form_id).'" class="sf_form_id" />';
+						
+						if(isset($_GET[SF_FPRE.'ajax_timestamp']))
+						{
+							if(is_numeric($_GET[SF_FPRE.'ajax_timestamp']))
+							{
+								$timestamp = $_GET[SF_FPRE.'ajax_timestamp'];
+								$returnvar .= '<input type="hidden" name="'.SF_FPRE.'ajax_timestamp" value="'.esc_attr($timestamp).'" class="sf_ajax_timestamp" />';
+							}
+						}
+						
+						$returnvar .= "</ul>";
+						$returnvar .= "</form>";
+						
+						
+					}
+				}
+			}
+			else if($show=="results")
+			{
+				
+                                $returnvar = $this->display_results->output_results($base_form_id, $settings);
 			}
 			
-			//make sure there are results
-			if(isset($fields))
-			{
-				//make sure results are in array format as expected
-				if(is_array($fields))
-				{
-					
-					$use_ajax = isset($settings['use_ajax_toggle']) ? (bool)$settings['use_ajax_toggle'] : false;
-					$use_history_api = true;
-					$ajax_target = isset($settings['ajax_target']) ? esc_attr($settings['ajax_target']) : '';
-					$ajax_links_selector = isset($settings['ajax_links_selector']) ? esc_attr($settings['ajax_links_selector']) : '';
-					$ajax_auto_submit = isset($settings['auto_submit']) ? (int)$settings['auto_submit'] : '';
-					$auto_count = isset($settings['enable_auto_count']) ? (int)$settings['enable_auto_count'] : '';
-					
-					$post_types = isset($settings['post_types']) ? $settings['post_types'] : '';
-					
-					
-					//url
-					/*$ajax_url = "";
-					$start_url = home_url();
-					$full_url = $this->get_current_URL();
-					if(substr($full_url, 0, strlen($start_url)) == $start_url)
-					{
-						$ajax_url = substr($full_url, strlen($start_url));
-					}*/
-					
-					$ajax_url = $this->get_current_URL();
-					
-					$form_attr = ' data-sf-form-id="'.$base_form_id.'"';
-					$form_attr .= ' data-use-history-api="'.(int)$use_history_api.'"';
-					$form_attr .= ' data-template-loaded="'.(int)$this->is_template_loaded.'"';
-					
-					if($use_ajax)
-					{
-						$form_attr.=' data-ajax="'.(int)$use_ajax.'"';
-						
-						if($ajax_target!="")
-						{
-							$form_attr.=' data-ajax-target="'.$ajax_target.'"';
-						}
-						
-						if($ajax_links_selector!="")
-						{
-							$form_attr.=' data-ajax-links-selector="'.$ajax_links_selector.'"';
-						}
-						
-						$form_attr.=' data-auto-update="'.$ajax_auto_submit.'"';
-						
-						if($ajax_url!="")
-						{
-							$form_attr.=' data-ajax-url="'.esc_attr($ajax_url).'"';
-						}
-						
-					}
-					if($auto_count==1)
-					{
-						$form_attr.=' data-auto-count="'.esc_attr($auto_count).'"';
-					}
-					$returnvar .= '<form action="" method="post" class="searchandfilter'.$addclass.'"'.$form_attr.'>';
-					$returnvar .= "<ul>";
-					
-					//loop through each field and grab html
-					foreach ($fields as $field)
-					{
-						$returnvar .= $this->get_field($field, $post_types);
-					}
-					
-					$returnvar .= '<input type="hidden" name="'.SF_FPRE.'submitted" value="1" />';
-					$returnvar .= '<input type="hidden" name="'.SF_FPRE.'form_id" value="'.esc_attr($base_form_id).'" class="sf_form_id" />';
-					
-					if(isset($_GET[SF_FPRE.'ajax_timestamp']))
-					{
-						if(is_numeric($_GET[SF_FPRE.'ajax_timestamp']))
-						{
-							$timestamp = $_GET[SF_FPRE.'ajax_timestamp'];
-							$returnvar .= '<input type="hidden" name="'.SF_FPRE.'ajax_timestamp" value="'.esc_attr($timestamp).'" class="sf_ajax_timestamp" />';
-						}
-					}
-					
-					$returnvar .= "</ul>";
-					$returnvar .= "</form>";
-					
-					
-				}
-			}
 		}
 		
-		return $returnvar;
+		
+
+                return $returnvar;
 	}
-	function toBase($num, $b=62)
-	{
-		$base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$r = $num  % $b ;
-		$res = $base[$r];
-		$q = floor($num/$b);
-		while ($q)
-		{
-			$r = $q % $b;
-			$q =floor($q/$b);
-			$res = $base[$r].$res;
-		}
-		return $res;
-	}
+	
 	//switch for different field types
 	private function get_field($field_data, $post_types)
 	{
@@ -1335,5 +1348,10 @@ class Search_Filter_Display_Shortcode {
 if ( ! class_exists( 'Search_Filter_Generate_Input' ) )
 {
 	require_once( plugin_dir_path( __FILE__ ) . 'class-search-filter-generate-input.php' );
+}
+
+if ( ! class_exists( 'Search_Filter_Display_Results' ) )
+{
+	require_once( plugin_dir_path( __FILE__ ) . 'class-search-filter-display-results.php' );
 }
 

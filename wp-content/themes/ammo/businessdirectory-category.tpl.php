@@ -13,10 +13,12 @@
 						<div class="content">
 							<div class="row">
 								<div class="col-md-12 single-content">
+                                                                    
                                                                     <?php wpbdp_the_listing_sort_options(); ?>
                                                                     <?php while (have_posts()): the_post(); ?>
                                                                         <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
                                                                     <?php endwhile; ?>
+                                                                    
                                                                     <div class="wpbdp-pagination">
                                                                     <?php if (function_exists('wp_pagenavi')) : ?>
                                                                             <?php wp_pagenavi(); ?>

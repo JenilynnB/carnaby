@@ -144,6 +144,7 @@ class Search_Filter_Posts_Admin {
 		$settings['ajax_target'] = "";
 		$settings['ajax_links_selector'] = "";
 		$settings['auto_submit'] = "";
+		$settings['use_results_shortcode'] = "";
 		
 			
 		$settings = array();
@@ -167,8 +168,7 @@ class Search_Filter_Posts_Admin {
 		
 		if(isset($_POST['template_name_manual']))
 		{
-			//$settings['template_name_manual'] = sanitize_file_name($_POST['template_name_manual']);
-                        $settings['template_name_manual'] = $_POST['template_name_manual'];
+			$settings['template_name_manual'] = $this->sanitize_template_path($_POST['template_name_manual']);
 		}
 		
 		if(isset($_POST['page_slug']))
@@ -193,6 +193,10 @@ class Search_Filter_Posts_Admin {
 		if(isset($_POST['auto_submit']))
 		{
 			$settings['auto_submit'] = $this->post_data_validation->sanitize_checkbox($_POST['auto_submit']);
+		}
+		if(isset($_POST['use_results_shortcode']))
+		{
+			$settings['use_results_shortcode'] = $this->post_data_validation->sanitize_checkbox($_POST['use_results_shortcode']);
 		}
 		
 		if(isset($_POST['ajax_target']))
@@ -237,6 +241,18 @@ class Search_Filter_Posts_Admin {
 			{
 				flush_rewrite_rules();
 			}
+		}
+	}
+	
+	function sanitize_template_path($template_path)
+	{
+		$located = locate_template( $template_path );
+		if ( !empty( $located ) ) {
+			return $template_path;
+		}
+		else
+		{
+			return "";
 		}
 	}
 	
@@ -305,20 +321,7 @@ class Search_Filter_Posts_Admin {
 		
 		include_once( ( plugin_dir_path( dirname( __FILE__ ) ) ) . 'views/admin-search-form-setup-metabox.php' );
 	}
-	function toBase($num, $b=62)
-	{
-		$base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$r = $num  % $b ;
-		$res = $base[$r];
-		$q = floor($num/$b);
-		while ($q)
-		{
-			$r = $q % $b;
-			$q =floor($q/$b);
-			$res = $base[$r].$res;
-		}
-		return $res;
-	}
+	
 	function load_search_form_ajax_metabox($object, $box)
 	{
 		$settings = (get_post_meta( $object->ID, '_search-filter-settings', true ));
@@ -327,7 +330,8 @@ class Search_Filter_Posts_Admin {
 			'use_ajax_toggle'				=> '',
 			'ajax_target'					=> '#content',
 			'ajax_links_selector'			=> '',
-			'auto_submit'					=> ''
+			'auto_submit'					=> '',
+			'use_results_shortcode'			=> ''
 		);
 		
 		if(is_array($settings))

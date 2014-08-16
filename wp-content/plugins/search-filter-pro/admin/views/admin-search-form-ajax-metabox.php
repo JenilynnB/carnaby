@@ -31,8 +31,15 @@
 					<input type="hidden"  name="auto_submit" id="{0}[{1}][auto_submit]" class="auto_submit_hidden"  value="1" disabled="disabled" />
 				</label>
 			</p>
+			<p>
+				<label for="{0}[{1}][use_results_shortcode]">
+					<input class="checkbox use_results_shortcode" type="checkbox" id="{0}[{1}][use_results_shortcode]" name="use_results_shortcode"<?php $this->set_checked($values['use_results_shortcode']); ?>> 
+					<?php _e("Use a Shortcode to display results?", $this->plugin_slug); ?><span class="hint--top hint--info" data-hint="<?php _e("This is by far the easiest way to set up with Ajax - no need to specify a content selector - it just works!", $this->plugin_slug); ?>"><i class="dashicons dashicons-info"></i></span><br /><small><?php _e("This option will be deprecated and enabled by default in future versions.", $this->plugin_slug); ?></small><br />
+					<input type="hidden"  name="use_results_shortcode" id="{0}[{1}][use_results_shortcode]" class="auto_submit_hidden"  value="1" disabled="disabled" />
+				</label>
+			</p>			
 			<p class="item-container">
-				<label for="{0}[{1}][ajax_target]"><?php _e("Content selector:", $this->plugin_slug); ?><span class="hint--top hint--info" data-hint="<?php _e("the ID or class of the container which your results are loaded in to", $this->plugin_slug); ?>"><i class="dashicons dashicons-info"></i></span><br />
+				<label for="{0}[{1}][ajax_target]"><?php _e("Content selector:", $this->plugin_slug); ?><span class="hint--top hint--info" data-hint="<?php _e("the ID or class of the container which your results are loaded in to", $this->plugin_slug); ?>"><i class="dashicons dashicons-info"></i></span><br /><small><?php _e("*Note: this setting is ignored if using a shortcode to display results.", $this->plugin_slug); ?></small><br />
 				<input class="ajax_target" id="{0}[{1}][ajax_target]" name="ajax_target" type="text" value="<?php echo esc_attr($values['ajax_target']); ?>"></label>
 				<br /><em><?php _e("This should be an ID, ie - <code>#content</code> - or a unique class selector, ie - <code>.content-container</code>.", $this->plugin_slug); ?></em>
 				<input type="hidden"  name="ajax_target" id="{0}[{1}][ajax_target]" class="ajax_target_hidden"  value="<?php echo $values['ajax_target']; ?>" disabled="disabled" />

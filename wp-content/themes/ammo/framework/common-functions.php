@@ -1002,3 +1002,53 @@ function my_custom_menu_item($items)
     }
     return $items;
 }
+
+add_action( 'template_redirect', 'redirect_to_specific_page' );
+
+function redirect_to_specific_page() {
+
+    if ( is_page('myaccount') && ! is_user_logged_in() ) {
+
+    wp_redirect(site_url()); 
+    exit;
+    }
+    
+    if ( is_page('login') && is_user_logged_in() ) {
+
+    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    exit;
+    }
+    
+    if ( is_page('registration') && is_user_logged_in() ) {
+
+    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    exit;
+    }
+    
+    if ( is_page('logout') && ! is_user_logged_in() ) {
+
+    wp_redirect(site_url()); 
+    exit;
+    }
+    
+}
+
+function filter_results( $query )
+{
+    global $sf_form_data;
+    global $wp_query;
+    
+    if ( $sf_form_data->is_valid_form() && $query->is_main_query() && !is_admin() )
+    {
+	//If the search & filter form is for Women
+        if($sf_form_data->form_id()=="268"){    
+            //Figure out how to filter by wpbdp_category
+            $query->set('_sft_wpbdp_cat', '1'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+        }else if($sf_form_data->form_id()=="1065"){    
+            //Figure out how to filter by wpbdp_category
+            $query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+        }
+        
+    }
+}
+add_action( 'pre_get_posts', 'filter_results', 21 );    

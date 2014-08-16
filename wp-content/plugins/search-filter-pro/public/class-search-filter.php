@@ -18,7 +18,7 @@ class Search_Filter {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.1.8';
+	const VERSION = '1.2.1';
 	
 	/**
 	 * @TODO - Rename "plugin-name" to the name your your plugin
@@ -69,15 +69,18 @@ class Search_Filter {
 		add_action( 'wp_ajax_get_counts', array($this, 'get_counts') );
 		add_action( 'wp_ajax_nopriv_get_counts', array($this, 'get_counts') );
 		
-
-		add_action( 'init', array( $this, 'create_custom_post_types' ) );
+		add_action( 'wp_ajax_get_results', array($this, 'get_results') );
+		add_action( 'wp_ajax_nopriv_get_results', array($this, 'get_results') );
 		
+		add_action( 'init', array( $this, 'create_custom_post_types' ) );
+
 		if(!is_admin())
 		{
 			//add_action( 'init', array( $this, 'set_search_form_vars' ) );
 			
 			$this->display_shortcode = new Search_Filter_Display_Shortcode($this->plugin_slug);
 			$this->setup_query = new Search_Filter_Setup_Query($this->plugin_slug);
+			
 			
 			// Check the header to see if the form has been submitted
 			//add_action( 'template_redirect', array( $this, 'check_posted' ) );
@@ -96,12 +99,23 @@ class Search_Filter {
 		
 	}
 	
-	// Adding a new rule
+	
+	function get_results()
+	{
+                //handle posts from ajax request and redirect
+		$check_posts_class = new Search_Filter_Handle_Posts($this->plugin_slug);
+		
+		//if no redirect, get results based on URL
+		$this->get_results_obj = new Search_Filter_Get_Results($this->plugin_slug);
+		
+		echo $this->get_results_obj->the_results(esc_attr($_GET['sfid']));
+		exit;
+	}
+	
 	function sf_rewrite_rules( $rules )
 	{
 		global $sf_form_data;
 		$newrules = array();
-		
 		$args = array(
 			 'posts_per_page' => 200,
 			 'post_type' => $this->plugin_slug."-widget",
@@ -117,7 +131,7 @@ class Search_Filter {
 			{
 				if($settings['page_slug']!="")
 				{
-					$base_id = $this->toBase( $search_form->ID );
+					$base_id = $search_form->ID;
 					
 					//$newrules[$settings['page_slug'].'/page/([0-9]+)/([0-9]+)$'] = 'index.php?&sfid='.$base_id.'&paged=$matches[2]&lang=$matches[1]'; //pagination & lang rule
 					$newrules[$settings['page_slug'].'/page/([0-9]+)$'] = 'index.php?&sfid='.$base_id.'&paged=$matches[1]'; //pagination rule
@@ -129,30 +143,6 @@ class Search_Filter {
 		}
 		
 		return $newrules + $rules;
-	}
-	function toBase($num, $b=62)
-	{
-		$base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$r = $num  % $b ;
-		$res = $base[$r];
-		$q = floor($num/$b);
-		while ($q)
-		{
-			$r = $q % $b;
-			$q =floor($q/$b);
-			$res = $base[$r].$res;
-		}
-		return $res;
-	}
-	function to10( $num, $b=62)
-	{
-		$base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$limit = strlen($num);
-		$res=strpos($base,$num[0]);
-		for($i=1;$i<$limit;$i++) {
-		$res = $b * $res + strpos($base,$num[$i]);
-		}
-		return $res;
 	}
 	
 	
@@ -398,7 +388,10 @@ class Search_Filter {
 		//if($sf_form_data->is_valid_form())
 		//{
 			wp_register_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/search-filter.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-chosen-script' ), self::VERSION );
+			wp_register_script( $this->plugin_slug . '-plugin-ajax-script', plugins_url( 'assets/js/search-filter-ajax.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-chosen-script' ), self::VERSION );
+			
 			wp_localize_script($this->plugin_slug . '-plugin-script', 'SF_LDATA', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'homeurl' => trailingslashit(home_url()), 'sfid' => $sf_form_data->get_active_form_id() ));
+			wp_localize_script($this->plugin_slug . '-plugin-ajax-script', 'SF_LDATA', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'homeurl' => trailingslashit(home_url()), 'sfid' => $sf_form_data->get_active_form_id() ));
 			
 			wp_register_script( $this->plugin_slug . '-chosen-script', plugins_url( 'assets/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), self::VERSION );
 		//}
@@ -503,10 +496,18 @@ if ( ! class_exists( 'Search_Filter_Handle_Posts' ) )
 {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-search-filter-handle-posts.php' );
 }
+if ( ! class_exists( 'Search_Filter_Handle_Ajax_Post' ) )
+{
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-search-filter-handle-ajax-post.php' );
+}
 
 if ( ! class_exists( 'Search_Filter_Setup_Query' ) )
 {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-search-filter-setup-query.php' );
+}
+if ( ! class_exists( 'Search_Filter_Get_Results' ) )
+{
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-search-filter-get-results.php' );
 }
 
 if ( ! class_exists( 'Search_Filter_Form_Data' ) )

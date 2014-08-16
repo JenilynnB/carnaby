@@ -59,7 +59,7 @@ class Search_Filter_Form_Data
 	
 	public function init($postid = '')
 	{
-		$form_id = (int)$this->to10($postid);
+		$form_id = $postid;
 		
 		$this->form_data['settings'] = get_post_meta( $form_id , '_search-filter-settings' , true );
 		$this->form_data['fields'] = get_post_meta( $form_id , '_search-filter-fields' , true );
@@ -225,16 +225,6 @@ class Search_Filter_Form_Data
 		//$sf_form_data->settings('post_types')
 	}
 	
-	private function to10( $num, $b=62)
-	{
-		$base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$limit = strlen($num);
-		$res=strpos($base,$num[0]);
-		for($i=1;$i<$limit;$i++) {
-		$res = $b * $res + strpos($base,$num[$i]);
-		}
-		return $res;
-	}
 }
 
 ?>
