@@ -107,7 +107,8 @@ class XooShortCode {
 		} else {
 			
 			//display mini profile
-			return $xoouserultra->show_minified_profile( $atts );		
+			wp_redirect(site_url("/home"));
+                        //return $xoouserultra->show_minified_profile( $atts );		
 			
 			
 		}
@@ -121,7 +122,7 @@ class XooShortCode {
 				
 		if (is_user_logged_in()) 
 		{
-			//return $xoouserultra->custom_logout_page( $atts );				
+			return $xoouserultra->custom_logout_page( $atts );				
 			
 		}
 	

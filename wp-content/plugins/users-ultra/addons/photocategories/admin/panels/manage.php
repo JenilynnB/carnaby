@@ -40,7 +40,7 @@ $categories = $uultra_photo_category->get_photo_categories();
            <table width="100%" class="wp-list-table widefat fixed posts table-generic">
             <thead>
                 <tr>
-                    <th width="4%" style="color:# 333"><?php _e('#', 'xoousers'); ?></th>
+                    <th width="4%" style="color:#333"><?php _e('#', 'xoousers'); ?></th>
                     <th width="12%"><?php _e('Name', 'xoousers'); ?></th>
                     <th width="24%">&nbsp;</th>
                      <th width="19%">&nbsp;</th>

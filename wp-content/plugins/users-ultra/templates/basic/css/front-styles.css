@@ -2389,34 +2389,38 @@ border-radius:.5em;}
 
 .uupublic-ultra-info, .uupublic-ultra-success, .uupublic-ultra-warning, .uupublic-ultra-error, .isa_error {
     border:none;
-    margin: 10px 0px 15px 5px;
-    padding:15px 10px 15px 50px;
+    //margin: 10px 0px 15px 5px;
+    padding:15px 10px 15px 10px;
     background-repeat: no-repeat;
     background-position: 10px center;
-	-moz-border-radius:.5em;
+//	-moz-border-radius:.5em;
 -webkit-border-radius:.5em;
-border-radius:.5em;
+//border-radius:.5em;
 
 }
 .uupublic-ultra-info {
     color: #00529B;
     background-color: #D9F0FB;
-    background-image: url('../img/info.png');
+    //background-image: url('../img/info.png');
 }
 .uupublic-ultra-success {
     color: #4F8A10;
     background-color: #DFF2BF;
-    background-image:url('../img/success.png');
+    //background-image:url('../img/success.png');
 }
 .uupublic-ultra-warning {
     color: #9F6000;
     background-color: #FEEFB3;
-    background-image: url('../img/warning.png');
+    //background-image: url('../img/warning.png');
 }
 .uupublic-ultra-error {
     color: #D8000C;
     background-color: #FFBABA;
-    background-image: url('../img/error.png');
+    //background-image: url('../img/error.png');
+}
+
+input:required:invalid{
+    border-color: #D8000C;
 }
 
 
@@ -2462,7 +2466,6 @@ form.uultra-search-form {
 
 .uultra-search-input
 {
-	font-family: Open Sans;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;

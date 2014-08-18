@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-12">
                                 <div class="row">
-					<div class="<?php echo $content_class; ?>">
+                                        <div class="<?php echo $content_class; ?>">
 						<div class="content">
 							
 							<div class="row">

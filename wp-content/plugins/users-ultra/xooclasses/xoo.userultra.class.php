@@ -1022,7 +1022,7 @@ class XooUserUltra
 				'type' => 'separator', 
 				'name' => __('Account Info','xoousers'),
 				'private' => 0,
-				'show_in_register' => 1,
+				'show_in_register' => 0,
 				'deleted' => 0
 			),
 			690 => array(
@@ -1320,12 +1320,12 @@ class XooUserUltra
 		$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
 					<div class="xoouserultra-inner xoouserultra-login-wrapper">';
 		
-		$display .= '<div class="xoouserultra-head">';
-		    $display .='<div class="xoouserultra-left">';
-		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.__('Password Reset','').'</div>';
-		    $display .='</div>';
-		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
-		$display .= '</div>';
+		//$display .= '<div class="xoouserultra-head">';
+		//    $display .='<div class="xoouserultra-left">';
+		//        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.__('Password Reset','').'</div>';
+		//    $display .='</div>';
+		//    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
+		//$display .= '</div>';
 						
 						$display .='<div class="xoouserultra-main">';
 						
@@ -1356,7 +1356,7 @@ class XooUserUltra
 
 						$display .= '</div>
 						
-					</div>
+					
 				</div>';
 
 		return $display;
@@ -1443,15 +1443,15 @@ class XooUserUltra
 		if ($use_in_sidebar) $sidebar_class = 'xoouserultra-sidebar';
 		
 		$display = null;
-		$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
-					<div class="xoouserultra-inner xoouserultra-login-wrapper">';
+		//$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
+		//			<div class="xoouserultra-inner xoouserultra-login-wrapper">';
 		
-		$display .= '<div class="xoouserultra-head">';
-		    $display .='<div class="xoouserultra-left">';
-		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.__('Login','').'</div>';
-		    $display .='</div>';
-		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
-		$display .= '</div>';
+		//$display .= '<div class="xoouserultra-head">';
+		//    $display .='<div class="xoouserultra-left">';
+		//        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.__('Login','').'</div>';
+		//    $display .='</div>';
+		//    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
+		//$display .= '</div>';
 						
 						$display .='<div class="xoouserultra-main">';
 						
@@ -1463,10 +1463,10 @@ class XooUserUltra
 						
 						$display .= $this->show_login_form( $sidebar_class, $redirect_to , $args);
 
-						$display .= '</div>
+						$display .= '</div>';
 						
-					</div>
-				</div>';
+					//</div>
+				//</div>';
 
 		return $display;
 		
@@ -1480,12 +1480,19 @@ class XooUserUltra
 		$display = null;		
 		$display .= '<form action="" method="post" id="xoouserultra-login-form-'.$this->login_code_count.'">';
 		
-		
+                // this is the Register Link
+		$register_link = site_url('/wp-login.php?action=register');
+		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link">'.__('Register here','xoousers').'</a>';
+                
+                $display .= '<div class="xoouultra-registration-text">Don\'t have an account?   ' .$register_link. '</div>';
+                
 		//get social sign up methods
 		$display .= $this->get_social_buttons(__("Sign in ",'xoousers' ),$args);
 		
-		$display .='<h2>Sign in with email</h2>';	
+		//$display .='<h2>Sign in with email</h2>';	
 
+                $display .= '<div class=xoouultra-login-fields>';
+                
 		foreach($this->login_fields as $key=>$field) 
 		{
 			extract($field);
@@ -1500,7 +1507,8 @@ class XooUserUltra
 				$placeholder = '';
 				$icon_name = '';
 				$input_ele_class='';
-				
+				/*Hiding the label*/
+                                /*
 				    if (isset($this->login_fields[$key]['name']) && $name) 
 					{
 				        $display .= '<label class="xoouserultra-field-type" for="'.$meta.'">'; 
@@ -1521,7 +1529,7 @@ class XooUserUltra
 				        $display .= '<label class="xoouserultra-field-type">&nbsp;</label>';
 				    } 
 								
-				
+				*/
 				
 				$display .= '<div class="xoouserultra-field-value">';
 					
@@ -1532,7 +1540,7 @@ class XooUserUltra
 							$display .= '<textarea class="xoouserultra-input'.$input_ele_class.'" name="'.$meta.'" id="'.$meta.'" '.$placeholder.'>'.$this->get_post_value($meta).'</textarea>';
 							break;
 						case 'text':
-							$display .= '<input type="text" class="xoouserultra-input'.$input_ele_class.'" name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'" '.$placeholder.' />';
+							$display .= '<input type="text" class="xoouserultra-input'.$input_ele_class.'" name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'" '.$placeholder.' placeholder="'. $name .'" />';
 							
 							if (isset($this->login_fields[$key]['help']) && $help != '') {
 								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
@@ -1540,7 +1548,7 @@ class XooUserUltra
 							
 							break;
 						case 'password':
-							$display .= '<input type="password" class="xoouserultra-input'.$input_ele_class.'" name="'.$meta.'" id="'.$meta.'" value="" '.$placeholder.' />';
+							$display .= '<input type="password" class="xoouserultra-input'.$input_ele_class.'" name="'.$meta.'" id="'.$meta.'" value="" '.$placeholder.'  placeholder="'. $name .'"     />';
 							break;
 					}
 					
@@ -1560,10 +1568,11 @@ class XooUserUltra
 		
 		//$display.=$xoousers_captcha_loader->load_captcha($this->captcha);
 		
-		$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
-						<label class="xoouserultra-field-type xoouserultra-field-type-'.$sidebar_class.'">&nbsp;</label>
-						<div class="xoouserultra-field-value">';
-		
+		$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
+		//				<label class="xoouserultra-field-type xoouserultra-field-type-'.$sidebar_class.'">&nbsp;</label>
+						
+		$display .= '<div class="xoouserultra-field-value">';
+                                                
 		if (isset($_POST['rememberme']) && $_POST['rememberme'] == 1)
 		 {
 		    $class = 'xoouserultra-icon-check';
@@ -1577,13 +1586,11 @@ class XooUserUltra
 		// this is the Forgot Pass Link
 		$forgot_pass = '<a href="#uultra-forgot-link" id="xoouserultra-forgot-pass-'.$this->login_code_count.'" class="xoouserultra-login-forgot-link" title="'.__('Forgot Password?','xoousers').'">'.__('Forgot Password?','xoousers').'</a>';
 		
-		// this is the Register Link
-		$register_link = site_url('/wp-login.php?action=register');
 		
 		if ($this->get_option('register_redirect') != '') 
 		    $register_link =  $this->get_option('register_redirect');
 		
-		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link">'.__('Register','xoousers').'</a>';
+		
     		
 		$remember_me_class = '';
 		$login_btn_class = '';
@@ -1599,11 +1606,11 @@ class XooUserUltra
 		
 		<input type="checkbox" name="rememberme" id="rememberme-'.$this->login_code_count.'" value="0" /> <label for="checkbox1"><span></span>'.__('Remember me','xoousers').'</label>
 		
-		</div>
+		</div>';
 		
-		<input type="submit" name="xoouserultra-login" class="xoouserultra-button xoouserultra-login'.$login_btn_class.'" value="'.__('Log In','xoousers').'" /><br />'.$forgot_pass.' | '.$register_link;
+		$display .= '<input type="submit" name="xoouserultra-login" class="xoouserultra-button xoouserultra-login'.$login_btn_class.'" value="'.__('Log In','xoousers').'" /><br />'.$forgot_pass;
 		
-		
+		$display .= '</div>';
 		$display .= ' </div>
 					</div><div class="xoouserultra-clear"></div>';
 		
@@ -1617,38 +1624,38 @@ class XooUserUltra
 		// this is the forgot password form
 		$forgot_pass = '';
 		
+                
 		$forgot_pass .= '<div class="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-holder">';
 		
+		//$forgot_pass .= "<div class='notimessage'>";
 		
-		$forgot_pass .= "<div class='notimessage'>";
+		//$forgot_pass .= "<h4>".__(" Enter your email address or Username to reset your password. ", 'xoousers')."</h4>";
 		
-		$forgot_pass .= "<div class='uupublic-ultra-warning'>".__(" A quick access link will be sent to your email that will let you get in your account and change your password. ", 'xoousers')."</div>";
-		
-		$forgot_pass .= "</div>";
+		//$forgot_pass .= "</div>";
 		
 		
 		$forgot_pass .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
 		
 		
 		
-		$forgot_pass .= '<label class="xoouserultra-field-type" for="user_name_email-'.$this->login_code_count.'"><i class="fa fa-user"></i><span>'.__('Username or Email','xoousers').'</span></label>';
+		//$forgot_pass .= '<label class="xoouserultra-field-type" for="user_name_email-'.$this->login_code_count.'"><i class="fa fa-user"></i><span>'.__('Username or Email','xoousers').'</span></label>';
 		$forgot_pass .= '<div class="xoouserultra-field-value">';
 		
 		
-		$forgot_pass .= '<input type="text" class="xoouserultra-input" name="user_name_email" id="user_name_email" value=""></div>';
+		$forgot_pass .= '<input type="text" class="xoouserultra-input" name="user_name_email" id="user_name_email" value="" placeholder="Username or Email"></div>';
 		$forgot_pass .= '</div>';
 		    
 		$forgot_pass.='<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
-		$forgot_pass.='<label class="xoouserultra-field-type xoouserultra-blank-lable">&nbsp;</label>';
+		//$forgot_pass.='<label class="xoouserultra-field-type xoouserultra-blank-lable">&nbsp;</label>';
 		$forgot_pass.='<div class="xoouserultra-field-value">';
 		$forgot_pass.='<div class="xoouserultra-back-to-login">';
-		$forgot_pass.='<a href="javascript:void(0);" title="'.__('Back to Login','xoousers').'" id="xoouserultra-back-to-login-'.$this->login_code_count.'">'.__('Back to Login','xoousers').'</a> | '.$register_link;
+		//$forgot_pass.='<a href="javascript:void(0);" title="'.__('Back to Login','xoousers').'" id="xoouserultra-back-to-login-'.$this->login_code_count.'">'.__('Back to Login','xoousers').'</a> | '.$register_link;
 		
 		$forgot_pass.='</div>';
 		
 	
 		            
-		            $forgot_pass.='<input type="button" name="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-btn-confirm" class="xoouserultra-button xoouserultra-login" value="'.__('Send me Password','xoousers').'">';
+		            $forgot_pass.='<input type="button" name="xoouserultra-forgot-pass" id="xoouserultra-forgot-pass-btn-confirm" class="xoouserultra-button xoouserultra-login" value="'.__('Reset Password','xoousers').'">';
 					
 					$forgot_pass.='<div class="xoouserultra-signin-noti-block" id="uultra-signin-ajax-noti-box"> ';
 		
@@ -1744,7 +1751,7 @@ class XooUserUltra
 		if(get_option('users_can_register') == '1')
 		{
 		
-		    $display .= '<div class="xoouserultra-wrap xoouserultra-registration '.$sidebar_class.'">
+		    $display .= /*'<div class="xoouserultra-wrap xoouserultra-registration '.$sidebar_class.'">
 					<div class="xoouserultra-inner">
 						
 						<div class="xoouserultra-head">
@@ -1779,8 +1786,8 @@ class XooUserUltra
 							$display .= '</div><div class="xoouserultra-clear"></div>
 							
 						</div>
-						
-						<div class="xoouserultra-main">
+						*/
+						'<div class="xoouserultra-main">
 							
 							<div class="xoouserultra-errors" style="display:none;" id="pass_err_holder">
 							    <span class="xoouserultra-error xoouserultra-error-block" id="pass_err_block">
@@ -1797,10 +1804,10 @@ class XooUserUltra
 						
 						$display .= $this->display_the_registeration_form( $sidebar_class, $redirect_to, $args );
 
-						$display .= '</div>
-						
+						$display .= '</div>'; 
+				/*		
 					</div>
-				</div>';
+				</div>';*/
 		}else{
 			
 			//the registration is disabled
@@ -1835,121 +1842,21 @@ class XooUserUltra
 		
 		$display .= '<form action="" method="post" id="xoouserultra-registration-form" enctype="multipart/form-data">';
 		
-		$display .= '<div class="xoouserultra-field xoouserultra-seperator-requiredfields xoouserultra-edit xoouserultra-edit-show">'.__('Fields with (*) are required','xoousers').'</div>';	
+                $login_link = site_url('/wp-login.php');
+		$login_link = '<a href="'.$login_link.'" class="xoouserultra-login-login-link">'.__('Login here','xoousers').'</a>';
+                $display .= '<div class="xoouultra-registration-text">Already have an account?   ' .$login_link. '</div>';
+                //$display .= '<div class="xoouserultra-field xoouserultra-seperator-requiredfields xoouserultra-edit xoouserultra-edit-show">'.__('Fields with (*) are required','xoousers').'</div>';	
 		
 		
 		//get social sign up methods
 		$display .= $this->get_social_buttons(__("Sign up ",'xoousers'), $args);		
 		
-		$display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.__('Account Info','xoousers').'</div>';
+		//$display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.__('Account Info','xoousers').'</div>';
 			
 		/* These are the basic registrations fields */
 		
-		foreach($this->registration_fields as $key=>$field) 
-		{
-			
-			
-			extract($field);
-			
-			if ( $type == 'usermeta') {
-				
-				$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
-				
-				if(!isset($required))
-				    $required = 0;
-				
-				$required_class = '';
-				
-				$required_text = '';
-				
-				if($required == 1 && in_array($field, $this->include_for_validation))
-				{
-					$required_class = ' validate[required]';
-					$required_text = '(*)';
-				}
-				
-				/* Show the label */
-				if (isset($this->registration_fields[$key]['name']) && $name) 
-				{
-					$display .= '<label class="xoouserultra-field-type" for="'.$meta.'">';
-					
-					if (isset($this->registration_fields[$key]['icon']) && $icon)
-					 {
-						$display .= '<i class="fa fa-'.$icon.'"></i>';
-					} else {
-						$display .= '<i class="fa fa-none"></i>';
-					}
-					$display .= '<span>'.$name.' '.$required_text.'</span></label>';
-				} else {
-					$display .= '<label class="xoouserultra-field-type">&nbsp;</label>';
-				}
-				
-				
-				$display .= '<div class="xoouserultra-field-value">';
-					
-					switch($field) {
-						
-						case 'textarea':
-							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
-							break;
-						
-						case 'text':
-							$display .= '<input type="text" class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
-							
-							if (isset($this->registration_fields[$key]['help']) && $help != '') {
-								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
-							}
-							
-							break;
-							
-							case 'datetime':
-							    
-							    $display .= '<input type="text" class="'.$required_class.' xoouserultra-input xoouserultra-datepicker" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
-							    
-							    if (isset($this->registration_fields[$key]['help']) && $help != '') {
-							        $display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
-							    }
-							    break;
-							
-						case 'password':
 
-							$display .= '<input type="password" class="'.$required_class.' xoouserultra-input password" name="'.$meta.'" id="reg_'.$meta.'" value="" autocomplete="off" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'" />';
-							
-							if (isset($this->registration_fields[$key]['help']) && $help != '') {
-								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
-							}
-
-							break;
-							
-						case 'password_indicator':
-							$display .= '<div class="password-meter"><div class="password-meter-message" id="password-meter-message">&nbsp;</div></div>';
-							break;
-							
-					}
-					
-					/*User can hide this from public*/
-					if (isset($this->registration_fields[$key]['can_hide']) && $can_hide == 1) 
-					{
-						
-									/*$display .= '<div class="xoouserultra-hide-from-public">
-										<input type="checkbox" name="hide_'.$meta.'" id="hide_'.$meta.'" value="" /> <label for="checkbox1"><span></span>'.__('Hide from Public','xoousers').'</label>
-									</div>';*/
-
-									
-									
-
-					}
-					
-					
-					
-				$display .= '</div>';
-
-				$display .= '</div><div class="xoouserultra-clear"></div>';
-			}
-			
-								
-		}
-
+		
 		
 		/* Get end of array */
 		$array = get_option('usersultra_profile_fields');
@@ -2028,10 +1935,11 @@ class XooUserUltra
 			{
 				
 				
-				$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
+				$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show" id="' .$meta.'-container"  >';
 				
 				/* Show the label */
-				if (isset($array[$key]['name']) && $name)
+				/*Hide the label
+                                if (isset($array[$key]['name']) && $name)
 				 {
 					$display .= '<label class="xoouserultra-field-type" for="'.$meta.'">';	
 					
@@ -2048,19 +1956,20 @@ class XooUserUltra
 					$display .= '<label class="xoouserultra-field-type">&nbsp;</label>';
 				}
 				
-				
+				*/  
 				
 				$display .= '<div class="xoouserultra-field-value">';
 					
 					switch($field) {
 					
 						case 'textarea':
-							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
+							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="'.$meta.'" title="'.$name.'"  placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
 							break;
 							
 						case 'text':
-							$display .= '<input type="text" class="'.$required_class.'xoouserultra-input"  name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
-							break;							
+							$display .= '<input type="text" class="'.$required_class.'xoouserultra-input"  name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" placeholder="'. $name. '" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
+							break;	
+                                                        						
 							
 						case 'datetime':
 						    $display .= '<input type="text" class="'.$required_class.' xoouserultra-input xoouserultra-datepicker" name="'.$meta.'" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" />';
@@ -2080,7 +1989,7 @@ class XooUserUltra
 							
 							if (isset($loop)) 
 							{
-								$display .= '<select class=" xoouserultra-input '.$required_class.'" name="'.$meta.'" id="'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'">';
+								$display .= '<select class=" xoouserultra-input '.$required_class.'" name="'.$meta.'" id="'.$meta.'" title="'.$name.'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">';
 								
 								foreach($loop as $option)
 								{
@@ -2162,7 +2071,7 @@ class XooUserUltra
 							{
 								
 									
-								$display .= '<input type="file" class="'.$required_class.'xoouserultra-input uultra-fileupload-field"  name="'.$meta.'" style="display:block;" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" data-errormessage-value-missing="'.__(' * This input is required!','xoousers').'"/>';
+								$display .= '<input type="file" class="'.$required_class.'xoouserultra-input uultra-fileupload-field"  name="'.$meta.'" style="display:block;" id="'.$meta.'" value="'.$this->get_post_value($meta).'"  title="'.$name.'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
 							
 							} //end if meta
 
@@ -2202,11 +2111,121 @@ class XooUserUltra
 					
 									
 					
-				$display .= '</div>';
-				$display .= '</div><div class="xoouserultra-clear"></div>';
+				$display .= '</div></div>';
+				//$display .= '</div><div class="xoouserultra-clear"></div>';
 			}
 		}
 		
+                foreach($this->registration_fields as $key=>$field) 
+		{
+			
+			
+			extract($field);
+			
+			if ( $type == 'usermeta') {
+				
+				$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
+				
+				if(!isset($required))
+				    $required = 0;
+				
+				$required_class = '';
+				
+				$required_text = '';
+				
+				if($required == 1 && in_array($field, $this->include_for_validation))
+				{
+					$required_class = ' validate[required]';
+					$required_text = '(*)';
+				}
+				
+				/* Show the label */
+				/*Don't show the label
+                                if (isset($this->registration_fields[$key]['name']) && $name) 
+				{
+					$display .= '<label class="xoouserultra-field-type" for="'.$meta.'">';
+					
+					if (isset($this->registration_fields[$key]['icon']) && $icon)
+					 {
+						$display .= '<i class="fa fa-'.$icon.'"></i>';
+					} else {
+						$display .= '<i class="fa fa-none"></i>';
+					}
+					$display .= '<span>'.$name.' '.$required_text.'</span></label>';
+				} else {
+					$display .= '<label class="xoouserultra-field-type">&nbsp;</label>';
+				}
+				
+				*/
+				$display .= '<div class="xoouserultra-field-value">';
+					
+					switch($field) {
+						
+						case 'textarea':
+							$display .= '<textarea class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'">'.$this->get_post_value($meta).'</textarea>';
+							break;
+						
+						case 'text':
+							$display .= '<input type="text" class="'.$required_class.' xoouserultra-input" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'"  data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
+							
+							if (isset($this->registration_fields[$key]['help']) && $help != '') {
+								$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
+							}
+							
+							break;
+							
+							case 'datetime':
+							    
+							    $display .= '<input type="text" class="'.$required_class.' xoouserultra-input xoouserultra-datepicker" name="'.$meta.'" id="reg_'.$meta.'" value="'.$this->get_post_value($meta).'" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'"/>';
+							    
+							    if (isset($this->registration_fields[$key]['help']) && $help != '') {
+							        $display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
+							    }
+							    break;
+							
+						case 'password':
+
+							$display .= '<input type="password" class="'.$required_class.' xoouserultra-input password" name="'.$meta.'" id="reg_'.$meta.'" value="" autocomplete="off" title="'.$name.'"   placeholder="'. $name .'" data-errormessage-value-missing="'.__(' * This field is required','xoousers').'" />';
+							
+							if (isset($this->registration_fields[$key]['help']) && $help != '') {
+								//  $display .= '<i class="fa fa-info-circle" ></i>';
+                                                                //$display .= '<div class="xoouserultra-help">'.$help.'</div><div class="xoouserultra-clear"></div>';
+							}
+
+							break;
+							
+						case 'password_indicator':
+							$display .= '<div class="password-meter"><div class="password-meter-message" id="password-meter-message">&nbsp;</div></div>';
+							break;
+							
+					}
+					
+					/*User can hide this from public*/
+					if (isset($this->registration_fields[$key]['can_hide']) && $can_hide == 1) 
+					{
+						
+									/*$display .= '<div class="xoouserultra-hide-from-public">
+										<input type="checkbox" name="hide_'.$meta.'" id="hide_'.$meta.'" value="" /> <label for="checkbox1"><span></span>'.__('Hide from Public','xoousers').'</label>
+									</div>';*/
+
+									
+									
+
+					}
+					
+					
+					
+				$display .= '</div>';
+
+				$display .= '</div><div class="xoouserultra-clear"></div>';
+			}
+			
+								
+		}
+
+                
+                
+                
 		//$display.=$xoousers_captcha_loader->load_captcha($this->captcha);
 		
 		if($this->use_captcha == 'yes')
@@ -2246,12 +2265,13 @@ class XooUserUltra
 		}
 		
 		
-		$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
-						<label class="xoouserultra-field-type xoouserultra-field-type-'.$sidebar_class.'">&nbsp;</label>
-						<div class="xoouserultra-field-value">
-						    <input type="hidden" name="xoouserultra-register-form" value="xoouserultra-register-form" />
-							<input type="submit" name="xoouserultra-register" id="xoouserultra-register-btn" class="xoouserultra-button" value="'.__('Register','xoousers').'" />
-						</div>
+		$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
+                
+		//				'<label class="xoouserultra-field-type xoouserultra-field-type-'.$sidebar_class.'">&nbsp;</label>
+		$display .=				'<div class="xoouserultra-field-value">';
+		$display .=				    '<input type="hidden" name="xoouserultra-register-form" value="xoouserultra-register-form" />';
+		$display .=					'<input type="submit" name="xoouserultra-register" id="xoouserultra-register-btn" class="xoouserultra-register" value="'.__('Register','xoousers').'" />';
+		$display .='				</div>
 					</div><div class="xoouserultra-clear"></div>';
 					
 					
@@ -2457,7 +2477,8 @@ class XooUserUltra
 				
 				       	               	
 						<a href="'.$loginUrl.'" class="btnuultra-facebook" >
-							<span class="uultra-icon-facebook"> <img src="'.xoousers_url.'templates/'.xoousers_template.'/img/socialicons/facebook.png" ></span>'.$action_text.' with Facebook </a>
+							<span class="uultra-icon-facebook"> 
+                                                        <i class="fa fa-facebook"></i></span>'.$action_text.' with Facebook </a>
 					
 					</div>';
 					
@@ -2489,7 +2510,7 @@ class XooUserUltra
 				//Google
 				$display .='<div class="txt-center GoogleSignIn">	               	
 						<a href="'.$auth_url_google.'" class="btnuultra-google" >
-							<span class="uultra-icon-google"><img src="'.xoousers_url.'templates/'.xoousers_template.'/img/socialicons/googleplus.png" ></span>'.$action_text.' with Google </a>
+							<span class="uultra-icon-google"><i class="fa fa-google-plus"></i></span>'.$action_text.' with Google+ </a>
 					
 					</div>';
 			}

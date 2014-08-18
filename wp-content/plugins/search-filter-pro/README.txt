@@ -4,7 +4,7 @@ Donate link:
 Tags: posts, custom posts, products, category, filter, taxonomy, post meta, custom fields, search, wordpress, post type, post date, author
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.1.8
+Stable tag: 1.2.1
 
 Search and Filtering for posts, products and custom posts. Allow your users to Search & Filter by taxonomies, custom fields and more.
 
@@ -56,6 +56,14 @@ Great for searching in your online shop, tested with: WooCommerce and WP eCommer
 
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix - a JS error for older Ajax setups
+
+= 1.2.0 =
+* NEW - completely reworked how to use Ajax - simply use a shortcode to place where you want the results to display and you're set to go!
+* Fix - allow paths in template names - S&F was previously stripping out slashes so couldn't access templates in sub directories
+* Fix - various small bug fixes
 
 = 1.1.8 =
 * New - add new way to modify the main search query for individual forms

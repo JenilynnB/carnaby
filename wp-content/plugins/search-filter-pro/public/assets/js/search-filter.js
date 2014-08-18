@@ -270,24 +270,33 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 			
 			var template_is_loaded = $thisform.attr("data-template-loaded");
 			var use_ajax = $thisform.attr("data-ajax");
+			var use_ajax_shortcode = $thisform.attr("data-ajax-shortcode");
 			
-			var form_id = $thisform.attr("data-sf-form-id");
 			
-			//if(template_is_loaded==1)
-			//{//if a template is loaded then use ajax
+			if(use_ajax_shortcode!="1")
+			{
+				var form_id = $thisform.attr("data-sf-form-id");
 				
-				if(use_ajax==1)
-				{
-					e.preventDefault();
+				//if(template_is_loaded==1)
+				//{//if a template is loaded then use ajax
 					
-					var timestamp = new Date().getTime();
-					
-					$thisform.append('<input type="hidden" name="_sf_ajax_timestamp" value="'+timestamp+'" />');
-					postAjaxResults($thisform, form_id);
-					
-					return false;
-				}
-			//}
+					if(use_ajax==1)
+					{
+						e.preventDefault();
+						
+						var timestamp = new Date().getTime();
+						$thisform.find("input[name=_sf_ajax_timestamp]").remove();
+						$thisform.append('<input type="hidden" name="_sf_ajax_timestamp" value="'+timestamp+'" />');
+						postAjaxResults($thisform, form_id);
+						
+						return false;
+					}
+				//}
+			}
+			else
+			{
+				return false;
+			}
 		});
 		
 		function postAjaxResults($thisform, form_id)
@@ -457,9 +466,14 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 			var $thisform = $('.searchandfilter');
 			
 			var auto_update = $thisform.attr("data-auto-update");
-			if(auto_update==1)
+			var use_ajax_shortcode = $thisform.attr("data-ajax-shortcode");
+			
+			if(use_ajax_shortcode!="1")
 			{
-				$thisform.submit();
+				if(auto_update==1)
+				{
+					$thisform.submit();
+				}
 			}
 			
 			
@@ -478,118 +492,124 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 					
 					var $thisform = $(this);
 					
-					$(this).find('input').keypress(function(e) {
-						// Enter pressed?
-						if(e.which == 10 || e.which == 13) {
-							$thisform.submit();
-						}
-					});
+					var use_ajax_shortcode = $thisform.attr("data-ajax-shortcode");
 					
-					var template_is_loaded = $thisform.attr("data-template-loaded");
-					var use_ajax = $thisform.attr("data-ajax");
-					var auto_update = $thisform.attr("data-auto-update");
-					var auto_count = $thisform.attr("data-auto-count");
-					
-					var form_id = $thisform.attr("data-sf-form-id");
-					
-					//init combo boxes
-					var $chosen = $thisform.find("select[data-combobox=1]");
-					
-					if($chosen.length>0)
+					if(use_ajax_shortcode!="1")
 					{
-						$chosen.chosen();
-					}
-					
-					if(auto_count==1)
-					{
-						//auto refresh counts
-						$($thisform).on('change', 'input[type=radio], input[type=checkbox], select, .meta-slider', function(e)
-						{
-							get_ajax_counts($thisform);
-						});
 						
-						$($thisform).on('input', 'input[type=number], input[type=text]:not(.datepicker)', function(e)
-						{
-							get_ajax_counts($thisform);
-						});
-					}
-					
-					
-					//$($thisform).on('input', 'input.datepicker', dateInputType);
-					
-					//if(template_is_loaded==1)
-					//{//if a template is loaded then use ajax
-						
-						if(use_ajax==1)
-						{
-							if(auto_update==1)
-							{
-								$($thisform).on('change', 'input[type=radio], input[type=checkbox], select', function(e)
-								{
-									inputUpdate(200);
-								});
-								$($thisform).on('change', '.meta-slider', function(e)
-								{
-									inputUpdate(200);
-								});
-								$($thisform).on('input', 'input[type=number]', function(e)
-								{
-									inputUpdate(800);
-								});
-								
-								$($thisform).on('input', 'input[type=text]:not(.datepicker)', function()
-								{
-									inputUpdate(1200);									
-								});
-								$($thisform).on('input', 'input.datepicker', dateInputType);
+						$(this).find('input').keypress(function(e) {
+							// Enter pressed?
+							if(e.which == 10 || e.which == 13) {
+								$thisform.submit();
 							}
-							
-							
-							var use_history_api = $thisform.attr("data-use-history-api");
-							var ajax_target_attr = $thisform.attr("data-ajax-target");
-							var ajax_links_selector = $thisform.attr("data-ajax-links-selector");
-							if(typeof(ajax_links_selector)!="undefined")
+						});
+						
+						var template_is_loaded = $thisform.attr("data-template-loaded");
+						var use_ajax = $thisform.attr("data-ajax");
+						var auto_update = $thisform.attr("data-auto-update");
+						var auto_count = $thisform.attr("data-auto-count");
+						
+						var form_id = $thisform.attr("data-sf-form-id");
+						
+						//init combo boxes
+						var $chosen = $thisform.find("select[data-combobox=1]");
+						
+						if($chosen.length>0)
+						{
+							$chosen.chosen();
+						}
+						
+						if(auto_count==1)
+						{
+							//auto refresh counts
+							$($thisform).on('change', 'input[type=radio], input[type=checkbox], select, .meta-slider', function(e)
 							{
-								var $ajax_target_object = jQuery(ajax_target_attr);
-								var $ajax_links_object = jQuery(ajax_links_selector);
-								
-								if($ajax_links_object.length>0)
+								get_ajax_counts($thisform);
+							});
+							
+							$($thisform).on('input', 'input[type=number], input[type=text]:not(.datepicker)', function(e)
+							{
+								get_ajax_counts($thisform);
+							});
+						}
+						
+						
+						//$($thisform).on('input', 'input.datepicker', dateInputType);
+						
+						//if(template_is_loaded==1)
+						//{//if a template is loaded then use ajax
+							
+							if(use_ajax==1)
+							{
+								if(auto_update==1)
 								{
-									$(document.body).on('click', ajax_links_selector, function(e) {
-										
-										e.preventDefault();
-										
-										$ajax_target_object.animate({ opacity: 0.5 }, "fast"); //loading
-										
-										var link = jQuery(this).attr('href');
-										
-										
-										$thisform.trigger("sf:ajaxstart", [ "Custom", "Event" ]);
-										// #entries is the ID of the inner div wrapping your posts
-										var jqxhr_get = $.get(link, function(data)
-										{
-											handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object)
-											$ajax_target_object.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading				
-										})
-										.always(function()
-										{
-											$ajax_target_object.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading				
-											$thisform.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading
-											$thisform.trigger("sf:ajaxfinish", [ "Custom", "Event" ]);
-										});
-										
-										return false;
+									$($thisform).on('change', 'input[type=radio], input[type=checkbox], select', function(e)
+									{
+										inputUpdate(200);
 									});
+									$($thisform).on('change', '.meta-slider', function(e)
+									{
+										inputUpdate(200);
+									});
+									$($thisform).on('input', 'input[type=number]', function(e)
+									{
+										inputUpdate(800);
+									});
+									
+									$($thisform).on('input', 'input[type=text]:not(.datepicker)', function()
+									{
+										inputUpdate(1200);									
+									});
+									$($thisform).on('input', 'input.datepicker', dateInputType);
 								}
+								
+								
+								var use_history_api = $thisform.attr("data-use-history-api");
+								var ajax_target_attr = $thisform.attr("data-ajax-target");
+								var ajax_links_selector = $thisform.attr("data-ajax-links-selector");
+								if(typeof(ajax_links_selector)!="undefined")
+								{
+									var $ajax_target_object = jQuery(ajax_target_attr);
+									var $ajax_links_object = jQuery(ajax_links_selector);
+									
+									if($ajax_links_object.length>0)
+									{
+										$(document.body).on('click', ajax_links_selector, function(e) {
+											
+											e.preventDefault();
+											
+											$ajax_target_object.animate({ opacity: 0.5 }, "fast"); //loading
+											
+											var link = jQuery(this).attr('href');
+											
+											
+											$thisform.trigger("sf:ajaxstart", [ "Custom", "Event" ]);
+											// #entries is the ID of the inner div wrapping your posts
+											var jqxhr_get = $.get(link, function(data)
+											{
+												handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object)
+												$ajax_target_object.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading				
+											})
+											.always(function()
+											{
+												$ajax_target_object.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading				
+												$thisform.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading
+												$thisform.trigger("sf:ajaxfinish", [ "Custom", "Event" ]);
+											});
+											
+											return false;
+										});
+									}
+								}
+								
+								$thisform.trigger("sf:init", [ "Custom", "Event" ]);
+								//udpate
+								return false;
 							}
-							
-							$thisform.trigger("sf:init", [ "Custom", "Event" ]);
-							//udpate
-							return false;
-						}
-					//}
-					
-					$thisform.trigger("sf:init", [ "Custom", "Event" ]);
+						//}
+						
+						$thisform.trigger("sf:init", [ "Custom", "Event" ]);
+					}
 				});
 				
 			}

@@ -957,3 +957,98 @@ function tt_product_search_form( $form ) {
 
 add_filter( 'get_search_form', 'tt_search_form' );
 add_filter( 'get_product_search_form', 'tt_product_search_form' );
+
+
+add_filter( 'wp_nav_menu_items', 'my_custom_menu_item');
+function my_custom_menu_item($items)
+{
+    if(is_user_logged_in())
+    {
+        global $xoouserultra;   
+        $user=wp_get_current_user();
+        //$name=$user->display_name; // or user_login , user_firstname, user_lastname
+        
+        $user_last_name = $user->last_name;
+        $user_last_initial = substr($user_last_name,0,1);
+        $name=$user->first_name." ".$user_last_initial.".";
+        
+        $user_profile_url = site_url("/profile");
+        $user_account_url = site_url("/myaccount");
+        $logout_url = site_url("/logout");
+        
+        //$user_photo = get_avatar($user->ID, 40);
+        $user_photo = $xoouserultra->userpanel->get_user_pic_url( $user->ID, 40, "avatar");
+        
+        $items .= '<li class="menu-item has-children menu-item-user-name">';
+        $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
+        $items .=    '<a style="display:inline;"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
+        $items .=       '<ul class="dropdown-menu" style="display:none;">';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$user_profile_url.'"><span class="menu-text">My Profile</span></a>';
+        $items .=           '</li>';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$user_account_url.'"><span class="menu-text">My Account</span></a>';
+        $items .=           '</li>';
+        $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+        $items .=               '<a href="'.$logout_url.'"><span class="menu-text">Logout</span></a>';
+        $items .=           '</li>';        
+        $items .=       '</ul>';
+        
+    }else{
+        $login_url = site_url('/login');
+        $items .= '<li class="menu-item menu-item-user-name">';
+        $items .= '<a href="'.$login_url.'" id="user-name-menu"><span class="menu-icon icon-user"></span><span class="menu-text" >Login</span></a>';
+        $items .= '</ul>';
+    }
+    return $items;
+}
+
+add_action( 'template_redirect', 'redirect_to_specific_page' );
+
+function redirect_to_specific_page() {
+
+    if ( is_page('myaccount') && ! is_user_logged_in() ) {
+
+    wp_redirect(site_url()); 
+    exit;
+    }
+    
+    if ( is_page('login') && is_user_logged_in() ) {
+
+    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    exit;
+    }
+    
+    if ( is_page('registration') && is_user_logged_in() ) {
+
+    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    exit;
+    }
+    
+    if ( is_page('logout') && ! is_user_logged_in() ) {
+
+    wp_redirect(site_url()); 
+    exit;
+    }
+    
+}
+
+function filter_results( $query )
+{
+    global $sf_form_data;
+    global $wp_query;
+    
+    if ( $sf_form_data->is_valid_form() && $query->is_main_query() && !is_admin() )
+    {
+	//If the search & filter form is for Women
+        if($sf_form_data->form_id()=="268"){    
+            //Figure out how to filter by wpbdp_category
+            $query->set('_sft_wpbdp_cat', '1'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+        }else if($sf_form_data->form_id()=="1065"){    
+            //Figure out how to filter by wpbdp_category
+            $query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+        }
+        
+    }
+}
+add_action( 'pre_get_posts', 'filter_results', 21 );    

@@ -3,7 +3,6 @@
 	float:none;
 	width: 100%;
 	max-width: 750px ;
-	font-family: Open Sans;
 	margin: 0 auto 20px auto;
 }
 
@@ -226,7 +225,7 @@
 }
 
 .xoouserultra-main {
-	padding: 15px 35px 0 35px;
+	padding: 25px 35px 0 35px;
 	font-size: 14px;
 }
 
@@ -266,7 +265,11 @@
 
 .xoouserultra-field-value {
 	float: left;
-	width: 66%;
+	width: 100%;
+}
+
+.xoouserultra-input:invalid{
+    border-color: #F31212;
 }
 
 .xoouserultra-field-type span, .xoouserultra-field-value span {
@@ -312,7 +315,6 @@ label.xoouserultra-checkbox input[type=checkbox] {
 }
 
 input.xoouserultra-input, select.xoouserultra-input, textarea.xoouserultra-input {
-	font-family: Open Sans;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -335,7 +337,6 @@ textarea.xoouserultra-input {
 .xoouserultra-help{
 	float: left;
 	margin: 8px 0 0 0;
-	font-family: Tahoma;
 	font-size: 11px;
 	line-height: 17px;
 }
@@ -357,7 +358,6 @@ textarea.xoouserultra-input {
 .xoouserultra-hide-from-public, .xoouserultra-rememberme {
 	/*loat: left;*/
 	cursor: pointer;
-	font-family: Tahoma;
 	font-size: 11px;
 	line-height: 17px;
 }
@@ -368,7 +368,7 @@ textarea.xoouserultra-input {
 
 
 .xoouserultra-rememberme {
-	margin: -12px 0 0 0;
+	margin: -12px 5px 12px;
 }
 
 .xoouserultra-hide-from-public i, .xoouserultra-rememberme i {
@@ -390,6 +390,21 @@ textarea.xoouserultra-input {
 	display: block;
 }
 
+#first_name-container {
+	display: inline-block;
+        width: 49%;
+}
+#last_name-container {
+    display: inline-block;
+    width: 49%;
+    margin-left: 1%;
+}
+
+
+.xoouultra-login-fields{
+    padding: 15px;
+}
+
 .xoouserultra-seperator {
 	font-size: 11px;
 	text-transform: uppercase;
@@ -401,7 +416,7 @@ textarea.xoouserultra-input {
 	font-style:italic;	
 	text-align:right;
 }
-
+/*
 a.xoouserultra-button-alt, .xoouserultra-button-alt, input.xoouserultra-button-alt {
 	font-size: 11px;
 	-moz-border-radius: 3px;
@@ -422,6 +437,7 @@ a.xoouserultra-button, input[type=submit].xoouserultra-button, input[type=button
 	text-decoration: none;
 	margin: 0;
 }
+*/
 
 .xoouserultra-errors, .xoouserultra-success {
 	display: block;
@@ -770,6 +786,11 @@ a.uultra-btn-delpostimg:hover{
 	     border-radius:5px;
 		 color: #333 !important;
 
+}
+
+.xoouultra-registration-text {
+    text-align: center;  
+    margin: 15px;
 }
 
 /* end post Images*/

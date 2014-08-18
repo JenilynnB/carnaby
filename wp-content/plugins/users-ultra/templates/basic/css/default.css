@@ -69,6 +69,10 @@ input.xoouserultra-input:focus, select.xoouserultra-input:focus, textarea.xoouse
 	/*box-shadow: inset 0 -1px 2px #ddd;*/
 }
 
+input.xoouserultra-input:invalid {
+    color: #D55707;
+}
+
 .xoouserultra-help {
 	color: #666;
 }
@@ -180,7 +184,7 @@ input.xoouserultra-input:focus, select.xoouserultra-input:focus, textarea.xoouse
 	padding:0 0 10px 0;
 	color: #333;
 }
-
+/*
 a.xoouserultra-button-alt, .xoouserultra-wrap a.xoouserultra-button-alt, .xoouserultra-wrap .xoouserultra-button-alt, .xoouserultra-wrap input.xoouserultra-button-alt {
 	color: #666;
 	border: 1px solid #ddd;
@@ -235,7 +239,7 @@ input[type=submit].xoouserultra-button:disabled, input[type=submit].xoouserultra
 	background-image: none;
 }
 
-
+*/
 .xoouserultra-errors  {
 	background: #ffdbdb;
 	border: 1px solid #ffb4b4;
@@ -284,13 +288,12 @@ input[type=submit].xoouserultra-button:disabled, input[type=submit].xoouserultra
 
 a.xoouserultra-login-forgot-link, a.xoouserultra-login-register-link
 {
-	color:#888;
 	text-decoration:none;
 }
 
 a.xoouserultra-login-forgot-link:hover, a.xoouserultra-login-register-link:hover
 {
-	color:#21759b;
+	color:#66cccc;
 }
 .xoouserultra-hide-from-public xoouserultra-remember-me {
 color: #888;
@@ -320,13 +323,12 @@ color: #888;
 .btnuultra,  [class^="btnuultra-"], [class="btnuultra-"] {
     background: none repeat scroll 0 0 #92D400;
     border: 1px solid #55B100;
-    border-radius: 4px;
+    border-radius: 0    px;
     box-shadow: none;
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block !important;
-    font-family: "Open Sans Condensed",Calibri,Helvetica,sans-serif;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 2em;
     padding: 0 20px 0px 0px;
@@ -345,9 +347,10 @@ color: #888;
 .btnuultra.active,  .active[class^="btnuultra-"] {
     background: none repeat scroll 0 0 #CCCCCC;
 }
-.btnuultra span, [class^="btnuultra-"] span,  {
+.btnuultra span, [class^="btnuultra-"] span  {
     font-weight: 600;
 }
+
 input.btnuultra {
     line-height: 40px;
     min-height: 40px;
@@ -382,13 +385,18 @@ input.btnuultra {
     border: 0 none;
     box-shadow: none;
     min-width:250px;
-    font-size: 1.5em;
+    width: 275px;   
+    font-size: 16px;
     font-weight: normal;
-    padding: 2px 15px 0  10px;
+    padding: 5px 15px 5px 10px;
     color:#FFF !important;
 }
 .btnuultra-facebook {
     background: none repeat scroll 0 0 #6481BE;
+}
+.btnuultra-facebook .uultra-icon-facebook{
+    font-size: 18px;
+    padding-right: 8px; 
 }
 .btnuultra-facebook:hover {
     background-color: #314D89;
@@ -405,6 +413,10 @@ input.btnuultra {
 }
 .btnuultra-google {
     background: none repeat scroll 0 0 #D55707;
+}
+.btnuultra-google .uultra-icon-google{
+    font-size: 18px;
+    padding-right: 8px;
 }
 .btnuultra-google:hover {
     background-color: #EF7122;
@@ -455,6 +467,14 @@ input.btnuultra {
 	max-width:700px !important;
 }
 
+.xoouserultra-register
+{
+        alignment-adjust: margin-left: auto !important;
+	margin-right: auto !important;
+	width:99%;
+	max-width:700px !important; 
+}
+
 /**/
 
 
@@ -464,7 +484,6 @@ input.btnuultra {
 	position:relative;
 	width: 100%;
 	
-	font-family: Open Sans;
 	margin-left: auto !important;
 	margin-right: auto !important;
 	background-color:#FFF;
@@ -480,7 +499,6 @@ input.btnuultra {
 .usersultra-dahsboard-cont .usersultra-dahsboard-left{
 	display:inline-block;
 	vertical-align:top;
-	font-family: Open Sans;
 	margin: 0px 2% 20px auto;
 	padding:0px 10px 0px 5px;
 	border-right:solid 1px #EFEFEF;
@@ -682,7 +700,6 @@ width:90%
 	vertical-align:top;
 	
 	width: 76%;
-	font-family: Open Sans;
 	margin: 0px auto 20px auto;
 	
 	
@@ -707,7 +724,6 @@ width:90%
 .usersultra-dahsboard-cont .usersultra-dahsboard-right{
 	float: right;
 	width: 15%;	
-	font-family: Open Sans;
 	margin: 0px auto 5px auto;
 	border:solid 1px #EFEFEF;
 	
@@ -1291,7 +1307,6 @@ box-shadow: 0px ;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	font-family: Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif;
 	color: #333;
 	line-height: 1;
 	margin-top:15px !important;
@@ -1308,7 +1323,6 @@ box-shadow: 0px ;
 }
 #table-3 th {
 	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
-	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
 	font-weight: normal;
 	padding: 7px 7px 8px;
 	text-align: left;
@@ -1381,10 +1395,10 @@ background: #F9F9F9;
 
 .formError .formErrorContent {
 	width: 100%;
-	background: #ee0101;
+	//background: #ee0101;
 	position:relative;
 	top:5px;
-	color: #fff;
+	color: #EE0101;
 	min-width: 120px;
 	font-size: 11px;
 	border: 2px solid #ddd;

@@ -1,14 +1,21 @@
 <?php
 class XooUserLogin {
+	
+	var $mIsSocialLogin;
 
 	function __construct() 
 	{
 		/*-----------Referece Social Users Types*/
 		/* 1 - Facebook, 2 - LinkedIn,  3- Yahoo, 4 - Google, 5 - Twitter , 6 - yammer */
+		
 		/*------------------------------*/
+		
+		$this->mIsSocialLogin = false;
 		
 		if (isset($_GET['uultrasocialsignup'])) 
 		{
+			$this->mIsSocialLogin = true;
+			
 			session_start();
 			$_SESSION['google_token']  = NULL;
 			/* get social links */
@@ -20,6 +27,7 @@ class XooUserLogin {
 		
 		if( isset( $_GET['code'] ) && isset($_REQUEST['uultraplus']) && $_REQUEST['uultraplus'] == '1' ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize */
 			$this->google_authorize();
 			
@@ -28,12 +36,14 @@ class XooUserLogin {
 		
 		if ( isset( $_REQUEST['oauth_verifier'] ) && isset( $_REQUEST['oauth_token'] ) && !isset($_REQUEST['uultralinkedin']) ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize twitter*/
 			$this->twitter_authorize();
 		}
 		
 		if( isset( $_GET['code'] ) && isset($_REQUEST['uultryammer']) && $_REQUEST['uultryammer'] == '1' ) 
 		{
+			$this->mIsSocialLogin = true;
 			/* authorize yammer*/
 			$this->yammer_authorize();
 		}
@@ -60,6 +70,7 @@ class XooUserLogin {
 		//facebook						
 		if (isset($_GET['code']) && !isset($_REQUEST['uultraplus']) && !isset($_REQUEST['uultryammer'])) 
 		{
+			$this->mIsSocialLogin = true;
 						
 			// Setting default to false;
 			$this->errors = false;			
@@ -71,6 +82,7 @@ class XooUserLogin {
 		//yahooo and google
 		if (isset($_GET["openid_ns"])) 
 		{
+			$this->mIsSocialLogin = true;
 			// Setting default to false;
 			$this->errors = false;			
 			/* */
@@ -89,6 +101,7 @@ class XooUserLogin {
 		//linkedin
 		if (isset($_GET['oauth_token']) && isset($_REQUEST['uultralinkedin']) ) 
 		{
+			$this->mIsSocialLogin = true;
 						
 			// Setting default to false;
 			$this->errors = false;			
@@ -1454,7 +1467,8 @@ class XooUserLogin {
 	 /*Handle Facebook Sign up*/
 	public function handle_social_facebook() 
 	{
-		global $xoouserultra ;
+		
+                global $xoouserultra ;
 		
 		require_once(ABSPATH . 'wp-includes/pluggable.php');
 		require_once(xoousers_path."libs/fbapi/src/facebook.php");
@@ -1476,24 +1490,32 @@ class XooUserLogin {
 		
 		if($user) 
 		{
-									
 		
-			 $user_profile = $facebook->api('/me','GET');
-			 $fbid = $user_profile['id'];
-			// $user_picture = $facebook->api('/'.$fbid.'/picture','GET');
 			
+                        $user_profile = $facebook->api('/me','GET');
+                        $fbid = $user_profile['id'];
+                        
+			//$user_picture = $facebook->api('/'.$fbid.'/picture','GET');
+			$user_picture = $facebook->api('/me/picture','GET', array (
+                            'redirect' => false,
+                            'type'     => 'large'));
+                        $user_picture = $user_picture["data"]; 
+                        
 			 $u_user = $this->unique_user('facebook', $user_profile);
-		     $u_name = $user_profile['name'];
-		     $u_email = $user_profile['email'];
-		     $u_fb_id = $user_profile['id'];
+                        $u_name = $user_profile['name'];
+                        $u_first_name = $user_profile['first_name'];
+                        $u_last_name = $user_profile['last_name'];
+                        $u_email = $user_profile['email'];
+                        $u_fb_id = $user_profile['id'];
 			 
 			 //Sanitize Login
 			 $user_login = sanitize_user ($u_user, true);	
 			 
-			 
-			 //check if already registered
+			
+                         //check if already registered
 			  $exists = email_exists($u_email);
-			  if(!$exists)
+                          
+                          if(!$exists)
 			  {
 				  //lets create
 				  
@@ -1505,12 +1527,12 @@ class XooUserLogin {
 								'user_login' => $user_login,
 								'display_name' => (!empty ($u_name) ? $u_name : $u_user),
 								'user_email' => $u_email,																				
-								'user_pass' => $user_pass
+								'user_pass' => $user_pass,
 							);
 	
 				// Create a new user
 				$user_id = wp_insert_user ($user_data);
-				
+                                
 				if ( ! $user_id ) 
 				{
 				
@@ -1518,13 +1540,16 @@ class XooUserLogin {
 					
 						update_user_meta ($user_id, 'xoouser_ultra_social_signup', 1);
 						update_user_meta ($user_id, 'xoouser_ultra_facebook_id', $u_fb_id);	
-						
+
+                                                
 						$verify_key = $this->get_unique_verify_account_id();					
 						update_user_meta ($user_id, 'xoouser_ultra_very_key', $verify_key);						
-						update_user_meta ($user_id, 'first_name', $u_name);
-											
+						update_user_meta ($user_id, 'first_name', $u_first_name);
+                                                update_user_meta ($user_id, 'last_name', $u_last_name);
+						update_user_meta ($user_id, 'user_pic', $user_picture['url']);					
 						//update_user_meta ($user_id, 'usersultra_account_status', 'active');
-						
+                                                
+                                                $this->set_user_avatar($user_id, $user_picture);
 						//set account status
 						$this->user_account_status($user_id);
 						
@@ -1562,18 +1587,25 @@ class XooUserLogin {
 				$users = get_users(array(
 							'meta_key'     => 'xoouser_ultra_facebook_id',
 							'meta_value'   => $u_fb_id,
-							'meta_compare' => '='
+							'meta_compare' => '=',
 				));
-				if (isset($users[0]->ID) && is_numeric($users[0]->ID) ){
+                                
+                                //User has signed in with facebook before
+                                if (isset($users[0]->ID) && is_numeric($users[0]->ID) ){
 					$returning = $users[0]->ID;
 					$user_login = $users[0]->user_login;
-				} else {
-					$returning = '';
+                                        $user = get_user_by('login',$user_login);				
+                                //user with an existing email address has not signed in with facebook before
+                                } else {
+					//Try getting the user by their email address
+                                        $user = get_user_by('email',$u_email);
+                                        $returning = '';
 				}
 				
-				$user = get_user_by('login',$user_login);				
 				$user_id =$user->ID;
-				
+                                
+                                $this->set_user_avatar($user_id, $user_picture);
+                                
 				if($this->is_active($user_id))
 				{
 					//is active then login
@@ -1671,9 +1703,16 @@ class XooUserLogin {
 	  }elseif($activation_type==3){
 		  
 		  //manually approved
-		  update_user_meta ($user_id, 'usersultra_account_status', 'pending_admin');
+		  update_user_meta ($user_id, 'usersultra_account_status', 'pending_admin');	  
 	  
+	  }
 	  
+	   //special rule for social registration added on 08-08-2014	  
+	  if($this->mIsSocialLogin)
+	  {
+		  //automatic activation
+		  update_user_meta ($user_id, 'usersultra_account_status', 'active');
+		  
 	  }
 	
   }
@@ -2067,6 +2106,136 @@ class XooUserLogin {
 		return $display;
 	}
 
+        function set_user_avatar($o_id, $user_profile_pic)
+	{
+                global $xoouserultra;
+		global $wpdb;
+		
+		require_once(ABSPATH . 'wp-includes/link-template.php');
+		$site_url = site_url()."/";
+		
+		
+		/// Upload file using Wordpress functions:
+		//$file = $_FILES['user_pic'];
+		$file = download_url($user_profile_pic['url']);
+                
+                
+		$original_max_width = $xoouserultra->get_option('media_avatar_width'); 
+                $original_max_height =$xoouserultra->get_option('media_avatar_height'); 
+		
+		if($original_max_width=="" || $original_max_height==80)
+		{			
+			$original_max_width = 100;			
+			$original_max_height = 100;
+			
+		}
+		
+				
+		//$info = pathinfo($file['name']);    //download_url returns a .tmp file, so this doesn't work here
+		//$real_name = $file['name'];
+                
+                //This is to remove any URL parameters that were included
+                $path = parse_url($user_profile_pic['url'], PHP_URL_PATH);
+                $info = pathinfo($path);
+                $ext = $info['extension'];        
+		$ext=strtolower($ext);
+		
+                
+                
+		$rand = $this->genRandomString();
+		
+		$rand_name = "avatar_".$rand."_".session_id()."_".time(); 		
+		$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');
+			
+		
+                
+		if($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif') 
+		{   
+                        if($o_id != '')
+			{
+                                    if(!is_dir($path_pics."/".$o_id."")) {
+                                            wp_mkdir_p($path_pics."/".$o_id);
+                                            //$this->CreateDir($path_pics."/".$o_id);								   
+					}					
+					
+					$pathBig = $path_pics."/".$o_id."/".$rand_name.".".$ext;
+					
+					if (copy($file, $pathBig)) 
+					{
+                                                $upload_folder = $xoouserultra->get_option('media_uploading_folder');				
+						$path = $site_url.$upload_folder."/".$o_id."/";
+						
+                                                
+						//check max width
+												
+						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+						
+                                                
+						if($source_width > $original_max_width) 
+						{
+							
+                                                        //resize
+							if (createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
+							{
+                                                                $old = umask(0);
+								chmod($pathBig, 0755);
+								umask($old);
+														
+							}
+						
+						
+						}
+						
+						$new_avatar = $rand_name.".".$ext;						
+						$new_avatar_url = $path.$rand_name.".".$ext;					
+						
+						//check if there is another avatar						
+						$user_pic = get_user_meta($o_id, 'user_pic', true);						
+						
+                                                
+						if ( $user_pic!="" )
+                                                {
+							//there is a pending avatar - delete avatar																					
+							
+                                                        //for whatever reason, "file_exists" only returns true without the site url prepended
+							//$path_pics = $site_url.$xoouserultra->get_option('media_uploading_folder');							
+                                                        $path_pics = $xoouserultra->get_option('media_uploading_folder');							
+                                                        $path_avatar = $path_pics."/".$o_id."/".$user_pic;					
+							
+                                                        
+							//delete								
+							if(file_exists($path_avatar))
+							{   
+                                                            unlink($path_avatar);
+							}
+							
+							//update meta
+							update_user_meta($o_id, 'user_pic', $new_avatar);
+						}else{
+							
+							//update meta
+							update_user_meta($o_id, 'user_pic', $new_avatar);
+												
+						
+						}
+						unlink($file);
+						//update user meta
+						
+						
+						
+					}
+									
+					
+			     }  		
+			
+			  
+			
+        } // image type
+		
+		// Create response array:
+		$uploadResponse = array('image' => $new_avatar_url);
+	}
+        
 }
 $key = "login";
 $this->{$key} = new XooUserLogin();

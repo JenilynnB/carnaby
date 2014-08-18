@@ -4434,7 +4434,7 @@ class XooUserUser {
 	{
 		
 		 global  $xoouserultra;
-		 
+
 		 require_once(ABSPATH . 'wp-includes/link-template.php');
 		$site_url = site_url()."/";
 		 
@@ -4450,7 +4450,7 @@ class XooUserUser {
 		
 		if($size_type=="fixed" || $size_type=="")
 		{
-			$dimension = "width:";
+                        $dimension = "width:";
 			$dimension_2 = "height:";
 		}
 		
@@ -4462,7 +4462,7 @@ class XooUserUser {
 		
 		if($size!="")
 		{
-			$pic_size = $dimension.$size."px".";".$dimension_2.$size."px";
+                    $pic_size = $dimension.$size."px".";".$dimension_2.$size."px";
 		
 		}
 		
@@ -4470,15 +4470,14 @@ class XooUserUser {
 		
 		if($pic_type=='avatar')
 		{
-		
 			if ($author_pic  != '') 
 			{
-				$avatar_pic = $path.$author_pic;
+                                //echo $user_url;
+                                $avatar_pic = $path.$author_pic;
 				$avatar= '<a href="'.$user_url.'">'. '<img src="'.$avatar_pic.'" class="'.$pic_boder_type.'" style="'.$pic_size.' "   id="uultra-avatar-img-'.$id.'" /></a>';
-				
 			} else {		
-				
-				$avatar= '<a href="'.$user_url.'">'. get_avatar($id,$size) .'</a>';
+					
+                            $avatar= '<a href="'.$user_url.'">'. get_avatar($id,$size) .'</a>';
 				
 			
 				
@@ -4493,7 +4492,71 @@ class XooUserUser {
 		
 		
 		}
+		return $avatar;
+	}
+        
+        /* Get picture by ID, if you don't want it returned in formatted HTML */
+	function get_user_pic_url( $id, $size, $pic_type=NULL, $pic_boder_type= NULL, $size_type=NULL ) 
+	{
 		
+		 global  $xoouserultra;
+
+		 require_once(ABSPATH . 'wp-includes/link-template.php');
+		$site_url = site_url()."/";
+		 
+		$avatar = "";
+		$pic_size = "";
+		
+		$upload_folder = $xoouserultra->get_option('media_uploading_folder');				
+		$path = $site_url.$upload_folder."/".$id."/";			
+		$author_pic = get_the_author_meta('user_pic', $id);
+		
+		//get user url
+		$user_url=$this->get_user_profile_permalink($id);
+		
+		if($size_type=="fixed" || $size_type=="")
+		{
+                        $dimension = "width:";
+			$dimension_2 = "height:";
+		}
+		
+		if($size_type=="dynamic" )
+		{
+			$dimension = "max-width:";
+		
+		}
+		
+		if($size!="")
+		{
+                    $pic_size = $dimension.$size."px".";".$dimension_2.$size."px";
+		
+		}
+		
+		
+		
+		if($pic_type=='avatar')
+		{
+			if ($author_pic  != '') 
+			{
+                                //echo $user_url;
+                                $avatar = $path.$author_pic;
+				
+			} else {		
+					
+                            $avatar= get_avatar($id,$size);
+				
+			
+				
+			}
+		
+		}elseif($pic_type=='mainpicture'){
+			    
+				//get user's main picture - medium size will be used to be displayed
+			
+			    $avatar = $path.$author_pic;
+		
+		
+		}
 		return $avatar;
 	}
 	
