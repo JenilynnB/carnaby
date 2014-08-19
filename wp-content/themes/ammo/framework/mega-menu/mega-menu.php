@@ -22,13 +22,22 @@ function get_current_menu_class($menies, $menu_item){
     $_indexless_current = untrailingslashit( preg_replace( '/' . preg_quote( $wp_rewrite->index, '/' ) . '$/', '', $current_url ) );
     $front_page_url = home_url();
 
+    //Determining if there is an active directory category in the query
+    $query_tax = get_query_var("tax_query");
+    //$wpbdp_tax_terms = $query_tax[0]["terms"];
+    $wpbdp_tax_terms = $query_tax[0];
+    $main_query = get_queried_object();
+
+    
     $classes = implode(" ",$menu_item->classes).' menu-item menu-item-type-'.$menu_item->type.' menu-item-object-'.$menu_item->object;
 
     if ( $raw_item_url && in_array( $item_url, array( $current_url, $_indexless_current, $_root_relative_current ) ) ) {
         $classes .= ' current-menu-item';
     } elseif ( $item_url == $front_page_url && is_front_page() ) {
         $classes .= ' current-menu-item';
-    }
+    } /*elseif ($query_tax || $main_query->slug){
+        $classes .= ' current-menu-item';
+    }*/
 
     if ( untrailingslashit($item_url) == home_url() )
         $classes .= ' menu-item-home';

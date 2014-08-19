@@ -5,19 +5,41 @@
 <?php
     //after submitting search & filter form once
     $query_tax = get_query_var("tax_query");
-    $wpbdp_tax_terms = $query_tax[0]["terms"];
-
-    //when starting from a category page
+    //there is only one term inside the array passed in common-functions.php, if more are passed this should be expanded
+    $query_tax = $query_tax[0];    
     $main_query = get_queried_object();
-
-      $breadcrumbs = '';
-
-    if($wpbdp_tax_terms){
-        $breadcrumbs = $wpbdp_tax_terms;
-    }else if ($main_query){
-        $breadcrumbs = $main_query->slug;
+    
+    if($query_tax){
+        $term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $parent = get_term($term->parent, WPBDP_CATEGORY_TAX);
+    }else if($main_query){
+        //$term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $term = $main_query;
+        $parent = get_term($main_query->parent, WPBDP_CATEGORY_TAX);
     }
-
+    
+    $breadcrumbs = '';
+    //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
+    
+    if($parent->term_id!=""){
+        $parent_base_url = site_url("site_categories");
+        $parent_url = $parent_base_url."/".$parent->slug;
+        
+        $breadcrumbs .= "<a href='".$parent_url."'>".$parent->name."</a>";
+        $breadcrumbs .= " > ";
+    }
+    
+    $breadcrumbs .= $term->name;
+    
+    //when starting from a category page
+    /*
+    if($term){
+        $breadcrumbs = $wpbdp_tax_terms;
+        $breadcrumbs = $term->name;
+    }else if ($main_query){
+        $breadcrumbs = $main_query->name;
+    }
+*/
 ?>
                             
 
@@ -112,16 +134,23 @@
                                                 //put some code here to show the correct side menu on each category page
                                                 
                                                 //after submitting search & filter form once
+                                                /*
                                                 $query_tax = get_query_var("tax_query");
                                                 $wpbdp_tax_terms = $query_tax[0]["terms"];
                                                 
                                                 //when starting from a category page
                                                 $main_query = get_queried_object();
-                                                
-                                                if($wpbdp_tax_terms=="women" || $main_query->slug == "women"){
+                                                */
+                                                if($term->slug == "women"){
                                                     echo do_shortcode( '[searchandfilter id="268"]' ); 
-                                                }else if ($wpbdp_tax_terms == "men" || $main_query->slug == "men"){
+                                                }else if ($term->slug == "men"){
                                                     echo do_shortcode( '[searchandfilter id="1065"]' );
+                                                }else if ($term->slug == "girls"){
+                                                    echo do_shortcode( '[searchandfilter id="1147"]' );
+                                                }else if ($term->slug == "boys"){
+                                                    echo do_shortcode( '[searchandfilter id="1148"]' );
+                                                }else if ($term->slug == "baby"){
+                                                    echo do_shortcode( '[searchandfilter id="1149"]' );
                                                 }else{
                                                     echo do_shortcode( '[searchandfilter id="1143"]' );
                                                 }
