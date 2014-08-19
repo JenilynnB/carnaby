@@ -2,12 +2,43 @@
 	get_header();
 ?>
 
+<?php
+    //after submitting search & filter form once
+    $query_tax = get_query_var("tax_query");
+    $wpbdp_tax_terms = $query_tax[0]["terms"];
+
+    //when starting from a category page
+    $main_query = get_queried_object();
+
+      $breadcrumbs = '';
+
+    if($wpbdp_tax_terms){
+        $breadcrumbs = $wpbdp_tax_terms;
+    }else if ($main_query){
+        $breadcrumbs = $main_query->slug;
+    }
+
+?>
+                            
+
+<section class="page-title section " style="text-align:left;padding-top:20px; padding-bottom:20px;"  >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h1><?php echo $breadcrumbs ?></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Start Content
 ================================================== -->
 <section class="primary section">
     <div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12">                    
                                 <div class="row">
 					<div class="col-md-9 pull-right">
 						<div class="content">
@@ -79,7 +110,22 @@
                                             <div class="sidebar">
                                                 <?php 
                                                 //put some code here to show the correct side menu on each category page
-                                                echo do_shortcode( '[searchandfilter id="268"]' ) 
+                                                
+                                                //after submitting search & filter form once
+                                                $query_tax = get_query_var("tax_query");
+                                                $wpbdp_tax_terms = $query_tax[0]["terms"];
+                                                
+                                                //when starting from a category page
+                                                $main_query = get_queried_object();
+                                                
+                                                if($wpbdp_tax_terms=="women" || $main_query->slug == "women"){
+                                                    echo do_shortcode( '[searchandfilter id="268"]' ); 
+                                                }else if ($wpbdp_tax_terms == "men" || $main_query->slug == "men"){
+                                                    echo do_shortcode( '[searchandfilter id="1065"]' );
+                                                }else{
+                                                    echo do_shortcode( '[searchandfilter id="1143"]' );
+                                                }
+                                                
                                                 
                                                 ?>
                                             </div>

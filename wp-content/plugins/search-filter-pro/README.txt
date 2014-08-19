@@ -4,7 +4,7 @@ Donate link:
 Tags: posts, custom posts, products, category, filter, taxonomy, post meta, custom fields, search, wordpress, post type, post date, author
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Search and Filtering for posts, products and custom posts. Allow your users to Search & Filter by taxonomies, custom fields and more.
 
@@ -56,6 +56,9 @@ Great for searching in your online shop, tested with: WooCommerce and WP eCommer
 
 
 == Changelog ==
+
+= 1.2.2 =
+* Fix - stopped using short syntax array in php (`[]`) which is only supported in php version 5.4+
 
 = 1.2.1 =
 * Fix - a JS error for older Ajax setups
