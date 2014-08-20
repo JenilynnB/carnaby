@@ -44,7 +44,7 @@ class Search_Filter_Handle_Posts
 			{
 				//set var to confirm the form was posted
 				$this->has_form_posted = true;
-				echo "farts";
+				
 				//get form id, and check if this form is using a template
 				if(isset($_POST[SF_FPRE.'form_id']))
 				{

@@ -42,6 +42,7 @@ class Search_Filter_Get_Results
 		
 		$args = "";
 		$args = $this->get_query_args();
+		
 		$returnvar = "";
 		
 		$query = new WP_Query($args);
@@ -86,7 +87,8 @@ class Search_Filter_Get_Results
 		global $sf_form_data;
 		global $wp_query;
 		
-		$args = [];
+		$args = array();
+		
 		$sf_form_data->init(esc_attr($_GET['sfid']));
 	
 		$paged = 1;
@@ -137,7 +139,7 @@ class Search_Filter_Get_Results
 		global $wpdb; 
 		global $wp_query;
 		global $sf_form_data;
-			
+				
 		if(!is_admin())
 		{
 			if(count($this->meta_query_var)>0)
@@ -286,7 +288,7 @@ class Search_Filter_Get_Results
 		global $wp_query;
 		global $sf_form_data;
 		
-
+	
 		$tax_query = array();
 		
 		foreach($_GET as $key=>$val)
@@ -366,6 +368,7 @@ class Search_Filter_Get_Results
 	function filter_query_meta($query, $key)
 	{
 		global $wp_query;
+		
 		// strip off all "meta_" prefix
 		if (strpos($key, SF_META_PRE) === 0)
 		{
@@ -424,9 +427,6 @@ class Search_Filter_Get_Results
 				$meta_query_arr = array();
 				$meta_query_arr['relation'] = 'OR';
 				
-                                //trying this because it's impossible to tell is a meta field is serialized from here (all values could be blank on sample)
-                                $this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
-                                /*
 				if($this->is_meta_type_serialized($key))
 				{
 					$this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
@@ -435,8 +435,6 @@ class Search_Filter_Get_Results
 				{
 					$this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "value");
 				}
-                                 * 
-                                 */
 			}
 			else if($meta_field['meta_type']=="date")
 			{
@@ -551,9 +549,7 @@ class Search_Filter_Get_Results
 		}
 		return $date;
 	}
-	
-        //Their function, doesn't work because it doesn't account for custom post types
-        /*function is_meta_type_serialized($meta_key)
+	function is_meta_type_serialized($meta_key)
 	{
 		
 		$args = array(			
@@ -587,42 +583,7 @@ class Search_Filter_Get_Results
 			return false;
 		}
 		
-	}*/
-        function is_meta_type_serialized($meta_key, $query)
-	{
-                $query_vars = $query->query_vars;
-                $post_types = $query_vars["post_type"];
-                $args = array(			
-			'meta_key' => $meta_key,
-			'post_type' => $post_types,
-                        'posts_per_page' => 2
-		);
-            
-		$arr_count = 0;
-		$postslist = get_posts( $args );
-		//echo print_r($postslist);
-                $postlistcount = count($postslist);
-		foreach ( $postslist as $post )
-		{
-                        $post_meta = get_post_meta($post->ID, $meta_key, true);
-			
-			if(is_array($post_meta))
-			{
-				$arr_count++;
-			}
-		}
-		
-		if($postlistcount==$arr_count)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		
 	}
-        
 	
 	function filter_query_sort_order($args)
 	{

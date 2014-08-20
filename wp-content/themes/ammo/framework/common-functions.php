@@ -1037,16 +1037,114 @@ function filter_results( $query )
 {
     global $sf_form_data;
     global $wp_query;
-    
     if ( $sf_form_data->is_valid_form() && $query->is_main_query() && !is_admin() )
     {
-	//If the search & filter form is for Women
+        //If the search & filter form is for Women
         if($sf_form_data->form_id()=="268"){    
             //Figure out how to filter by wpbdp_category
-            $query->set('_sft_wpbdp_cat', '1'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+            //$query->set('_sft_wpbdp_cat', '1'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+            
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'name',
+                        'terms' => "Women",
+                        'operator'=> 'IN'
+                    )
+                );
+            $query->set( 'tax_query', $taxquery ); 
+            
         }else if($sf_form_data->form_id()=="1065"){    
             //Figure out how to filter by wpbdp_category
-            $query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+            //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
+        
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'name',
+                        'terms' => "Men",
+                        'operator'=> 'IN'
+                    )
+                );
+            $query->set( 'tax_query', $taxquery ); 
+        }else if($sf_form_data->form_id()=="1143"){    
+            //Figure out how to filter by wpbdp_category
+            //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts    
+            
+           
+
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => 'kids-baby',
+                        'operator'=> 'IN'
+                    )/*,
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => "kids-baby",
+                        'operator'=> 'IN'
+                    )*/
+                );
+            $query->set( 'tax_query', $taxquery ); 
+        }else if($sf_form_data->form_id()=="1147"){    
+            //Figure out how to filter by wpbdp_category
+            //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts    
+
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => 'girls',
+                        'operator'=> 'IN'
+                    )/*,
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => "kids-baby",
+                        'operator'=> 'IN'
+                    )*/
+                );
+            $query->set( 'tax_query', $taxquery ); 
+        }else if($sf_form_data->form_id()=="1148"){    
+            //Figure out how to filter by wpbdp_category
+            //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts    
+
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => 'boys',
+                        'operator'=> 'IN'
+                    )/*,
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => "kids-baby",
+                        'operator'=> 'IN'
+                    )*/
+                );
+            $query->set( 'tax_query', $taxquery ); 
+        }else if($sf_form_data->form_id()=="1149"){    
+            //Figure out how to filter by wpbdp_category
+            //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts    
+
+            $taxquery = array(
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => 'baby',
+                        'operator'=> 'IN'
+                    )/*,
+                    array(
+                        'taxonomy' => 'wpbdp_category',
+                        'field' => 'slug',
+                        'terms' => "kids-baby",
+                        'operator'=> 'IN'
+                    )*/
+                );
+            $query->set( 'tax_query', $taxquery ); 
         }
         
     }

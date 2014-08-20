@@ -707,7 +707,7 @@ function get_largest_and_smallest_sizes($sizes){
     $res = array("largest","smallest");
     
     //This really should be abstracted to pull from the ACF plugin
-    $letter_sizes = ['XXS','XS','S','M','L','XL','XXL','XXXL'];
+    $letter_sizes = array('XXS','XS','S','M','L','XL','XXL','XXXL');
     
     //$largest = max($sizes);
     //$smallest = min($sizes);

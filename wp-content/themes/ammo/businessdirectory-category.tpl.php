@@ -2,12 +2,65 @@
 	get_header();
 ?>
 
+<?php
+    //after submitting search & filter form once
+    $query_tax = get_query_var("tax_query");
+    //there is only one term inside the array passed in common-functions.php, if more are passed this should be expanded
+    $query_tax = $query_tax[0];    
+    $main_query = get_queried_object();
+    
+    if($query_tax){
+        $term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $parent = get_term($term->parent, WPBDP_CATEGORY_TAX);
+    }else if($main_query){
+        //$term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $term = $main_query;
+        $parent = get_term($main_query->parent, WPBDP_CATEGORY_TAX);
+    }
+    
+    $breadcrumbs = '';
+    //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
+    
+    if($parent->term_id!=""){
+        $parent_base_url = site_url("site_categories");
+        $parent_url = $parent_base_url."/".$parent->slug;
+        
+        $breadcrumbs .= "<a href='".$parent_url."'>".$parent->name."</a>";
+        $breadcrumbs .= " > ";
+    }
+    
+    $breadcrumbs .= $term->name;
+    
+    //when starting from a category page
+    /*
+    if($term){
+        $breadcrumbs = $wpbdp_tax_terms;
+        $breadcrumbs = $term->name;
+    }else if ($main_query){
+        $breadcrumbs = $main_query->name;
+    }
+*/
+?>
+                            
+
+<section class="page-title section " style="text-align:left;padding-top:20px; padding-bottom:20px;"  >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h1><?php echo $breadcrumbs ?></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Start Content
 ================================================== -->
 <section class="primary section">
     <div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12">                    
                                 <div class="row">
 					<div class="col-md-9 pull-right">
 						<div class="content">
@@ -79,7 +132,29 @@
                                             <div class="sidebar">
                                                 <?php 
                                                 //put some code here to show the correct side menu on each category page
-                                                echo do_shortcode( '[searchandfilter id="268"]' ) 
+                                                
+                                                //after submitting search & filter form once
+                                                /*
+                                                $query_tax = get_query_var("tax_query");
+                                                $wpbdp_tax_terms = $query_tax[0]["terms"];
+                                                
+                                                //when starting from a category page
+                                                $main_query = get_queried_object();
+                                                */
+                                                if($term->slug == "women"){
+                                                    echo do_shortcode( '[searchandfilter id="268"]' ); 
+                                                }else if ($term->slug == "men"){
+                                                    echo do_shortcode( '[searchandfilter id="1065"]' );
+                                                }else if ($term->slug == "girls"){
+                                                    echo do_shortcode( '[searchandfilter id="1147"]' );
+                                                }else if ($term->slug == "boys"){
+                                                    echo do_shortcode( '[searchandfilter id="1148"]' );
+                                                }else if ($term->slug == "baby"){
+                                                    echo do_shortcode( '[searchandfilter id="1149"]' );
+                                                }else{
+                                                    echo do_shortcode( '[searchandfilter id="1143"]' );
+                                                }
+                                                
                                                 
                                                 ?>
                                             </div>

@@ -18,7 +18,7 @@ class Search_Filter {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.2.1';
+	const VERSION = '1.2.2';
 	
 	/**
 	 * @TODO - Rename "plugin-name" to the name your your plugin
@@ -73,7 +73,7 @@ class Search_Filter {
 		add_action( 'wp_ajax_nopriv_get_results', array($this, 'get_results') );
 		
 		add_action( 'init', array( $this, 'create_custom_post_types' ) );
-
+		
 		if(!is_admin())
 		{
 			//add_action( 'init', array( $this, 'set_search_form_vars' ) );
@@ -102,7 +102,7 @@ class Search_Filter {
 	
 	function get_results()
 	{
-                //handle posts from ajax request and redirect
+		//handle posts from ajax request and redirect
 		$check_posts_class = new Search_Filter_Handle_Posts($this->plugin_slug);
 		
 		//if no redirect, get results based on URL
@@ -116,6 +116,7 @@ class Search_Filter {
 	{
 		global $sf_form_data;
 		$newrules = array();
+		
 		$args = array(
 			 'posts_per_page' => 200,
 			 'post_type' => $this->plugin_slug."-widget",

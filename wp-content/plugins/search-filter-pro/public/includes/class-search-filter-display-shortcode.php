@@ -97,7 +97,7 @@ class Search_Filter_Display_Shortcode {
 
 		//grab search term for prefilling search input
 		if(isset($wp_query->query['s']))
-		{//!"ï¿½$%^&*()
+		{//!"£$%^&*()
 			$this->searchterm = trim(get_search_query());
 		}
 
@@ -282,8 +282,7 @@ class Search_Filter_Display_Shortcode {
 	
 	public function display_shortcode($atts, $content = null)
 	{
-		
-                $this->set_defaults();
+		$this->set_defaults();
 				
 		//load scripts on this page where the shortcode is called
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
@@ -299,6 +298,7 @@ class Search_Filter_Display_Shortcode {
 		), $atts));
 		
 		$returnvar = "";
+		
 		//make sure its set
 		if($id!="")
 		{
@@ -308,7 +308,6 @@ class Search_Filter_Display_Shortcode {
 			$settings = get_post_meta( $id , '_search-filter-settings' , true );
 			$addclass = "";
 			
-
 			if($show=="form")
 			{
 				
@@ -323,6 +322,7 @@ class Search_Filter_Display_Shortcode {
 						$sf_form_data->set_count_table($term_relationships->get_count_table());
 					}
 				}
+				
 				//make sure there are results
 				if(isset($fields))
 				{
@@ -422,15 +422,12 @@ class Search_Filter_Display_Shortcode {
 			}
 			else if($show=="results")
 			{
-				
-                                $returnvar = $this->display_results->output_results($base_form_id, $settings);
+				$returnvar = $this->display_results->output_results($base_form_id, $settings);
 			}
 			
 		}
 		
-		
-
-                return $returnvar;
+		return $returnvar;
 	}
 	
 	//switch for different field types

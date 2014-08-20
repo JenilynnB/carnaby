@@ -39,11 +39,10 @@ class Search_Filter_Setup_Query
 	{
 		global $sf_form_data;
 		global $wp_query;
-                
+		
 		if(($query->is_main_query())&&(!is_admin()))
 		{
-
-                        if(isset($wp_query->query['sfid']))
+			if(isset($wp_query->query['sfid']))
 			{
 				$sf_form_data->init($wp_query->query['sfid']);
 			}
@@ -64,7 +63,6 @@ class Search_Filter_Setup_Query
 				}
 			}
 		}
-		
 		return $query;
 	}
 	
@@ -267,7 +265,7 @@ class Search_Filter_Setup_Query
 				{//handle default filtering of query by meta
 					
 					$query = $this->filter_query_meta($query, $key);
-                                }
+				}
 				else if($this->is_taxonomy_key($key))
 				{//handle default filtering of taxonomy
 					
@@ -279,6 +277,7 @@ class Search_Filter_Setup_Query
 					}
 				}
 			}
+			
 			if(!empty($tax_query))
 			{
 				$query->set( 'tax_query', $tax_query );
@@ -290,7 +289,8 @@ class Search_Filter_Setup_Query
 			// Remove the filter after it is executed.
 			add_action('posts_selection', array($this,'remove_meta_query'));
 		}
-                return $query;
+		
+		return $query;
 	}
 	
 	function filter_query_taxonomy($query, $key, &$tax_query)
@@ -331,18 +331,18 @@ class Search_Filter_Setup_Query
 			$this->rel_query_args['taxonomies'][$key] = $taxterms;
 			//$this->rel_query_args['taxonomies'][] = $val;
 		}
-
+		
 		return $query;
 	}
 	
 	function filter_query_meta($query, $key)
 	{
 		global $wp_query;
-
+		
 		// strip off all "meta_" prefix
 		if (strpos($key, SF_META_PRE) === 0)
 		{
-                    $key = substr($key, strlen(SF_META_PRE));
+			$key = substr($key, strlen(SF_META_PRE));
 		}
 		
 		//ensure the remaining key is not blank
@@ -378,7 +378,7 @@ class Search_Filter_Setup_Query
 			{
 				
 				$meta_data = explode("+", esc_attr(urlencode($wp_query->query[SF_META_PRE.$key])));
-
+				
 				if (strpos(esc_attr($wp_query->query[SF_META_PRE.$key]),'-,-') !== false)
 				{
 					$operator = "OR";
@@ -387,27 +387,24 @@ class Search_Filter_Setup_Query
 				}
 				else
 				{
-                                        $operator = "AND";
+					$operator = "AND";
 					$ochar = "-+-";
 					$meta_data = explode($ochar, esc_attr(urlencode($wp_query->query[SF_META_PRE.$key])));
-                                        $meta_data = array_map( 'urldecode', ($meta_data) );
+					$meta_data = array_map( 'urldecode', ($meta_data) );
 				}
 				
 				// check if meta key is serialised...
 				$meta_query_arr = array();
 				$meta_query_arr['relation'] = 'OR';
-				
-                                
-                                //trying this, since it's impossible to tell for sure if a meta field is serialized
-                                $this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
+				$this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
                                 /*
-                                if($this->is_meta_type_serialized($key, $query))
+				if($this->is_meta_type_serialized($key))
 				{
-                                        $this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
+					$this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "serialized");
 				}
 				else
 				{
-                                        $this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "value");
+					$this->meta_query_var[] = array("key" => $key, "values" => $meta_data, "operator" => $operator, "type" => "value");
 				}
                                  * 
                                  */
@@ -486,7 +483,8 @@ class Search_Filter_Setup_Query
 				}				
 			}			
 		}
-                return $query;
+		
+		return $query;
 	}
 	function convert_date_to($type, $date, $date_output_format)
 	{
@@ -524,10 +522,10 @@ class Search_Filter_Setup_Query
 		}
 		return $date;
 	}
-	function is_meta_type_serialized($meta_key, $query)
+	function is_meta_type_serialized($meta_key)
 	{
-		/*
-                $args = array(			
+		
+		$args = array(			
 			'meta_query' => array(
 				array(
 					'key' => $meta_key
@@ -535,27 +533,17 @@ class Search_Filter_Setup_Query
 			),
 			'posts_per_page' => 2
 		);
-                */
-                $query_vars = $query->query_vars;
-                $post_types = $query_vars["post_type"];
-                $args = array(			
-			'meta_key' => $meta_key,
-			'post_type' => $post_types,
-                        'posts_per_page' => 2
-		);
-            
+		
 		$arr_count = 0;
 		$postslist = get_posts( $args );
-                //echo print_r($postslist);
-                $postlistcount = count($postslist);
+		$postlistcount = count($postslist);
 		foreach ( $postslist as $post )
 		{
-                        $post_meta = get_post_meta($post->ID, $meta_key, true);
-			echo $post->ID;
-                        echo $post_meta ."|";
-                        if(is_array($post_meta))
+			$post_meta = get_post_meta($post->ID, $meta_key, true);
+			
+			if(is_array($post_meta))
 			{
-                            $arr_count++;
+				$arr_count++;
 			}
 		}
 		
