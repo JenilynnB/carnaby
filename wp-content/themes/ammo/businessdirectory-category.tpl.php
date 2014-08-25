@@ -68,10 +68,14 @@
 								<div class="col-md-12 single-content">
                                                                     
                                                                     <?php wpbdp_the_listing_sort_options(); ?>
+                                                                    <div id="listings-results">
                                                                     <?php while (have_posts()): the_post(); ?>
-                                                                        <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
+                                                                        <?php 
+                                                                            echo wpbdp_render_listing(null, 'excerpt'); 
+                                                                            //echo do_shortcode('[searchandfilter id="268" show="results"]');
+                                                                        ?>
                                                                     <?php endwhile; ?>
-                                                                    
+                                                                    </div>
                                                                     <div class="wpbdp-pagination">
                                                                     <?php if (function_exists('wp_pagenavi')) : ?>
                                                                             <?php wp_pagenavi(); ?>
@@ -82,6 +86,7 @@
                                                                         <span class="next"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
                                                                     <?php endif; ?>
                                                                     </div>
+                                                                   
                                                                     <?php
                                                                         
 									//global $layout_sidebar;

@@ -22,12 +22,22 @@ function get_current_menu_class($menies, $menu_item){
     $_indexless_current = untrailingslashit( preg_replace( '/' . preg_quote( $wp_rewrite->index, '/' ) . '$/', '', $current_url ) );
     $front_page_url = home_url();
 
+    $term = null;
+    $parent = null;
     //Determining if there is an active directory category in the query
     $query_tax = get_query_var("tax_query");
-    //$wpbdp_tax_terms = $query_tax[0]["terms"];
-    $wpbdp_tax_terms = $query_tax[0];
+    //there is only one term inside the array passed in common-functions.php, if more are passed this should be expanded
+    $query_tax = $query_tax[0];    
     $main_query = get_queried_object();
-
+    if($query_tax){
+        $term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $parent = get_term($term->parent, WPBDP_CATEGORY_TAX);
+    }else if($main_query){
+        //$term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
+        $term = $main_query;
+        $parent = get_term($main_query->parent, WPBDP_CATEGORY_TAX);
+    }
+    
     
     $classes = implode(" ",$menu_item->classes).' menu-item menu-item-type-'.$menu_item->type.' menu-item-object-'.$menu_item->object;
 
@@ -35,9 +45,9 @@ function get_current_menu_class($menies, $menu_item){
         $classes .= ' current-menu-item';
     } elseif ( $item_url == $front_page_url && is_front_page() ) {
         $classes .= ' current-menu-item';
-    } /*elseif ($query_tax || $main_query->slug){
+    } /*elseif ($term->name == $menu_item->title || $parent->name == $menu_item->title ){
         $classes .= ' current-menu-item';
-    }*/
+    } */
 
     if ( untrailingslashit($item_url) == home_url() )
         $classes .= ' menu-item-home';

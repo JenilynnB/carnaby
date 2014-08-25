@@ -480,7 +480,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
  */
 class WPBDP_Listing_Submit_State {
 
-    public static $STEPS = array( 'category_selection',
+    public static $STEPS = array( //'category_selection',
                                   'fee_selection',
                                   'listing_fields',
                                   'images',
@@ -493,7 +493,7 @@ class WPBDP_Listing_Submit_State {
     public $listing_id = 0;
 
     public $step_number = 1;
-    public $step = 'category_selection';
+    public $step = 'listing_fields';
 
     public $fields = array();
     public $categories = array();
