@@ -159,7 +159,7 @@ class Search_Filter_Taxonomy_Walker extends Walker_Category {
 							}
 						}
 						
-						$output .= "<li class='".SF_ITEM_CLASS_PRE."0'><label><input type='".$this->type."' name='".$name."[]' value='0'".$checked." /> ".$show_option_all_sf."</label></li>";
+						$output .= "<li class='".SF_ITEM_CLASS_PRE."0'><span><input type='".$this->type."' name='".$name."[]' value='0'".$checked." /> ".$show_option_all_sf."</span></li>";
 					}
 				}
 			}
@@ -218,7 +218,7 @@ class Search_Filter_Taxonomy_Walker extends Walker_Category {
 				}
 				
 				$link  = "";
-				$link .= "<label><input type='".$this->type."' name='".$name."[]' value='".$cat_id."'".$checked.$disabled." data-sf-cr='".SF_TAX_PRE.$cat_id."' data-sf-hide-empty='".intval($hide_empty)."' /> ".$cat_name;
+				$link .= "<span><input type='".$this->type."' name='".$name."[]' value='".$cat_id."'".$checked.$disabled." data-sf-cr='".SF_TAX_PRE.$cat_id."' data-sf-hide-empty='".intval($hide_empty)."' /> ".$cat_name;
 
 				
 				if ( !empty($show_count) )
@@ -229,7 +229,7 @@ class Search_Filter_Taxonomy_Walker extends Walker_Category {
 				}
 					
 				
-				$link .= "</label>";
+				$link .= "</span>";
 				
 				if ( 'list' == $args['style'] ) {
 					$output .= "\t<li";

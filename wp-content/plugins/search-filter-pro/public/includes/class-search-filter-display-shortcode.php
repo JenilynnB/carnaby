@@ -97,7 +97,7 @@ class Search_Filter_Display_Shortcode {
 
 		//grab search term for prefilling search input
 		if(isset($wp_query->query['s']))
-		{//!"£$%^&*()
+		{//!"ï¿½$%^&*()
 			$this->searchterm = trim(get_search_query());
 		}
 
@@ -393,8 +393,9 @@ class Search_Filter_Display_Shortcode {
 							$form_attr.=' data-auto-count="'.esc_attr($auto_count).'"';
 						}
 						$returnvar .= '<form action="" method="post" class="searchandfilter'.$addclass.'"'.$form_attr.'>';
-						$returnvar .= "<ul>";
+						$returnvar .= "<div class='acordion panel-group' id='sf-".$base_form_id."'>";
 						
+                                                
 						//loop through each field and grab html
 						foreach ($fields as $field)
 						{
@@ -413,7 +414,7 @@ class Search_Filter_Display_Shortcode {
 							}
 						}
 						
-						$returnvar .= "</ul>";
+						$returnvar .= "</div>";
 						$returnvar .= "</form>";
 						
 						
@@ -453,14 +454,22 @@ class Search_Filter_Display_Shortcode {
 			$field_name = $field_data['type'];
 		}
 		
-		$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
-		
+		//$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
+		$returnvar .= "<div class='acc-panel panel-default'>";
+                //$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
+                
 		//display a heading? (available to all field types)
 		if(isset($field_data['heading']))
 		{
 			if($field_data['heading']!="")
 			{
-				$returnvar .= "<h4>".esc_html($field_data['heading'])."</h4>";
+				$returnvar .= "<div class='panel-heading'>";
+                                $returnvar .= "<h4 class='panel-title'>";
+                                $returnvar .= "<a data-toggle='collapse' href='#".$field_name."' data-parent='sf-".$base_form_id."'>".$field_data['heading']."</a>";
+                                $returnvar .= "</h4>";
+                                $returnvar .= "</div>";
+                                //$returnvar .= "<label for='".$field_name."'>".esc_html($field_data['heading'])."</label>";
+                                
 			}
 		}
 		
@@ -497,8 +506,9 @@ class Search_Filter_Display_Shortcode {
 			$returnvar .= $this->get_submit_field($field_data);
 		}
 		
-		$returnvar .= "</li>";
-		
+		//$returnvar .= "</li>";
+		$returnvar .= "</div>";
+                
 		return $returnvar;
 	}
 	
