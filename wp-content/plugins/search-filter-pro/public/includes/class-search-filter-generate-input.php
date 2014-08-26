@@ -51,18 +51,23 @@ class Search_Filter_Generate_Input {
 	
 	public function generate_wp_checkbox($args, $name, $labels = null)
 	{
-		$returnvar = '<ul>';
+                $returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name.'">';
+                $returnvar .= '<div class=panel-body>';
 		$returnvar .= $this->walk_taxonomy('checkbox', $args);
-		$returnvar .= "</ul>";
+		$returnvar .= "</div>";
+                $returnvar .= "</div>";
 		
 		return $returnvar;
 	}
 	
 	public function generate_wp_radio($args, $name, $labels = null)
 	{
-		$returnvar = '<ul>';
+		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
+		$returnvar .= '<div class=panel-body>';
 		$returnvar .= $this->walk_taxonomy('radio', $args);
-		$returnvar .= "</ul>";
+		$returnvar .= "</div>";
+                $returnvar .= "</div>";
+                
 		
 		return $returnvar;
 	}
@@ -139,9 +144,9 @@ class Search_Filter_Generate_Input {
 	
 	public function generate_checkbox($dropdata, $name, $defaults)
 	{
-		$returnvar = '<ul>';
-		
-		foreach($dropdata as $dropdown)
+		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
+		$returnvar .= '<div class=panel-body>';
+                foreach($dropdata as $dropdown)
 		{
 			$checked = "";
 			
@@ -159,19 +164,21 @@ class Search_Filter_Generate_Input {
 					}
 				}				
 			}
-			$returnvar .= '<li class="cat-item"><label><input class="postform cat-item" type="checkbox" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</label></li>';
+			$returnvar .= '<div class="cat-item"><span><input class="postform cat-item" type="checkbox" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</span></div>';
 		
 		}
 		
-		$returnvar .= '</ul>';
+                $returnvar .= '</div>';
+		$returnvar .= '</div>';
 		
 		return $returnvar;
 	}
 	
 	public function generate_radio($dropdata, $name, $defaults, $all_items_label = null)
 	{
-		$returnvar = '<ul>';
-		
+		$returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name.'">';
+		$returnvar .= '<div class=panel-body>';
+                
 		if(isset($all_items_label))
 		{
 			if($all_items_label!="")
@@ -189,7 +196,7 @@ class Search_Filter_Generate_Input {
 					}
 				}
 				
-				$returnvar .= '<li class="cat-item"><label><input class="postform" type="radio" name="'.$name.'[]" value=""'.$checked.'> '.esc_html($all_items_label).'</label></li>';
+				$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$name.'[]" value=""'.$checked.'> '.esc_html($all_items_label).'</span></div>';
 			}
 		}
 		
@@ -211,10 +218,11 @@ class Search_Filter_Generate_Input {
 					}
 				}
 			}
-			$returnvar .= '<li class="cat-item"><label><input class="postform" type="radio" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</label></li>';
+			$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</span></div>';
 		}
 		
-		$returnvar .= '</ul>';
+		$returnvar .= '</div>';
+                $returnvar .= '</div>';
 		
 		return $returnvar;
 	}
@@ -242,7 +250,6 @@ class Search_Filter_Generate_Input {
 	public function walk_taxonomy( $type = "checkbox", $args = array() )
 	{
 		$args['walker'] = new Search_Filter_Taxonomy_Walker($type, $args['name']);
-		
 		$output = wp_list_categories($args);
 		if ( $output )
 			return $output;
@@ -323,8 +330,8 @@ class Search_Filter_Generate_Input {
 	}
 	public function generate_range_radio($field, $min, $max, $step, $default, $value_prefix = "", $value_postfix = "")
 	{
-		$returnvar = '<ul>';
-		
+		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
+		$returnvar .= '<div class=panel-body>';
 		
 		$startval = $min;
 		$endval = $max;
@@ -350,19 +357,22 @@ class Search_Filter_Generate_Input {
 			{
 				$checked = ' checked="checked"';
 			}
-			$returnvar .= '<li class="cat-item"><label><input class="postform" type="radio" name="'.$field.'[]" value="'.$radio_value.'"'.$checked.'> '.esc_html($radio_label).'</label></li>';
+			$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$field.'[]" value="'.$radio_value.'"'.$checked.'> '.esc_html($radio_label).'</span></div>';
 		}
 		
 		
-		$returnvar .= '</ul>';
+		$returnvar .= '</div>';
+                $returnvar .= '</div>';
 		
 		return $returnvar;
 	}
 	
 	public function generate_range_checkbox($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "")
 	{
-		$returnvar = '<ul>';
-		
+		//$returnvar = '<ul>';
+                $returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
+		$returnvar .= '<div class=panel-body>';
+            
 		if(isset($this->defaults[SF_FPRE.'meta_'.$field]))
 		{
 			$defaults = $this->defaults[SF_FPRE.'meta_'.$field];
@@ -395,12 +405,15 @@ class Search_Filter_Generate_Input {
 			}
 			
 			$radio_label = $value_prefix.$radio_value.$value_postfix." - ".$value_prefix.$radio_top_value.$value_postfix;
-			$returnvar .= '<li class="cat-item"><label><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'"> '.esc_html($radio_label).'</label></li>';
+			//$returnvar .= '<li class="cat-item"><label><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'"> '.esc_html($radio_label).'</label></li>';
+                        $returnvar .= '<div class="cat-item"><span><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'"> '.esc_html($radio_label).'</span></div>';
 		}
 		
 		
-		$returnvar .= '</ul>';
-		
+		//$returnvar .= '</ul>';
+		$returnvar .= '</div>';
+                $returnvar .= '</div>';
+                
 		return $returnvar;
 	}
 	
