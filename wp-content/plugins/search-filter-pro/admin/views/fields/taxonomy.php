@@ -150,8 +150,16 @@
 					</p>
 					
 					<p class="item-container">
+                                                <!--
+                                                <input type="radio" name="include-exclude-ids" value="exclude" id="include-exclude-ids"/>
 						<label for="{0}[{1}][exclude_ids]"><?php _e("Exclude IDs", $this->plugin_slug); ?><span class="hint--top hint--info" data-hint="<?php _e("comma seperated list of category IDs to exclude", $this->plugin_slug); ?>"><i class="dashicons dashicons-info"></i></span><br />
 						<input class="" id="{0}[{1}][exclude_ids]" name="{0}[{1}][exclude_ids]" type="text" value="<?php echo esc_attr($values['exclude_ids']); ?>"></label>
+                                                
+                                                <br />
+                                                <input type="radio" name="include-exclude-ids" value="include" id="include-exclude-ids"/>
+						-->
+                                                <label for="{0}[{1}][include_ids]"><?php _e("Include IDs", $this->plugin_slug); ?><span class="hint--top hint--info" data-hint="<?php _e("comma seperated list of category IDs to include", $this->plugin_slug); ?>"><i class="dashicons dashicons-info"></i></span><br />
+						<input class="" id="{0}[{1}][include_ids]" name="{0}[{1}][include_ids]" type="text" value="<?php echo esc_attr($values['include_ids']); ?>"></label>
 					</p>
 					
 				</fieldset>

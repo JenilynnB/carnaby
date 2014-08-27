@@ -214,11 +214,27 @@ class Walker {
 			else
 				$children_elements[ $e->$parent_field ][] = $e;
 		}
-
-		/*
+                /*
+		 * When none of the elements is top level.
+		 * Find child element that does not have a parent included
+		 */
+                
+                if ( empty($top_level_elements) ) {
+                    foreach ($elements as $e){
+                        
+                        if($children_elements[$e->term_id]){
+                            //add to top elements
+                            $top_level_elements[] = $e;
+                            //remove item from children elements
+                            unset($children_elements[$e->parent]);
+                        }
+                    }
+                }
+                //I removed this section because it's incredibly lazy and a stupid way to find the top
+                /*
 		 * When none of the elements is top level.
 		 * Assume the first one must be root of the sub elements.
-		 */
+		 
 		if ( empty($top_level_elements) ) {
 
 			$first = array_slice( $elements, 0, 1 );
@@ -233,7 +249,8 @@ class Walker {
 					$children_elements[ $e->$parent_field ][] = $e;
 			}
 		}
-
+                */
+                
 		foreach ( $top_level_elements as $e )
 			$this->display_element( $e, $children_elements, $max_depth, 0, $args, $output );
 

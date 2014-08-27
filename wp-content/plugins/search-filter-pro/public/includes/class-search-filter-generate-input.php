@@ -249,8 +249,9 @@ class Search_Filter_Generate_Input {
 	
 	public function walk_taxonomy( $type = "checkbox", $args = array() )
 	{
-		$args['walker'] = new Search_Filter_Taxonomy_Walker($type, $args['name']);
-		$output = wp_list_categories($args);
+		//echo print_r($args);
+                $args['walker'] = new Search_Filter_Taxonomy_Walker($type, $args['name']);
+                $output = wp_list_categories($args);
 		if ( $output )
 			return $output;
 	}

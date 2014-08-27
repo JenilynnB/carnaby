@@ -100,7 +100,8 @@ class Search_Filter_Post_Data_Validation {
 			'order_by'				=> '',
 			'order_dir'				=> '',
 			'exclude_ids'			=> '',
-			'combo_box'				=> ''
+			'include_ids'                   => '',
+                        'combo_box'				=> ''
 		);
 		
 		
@@ -125,7 +126,7 @@ class Search_Filter_Post_Data_Validation {
 		$clean_widget['order_dir'] = sanitize_key($widget_data['order_dir']);
 		
 		$clean_widget['exclude_ids'] = $this->clean_exclude_ids($widget_data['exclude_ids']);
-		
+		$clean_widget['include_ids'] = $this->clean_include_ids($widget_data['include_ids']);
 		
 		//if($widget_data['type']=="taxonomy")
 		//{
@@ -241,6 +242,7 @@ class Search_Filter_Post_Data_Validation {
 		$clean_widget['order_dir'] = sanitize_key($widget_data['order_dir']);
 		
 		$clean_widget['exclude'] = $this->clean_exclude_ids($widget_data['exclude']);
+                $clean_widget['include'] = $this->clean_include_ids($widget_data['include']);
 		
 		return $clean_widget;
 	}
@@ -461,6 +463,11 @@ class Search_Filter_Post_Data_Validation {
 	{
 		return implode(',', $this->arrayToInt(array_map('trim',explode(",", $exclude_ids))));
 	}
+        
+        private function clean_include_ids($include_ids)
+        {
+            return implode(',', $this->arrayToInt(array_map('trim',explode(",", $include_ids))));
+        }
 	
 	
 	private function arrayToInt(array $arr)

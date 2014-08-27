@@ -555,7 +555,8 @@ class Search_Filter_Display_Shortcode {
 			'order_by'				=> '',
 			'order_dir'				=> '',
 			'exclude_ids'			=> '',
-			'combo_box'				=> ''
+			'include_ids'			=> '',
+                        'combo_box'				=> ''
 		);
 		
 		$values = array_replace($defaults, $field_data);
@@ -596,18 +597,32 @@ class Search_Filter_Display_Shortcode {
 			
 			if($values['input_type']=="select")
 			{
-				if(!(bool)$values['hierarchical'])
+                            //If IDS to include are specified, ignore exclude ids
+                            if(count($values['include_ids']) > 0){
+                                
+                                $args['include'] = $values['include_ids'];
+                            }else{
+                               
+                                if(!(bool)$values['hierarchical'])
 				{//if not hierearchical exclude categories as normal
 					$args['exclude'] = $values['exclude_ids'];
 				}
 				else
 				{//else exclude category and its children when using hierarchical
 					$args['exclude_tree'] = $values['exclude_ids'];
-				}
-			}
+				} 
+                            }
+                                
+                        }
 			else
 			{
-				$args['exclude'] = $values['exclude_ids'];
+                            if(count($values['include_ids']) > 0){
+                               $args['include'] = $values['include_ids']; 
+                            }
+                            else{
+                                $args['exclude'] = $values['exclude_ids'];
+                            }
+                            
 			}
 			
 			
@@ -1250,6 +1265,7 @@ class Search_Filter_Display_Shortcode {
 			'operator'					=> '',
 			'all_items_label'			=> '',
 			'exclude'					=> '',
+                        'include'					=> '',
 			'combo_box'					=> ''
 		);
 		//set defaults so no chance of any php errors when accessing un init vars
