@@ -51,7 +51,7 @@ class Search_Filter_Generate_Input {
 	
 	public function generate_wp_checkbox($args, $name, $labels = null)
 	{
-                $returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name.'">';
+                $returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name."_".'">';
                 $returnvar .= '<div class=panel-body>';
 		$returnvar .= $this->walk_taxonomy('checkbox', $args);
 		$returnvar .= "</div>";

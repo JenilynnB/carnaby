@@ -1,7 +1,10 @@
 .clear { clear:both;}
 
-.wpbdmthumbs {	padding:4px; -moz-box-shadow: 0 5px 5px #dddddd;
-	-webkit-box-shadow: 0 5px 5px #dddddd;margin-right:5px;
+.wpbdmthumbs {	
+    //padding:4px; 
+    -moz-box-shadow: 0 5px 5px #dddddd;
+    //-webkit-box-shadow: 0 5px 5px #dddddd;
+    margin-right:5px;
 }
 	
 #wpbdmentry .viewlistingsbutton, 

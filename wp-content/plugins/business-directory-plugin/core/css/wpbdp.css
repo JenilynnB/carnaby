@@ -129,10 +129,10 @@ form#wpbdmsearchform a.advanced-search-link {
 /* listing view > excerpt */
 .wpbdp-listing-excerpt {
     padding: 10px;
-    border-bottom: dotted 1px #ddd;
+    border-bottom: solid 1px #ddd;
 }
 
-.wpbdp-listing-excerpt.odd { background: #eee; }
+.wpbdp-listing-excerpt.odd {  }
 .wpbdp-listing-excerpt.sticky { background: #fff0cf; border-bottom: solid 1px #b37800; }
 
 .wpbdp-listing-excerpt .listing-thumbnail {

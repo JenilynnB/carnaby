@@ -442,11 +442,13 @@ class Search_Filter_Display_Shortcode {
 		{
 			$field_class = SF_FIELD_CLASS_PRE.$field_data['type']."-".$field_data['taxonomy_name'];
 			$field_name = SF_TAX_PRE.$field_data['taxonomy_name'];
+                        $field_id = $field_name."_".$heading;
 		}
 		else if($field_data['type'] == "post_meta")
 		{
 			$field_class = SF_FIELD_CLASS_PRE.'post-meta'."-".$field_data['meta_key'];
 			$field_name = SF_META_PRE.$field_data['meta_key'];
+                        $field_id = $field_name;
 		}
 		else
 		{
@@ -455,8 +457,10 @@ class Search_Filter_Display_Shortcode {
 		}
 		
 		//$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
-		$returnvar .= "<div class='acc-panel panel-default'>";
-                //$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
+		//$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
+                $returnvar .= "<div class='acc-panel panel-default'>";
+                
+                
                 
 		//display a heading? (available to all field types)
 		if(isset($field_data['heading']))
@@ -465,7 +469,7 @@ class Search_Filter_Display_Shortcode {
 			{
 				$returnvar .= "<div class='panel-heading'>";
                                 $returnvar .= "<h4 class='panel-title'>";
-                                $returnvar .= "<a data-toggle='collapse' href='#".$field_name."' data-parent='sf-".$base_form_id."'>".$field_data['heading']."</a>";
+                                $returnvar .= "<a data-toggle='collapse' href='#".$field_id."' data-parent='sf-".$base_form_id."'>".$field_data['heading']."</a>";
                                 $returnvar .= "</h4>";
                                 $returnvar .= "</div>";
                                 //$returnvar .= "<label for='".$field_name."'>".esc_html($field_data['heading'])."</label>";
