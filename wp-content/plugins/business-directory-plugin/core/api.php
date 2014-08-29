@@ -515,6 +515,7 @@ function render_category_info(){
     if(!empty($womens_categories)):
         
         $html .= "<h4>Women</h4>";
+        $womens_style = array();
         $women_style = get_field('womens_style');
         
         $html .= '<strong>Style: </strong>';
@@ -618,6 +619,7 @@ function render_category_info(){
         $html .= "<h4>Kids & Baby</h4>";
         
         //Need to make label disappear if there are no values
+        $kids_style = array();
         $kids_style = get_field('kids_style');
         $html .= '<strong>Style: </strong>';
         $html .= implode(', ', $kids_style);
