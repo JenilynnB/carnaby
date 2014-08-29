@@ -291,7 +291,7 @@ class ShopStyle {
 
     /**
      * @param Query\IQuery $fetcher
-     
+     */
     public function setFetcher(Query\IQuery $fetcher)
     {
         $this->fetcher = $fetcher;
@@ -299,7 +299,7 @@ class ShopStyle {
 
     /**
      * @return Query\IQuery
-     
+     */
     public function getFetcher()
     {
         return $this->fetcher;
@@ -309,7 +309,7 @@ class ShopStyle {
     /**
      * @param string $format
      * @throws \InvalidArgumentException
-     
+     */
     public function setFormat($format)
     {
         $supported_formats = array(
@@ -329,7 +329,7 @@ class ShopStyle {
 
     /**
      * @return string
-     
+    */ 
     public function getFormat()
     {
         return $this->format;
@@ -338,7 +338,7 @@ class ShopStyle {
     /**
      * @param string $host
      * @throws \InvalidArgumentException
-     
+    */ 
     public function setHost($host)
     {
         if (!filter_var($host, FILTER_VALIDATE_URL)) {
@@ -350,7 +350,7 @@ class ShopStyle {
 
     /**
      * @return string
-     
+     */
     public function getHost()
     {
         return $this->host;
@@ -358,7 +358,7 @@ class ShopStyle {
 
     /**
      * @param string $pid
-     
+     */
     public function setApiKey($pid)
     {
         $this->api_key = $pid;
@@ -366,12 +366,12 @@ class ShopStyle {
 
     /**
      * @return string
-     
+    */ 
     public function getApiKey()
     {
         return $this->api_key;
     }
 
-    */
+    
 }
 
