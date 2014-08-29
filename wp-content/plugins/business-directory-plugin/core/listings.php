@@ -1,5 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-listing.php' );
+require_once( WPBDP_PATH . 'vendors/shopstyle-api.php' );
 
 if (!class_exists('WPBDP_ListingsAPI')) {
 
@@ -438,6 +439,16 @@ class WPBDP_ListingsAPI {
         return $sequence_id;
     }
 
+    public function get_products($listing_id){
+        //Get the shopstyle API ID first
+        get_field('shopstyle_api_id', $listing_id);
+        
+        $product_params = array(
+            'retailer' => $retailer_id,
+            'sort'  => 'popular'
+        );
+    }
+    
     public function get_images($listing_id) {
         $attachments = get_posts(array(
             'numberposts' => -1,

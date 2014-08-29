@@ -238,8 +238,27 @@ form#wpbdmsearchform a.advanced-search-link {
     display: inline-block;
     padding-left: 5px;
 }
-.wpbdp-listing-subtitle-info .listing-url {
+
+.wpbdp-listing-subtitle-info .listing-element {
     display: inline-block;
+    padding: 3px;
+}
+
+.wpbdp-listing-screenshot{
+    margin-bottom: 30px;
+    box-shadow:0 0 4px 
+        rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 0 4px 
+        rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow:0 0 4px 
+        rgba(0, 0, 0, 0.2);
+    width:100%;
+}
+
+.wpbdp-listing-shipping-info{
+    margin-bottom:20px;
+    float:left;
+    min-width: 50%;
 }
 
 

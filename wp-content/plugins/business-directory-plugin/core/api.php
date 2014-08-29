@@ -481,7 +481,7 @@ function wpbdp_render_listing_field($field_name) {
     
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
     $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name ));
-   return $html;
+    return $html;
 }
 
 function render_category_info(){
@@ -729,6 +729,164 @@ function get_largest_and_smallest_sizes($sizes){
     $res["smallest"] = $smallest;
    
     return $res;
+}
+
+function render_products(){
+    global $post;
+    
+    $retailer_id = 'r'.get_field('shopstyle_retailer_id', $post->id);
+
+    if($retailer_id=='r'){
+        return;
+    }
+    
+    $product_params = array(
+            'fl' => $retailer_id,
+            'sort'  => 'popular'
+        );
+    $shopstyle = new ShopStyle();
+    
+    $products_response = $shopstyle->getProducts(12, 0, $product_params);
+
+    $products = $products_response["products"];
+    
+    
+    $response .= '<div class="section-normal ">';
+    $response .= '<div class="row blox-row">';       
+    $response .= '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+    $response .= '<div class="blox-column-content">';
+    $response .= '<div class="blox-element">';
+    $response .= '<h3 class="element-title">Popular Products</h3>';
+    $response .= '<div class="blox-element blox-carousel swiper-container" style="width:97%">';
+    $response .= '<div class="blox-element grid-loop portfolio swiper-wrapper boxed" >';
+    
+
+    
+    foreach($products as $p){
+        
+        $product_name = $p["name"];
+        $product_price = $p["$price"];
+        $product_url = $p["clickUrl"];
+    
+        $product_images = $p["image"];
+        $image_sizes = $product_images["sizes"];
+        
+        
+        $image = $image_sizes["Best"];
+        $image_url = $image["url"];
+        $image_height = $image["height"];
+        $image_width = $image["width"];
+        
+        $response .= '<div class="post_filter_item col-md-3 col-sm-6 col-xs-12 swiper-slide swiper-slide-visible swiper-slide-active">';
+        $response .=    '<article class="entry">';
+        $response .=        '<div class="entry-media" style="padding:3px;">';
+        if ($image_height>$image_width){
+            $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="height:150px; width:auto; margin-left: auto; margin-right:auto;"/></a>';
+        }else{
+            $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="width:150px; height:auto; margin-left: auto; margin-right:auto;"/></a>';
+        }
+        $response .=        '</div>';
+        $response .=    '</article>';
+        $response .= '</div>';
+        
+    }
+    
+    $response .= '</div>';
+    $response .= '<div class="carousel-control-prev"><i class="fa-angle-left"></i></div>';
+    $response .= '<div class="carousel-control-next"><i class="fa-angle-right"></i></div>';
+    $response .= '</div>';
+    $response .= '</div>';
+    $response .= '</div>';
+    $response .= '</div>';
+    $response .= '</div>';
+    $response .= '</div>';
+    
+    return $response;
+}
+
+function render_price_field(){
+    /*Price info*/
+    $prices = get_field_object('price');  //returns the array of all key-value pairs, along with the selected value
+    $price = get_field('price');    //returns an array of all selected values
+
+    $n = count($price);
+    $result = $prices['choices'][$price[0]];
+
+    if($n > 1):
+        $result .= " - ";
+        $result .= $prices['choices'][$price[$n-1]];
+
+    endif;
+
+    echo $result;   
+}
+
+function render_listing_highlights(){
+    /*
+     * Render the following items if the listing has these fields:
+     * Free Shipping, Free Returns, Plus Size, Petites, Big & Tall
+     *      */
+}
+function render_shipping_info(){
+    /*
+     * 
+     */
+    $return = '';
+    $shipping = get_field('shipping');
+    $shipping_cost = get_field('shipping_cost');
+    
+    if(!$shipping){
+        return;
+    }
+    
+    if ( $shipping == "ship_free" ):
+            $shipping_info = 'Free Shipping';
+    elseif ( $shipping == "ship_min" ):
+            $shipping_info = 'Free Shipping with orders $' . get_field('free_shipping_minimum_amount') . '+<br/>Standard Shipping: $' . $shipping_cost ;
+    elseif ( $shipping == "ship_flat" ):
+            $shipping_info = 'Standard shipping: $' . $shipping_cost ;
+    else:
+            $shipping_info = 'Shipping costs increase with order size';
+    endif;
+    
+    $return .= '<div class="wpbdp-listing-shipping-info">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Shipping:</label>';
+    $return .= '<div itemprop="shipping_info">' . $shipping_info . '</div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function render_return_shipping_info(){
+    
+     /*Return Shipping Info*/
+    $return_shipping = get_field('return_shipping');
+
+    if(!$return_shipping){
+        return;
+    }
+    if ( $return_shipping == "return_free" ):
+        $return_shipping_info = 'Free Returns';
+    elseif ( $return_shipping =="return_flat" ):
+        $return_shipping_info =  'Flat rate return fee $' . get_field('return_shipping_cost');
+    else:
+        $return_shipping_info = 'Buyer handles return shipping';
+    endif;
+    
+    $return .= '<div class="wpbdp-listing-shipping-info">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Return Shipping:</label>';
+    $return .= '<div itemprop="shipping_info" >' . $return_shipping_info . '</div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function render_category_size_info(){
+    
+}
+
+function render_customer_support_info(){
+    
 }
 
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
