@@ -516,8 +516,10 @@ function render_category_info(){
         
         $html .= "<h4>Women</h4>";
         $womens_style = array();
+        $womens_category_links = array();
+        $womens_extended_sizes = array();
         $women_style = get_field('womens_style');
-        
+        $womens_extended_sizes = get_field("womens_extended_sizes");
         $html .= '<strong>Style: </strong>';
         $html .= implode(', ', $women_style);
         
@@ -531,7 +533,7 @@ function render_category_info(){
         
         $html .= '<br /><strong>Womens Sizes: </strong>';
         
-        $html .= implode (", ", get_field("womens_extended_sizes"));
+        $html .= implode (", ", $womens_extended_sizes);
         
         
         $womens_sizes = get_field('womens_sizes');
@@ -567,8 +569,12 @@ function render_category_info(){
     
     if(!empty($mens_categories)):
         $html .= "<h4>Men</h4>";
+        $mens_style = array();
+        $mens_category_links = array();
+        $mens_extended_sizes = array();
         
         $men_style = get_field('mens_style');
+        $mens_extended_sizes = get_field("mens_extended_sizes");
         $html .= '<strong>Style: </strong>';
         $html .= implode(', ', $men_style);
         $html .= '<br /><strong>Categories: </strong>';
@@ -581,7 +587,7 @@ function render_category_info(){
         
         $html .= '<br /><strong>Mens Sizes: </strong>';
         
-        $html .= implode (", ", get_field("mens_extended_sizes"));
+        $html .= implode (", ", $mens_extended_sizes);
         
         
         $mens_sizes = get_field('mens_sizes');
@@ -620,6 +626,7 @@ function render_category_info(){
         
         //Need to make label disappear if there are no values
         $kids_style = array();
+        $kids_category_links = array();
         $kids_style = get_field('kids_style');
         $html .= '<strong>Style: </strong>';
         $html .= implode(', ', $kids_style);
