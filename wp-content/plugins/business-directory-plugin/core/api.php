@@ -481,7 +481,7 @@ function wpbdp_render_listing_field($field_name) {
     
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
     $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name ));
-   return $html;
+    return $html;
 }
 
 function render_category_info(){
@@ -731,6 +731,92 @@ function get_largest_and_smallest_sizes($sizes){
     return $res;
 }
 
+
+function render_price_field(){
+    /*Price info*/
+    $prices = get_field_object('price');  //returns the array of all key-value pairs, along with the selected value
+    $price = get_field('price');    //returns an array of all selected values
+
+    $n = count($price);
+    $result = $prices['choices'][$price[0]];
+
+    if($n > 1):
+        $result .= " - ";
+        $result .= $prices['choices'][$price[$n-1]];
+
+    endif;
+
+    echo $result;   
+}
+
+function render_listing_highlights(){
+    /*
+     * Render the following items if the listing has these fields:
+     * Free Shipping, Free Returns, Plus Size, Petites, Big & Tall
+     *      */
+}
+function render_shipping_info(){
+    /*
+     * 
+     */
+    $return = '';
+    $shipping = get_field('shipping');
+    $shipping_cost = get_field('shipping_cost');
+    
+    if(!$shipping){
+        return;
+    }
+    
+    if ( $shipping == "ship_free" ):
+            $shipping_info = 'Free Shipping';
+    elseif ( $shipping == "ship_min" ):
+            $shipping_info = 'Free Shipping with orders $' . get_field('free_shipping_minimum_amount') . '+<br/>Standard Shipping: $' . $shipping_cost ;
+    elseif ( $shipping == "ship_flat" ):
+            $shipping_info = 'Standard shipping: $' . $shipping_cost ;
+    else:
+            $shipping_info = 'Shipping costs increase with order size';
+    endif;
+    
+    $return .= '<div class="wpbdp-listing-shipping-info">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Shipping:</label>';
+    $return .= '<div itemprop="shipping_info">' . $shipping_info . '</div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function render_return_shipping_info(){
+    
+     /*Return Shipping Info*/
+    $return_shipping = get_field('return_shipping');
+
+    if(!$return_shipping){
+        return;
+    }
+    if ( $return_shipping == "return_free" ):
+        $return_shipping_info = 'Free Returns';
+    elseif ( $return_shipping =="return_flat" ):
+        $return_shipping_info =  'Flat rate return fee $' . get_field('return_shipping_cost');
+    else:
+        $return_shipping_info = 'Buyer handles return shipping';
+    endif;
+    
+    $return .= '<div class="wpbdp-listing-shipping-info">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Return Shipping:</label>';
+    $return .= '<div itemprop="shipping_info" >' . $return_shipping_info . '</div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function render_category_size_info(){
+    
+}
+
+function render_customer_support_info(){
+    
+}
+
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
     $n = max(intval($n), 0);
 
@@ -777,7 +863,7 @@ function wpbdp_rewrite_on() {
  * @param string $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
  * @param (object|int) $listing_id the listing ID. if null, the current post ID will be used
  * @param int $user_id the user ID. if null, the current user will be used
- * @return boolean
+ * @return boolean
  * @since 2.1
  */
 function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
