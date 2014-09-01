@@ -305,29 +305,6 @@ function render_shipping_info(){
     return $return;
 }
 
-function render_return_shipping_info(){
-    
-     /*Return Shipping Info*/
-    $return_shipping = get_field('return_shipping');
-
-    if(!$return_shipping){
-        return;
-    }
-    if ( $return_shipping == "return_free" ):
-        $return_shipping_info = 'Free Returns';
-    elseif ( $return_shipping =="return_flat" ):
-        $return_shipping_info =  'Flat rate return fee $' . get_field('return_shipping_cost');
-    else:
-        $return_shipping_info = 'Buyer handles return shipping';
-    endif;
-    
-    $return .= '<div class="wpbdp-listing-shipping-info">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Return Shipping:</label>';
-    $return .= '<div itemprop="shipping_info" >' . $return_shipping_info . '</div>';
-    $return .= '</div>';
-    
-    return $return;
-}
 
 
 /*
