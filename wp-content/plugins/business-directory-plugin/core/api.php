@@ -546,13 +546,13 @@ function render_category_info(){
         
         if(get_field('have_womens_dress_sizes')):
             $womens_dress_sizes = get_field('womens_dress_sizes');
-            $html .= "Dress Sizes: " . min($womens_dress_sizes) . " - " . max($womens_dress_sizes);
+            if(!empty($womens_dress_sizes)) $html .= "Dress Sizes: " . min($womens_dress_sizes) . " - " . max($womens_dress_sizes);
             $html .= "<br />";
         endif; 
         
         if(get_field('have_womens_shoe_sizes')):
             $womens_shoe_sizes = get_field('womens_shoe_sizes');
-            $html .= "Shoe Sizes: " . min($womens_shoe_sizes) . " - " . max($womens_shoe_sizes);
+            if(!empty($womens_shoe_sizes)) $html .= "Shoe Sizes: " . min($womens_shoe_sizes) . " - " . max($womens_shoe_sizes);
             $html .= "<br />";
         endif; 
         
