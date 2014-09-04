@@ -255,10 +255,76 @@ form#wpbdmsearchform a.advanced-search-link {
     width:100%;
 }
 
+.wpbdp-shipping-container{
+    display:flex;
+    display:-webkit-flex;
+    justify-content:flex-start;
+    
+}
+
 .wpbdp-listing-shipping-info{
     margin-bottom:20px;
-    float:left;
     min-width: 50%;
+}
+
+.listing-category-row{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  
+    //-webkit-flex-flow: row wrap;
+}
+
+
+.listing-side-container{
+    display: -ms-flexbox;    
+    display: -webkit-box;    
+    display: -webkit-flexbox; 
+    display: -webkit-flex;
+    display: flex;
+    
+}
+.flex{
+    display: -ms-flexbox;    
+    display: -webkit-box;    
+    display: -webkit-flexbox; 
+    display: -webkit-flex;
+    display: flex;
+    }
+
+.listing-side-container-circle-heading{
+    
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #fff;
+    background: #000;
+    line-height: 100px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    
+}
+
+.listing-category-label{
+    font-weight: 600;
+    width: 120px;
+}
+.listing-category-values{
+    max-width:200px;
+}
+
+.listing-cat-info{
+    border-top: 1px solid;
+    border-color: #f0f0f0;
+    border-color: #f2f2f2;
+    min-width: 100px;
+}
+.listing-cat-info td{
+    border:none;
 }
 
 

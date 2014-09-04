@@ -69,24 +69,17 @@
                 
                 <?php
                     echo the_content();     
-                    echo render_shipping_info();
-                    echo render_return_shipping_info();
-                    echo render_category_info();
-                   
                 ?>
-
+                
+                    <div class="wpbdp-shipping-container">
+                    <?php echo render_shipping_info(); ?>
+                    <?php echo render_return_shipping_info(); ?>
+                    </div>
+                    <?php echo render_category_info(); ?>
+                    <?php echo render_customer_support_info(); ?>
                     <br />
                     <br />
-                    <strong>Support Phone:</strong>
-                    <?php
-                        echo get_field('support_phone');
-
-                    ?>
-                    <br />
-                    <strong>Support Email:</strong>
-                    <?php
-                        echo get_field('support_email');
-                    ?>
+                    
                     <br />
                     <!--
                     Women:

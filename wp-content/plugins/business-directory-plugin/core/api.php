@@ -490,194 +490,405 @@ function render_category_info(){
     
     $listing = WPBDP_Listing::get( $post->ID );
     $wpbdp_categories = $listing->get_categories( 'all' );
+    
+    /*
+    $args = array(
+	'type'                     => WPBDP_POST_TYPE,
+	'hierarchical'             => 1,
+	'taxonomy'                 => WPBDP_CATEGORY_TAX
+    ); 
+
+    $wp_categories = get_categories($args);
+    $category_hierarchy = get_hierarchical_categories(0, $wp_categories);
+    
+    $html.="<div class = 'accordion panel-group'>";
+    
+    foreach($category_hierarchy as $ch){
+        
+        //accordion title panel
+        $html.= "<div class='acc-panel panel-default'> 
+                    <div class='panel-heading'>
+                        <h5 class='panel-title'>
+                            <a href='#".$ch->slug."-panel' >".$ch->name."</a>
+                        </h5>
+                    </div>
+                </div>";
+        
+        //print_r($ch);
+        
+    }
+     * 
+     */
    
     $womens_categories= array();
     $mens_categories = array();
     $kids_categories = array();
+    $girls_categories = array();
+    $boys_categories = array();
+    $baby_categories = array();
     
     foreach($wpbdp_categories as &$c){
        
        $wp_category = get_term(intval($c->id), WPBDP_CATEGORY_TAX);
-       $wp_parent_cat = get_top_parent_category($c->id);
+       $wp_top_parent_cat = get_top_parent_category($c->id);
        
-
-       $is_top = ($wp_parent_cat == $wp_category);
+       $wp_parent = get_term(intval($wp_category->parent), WPBDP_CATEGORY_TAX);
        
-       if($wp_parent_cat->name == "Women" && !$is_top):
+       $is_top = ($wp_top_parent_cat == $wp_category);
+       
+       if($wp_top_parent_cat->name == "Women" && !$is_top):
            $womens_categories[] = $c;
-       elseif($wp_parent_cat->name == "Men" && !$is_top):
+       elseif($wp_top_parent_cat->name == "Men" && !$is_top):
            $mens_categories[]= $c;
-       elseif($wp_parent_cat->name = "Kids & Baby" && !$is_top):    
+       elseif($wp_top_parent_cat->name = "Kids & Baby" && !$is_top):    
            $kids_categories[] = $c;
+           if($wp_parent->name == "Girls"){
+               $girls_categories[] = $c;
+           }elseif($wp_parent->name == "Boys"){
+               $boys_categories[] = $c;
+           }elseif($wp_parent->name == "Baby"){
+               $baby_categories[] = $c;
+           }   
        endif;
-    }   
+    }
+    
+    $html.="<div class = 'side-panel-group'>";
     
     if(!empty($womens_categories)):
+         
+        $html.= "<div class='listing-side-container'> 
+                    <div class='listing-side-container-circle-heading'>
+                        Women
+                    </div>
+                    
+                    <div class='listing-side-container-info'>
+                        <div class='panel-body'>
+                            <table class='listing-cat-info'>";
         
-        $html .= "<h4>Women</h4>";
+        /*
+        $html.= "<div class='acc-panel panel-default'> 
+                    <div class='panel-heading'>
+                        <h5 class='panel-title'>
+                            <a data-toggle='collapse' href='#women-panel' >Women</a>
+                        </h5>
+                    </div>
+        
+                    <div class='panel-collapse collapse' id='women-panel'>
+                        <div class='panel-body'>";
+   */
         $womens_style = array();
         $womens_category_links = array();
         $womens_extended_sizes = array();
-        $women_style = get_field('womens_style');
-        $womens_extended_sizes = get_field("womens_extended_sizes");
-        $html .= '<strong>Style: </strong>';
         
-        if(!empty($women_style)) $html .= implode(', ', $women_style);
+        $women_style = get_field('women_style');
         
-        $html .= '<br /><strong>Categories: </strong>';
+        $womens_extended_sizes = get_field("women_extended_sizes");
+        $womens_sizes = get_field('women_sizes');
+        
+        
         foreach($womens_categories as $wc){
             $url = '/business-directory/site_categories/' . $wc->slug . '/';
             $link = "<a href='" . $url . "'>" . $wc->name . "</a>";
             $womens_category_links[] = $link;
         }
-        if(!empty($womens_category_links)) $html .= implode( ', ', $womens_category_links );
         
-        $html .= '<br /><strong>Womens Sizes: </strong>';
-        
-        if(!empty($womens_extended_sizes))$html .= implode (", ", $womens_extended_sizes);
-        
-        
-        $womens_sizes = get_field('womens_sizes');
-        if($womens_sizes):
-            $womens_sizes_range = get_largest_and_smallest_sizes($womens_sizes);
-            $html .= "<br />Sizes: " . $womens_sizes_range['smallest'] . " - " . $womens_sizes_range['largest'];
-            $html .= "<br />";
-        endif; 
-        
-        if(get_field('have_womens_dress_sizes')):
-            $womens_dress_sizes = get_field('womens_dress_sizes');
-            if(!empty($womens_dress_sizes)) $html .= "Dress Sizes: " . min($womens_dress_sizes) . " - " . max($womens_dress_sizes);
-            $html .= "<br />";
-        endif; 
-        
-        if(get_field('have_womens_shoe_sizes')):
-            $womens_shoe_sizes = get_field('womens_shoe_sizes');
-            if(!empty($womens_shoe_sizes)) $html .= "Shoe Sizes: " . min($womens_shoe_sizes) . " - " . max($womens_shoe_sizes);
-            $html .= "<br />";
-        endif; 
-        
-        if(get_field('have_womens_pant_sizes')):
-            $womens_pant_sizes = get_field('womens_pant_sizes');
-            $html .= "Pant Sizes: " . min($womens_pant_sizes) . " - " . max($womens_pant_sizes);
-            $html .= "<br />";
-        endif; 
+        //display all the womens categories for this store
+        if(!empty($womens_category_links)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Categories: </td>';
+            $html .= '<td class="listing-category-values">'.implode( ', ', $womens_category_links ).'</td>';
+            $html .= '</tr>';
+        }
 
+         
+        //display all the style categories for this store
+        if(!empty($women_style)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Style: </td>';
+            $html .= '<td class="listing-category-values">'.implode(', ', $women_style).'</td>';
+            $html .= '</tr>';
+        }
+
+         
+        //Display standard womens sizes carried
+        if($womens_sizes){
+            $womens_sizes_range = get_largest_and_smallest_sizes($womens_sizes);
+            
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Sizes: </td> ';
+            $html .= '<td class="listing-category-values">'. $womens_sizes_range['smallest'] . " - " . $womens_sizes_range['largest'].'</td>'; 
+            $html.='</tr>';
+            
+            //display womens extended sizes
+            if(!empty($womens_extended_sizes)){
+
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td style="min-width:120px"></td><td class="listing-category-values">'.implode (", ", $womens_extended_sizes).'</td>';
+                $html.='</tr>';
+            }
+            
+            
+        }
         
         
-        $html .= "<br /><br />";
+ 
+        if(get_field('have_women_dress_sizes')){
+            $womens_dress_sizes = get_field('women_dress_sizes');
+            if(!empty($womens_dress_sizes)) {
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Dress Sizes: </td>';
+                $html .= '<td class="listing-category-values">'.min($womens_dress_sizes) . " - " . max($womens_dress_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
+          
+           
+        if(get_field('have_womens_shoe_sizes')){
+            $womens_shoe_sizes = get_field('womens_shoe_sizes');
+            if(!empty($womens_shoe_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Shoe Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($womens_shoe_sizes) . " - " . max($womens_shoe_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
+ 
+        
+        if(get_field('have_women_pant_sizes')){
+            $womens_pant_sizes = get_field('women_pant_sizes');
+            if(!empty($womens_pant_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Pant Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($womens_pant_sizes) . " - " . max($womens_pant_sizes).'</td>'; 
+                $html .= '</tr>';
+            }
+        }
+       $html.='</table>';  
+        
+        $html.=         "</div>
+                    </div>     
+                </div>";
+        //$html .= "<br /><br />";
         
     endif;
     
     if(!empty($mens_categories)):
-        $html .= "<h4>Men</h4>";
+        
+        
+        $html.= "<div class='listing-side-container'> 
+                    <div class='listing-side-container-circle-heading'>
+                        Men
+                    </div>
+                    
+                    <div class='listing-side-container-info'>
+                        <div class='panel-body'>
+                            <table class='listing-cat-info'>";
+    
         $mens_style = array();
         $mens_category_links = array();
         $mens_extended_sizes = array();
         
-        $men_style = get_field('mens_style');
-        $mens_extended_sizes = get_field("mens_extended_sizes");
-        $html .= '<strong>Style: </strong>';
-        if(!empty($mens_style)) $html .= implode(', ', $men_style);
-        $html .= '<br /><strong>Categories: </strong>';
+        $men_style = get_field('men_style');
+        $mens_extended_sizes = get_field("men_extended_sizes");
+        $mens_sizes = get_field("men_sizes");
+        //if(!empty($mens_style)) $html .= implode(', ', $men_style);
+        
+        
         foreach($mens_categories as $mc){
             $url = '/business-directory/site_categories/' . $mc->slug . '/';
             $link = "<a href='" . $url . "'>" . $mc->name . "</a>";
             $mens_category_links[] = $link;
         }
-        if(!empty($mens_category_links)) $html .= implode( ', ', $mens_category_links );
-        
-        $html .= '<br /><strong>Mens Sizes: </strong>';
-        
-        if(!empty($mens_extended_sizes)) $html .= implode (", ", $mens_extended_sizes);
         
         
-        $mens_sizes = get_field('mens_sizes');
-        if($mens_sizes):
+        //display all the womens categories for this store
+        if(!empty($mens_category_links)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Categories: </td>';
+            $html .= '<td class="listing-category-values">'.implode( ', ', $mens_category_links ).'</td>';
+            $html .= '</tr>';
+        }
+        //display all the style categories for this store
+        if(!empty($men_style)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Style: </td>';
+            $html .= '<td class="listing-category-values">'.implode(', ', $men_style).'</td>';
+            $html .= '</tr>';
+        }
+        //Display standard womens sizes carried
+        if($mens_sizes){
             $mens_sizes_range = get_largest_and_smallest_sizes($mens_sizes);
-            $html .= "<br />Sizes: " . $mens_sizes_range['smallest'] . " - " . $mens_sizes_range['largest'];
-            $html .= "<br />";
-        endif; 
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Sizes: </td> ';
+            $html .= '<td class="listing-category-values">'. $mens_sizes_range['smallest'] . " - " . $mens_sizes_range['largest'].'</td>'; 
+            $html .= '</tr>';
+            
+            //display womens extended sizes
+            if(!empty($mens_extended_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td style="min-width:120px;"></td><td class="listing-category-values">'.implode (", ", $mens_extended_sizes).'</td>';
+                $html.='</tr>';
+            }
+         
+        }
         
-        if(get_field('have_mens_suit_sizes')):
-            $mens_suit_sizes = get_field('mens_suit_sizes');
-            $html .= "Suit Sizes: " . min($mens_suit_sizes) . " - " . max($mens_suit_sizes);
-            $html .= "<br />";
-        endif; 
+        if(get_field('have_men_pant_sizes')){
+            $mens_pant_sizes = get_field('men_pant_sizes');
+            if(!empty($mens_pant_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Pant Sizes: </tr>';
+                $html .= '<td class="listing-category-values">'. min($mens_pant_sizes) . " - " . max($mens_pant_sizes).'</td>'; 
+                $html .= '</tr>';
+            }
+        }
         
-        if(get_field('have_mens_shoe_sizes')):
-            $mens_shoe_sizes = get_field('mens_shoe_sizes');
-            $html .= "Shoe Sizes: " . min($mens_shoe_sizes) . " - " . max($mens_shoe_sizes);
-            $html .= "<br />";
-        endif; 
+        if(get_field('have_men_suit_sizes')){
+            $mens_suit_sizes = get_field('men_suit_sizes');
+            if(!empty($mens_suit_sizes)) {
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Suit Sizes: </td>';
+                $html .= '<td class="listing-category-values">'.min($mens_suit_sizes) . " - " . max($mens_suit_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
         
-        if(get_field('have_mens_pant_sizes')):
-            $mens_pant_sizes = get_field('mens_pant_sizes');
-            $html .= "Pant Sizes: " . min($mens_pant_sizes) . " - " . max($mens_pant_sizes);
-            $html .= "<br />";
-        endif; 
-
+        if(get_field('have_men_shoe_sizes')){
+            $mens_shoe_sizes = get_field('men_shoe_sizes');
+            if(!empty($womens_shoe_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Shoe Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($mens_shoe_sizes) . " - " . max($mens_shoe_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
         
-        
-        $html .= "<br /><br />";
-        
+        $html.='</table>'; 
+        $html.=         "</div>
+                    </div>     
+                </div>";
+         
     endif;
     
     if(!empty($kids_categories)):
-        $html .= "<h4>Kids & Baby</h4>";
+        $html.= "<div class='listing-side-container'> 
+                    <div class='listing-side-container-circle-heading'>
+                        Kids & Baby
+                    </div>
+                    
+                    <div class='listing-side-container-info'>
+                        <div class='panel-body'>
+                            <table class='listing-cat-info'>";
         
         //Need to make label disappear if there are no values
         $kids_style = array();
         $kids_category_links = array();
-        $kids_style = get_field('kids_style');
-        $html .= '<strong>Style: </strong>';
-        if(!empty($kids_style)) $html .= implode(', ', $kids_style);
+        $kids_style = get_field('kids-baby_style');
         
         
-        $html .= '<br /><strong>Categories: </strong>';
-        
-        foreach($kids_categories as $kc){
-            $url = '/business-directory/site_categories/' . $kc->slug . '/';
-            $link = "<a href='" . $url . "'>" . $kc->name . "</a>";
-            $kids_category_links[] = $link;
+        foreach($girls_categories as $gc){
+            $url = '/business-directory/site_categories/' . $gc->slug . '/';
+            $link = "<a href='" . $url . "'>" . $gc->name . "</a>";
+            $girls_category_links[] = $link;
         }
-        if(!empty($kids_category_links)) $html .= implode( ', ', $kids_category_links );
+        //display all the womens categories for this store
+        if(!empty($girls_category_links)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Girls: </td>';
+            $html .= '<td class="listing-category-values">'.implode( ', ', $girls_category_links ).'</td>';
+            $html .= '</tr>';
+        }
         
-        $html .= '<br /><strong>Kids & Baby Sizes: </strong>';
-        $html .= '<br />';
+        foreach($boys_categories as $bc){
+            $url = '/business-directory/site_categories/' . $bc->slug . '/';
+            $link = "<a href='" . $url . "'>" . $bc->name . "</a>";
+            $boys_category_links[] = $link;
+        }
         
-        if(get_field('have_baby_sizes')):
-            $baby_sizes = get_field('baby_sizes');
-            $html .= "Baby: " . min($baby_sizes) . " - " . max($baby_sizes) . " months";
-            $html .= "<br />";
-        endif; 
-
+        //display all the womens categories for this store
+        if(!empty($boys_category_links)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Boys: </td>';
+            $html .= '<td class="listing-category-values">'.implode( ', ', $boys_category_links ).'</td>';
+            $html .= '</tr>';
+        }
         
-        if(get_field('have_girls_sizes')):
+        foreach($baby_categories as $bbc){
+            $url = '/business-directory/site_categories/' . $bbc->slug . '/';
+            $link = "<a href='" . $url . "'>" . $bbc->name . "</a>";
+            $baby_category_links[] = $link;
+        }
+        
+        //display all the womens categories for this store
+        if(!empty($baby_category_links)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Baby: </td>';
+            $html .= '<td class="listing-category-values">'.implode( ', ', $baby_category_links ).'</td>';
+            $html .= '</tr>';
+        }
+        
+        //display all the style categories for this store
+        if(!empty($kids_style)) {
+            $html.='<tr class="listing-category-row">';
+            $html .= '<td class="listing-category-label">Style: </td>';
+            $html .= '<td class="listing-category-values">'.implode(', ', $kids_style).'</td>';
+            $html .= '</tr>';
+        }
+        
+        if(get_field('have_girls_sizes')){
             $girls_sizes = get_field('girls_sizes');
-            $html .= "Girls Sizes: " . min($girls_sizes) . " - " . max($girls_sizes);
-            $html .= "<br />";
-        endif; 
+            if(!empty($girls_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Girls Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($girls_sizes) . " - " . max($girls_sizes).'</td>'; 
+                $html .= '</tr>';
+            }
+        }
         
-        if(get_field('have_boys_sizes')):
+        if(get_field('have_boys_sizes')){
             $boys_sizes = get_field('boys_sizes');
-            $html .= "Boys Sizes: " . min($boys_sizes) . " - " . max($boys_sizes);
-            $html .= "<br />";
-        endif; 
+            if(!empty($boys_sizes)) {
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Boys Sizes: </td>';
+                $html .= '<td class="listing-category-values">'.min($boys_sizes) . " - " . max($boys_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
         
-        if(get_field('have_kids_shoe_sizes')):
-            $kids_shoe_sizes = get_field('kids_shoe_sizes');
-            $html .= "Kids Shoe Sizes: " . min($kids_shoe_sizes) . " - " . max($kids_shoe_sizes);
-            $html .= "<br />";
-        endif; 
-
+        if(get_field('have_baby_sizes')){
+            $baby_sizes = get_field('baby_sizes');
+            if(!empty($baby_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Baby Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($baby_sizes) . " - " . max($baby_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
         
-        
-        //$html .= "<br /><br />";
+        $html.='</table>'; 
+        $html.=         "</div>
+                    </div>     
+                </div>";
         
     endif;
+    $html .= "</div>";
     
     return $html;
     
+}
+function get_hierarchical_categories($parent_id, $categories){
+    $return = array();
+    foreach($categories as $c){
+        $p_id = $c->parent;
+        if($p_id==$parent_id){
+             //This is the top level cat we're looking for
+            
+            unset($categories[key($categories)]);
+            
+            $c->children = get_hierarchical_categories($c->term_id, $categories);
+            $return[] = $c;
+        }    
+    }
+    return $return;
 }
 
 function get_top_parent_category($catid) {
@@ -861,7 +1072,7 @@ function render_shipping_info(){
     
     $return .= '<div class="wpbdp-listing-shipping-info">';
     $return .= '<label class="element-title"><i class="fa fa-truck"></i> Shipping:</label>';
-    $return .= '<div itemprop="shipping_info">' . $shipping_info . '</div>';
+    $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
     $return .= '</div>';
     
     return $return;
@@ -884,8 +1095,8 @@ function render_return_shipping_info(){
     endif;
     
     $return .= '<div class="wpbdp-listing-shipping-info">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Return Shipping:</label>';
-    $return .= '<div itemprop="shipping_info" >' . $return_shipping_info . '</div>';
+    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> Return Shipping:</label>';
+    $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
     $return .= '</div>';
     
     return $return;
@@ -896,7 +1107,14 @@ function render_category_size_info(){
 }
 
 function render_customer_support_info(){
+   
+    $support_phone = get_field('support_phone');
+    $support_email = get_field('support_email');
     
+    if(!empty($support_phone)) $html.= "<div class='listing-category-label'>Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
+    if(!empty($support_email)) $html.= "<div class='listing-category-label'>Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
+
+    return $html;
 }
 
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
