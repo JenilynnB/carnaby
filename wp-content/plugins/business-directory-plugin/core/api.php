@@ -642,7 +642,6 @@ function render_category_info(){
             }
         }
           
-           
         if(get_field('have_womens_shoe_sizes')){
             $womens_shoe_sizes = get_field('womens_shoe_sizes');
             if(!empty($womens_shoe_sizes)){
@@ -754,7 +753,7 @@ function render_category_info(){
         
         if(get_field('have_men_shoe_sizes')){
             $mens_shoe_sizes = get_field('men_shoe_sizes');
-            if(!empty($womens_shoe_sizes)){
+            if(!empty($mens_shoe_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Shoe Sizes: </td>';
                 $html .= '<td class="listing-category-values">'. min($mens_shoe_sizes) . " - " . max($mens_shoe_sizes).'</td>';
