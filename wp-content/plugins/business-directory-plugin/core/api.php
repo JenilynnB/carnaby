@@ -557,11 +557,11 @@ function render_category_info(){
     if(!empty($womens_categories)):
          
         $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading'>
+                    <div class='listing-side-container-circle-heading col-md-3 col-xs-3'>
                         Women
                     </div>
                     
-                    <div class='listing-side-container-info'>
+                    <div class='listing-side-container-info col-md-9 col-xs-9'>
                         <div class='panel-body'>
                             <table class='listing-cat-info'>";
         
@@ -675,11 +675,11 @@ function render_category_info(){
         
         
         $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading'>
+                    <div class='listing-side-container-circle-heading  col-md-3 col-xs-3'>
                         Men
                     </div>
                     
-                    <div class='listing-side-container-info'>
+                    <div class='listing-side-container-info col-md-9 col-xs-9'>
                         <div class='panel-body'>
                             <table class='listing-cat-info'>";
     
@@ -770,11 +770,11 @@ function render_category_info(){
     
     if(!empty($kids_categories)):
         $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading'>
+                    <div class='listing-side-container-circle-heading  col-md-3 col-xs-3'>
                         Kids & Baby
                     </div>
                     
-                    <div class='listing-side-container-info'>
+                    <div class='listing-side-container-info col-md-9 col-xs-9'>
                         <div class='panel-body'>
                             <table class='listing-cat-info'>";
         
@@ -1062,15 +1062,15 @@ function render_shipping_info(){
     if ( $shipping == "ship_free" ):
             $shipping_info = 'Free Shipping';
     elseif ( $shipping == "ship_min" ):
-            $shipping_info = 'Free Shipping with orders $' . get_field('free_shipping_minimum_amount') . '+<br/>Standard Shipping: $' . $shipping_cost ;
+            $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount') . '+ orders<br/>Standard Shipping: $' . $shipping_cost ;
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
     else:
             $shipping_info = 'Shipping costs increase with order size';
     endif;
     
-    $return .= '<div class="wpbdp-listing-shipping-info">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> Shipping:</label>';
+    $return .= '<div class="wpbdp-listing-shipping-info col-md-6">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping:</label>';
     $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
     $return .= '</div>';
     
@@ -1093,8 +1093,8 @@ function render_return_shipping_info(){
         $return_shipping_info = 'Buyer handles return shipping';
     endif;
     
-    $return .= '<div class="wpbdp-listing-shipping-info">';
-    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> Return Shipping:</label>';
+    $return .= '<div class="wpbdp-listing-shipping-info col-md-6">';
+    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>';
     $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
     $return .= '</div>';
     

@@ -253,6 +253,10 @@ form#wpbdmsearchform a.advanced-search-link {
     -webkit-box-shadow:0 0 4px 
         rgba(0, 0, 0, 0.2);
     width:100%;
+    display:flex;
+}
+.wpbdp-listing-screenshot img{
+    margin:auto;
 }
 
 .wpbdp-shipping-container{
@@ -306,6 +310,7 @@ form#wpbdmsearchform a.advanced-search-link {
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
+    padding:0;
     
 }
 
