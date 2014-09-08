@@ -4,8 +4,8 @@
     if ($is_sticky):
          echo $sticky_tag;
     endif; ?>
-                
-    <div class="col-md-12">            
+    <div class="row">
+        <div class="col-md-8">            
                 <div class="wpbdp_listing_heading">
                     <div class="wpbdp-listing-title-info">
                         <div class="entry-title">
@@ -27,76 +27,91 @@
                         
                     </div>
                 </div> 
-    </div>
+        </div>
+        <div class="col-md-4">
+             <!--save favorite, write a review, suggest an edit and social media share buttons go here-->
+        </div> 
+    </div>     
+    
+    
+    <div class="row">     
+        <div class="col-md-12">
 
-    <div class="col-md-7">
-                <!--<div class="listing-details cf <?php if ($main_image): ?>with-image<?php endif; ?>">
-                <div class="listing-details cf">
-                    <?php echo $listing_fields; ?>
-                </div>
-                <?php if ($main_image): ?>
-                    <div class="main-image"><?php echo $main_image; ?></div>
-                <?php endif; ?>-->
-                
-                <div class="wpbdp-listing-screenshot">
-                <?php
-                $listing_url = wpbdp_render_listing_field('URL');
-                echo do_shortcode("[screenshot width=600]".$listing_url."[/screenshot]");
-                ?>
-                </div>
-                
-                
-                
-                <?php if ($extra_images): ?>
-                <div class="extra-images">
-                    <ul>
-                    <?php foreach ($extra_images as $image): ?>
-                        <li><?php echo $image; ?></li>
-                    <?php endforeach; ?>
-                    </ul>
-                </div>
-                <?php endif; ?>
-                
-                <?php echo render_products(); ?>    
-                    
+             <?php echo render_products(); ?> 
+        </div>     
     </div>
-</div>
-<div class="col-md-5">
-        
-            <div class="listing-side">
-                <div class="listing-meta">
+    <div class="row">
+            <div class="col-md-8">
 
-                
-                <?php
-                    echo the_content();     
-                ?>
-                
-                    <div class="wpbdp-shipping-container">
-                    <?php echo render_shipping_info(); ?>
-                    <?php echo render_return_shipping_info(); ?>
+                    <!--<div class="listing-details cf <?php if ($main_image): ?>with-image<?php endif; ?>">
+                    <div class="listing-details cf">
+                        <?php echo $listing_fields; ?>
                     </div>
-                    <?php echo render_category_info(); ?>
-                    <?php echo render_customer_support_info(); ?>
-                    <br />
-                    <br />
-                    
-                    <br />
-                    <!--
-                    Women:
-                    Categories
-                    Styles
+                    <?php if ($extra_images): ?>
+                    <div class="extra-images">
+                        <ul>
+                        <?php foreach ($extra_images as $image): ?>
+                            <li><?php echo $image; ?></li>
+                        <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
 
-                    Men:
+                    <?php if ($main_image): ?>
+                        <div class="main-image"><?php echo $main_image; ?></div>
+                    <?php endif; ?>-->
 
-                    Kids & Baby:
+                    <div class="wpbdp-listing-screenshot">
+                    <?php
+                    $listing_url = wpbdp_render_listing_field('URL');
+                    echo do_shortcode("[screenshot width=600]".$listing_url."[/screenshot]");
+                    ?>
+                    </div>
 
-
-                    Good For
-                    -->
-
-
-                </div>
+                   
+    
+                <div class="row">
+                    <div class="col-md-12">
+                            <?php echo render_category_info(); ?>
+                    </div>       
+                </div>              
             </div>
 
+            <div class="col-md-4 pull-right">
+                <div class="col-md-12">
+                    <?php echo the_content();?>
+                </div>
+                
+                <div class="md-12">
+                    <?php echo render_shipping_info(); ?>
+                </div> 
+                <div class="md-12">
+                    <?php echo render_return_shipping_info(); ?>
+                </div>
+                        
+
+                        <?php echo render_customer_support_info(); ?>
+                        <br />
+                        <br />
+
+                        <br />
+                        <!--
+                        Women:
+                        Categories
+                        Styles
+
+                        Men:
+
+                        Kids & Baby:
+
+
+                        Good For
+                        -->
+
+
+
+            </div>
+        
+    </div>
 </div>
 

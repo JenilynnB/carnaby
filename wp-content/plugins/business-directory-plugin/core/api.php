@@ -557,7 +557,8 @@ function render_category_info(){
     if(!empty($womens_categories)):
          
         $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading col-md-3 col-xs-3'>
+
+                    <div class='listing-side-container-circle-heading col-md-3 col-xs-3'  data-animate='flipInY' style='-webkit-animation: 0.1s; -webkit-animation-name:flipInY'>
                         Women
                     </div>
                     
@@ -735,7 +736,7 @@ function render_category_info(){
             $mens_pant_sizes = get_field('men_pant_sizes');
             if(!empty($mens_pant_sizes)){
                 $html.='<tr class="listing-category-row">';
-                $html .= '<td class="listing-category-label">Pant Sizes: </tr>';
+                $html .= '<td class="listing-category-label">Pant Sizes: </td>';
                 $html .= '<td class="listing-category-values">'. min($mens_pant_sizes) . " - " . max($mens_pant_sizes).'</td>'; 
                 $html .= '</tr>';
             }
@@ -976,7 +977,7 @@ function render_products(){
     $response .= '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
     $response .= '<div class="blox-column-content">';
     $response .= '<div class="blox-element">';
-    $response .= '<h3 class="element-title">Popular Products</h3>';
+    $response .= '<h3 class="element-title"></h3>';
     $response .= '<div class="blox-element blox-carousel swiper-container" style="width:97%">';
     $response .= '<div class="blox-element grid-loop portfolio swiper-wrapper boxed" >';
     
@@ -1069,7 +1070,7 @@ function render_shipping_info(){
             $shipping_info = 'Shipping costs increase with order size';
     endif;
     
-    $return .= '<div class="wpbdp-listing-shipping-info col-md-6">';
+    $return .= '<div class="wpbdp-listing-shipping-info col-md-12">';
     $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping:</label>';
     $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
     $return .= '</div>';
@@ -1093,7 +1094,7 @@ function render_return_shipping_info(){
         $return_shipping_info = 'Buyer handles return shipping';
     endif;
     
-    $return .= '<div class="wpbdp-listing-shipping-info col-md-6">';
+    $return .= '<div class="wpbdp-listing-shipping-info col-md-12">';
     $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>';
     $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
     $return .= '</div>';
