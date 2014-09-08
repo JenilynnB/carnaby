@@ -449,7 +449,7 @@ jQuery(document).ready(function($) {
 
 		jQuery(window).resize(function(){
 			var xr16x6 = 0.375;
-			var xr16x9 = 0.5625;
+			//var xr16x9 = 0.5625;
 			xr16x6 = $this.width()<960 ? xr16x9 : xr16x6;
 			var h = $this.width()*xr16x6;
 			h = h>640 ? 640 : h;

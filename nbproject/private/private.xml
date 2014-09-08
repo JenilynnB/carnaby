@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/xooclasses/xoo.userultra.user.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/templates/basic/css/xoouserultra.css</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/template-page.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/xooclasses/xoo.userultra.login.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/page-login.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/page.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/xooclasses/xoo.userultra.class.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/framework/common-functions.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/templates/basic/profile.php</file>
-            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/users-ultra/templates/basic/css/default.css</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/businessdirectory-listing.tpl.php</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/themes/ammo/businessdirectory-category.tpl.php</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/business-directory-plugin/core/css/wpbdp.css</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/uploads/themeton/ammo.css</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/business-directory-plugin/core/api.php</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/business-directory-plugin/core/templates-ui.php</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/business-directory-plugin/core/class-email.php</file>
+            <file>file:/Users/jennifer/Websites/carnaby/wp-content/plugins/business-directory-plugin/core/class-listing.php</file>
         </group>
     </open-files>
 </project-private>
