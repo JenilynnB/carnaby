@@ -2142,7 +2142,7 @@ class XooUserLogin {
 		
                 
                 
-		$rand = $this->genRandomString();
+		$rand = $this->genRandomString(8);
 		
 		$rand_name = "avatar_".$rand."_".session_id()."_".time(); 		
 		$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');
