@@ -6,30 +6,37 @@
     endif; ?>
     <div class="row">
         <div class="col-md-8">            
-                <div class="wpbdp_listing_heading">
-                    <div class="wpbdp-listing-title-info">
-                        <div class="entry-title">
-                            <h1 itemprop="name"><?php echo $title; ?></h1>
-                        </div>
-
-                        <!--
-                        <?php if ($actions): ?>
-                            <?php echo $actions; ?>
-                        <?php endif; ?>
-                        -->
-
-                        <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
-                     </div>
-                    <div class="wpbdp-listing-subtitle-info">
-                        <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
-                        <div class="listing-element"><?php echo render_price_field();?></div>
-                        <div class="listing-element"><?php if (function_exists('wpfp_link')) { wpfp_link(); }?></div>
-                        
+            <div class="wpbdp_listing_heading">
+                <div class="wpbdp-listing-title-info">
+                    <div class="entry-title">
+                        <h1 itemprop="name"><?php echo $title; ?></h1>
                     </div>
-                </div> 
+
+                    <!--
+                    <?php if ($actions): ?>
+                        <?php echo $actions; ?>
+                    <?php endif; ?>
+                    -->
+
+                    <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
+                 </div>
+                <div class="wpbdp-listing-subtitle-info">
+                <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
+                
+                    
+                </div>
+            </div> 
+            <div >
+                <?php echo render_listing_highlights(); ?>
+            </div>
         </div>
-        <div class="col-md-4">
-             <!--save favorite, write a review, suggest an edit and social media share buttons go here-->
+        <div class="listing-actions col-md-4">
+        
+                    
+            <div class="listing-action-favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(); }?></div>
+            <div class="listing-action-write-review"><a href=""><i class="fa fa-plus-square-o"></i> Write a Review</a></div>
+            <div class="listing-action-suggest-edit"><a href=""><i class="fa fa-pencil-square-o"></i> Suggest an Edit</a></div>
+                <!--save favorite, write a review, suggest an edit and social media share buttons go here-->
         </div> 
     </div>     
     
@@ -72,21 +79,27 @@
     
                 <div class="row">
                     <div class="col-md-12">
-                            <?php echo render_category_info(); ?>
+                        <?php echo render_category_info(); ?>
                     </div>       
                 </div>              
             </div>
 
-            <div class="col-md-4 pull-right">
-                <div class="col-md-12">
-                    <?php echo the_content();?>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="listing-side-container col-md-12">
+                        <?php echo the_content();?>
+                    </div>
                 </div>
                 
-                <div class="md-12">
-                    <?php echo render_shipping_info(); ?>
-                </div> 
-                <div class="md-12">
-                    <?php echo render_return_shipping_info(); ?>
+                <div class="row">
+                    <div class="listing-side-container col-md-12">
+                        <?php echo render_shipping_info(); ?>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="listing-side-container col-md-12">
+                        <?php echo render_return_shipping_info(); ?>
+                    </div>
                 </div>
                         
 

@@ -977,7 +977,7 @@ function render_products(){
     $response .= '<div class="blox-column-content">';
     $response .= '<div class="blox-element">';
     $response .= '<h3 class="element-title"></h3>';
-    $response .= '<div class="blox-element blox-carousel swiper-container" style="width:97%">';
+    $response .= '<div class="blox-element blox-carousel swiper-container">';
     $response .= '<div class="blox-element grid-loop portfolio swiper-wrapper boxed" >';
     
 
@@ -1039,20 +1039,39 @@ function render_price_field(){
 
     endif;
 
-    echo $result;   
+    return $result;   
 }
 
 function render_listing_highlights(){
-    /*
-     * Render the following items if the listing has these fields:
-     * Free Shipping, Free Returns, Plus Size, Petites, Big & Tall
-     *      */
+    
+    $shipping = get_shipping_info();
+    $returns = get_return_shipping_info();
+    $prices = render_price_field();
+    
+    $return .= '<div class="flex">';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="fa fa-truck"></i>'.$shipping.'</div></div>';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="fa fa-reply"></i>'.$returns.'</div></div>';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item" style="display:flex;">'.$prices.'</div></div>';
+    $return .= '</div>';
+    
+    return $return;
+    
+    
 }
 function render_shipping_info(){
-    /*
-     * 
-     */
+
     $return = '';
+
+    $shipping_info = get_shipping_info();
+    $return .= '<div class="wpbdp-listing-shipping-info ">';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping:</label>';
+    $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function get_shipping_info($context=''){
     $shipping = get_field('shipping');
     $shipping_cost = get_field('shipping_cost');
     
@@ -1063,24 +1082,32 @@ function render_shipping_info(){
     if ( $shipping == "ship_free" ):
             $shipping_info = 'Free Shipping';
     elseif ( $shipping == "ship_min" ):
-            $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount') . '+ orders<br/>Standard Shipping: $' . $shipping_cost ;
+            $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount') . '+ orders';
+            if($context!=''): $shipping_info.='<br/>Standard Shipping: $' . $shipping_cost ;endif;
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
     else:
             $shipping_info = 'Shipping costs increase with order size';
-    endif;
+    endif; 
     
-    $return .= '<div class="wpbdp-listing-shipping-info col-md-12">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping:</label>';
-    $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
-    $return .= '</div>';
-    
-    return $return;
+    return $shipping_info;
 }
 
 function render_return_shipping_info(){
     
      /*Return Shipping Info*/
+    
+    $return_shipping_info = get_return_shipping_info();
+    $return .= '<div class="wpbdp-listing-shipping-info">';
+    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>';
+    $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
+    $return .= '</div>';
+    
+    return $return;
+}
+
+function get_return_shipping_info(){
+    
     $return_shipping = get_field('return_shipping');
 
     if(!$return_shipping){
@@ -1094,12 +1121,7 @@ function render_return_shipping_info(){
         $return_shipping_info = 'Buyer handles return shipping';
     endif;
     
-    $return .= '<div class="wpbdp-listing-shipping-info col-md-12">';
-    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>';
-    $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
-    $return .= '</div>';
-    
-    return $return;
+    return $return_shipping_info;
 }
 
 function render_category_size_info(){

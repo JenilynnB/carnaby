@@ -458,7 +458,13 @@ class Search_Filter_Display_Shortcode {
 		
 		//$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
 		//$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
-                $returnvar .= "<div class='acc-panel panel-default'>";
+                if($field_data["meta_key"]=='shipping_cost_to_canada'){
+                    $returnvar.= "<div class='panel-inside-title'>Canada Shipping Cost:</div>";
+                }else{
+                    $returnvar .= "<div class='acc-panel panel-default'>";
+                    
+                }
+                
                 
                 
                 
@@ -473,10 +479,13 @@ class Search_Filter_Display_Shortcode {
                                 $returnvar .= "</h4>";
                                 $returnvar .= "</div>";
                                 //$returnvar .= "<label for='".$field_name."'>".esc_html($field_data['heading'])."</label>";
-                                
+                                $returnvar .= '<div class="panel-collapse collapse" id="'.$field_id.'">';
+                                $returnvar .= '<div class=panel-body>';
 			}
 		}
 		
+
+                
 		if($field_data['type']=="search")
 		{
 			$returnvar .= $this->get_search_field($field_data);
@@ -511,7 +520,14 @@ class Search_Filter_Display_Shortcode {
 		}
 		
 		//$returnvar .= "</li>";
-		$returnvar .= "</div>";
+		
+                if($field_id!="_sfm_ships_to_canada"){
+                    $returnvar .= "</div>";
+                    $returnvar .= "</div>";
+                    $returnvar .= "</div>";
+                }
+                
+                
                 
 		return $returnvar;
 	}

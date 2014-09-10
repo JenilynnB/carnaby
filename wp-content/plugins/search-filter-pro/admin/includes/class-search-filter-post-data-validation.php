@@ -78,7 +78,9 @@ class Search_Filter_Post_Data_Validation {
 	{
 		$clean_widget = array();
 		$clean_widget['type'] = sanitize_text_field($widget_data['type']);
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
+                
 		$clean_widget['placeholder'] = sanitize_text_field($widget_data['placeholder']);
 		
 		return $clean_widget;
@@ -111,8 +113,9 @@ class Search_Filter_Post_Data_Validation {
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
 		
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
-		$clean_widget['all_items_label'] = sanitize_text_field($widget_data['all_items_label']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		$clean_widget['heading'] = $widget_data['heading'];
+                $clean_widget['all_items_label'] = sanitize_text_field($widget_data['all_items_label']);
 		
 		$clean_widget['show_count'] = $this->sanitize_checkbox($widget_data['show_count']);
 		$clean_widget['hide_empty'] = $this->sanitize_checkbox($widget_data['hide_empty']);
@@ -165,7 +168,9 @@ class Search_Filter_Post_Data_Validation {
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
 		
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
+                
 		$clean_widget['all_items_label'] = sanitize_text_field($widget_data['all_items_label']);
 		
 		$clean_widget['combo_box'] = $this->sanitize_checkbox($widget_data['combo_box']);
@@ -197,7 +202,8 @@ class Search_Filter_Post_Data_Validation {
 		$clean_widget['type'] = sanitize_text_field($widget_data['type']);
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
 		$clean_widget['date_format'] = sanitize_text_field($widget_data['date_format']);
 		
 		return $clean_widget;
@@ -228,7 +234,8 @@ class Search_Filter_Post_Data_Validation {
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
 		
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
 		$clean_widget['all_items_label'] = sanitize_text_field($widget_data['all_items_label']);
 		
 		$clean_widget['optioncount'] = $this->sanitize_checkbox($widget_data['optioncount']);
@@ -298,7 +305,8 @@ class Search_Filter_Post_Data_Validation {
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
 		
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
 		
 		$clean_widget['range_min'] = (int)$widget_data['range_min'];
 		$clean_widget['range_max'] = (int)$widget_data['range_max'];
@@ -371,7 +379,9 @@ class Search_Filter_Post_Data_Validation {
 		
 		$clean_widget['input_type'] = sanitize_key($widget_data['input_type']);
 		
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
+                
 		$clean_widget['all_items_label'] = sanitize_text_field($widget_data['all_items_label']);
 		
 		$clean_widget['sort_options'] = array();
@@ -437,7 +447,8 @@ class Search_Filter_Post_Data_Validation {
 		
 		
 		$clean_widget['type'] = sanitize_text_field($widget_data['type']);
-		$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+		//$clean_widget['heading'] = sanitize_text_field($widget_data['heading']);
+                $clean_widget['heading'] = $widget_data['heading'];
 		
 		$clean_widget['label'] = sanitize_text_field($widget_data['label']);
 		

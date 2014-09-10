@@ -51,22 +51,17 @@ class Search_Filter_Generate_Input {
 	
 	public function generate_wp_checkbox($args, $name, $labels = null)
 	{
-                $returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name."_".'">';
-                $returnvar .= '<div class=panel-body>';
+                
 		$returnvar .= $this->walk_taxonomy('checkbox', $args);
-		$returnvar .= "</div>";
-                $returnvar .= "</div>";
+
 		
 		return $returnvar;
 	}
 	
 	public function generate_wp_radio($args, $name, $labels = null)
 	{
-		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
-		$returnvar .= '<div class=panel-body>';
+
 		$returnvar .= $this->walk_taxonomy('radio', $args);
-		$returnvar .= "</div>";
-                $returnvar .= "</div>";
                 
 		
 		return $returnvar;
@@ -144,8 +139,8 @@ class Search_Filter_Generate_Input {
 	
 	public function generate_checkbox($dropdata, $name, $defaults)
 	{
-		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
-		$returnvar .= '<div class=panel-body>';
+		
+                
                 foreach($dropdata as $dropdown)
 		{
 			$checked = "";
@@ -168,16 +163,13 @@ class Search_Filter_Generate_Input {
 		
 		}
 		
-                $returnvar .= '</div>';
-		$returnvar .= '</div>';
-		
+
 		return $returnvar;
 	}
 	
 	public function generate_radio($dropdata, $name, $defaults, $all_items_label = null)
 	{
-		$returnvar .= '<div class="panel-collapse collapse" id="_sft_'.$name.'">';
-		$returnvar .= '<div class=panel-body>';
+		
                 
 		if(isset($all_items_label))
 		{
@@ -220,9 +212,7 @@ class Search_Filter_Generate_Input {
 			}
 			$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</span></div>';
 		}
-		
-		$returnvar .= '</div>';
-                $returnvar .= '</div>';
+
 		
 		return $returnvar;
 	}
@@ -292,10 +282,12 @@ class Search_Filter_Generate_Input {
 		$smax = (int)$smax;
 		
 		$returnvar .= '<div class="meta-range" data-start-min="'.esc_attr($smin).'" data-start-max="'.esc_attr($smax).'" data-min="'.esc_attr($min).'" data-max="'.esc_attr($max).'" data-step="'.esc_attr($step).'">';
+                $returnvar .= '<div class="meta-range-inputs">';
 		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-min" value="'.(int)$smin.'" />'.$value_postfix;
 		$returnvar .= ' - ';
 		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-max" value="'.(int)$smax.'" />'.$value_postfix;
-		$returnvar .= '<div class="meta-slider"></div>';
+		$returnvar .= '</div>';
+                $returnvar .= '<div class="meta-slider"></div>';
 		$returnvar .= '</div>';
 		
 		return $returnvar;
@@ -331,8 +323,7 @@ class Search_Filter_Generate_Input {
 	}
 	public function generate_range_radio($field, $min, $max, $step, $default, $value_prefix = "", $value_postfix = "")
 	{
-		$returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
-		$returnvar .= '<div class=panel-body>';
+
 		
 		$startval = $min;
 		$endval = $max;
@@ -362,8 +353,7 @@ class Search_Filter_Generate_Input {
 		}
 		
 		
-		$returnvar .= '</div>';
-                $returnvar .= '</div>';
+
 		
 		return $returnvar;
 	}
@@ -371,8 +361,6 @@ class Search_Filter_Generate_Input {
 	public function generate_range_checkbox($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "")
 	{
 		//$returnvar = '<ul>';
-                $returnvar .= '<div class="panel-collapse collapse" id="'.$name.'">';
-		$returnvar .= '<div class=panel-body>';
             
 		if(isset($this->defaults[SF_FPRE.'meta_'.$field]))
 		{
@@ -412,8 +400,7 @@ class Search_Filter_Generate_Input {
 		
 		
 		//$returnvar .= '</ul>';
-		$returnvar .= '</div>';
-                $returnvar .= '</div>';
+
                 
 		return $returnvar;
 	}
