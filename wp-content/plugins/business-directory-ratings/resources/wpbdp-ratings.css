@@ -21,6 +21,14 @@
     font-size: 16px;
 }
 
+.wpbdp-ratings-reviews{
+    margin-bottom: 60px;
+}
+
+.wpbdp-ratings-reviews .date{
+    color: #c3c3c3;
+    
+}
 /*
  * Form
  */
@@ -28,11 +36,20 @@
     padding: 0 5px;
 }
 
-.wpbdp-ratings-reviews .review-form {
-    padding: 5px 10px;
+.review-form {
+    padding: 30px 25px;
     background: #efefef;
     margin-top: 5px;
     margin-bottom: 20px;
+}
+
+
+.review-form-header>h5{
+    text-transform: uppercase;
+}
+
+.review-form .field{
+    margin: 3px;
 }
 
 .wpbdp-ratings-reviews .review-form .field label {
@@ -53,6 +70,12 @@
 .wpbdp-field-rating .count { margin-left: 10px; }
 .wpbdp-field-rating .rate-listing-link { margin-left: 10px; }
 
+.wpbdp-ratings-reviews>h4{
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+    border-color: #e6e6e6;
+    padding-bottom: 10px;
+}
 
 /*removes "rating (average)" label from rating stars*/
 .listing-rating .field-value > label {
@@ -77,15 +100,19 @@
 
 .wpbdp-ratings-reviews .listing-ratings .rating .rating-authoring-info {
     color: #696969;
+    text-align: center;
+    
 }
 
 .wpbdp-ratings-reviews .listing-ratings .rating .author {
     font-weight: bold;
+    margin-top: 5px;
 }
 
 .wpbdp-ratings-reviews .listing-ratings .rating .edit-actions {
-    visibility: hidden;
+    //visibility: hidden;
     float: right;
+    font-weight: bold;
 }
 
 .wpbdp-ratings-reviews .listing-ratings .rating:hover .edit-actions {

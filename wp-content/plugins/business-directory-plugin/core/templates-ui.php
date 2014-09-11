@@ -313,6 +313,14 @@ function wpbdp_the_bar($parts=array()) {
     echo wpbdp_bar($parts);
 }
 
+function listing_thumbnail_screenshot($listing_url){
+
+    $return .= '<div class="listing-thumbnail">';
+    $return .= do_shortcode("[screenshot width=300]".$listing_url."[/screenshot]");
+    $return .= '</div>';
+    return $return;
+}
+
 /**
  * Displays the listing main image.
  * @since 2.3

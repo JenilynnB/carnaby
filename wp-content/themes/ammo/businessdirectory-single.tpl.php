@@ -5,8 +5,7 @@
 ?>
 
 <?php the_post(); ?>
-<section class="primary section">
-	<div class="container">
+
 		<!--<div class="row">
 			<div class="col-md-12">
 				<div class="row">
@@ -17,8 +16,6 @@
                         <!--    </div>
                         </div>
                 </div>-->
-        </div>
-    
-</section>
+
 
 <?php get_footer(); ?>

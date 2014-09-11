@@ -128,7 +128,8 @@ class BusinessDirectory_RatingsModule {
     public function _enqueue_scripts() {
         if (!is_admin() && !$this->enabled()) return;
 
-        wp_enqueue_style('wpbdp-ratings', plugins_url('/resources/wpbdp-ratings.min.css', __FILE__));
+        //wp_enqueue_style('wpbdp-ratings', plugins_url('/resources/wpbdp-ratings.min.css', __FILE__));
+        wp_enqueue_style('wpbdp-ratings', plugins_url('/resources/wpbdp-ratings.css', __FILE__));
 
         wp_register_script('jquery-raty',
                            plugins_url('/resources/jquery.raty-2.4.5/js/jquery.raty.min.js', __FILE__),
@@ -366,14 +367,15 @@ class BusinessDirectory_RatingsModule {
         $reason = 'already-rated';
 
         if (!wpbdp_get_option('ratings-allow-unregistered') && !is_user_logged_in()) {
+            
             $reason = 'not-logged-in';
             return false;
         }
-
+        
         global $wpdb;
 
         $user_id = get_current_user_id();
-        $ip_address = $this->get_client_ip_address();
+        //$ip_address = $this->get_client_ip_address();
 
         if ($user_id) {
             return intval($wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;

@@ -1150,3 +1150,18 @@ function filter_results( $query )
     }
 }
 add_action( 'pre_get_posts', 'filter_results', 21 );    
+
+function get_user_profile_thumb_circle($size, $user_id){
+    
+    global $xoouserultra;   
+    $user=wp_get_current_user();
+    //$name=$user->display_name; // or user_login , user_firstname, user_lastname
+
+    $user_profile_url = site_url("/profile");
+    //$user_photo = get_avatar($user->ID, 40);
+    $user_photo = $xoouserultra->userpanel->get_user_pic_url( $user_id, $size, "avatar");
+
+    $items .= '<div class="user-thumb-photo" style="width:'.$size.'px; height:'.$size.'px; background-image: url('.$user_photo.'); "></div>';
+
+    return $items;
+}

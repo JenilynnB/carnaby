@@ -417,12 +417,14 @@ function _wpbdp_render_excerpt() {
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'excerpt' );
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
-
+    $listing_url = wpbdp_render_listing_field('URL');
+    
     //$g = WPDP_ListingFieldDisplayItem::
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
-        'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
+        'thumbnail' => listing_thumbnail_screenshot($listing_url),
+        //'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
         'title' => get_the_title(),
         'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID),
         'fields' => $d->fields,
@@ -483,6 +485,11 @@ function wpbdp_render_listing_field($field_name) {
     return $html;
 }
 
+
+/* 
+ * Returns information for all categories, formatted for the main listing
+ *  
+ */
 function render_category_info(){
     global $post;
     $html = '';
@@ -490,34 +497,6 @@ function render_category_info(){
     $listing = WPBDP_Listing::get( $post->ID );
     $wpbdp_categories = $listing->get_categories( 'all' );
     
-    /*
-    $args = array(
-	'type'                     => WPBDP_POST_TYPE,
-	'hierarchical'             => 1,
-	'taxonomy'                 => WPBDP_CATEGORY_TAX
-    ); 
-
-    $wp_categories = get_categories($args);
-    $category_hierarchy = get_hierarchical_categories(0, $wp_categories);
-    
-    $html.="<div class = 'accordion panel-group'>";
-    
-    foreach($category_hierarchy as $ch){
-        
-        //accordion title panel
-        $html.= "<div class='acc-panel panel-default'> 
-                    <div class='panel-heading'>
-                        <h5 class='panel-title'>
-                            <a href='#".$ch->slug."-panel' >".$ch->name."</a>
-                        </h5>
-                    </div>
-                </div>";
-        
-        //print_r($ch);
-        
-    }
-     * 
-     */
    
     $womens_categories= array();
     $mens_categories = array();
@@ -565,17 +544,6 @@ function render_category_info(){
                         <div class='panel-body'>
                             <table class='listing-cat-info'>";
         
-        /*
-        $html.= "<div class='acc-panel panel-default'> 
-                    <div class='panel-heading'>
-                        <h5 class='panel-title'>
-                            <a data-toggle='collapse' href='#women-panel' >Women</a>
-                        </h5>
-                    </div>
-        
-                    <div class='panel-collapse collapse' id='women-panel'>
-                        <div class='panel-body'>";
-   */
         $womens_style = array();
         $womens_category_links = array();
         $womens_extended_sizes = array();
@@ -907,6 +875,11 @@ function get_listing_name($listing_id){
     
 }
 
+/*
+ * Gets the top apparel categories for a given listing. Returns as WPBDP categories.
+ * If the listing includes Kids & Baby, only the relevant sub-categories will be returned
+ */
+
 function get_top_apparel_categories($listing_id){
     
     $listing = WPBDP_Listing::get( $listing_id );
@@ -920,6 +893,24 @@ function get_top_apparel_categories($listing_id){
         endif;
     }
     return $top_categories;
+}
+
+/*
+ * 
+ * */
+function get_top_apparel_categories_html($listing_id=0){
+    if($listing_id==0) $listing_id = get_the_ID ();
+    
+    $categories = get_top_apparel_categories($listing_id);
+    $top_categories = array();
+    
+    //echo print_r($categories);
+    foreach($categories as $c){
+        $wp_category = get_term(intval($c->id), WPBDP_CATEGORY_TAX);
+        $top_categories[] = '<a href="'.get_term_link($wp_category).'">'.$wp_category->name.'</a>';
+    }
+    
+    return '<div class="listing-top-categories">'.implode(", ", $top_categories).'</div>';
 }
 
 
@@ -976,7 +967,7 @@ function render_products(){
     $response .= '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
     $response .= '<div class="blox-column-content">';
     $response .= '<div class="blox-element">';
-    $response .= '<h3 class="element-title"></h3>';
+    $response .= '<h3 class="element-title">Popular Products</h3>';
     $response .= '<div class="blox-element blox-carousel swiper-container">';
     $response .= '<div class="blox-element grid-loop portfolio swiper-wrapper boxed" >';
     
@@ -1049,9 +1040,11 @@ function render_listing_highlights(){
     $prices = render_price_field();
     
     $return .= '<div class="flex">';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="fa fa-truck"></i>'.$shipping.'</div></div>';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="fa fa-reply"></i>'.$returns.'</div></div>';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item" style="display:flex;">'.$prices.'</div></div>';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item" style="display:flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex;">'.$prices.'</div></div>';
+    $return .= '&nbsp;&nbsp;•&nbsp;&nbsp;';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="icon-plane"></i>'.$shipping.'</div></div>';
+    $return .= '&nbsp;&nbsp;•&nbsp;&nbsp;';
+    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="icon-refresh"></i>'.$returns.'</div></div>';
     $return .= '</div>';
     
     return $return;

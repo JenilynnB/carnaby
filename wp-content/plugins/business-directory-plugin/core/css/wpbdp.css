@@ -147,7 +147,16 @@ form#wpbdmsearchform a.advanced-search-link {
 
 /* listing views > single */
 .wpbdp-listing-single .listing-actions {
-    margin-bottom: 25px;
+    margin-top: -15px;
+    font-size:12px;
+    flex-wrap: wrap;
+    border-spacing: 5px;
+    border-collapse: separate;
+    border: none;
+}
+
+.listing-actions>tbody>tr>td{
+    border:none;
 }
 
 .wpbdp-listing-single .stickytag {
@@ -237,9 +246,18 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing-subtitle-info .wpfp-link {
     display: inline-block;
     padding-left: 5px;
+    
+}
+.wpbdp-listing-subtitle-info {
+    webkit-box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, .1);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, .1);
+    box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, .1);
+    background-color: #fff;
+    padding: 15px;
+    margin: 15px 0px;
 }
 
-.wpbdp-listing-subtitle-info .listing-element {
+ .listing-element {
     display: inline-block;
     padding: 3px;
 }
@@ -272,25 +290,19 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .listing-highlight i{
-    font-size: 22px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
+    font-size: 16px;
+    padding-right: 5px;
+    //flex-direction: column;
+    //-webkit-flex-direction: column;
 }
 
 .listing-highlight-item{
-    padding: 10px;
+    //padding: 10px;
     text-align: center;
     margin: 3px;
-    
-    
-    //border: 1px solid;
-    color: #f9f9f9;
+    color: #788991;
     border-radius: 4px;
-    min-height: 65px;
+    //min-height: 65px;
         
 }
 
@@ -317,56 +329,29 @@ form#wpbdmsearchform a.advanced-search-link {
 */
 }
 
-.listing-actions{
-    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, .5);
-    -moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, .5);
-    box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, .5);
-    
-  /*  box-shadow:0 0 4px 
-        rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:0 0 4px 
-        rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow:0 0 4px 
-        rgba(0, 0, 0, 0.2);*/
-    padding: 15px;
-    display: -ms-flexbox;    
-    display: -webkit-box;    
-    display: -webkit-flexbox; 
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
+.listing-action{
+    margin:3px;
+    padding: 10px 15px;
 }
 
-.listing-action-favorite{
-    margin:5px auto;
+.listing-action.favorite{
     border: 1px solid;
-    //border-color: #f0f0f0;
     border-color: #f2f2f2;
     border-radius: 4px;
-    padding: 10px 25px;
-    //padding: auto;
     text-transform: uppercase;
-    min-width: 210px;
-    
+ 
+    background-color:#fff;
 }
 
-.listing-action-write-review{
-    margin:3px auto;
+.listing-action.review{
     background-color: #66cccc;
     text-transform: uppercase;
     border-radius: 4px;
-    padding: 10px 25px;
-    min-width: 210px;
-    display: flex;
-    display: -ms-flexbox;    
-    display: -webkit-box;    
-    display: -webkit-flexbox; 
-    display: -webkit-flex;
 }
-.listing-action-write-review a{
-    color: #ffffff;
-    margin: auto;   
+.listing-action.review a{
+    color: #ffffff;  
 }
+
 
 .listing-action-suggest-edit{
     margin:3px auto;
@@ -416,7 +401,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .listing-cat-info{
     border-top: 1px solid;
-    border-color: #f0f0f0;
+    //border-color: #f0f0f0;
     border-color: #f2f2f2;
     min-width: 100px;
 }
@@ -731,4 +716,33 @@ ul.validation-errors li {
 #wpbdp-submit-page #googlewallet-buy img {
     border: none;
     box-shadow: none
+}
+
+.reviews{
+    background-color: #fff;
+    padding-top:30px;
+    padding-bottom: 30px;
+    border-top: 1px solid;
+    border-color: #e6e6e6;
+    box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.products{
+    background-color: #fff;
+    padding-top:30px;
+    padding-bottom: 30px;
+    border-top: 1px solid;
+    border-color: #e6e6e6;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.user-thumb-photo{
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
 }

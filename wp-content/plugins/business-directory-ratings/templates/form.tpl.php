@@ -1,7 +1,7 @@
 <div class="review-form">
 
 <div class="review-form-header">
-    <h4><?php _e('Post your review', 'wpbdp-ratings'); ?></h4>
+    <h5><?php _e('Write a review', 'wpbdp-ratings'); ?></h5>
 </div>
 
 <div class="form">
