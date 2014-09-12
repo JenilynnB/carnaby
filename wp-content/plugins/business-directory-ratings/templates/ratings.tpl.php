@@ -9,9 +9,9 @@
                 <div class="wpbdp-ratings-reviews">
                     <h4><?php _e('Reviews', 'wpbdp-ratings'); ?></h4>
 
-
-                    <?php if ($ratings): ?>
                     <div class="col-md-12">
+                    <?php if ($ratings): ?>
+                    
                         <div class="row">
                             <div class="listing-ratings">
                                 <!--Loop for each review-->

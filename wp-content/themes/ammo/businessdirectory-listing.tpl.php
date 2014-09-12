@@ -24,7 +24,7 @@
                             <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
                          </div>
                         <div class="row">
-                            <div class="col-md-6 col col-sm-12 col-xs-12">
+                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
                                 <div class='listing-element'><?php echo get_top_apparel_categories_html();?></div>
                                 <div > <?php echo render_listing_highlights(); ?> </div>
                             </div>

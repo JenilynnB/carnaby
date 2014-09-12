@@ -983,19 +983,21 @@ function render_products(){
         $image_sizes = $product_images["sizes"];
         
         
-        $image = $image_sizes["Best"];
+        $image = $image_sizes["Large"];
         $image_url = $image["url"];
         $image_height = $image["height"];
         $image_width = $image["width"];
         
         $response .= '<div class="post_filter_item col-md-3 col-sm-6 col-xs-12 swiper-slide swiper-slide-visible swiper-slide-active">';
         $response .=    '<article class="entry">';
-        $response .=        '<div class="entry-media" style="padding:3px;">';
+        $response .=        '<div class="entry-media"">';
+        $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="max-height:150px; width:auto; margin:auto; "/></a>';
+        /*
         if ($image_height>$image_width){
             $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="height:150px; width:auto; margin-left: auto; margin-right:auto;"/></a>';
         }else{
             $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="width:150px; height:auto; margin-left: auto; margin-right:auto;"/></a>';
-        }
+        }*/
         $response .=        '</div>';
         $response .=    '</article>';
         $response .= '</div>';
@@ -1039,12 +1041,12 @@ function render_listing_highlights(){
     $returns = get_return_shipping_info();
     $prices = render_price_field();
     
-    $return .= '<div class="flex">';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item" style="display:flex; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex;">'.$prices.'</div></div>';
-    $return .= '&nbsp;&nbsp;•&nbsp;&nbsp;';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="icon-plane"></i>'.$shipping.'</div></div>';
-    $return .= '&nbsp;&nbsp;•&nbsp;&nbsp;';
-    $return .= '<div class="listing-highlight"><div class="listing-highlight-item"><i class="icon-refresh"></i>'.$returns.'</div></div>';
+    $return .= '<div class="listing-highlights flex">';
+    $return .= '<div class="listing-highlight "><div class="listing-highlight-item flex" >'.$prices.'</div></div>';
+    $return .= '<div class="listing-highlight-spacer flex" ><i class="spacer">•</i></div>';
+    $return .= '<div class="listing-highlight "><div class="listing-highlight-item flex"><i class="icon-plane"></i>'.$shipping.'</div></div>';
+    $return .= '<div class="listing-highlight-spacer flex" ><i class="spacer">•</i></div>';
+    $return .= '<div class="listing-highlight "><div class="listing-highlight-item flex"><i class="icon-refresh"></i>'.$returns.'</div></div>';
     $return .= '</div>';
     
     return $return;

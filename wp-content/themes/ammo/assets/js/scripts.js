@@ -471,9 +471,9 @@ jQuery(document).ready(function($) {
 		var $this = jQuery(this);
 		var column = 1;
 		
-		if( $this.width() > 939){ column = 4; }
-		else if( $this.width() > 422 ){ column = 3; }
-		else if( $this.width() > 400 ){ column = 2; }
+		if( $this.width() > 939){ column = 6; }
+		else if( $this.width() > 422 ){ column = 5; }
+		else if( $this.width() > 400 ){ column = 4; }
 
 		jQuery('.woocommerce.swiper-container ul.products li.product').css({
 			'margin': 'auto',
@@ -512,9 +512,9 @@ jQuery(document).ready(function($) {
         });
 
 		jQuery(window).resize(function(){
-			if( $this.width() > 939){ $carousel.params.slidesPerView = 4; }
-			else if( $this.width() > 422 ){ $carousel.params.slidesPerView = 3; }
-			else if( $this.width() > 400 ){ $carousel.params.slidesPerView = 2; }
+			if( $this.width() > 939){ $carousel.params.slidesPerView = 6; }
+			else if( $this.width() > 422 ){ $carousel.params.slidesPerView = 5; }
+			else if( $this.width() > 400 ){ $carousel.params.slidesPerView = 4; }
 			else{ $carousel.params.slidesPerView = 1; }
 
 			// fix title position
