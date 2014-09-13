@@ -104,19 +104,22 @@ WPBDP.ratings.init = function() {
 };
 
 $(function(){
-
-    var $form_wrapper = $('#form_wrapper'), 
+    try{
+        var $form_wrapper = $('#form_wrapper'), 
             $currentForm = $form_wrapper.children('.active'), 
             $linkform = $form_wrapper.find('.linkform');
-
+    }catch(e){
+        return;
+    }
+    
     $form_wrapper.children('.flip-form').each(function(i){
         var $theForm = $(this);
         if(!$theForm.hasClass('active'))
             $theForm.hide();
         $theForm.data({
             width : $theForm.width(),
-            height: $theForm.height()
-        });
+            height: $theForm.height() 
+       });
     });
 
     setWrapperWidth();
