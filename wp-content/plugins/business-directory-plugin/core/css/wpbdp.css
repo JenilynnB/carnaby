@@ -356,14 +356,16 @@ form#wpbdmsearchform a.advanced-search-link {
     border-color: #f2f2f2;
     border-radius: 4px;
     text-transform: uppercase;
- 
     background-color:#fff;
+    width: 170px;
 }
 
 .listing-action.review{
     background-color: #66cccc;
     text-transform: uppercase;
     border-radius: 4px;
+    width: 170px;
+    margin:auto;
 }
 .listing-action.review a{
     color: #ffffff;  

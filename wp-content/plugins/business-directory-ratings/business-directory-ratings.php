@@ -140,8 +140,11 @@ class BusinessDirectory_RatingsModule {
                               plugins_url('/resources/wpbdp-ratings-admin.min.js', __FILE__),
                               array('jquery-raty'));
         } else {
-            wp_enqueue_script('wpbdp-ratings',
+            /*wp_enqueue_script('wpbdp-ratings',
                               plugins_url('/resources/wpbdp-ratings.min.js', __FILE__),
+                              array('jquery-raty'));  */          
+            wp_enqueue_script('wpbdp-ratings',
+                              plugins_url('/resources/wpbdp-ratings.js', __FILE__),
                               array('jquery-raty'));            
         }
     }

@@ -29,21 +29,33 @@
     color: #c3c3c3;
     
 }
+
+
+
 /*
  * Form
  */
 .wpbdp-ratings-reviews .review-form .form {
     padding: 0 5px;
 }
+.write-review-btn, .write-review-form{
+    width:750px;
+}
+
+.cancel-btn{
+    margin-right: 10px;
+}
 
 .review-form {
     padding: 30px 25px;
     background: #efefef;
-    margin-top: 5px;
-    margin-bottom: 20px;
 }
 
+.review-button{
+    margin: 30px 15px;
+    text-align: center;
 
+}
 .review-form-header>h5{
     text-transform: uppercase;
 }
@@ -59,6 +71,21 @@
 .wpbdp-ratings-reviews .review-form .field .stars {
     vertical-align: middle;
 }
+
+.form_wrapper{
+    background:#fff;
+    margin:0;
+    
+}
+
+.flip-form{
+    display:none;
+    background:#fff;
+}
+.flip-form.active{
+    display:block;
+}
+
 
 
 /*
