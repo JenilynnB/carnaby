@@ -1,6 +1,7 @@
-
-<div class="form_wrapper" id="form_wrapper">
     
+<div class="form_wrapper" id="form_wrapper">
+   
+    <?php if(!$edit_review):?>
     <div class="flip-form write-review-btn active">
         <div class="review-button flex active">
             <div class="listing-action review">
@@ -10,15 +11,21 @@
             </div>
         </div>
     </div>
-    
-    
+    <?php else: ?>
+        
+        <div class="flip-form edit-actions active">
+            <a href="#" class="linkform" rel="write-review-form"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
+        </div>
+    <?php endif; ?>
     
     <div class="flip-form write-review-form">
     <div class="review-form ">
         <div class="review-form-header">
-            <h5><?php _e('Write a review', 'wpbdp-ratings'); ?></h5>
+            
+            <h5><?php _e($edit_review?'Edit My Review':'Write a review', 'wpbdp-ratings'); ?></h5>
+            
         </div>
-
+        
         <div class="form">
             <?php if ($validation_errors): ?>
                 <ul class="validation-errors">
@@ -33,7 +40,18 @@
 
                     <div class="field">
                         <label><?php _e('Rating:', 'wpbdp-ratings'); ?></label>
-                        <span class="stars wpbdp-ratings-stars" data-value="<?php isset($review) ? $review['score'] : 0; ?>"></span>
+                        <?php 
+                            if(isset($review)){
+                                $data_value = $review->rating;
+                            }else if(isset($review_to_edit)){
+                                $data_value = $review_to_edit->rating;
+                            }else{
+                                $data_value = 0;
+                            }
+
+                        ?>
+                        <span class="stars wpbdp-ratings-stars" data-value="<?php echo $data_value; ?>"></span>
+                    
                     </div>
 
                     <?php if (!is_user_logged_in()): ?>
@@ -45,13 +63,19 @@
 
                     <?php if ( wpbdp_get_option( 'ratings-comments' ) != 'disabled' ): ?>
                     <div class="field">
-                        <textarea name="comment" cols="50" rows="3" placeholder="<?php _e('Your review.', 'wpbdp-ratings'); ?>"><?php echo esc_textarea(wpbdp_getv($_POST, 'comment', '')); ?></textarea>
+                        <?php if ($edit_review){?>
+                            <textarea name="comment" cols="50" rows="3" ><?php  echo esc_textarea($review_to_edit->comment ); ?></textarea>
+                        <?php } else { ?>
+                            <textarea name="comment" cols="50" rows="3" placeholder="<?php _e('Your review.', 'wpbdp-ratings'); ?>"><?php echo esc_textarea(wpbdp_getv($_POST, 'comment', '')); ?></textarea>
+                        <?php } ?>   
+                        
                     </div>
                     <?php endif; ?>
 
                     <div class="submit">
-                        <a href="" class="cancel-btn linkform" name="cancel_rate_listing" rel="write-review-btn">Cancel</a>
-                        <input type="submit" class="submit" name="rate_listing" value="<?php _e('Post your review', 'wpbdp-ratings'); ?>" />
+                        
+                        <a href="" class="linkform" name="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
+                        <input type="submit" class="submit" name="rate_listing" value="<?php _e($edit_review?'Save My Review':'Post your review', 'wpbdp-ratings'); ?>" />
                     </div>
                 </form>
         </div>

@@ -1302,7 +1302,8 @@ class XooUserUltra
 		/* Arguments */
 		$defaults = array(
 		        'use_in_sidebar' => null,
-		        'redirect_to' => $default_redirect
+		        'redirect_to' => $default_redirect,
+                        'hide_form' => 0
 		);		
 
 		$args = wp_parse_args( $args, $defaults );
@@ -1426,7 +1427,8 @@ class XooUserUltra
 		/* Arguments */
 		$defaults = array(
 		        'use_in_sidebar' => null,
-		        'redirect_to' => $default_redirect
+		        'redirect_to' => $default_redirect,
+                        'hide_form' => 0
 		);		
 
 		$args = wp_parse_args( $args, $defaults );
@@ -1477,12 +1479,17 @@ class XooUserUltra
 	{
 		global $xoousers_login, $xoousers_captcha_loader;
 		
-		$display = null;		
+		$display = null;
+                
+                $hide_form = $args['hide_form'];
+                $active = $hide_form == 0 ? 'active' : '';
+                
+                
 		$display .= '<form action="" method="post" id="xoouserultra-login-form-'.$this->login_code_count.'">';
 		
                 // this is the Register Link
 		$register_link = site_url('/wp-login.php?action=register');
-		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link">'.__('Register here','xoousers').'</a>';
+		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link linkform" rel="registration-form">'.__('Register here','xoousers').'</a>';
                 
                 $display .= '<div class="xoouultra-registration-text">Don\'t have an account?   ' .$register_link. '</div>';
                 
@@ -1619,8 +1626,6 @@ class XooUserUltra
 		$display .= '</form>';
 		
 		
-		
-		
 		// this is the forgot password form
 		$forgot_pass = '';
 		
@@ -1726,8 +1731,9 @@ class XooUserUltra
 		
 		/* Arguments */
 		$defaults = array(
-        'use_in_sidebar' => null,
-        'redirect_to' => null
+                    'use_in_sidebar' => null,
+                    'redirect_to' => null,
+                    'hide_form' => 0
         		    
 		);
 		$args = wp_parse_args( $args, $defaults );
@@ -1751,43 +1757,7 @@ class XooUserUltra
 		if(get_option('users_can_register') == '1')
 		{
 		
-		    $display .= /*'<div class="xoouserultra-wrap xoouserultra-registration '.$sidebar_class.'">
-					<div class="xoouserultra-inner">
-						
-						<div class="xoouserultra-head">
-							
-							<div class="xoouserultra-left">
-								<div class="'.$pic_class.'">';
-								
-								if (isset($_POST['xoouserultra-register']) && $_POST['user_email'] != '' ) {
-									//$display .= $this->pic($_POST['user_email'], 50);
-								} else {
-									//$display .= $this->pic('john@doe.com', 50);
-								}
-								
-								$display .= '</div>';
-								
-								$display .= '<div class="xoouserultra-name">
-								
-												<div class="xoouserultra-field-name xoouserultra-field-name-wide">';
-												
-												
-								$display .= __('Sign Up','xoousers');
-											
-												
-								$display .= '</div>
-												
-										</div>';
-								
-							$display .= '</div>';
-							
-							
-							$display .= '<div class="xoouserultra-right">';								
-							$display .= '</div><div class="xoouserultra-clear"></div>
-							
-						</div>
-						*/
-						'<div class="xoouserultra-main">
+		    $display .= 		'<div class="xoouserultra-main">
 							
 							<div class="xoouserultra-errors" style="display:none;" id="pass_err_holder">
 							    <span class="xoouserultra-error xoouserultra-error-block" id="pass_err_block">
@@ -1840,10 +1810,14 @@ class XooUserUltra
 		if (!isset($xoousers_register->registered) || $xoousers_register->registered != 1)
 		{
 		
-		$display .= '<form action="" method="post" id="xoouserultra-registration-form" enctype="multipart/form-data">';
+                $hide_form = $args['hide_form'];
+                $active = $hide_form == 0 ? 'active' : '';
+                
+                
+                $display .= '<form action="" method="post" id="xoouserultra-registration-form" enctype="multipart/form-data">';
 		
                 $login_link = site_url('/wp-login.php');
-		$login_link = '<a href="'.$login_link.'" class="xoouserultra-login-login-link">'.__('Login here','xoousers').'</a>';
+		$login_link = '<a href="'.$login_link.'" class="xoouserultra-login-login-link linkform" rel="login-form">'.__('Login here','xoousers').'</a>';
                 $display .= '<div class="xoouultra-registration-text">Already have an account?   ' .$login_link. '</div>';
                 //$display .= '<div class="xoouserultra-field xoouserultra-seperator-requiredfields xoouserultra-edit xoouserultra-edit-show">'.__('Fields with (*) are required','xoousers').'</div>';	
 		
@@ -1856,7 +1830,6 @@ class XooUserUltra
 		/* These are the basic registrations fields */
 		
 
-		
 		
 		/* Get end of array */
 		$array = get_option('usersultra_profile_fields');
@@ -2284,7 +2257,7 @@ class XooUserUltra
 		
 		} 
 		
-		
+
 		return $display;
 	}
 	

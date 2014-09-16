@@ -352,6 +352,20 @@ class BusinessDirectory_RatingsModule {
         $reviews = $wpdb->get_results($query);
         return $reviews;
     }
+    
+    public function get_this_review_by_user($user_id, $listing_id, $only_approved=true){
+        global $wpdb;
+
+        if ($only_approved) {
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id = %d AND listing_id = %d AND approved = %d ORDER BY id DESC", $user_id, $listing_id, 1);
+        } else {
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id = %d AND listing_id = %d ORDER BY id DESC", $user_id, $listing_id);
+        }
+
+        $review = $wpdb->get_row($query);
+       
+        return $review;
+    }
 
     private function get_client_ip_address() {
         $ip = '0.0.0.0';
@@ -367,7 +381,7 @@ class BusinessDirectory_RatingsModule {
     }
 
     function can_post_review($listing_id, &$reason=null) {
-        $reason = 'already-rated';
+        //$reason = 'already-rated';
 
         if (!wpbdp_get_option('ratings-allow-unregistered') && !is_user_logged_in()) {
             
@@ -376,27 +390,58 @@ class BusinessDirectory_RatingsModule {
         }
         
         global $wpdb;
-
+        
         $user_id = get_current_user_id();
         //$ip_address = $this->get_client_ip_address();
-
+        
         if ($user_id) {
-            return intval($wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;
+            
+            //return intval($wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;
+            if(!intval($wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0){
+                $reason='already-rated';
+            }
+            return true;
         } else {
             return intval($wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE ip_address = %s AND listing_id = %d", $ip_address, $listing_id) )) == 0;
+        }
+    }
+    
+    function has_written_review($listing_id){
+        
+        if (!wpbdp_get_option('ratings-allow-unregistered') && !is_user_logged_in()) {
+            return false;
+        }
+        
+        global $wpdb;
+        
+        $user_id = get_current_user_id();
+        
+        if ($user_id) {
+            
+            return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;
+            
+        } else {
+            return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE ip_address = %s AND listing_id = %d", $ip_address, $listing_id) )) == 0;
         }
     }
 
     public function _process_form($listing_id) {
         global $wpdb;
-
+        $review = array();
+        
         $this->_form_state = array();
         $this->_form_state['success'] = false;
         $this->_form_state['validation_errors'] = $this->validate_form();
-
+        $this->_form_state['edit_review'] = $this->has_written_review($listing_id);
+        
+        if(get_current_user_id()){
+            $this->_form_state['review_to_edit'] = $this->get_this_review_by_user(get_current_user_id(), $listing_id);
+            $review_id = $this->_form_state['review_to_edit']->id;
+        }
+        
         if (!$this->can_post_review($listing_id))
             return;
-
+        
         if (isset($_POST['rate_listing']) && !$this->_form_state['validation_errors']) {
             $review = stripslashes_deep( array(
                 'user_id' => get_current_user_id(),
@@ -407,16 +452,27 @@ class BusinessDirectory_RatingsModule {
                 'comment' => trim($_POST['comment']),
                 'created_on' => current_time('mysql'),
                 'approved' => wpbdp_get_option('ratings-require-approval') ? 0 : 1
-            ) );
+                ) );
+            
+            if ($this->has_written_review($listing_id)>0) {
 
-            if ($wpdb->insert("{$wpdb->prefix}wpbdp_ratings", $review)) {
-                $this->_form_state['success'] = true;
-
-                if ( $review['approved'] == 1 )
+                if ( ( $review['user_id'] && $review['user_id'] == get_current_user_id() ) || current_user_can('administrator')) {
+                    if ($wpdb->update("{$wpdb->prefix}wpbdp_ratings", $review, array('id' => $review_id))) {
+                        $this->_form_state['success'] = true;
+                    }
+                }
+            }else{
+               if ($wpdb->insert("{$wpdb->prefix}wpbdp_ratings", $review)) {
+                    $this->_form_state['success'] = true;
+                }
+            }    
+                
+                
+                
+            if ( $review['approved'] == 1 )
                     do_action( 'wpbdp_ratings_rating_approved', (object) $review );
-                else
+            else
                     do_action( 'wpbdp_ratings_rating_submitted', (object) $review );
-            }
         }
     }
 
@@ -435,7 +491,6 @@ class BusinessDirectory_RatingsModule {
             if ( wpbdp_get_option( 'ratings-comments' ) == 'required' && !trim($_POST['comment']))
                 $errors[] = __('Please enter a comment.', 'wpbdp-ratings');
         }
-
         return $errors;
     }
 
@@ -446,7 +501,8 @@ class BusinessDirectory_RatingsModule {
     public function _reviews_and_form($listing_id) {
         if (!$this->enabled() || ( apply_filters( 'wpbdp_listing_ratings_enabled', true, $listing_id ) == false ) )
             return;
-
+        
+        
         $vars = array();
         $vars['review_form'] = $this->can_post_review($listing_id, $reason) ? wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state) : '';
         $vars['reason'] = $reason;

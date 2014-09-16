@@ -36,7 +36,7 @@
                     <table class="listing-actions">
                     <tr>
                         <td class="listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></td>
-                        <td class="listing-action review"><a href=""><i class="fa fa-plus-square-o"></i> Write a Review</a></td>
+                        <td class="listing-action review"><a href="#rate-listing-form"><i class="fa fa-plus-square-o"></i> Write a Review</a></td>
                     </tr>
                     <tr>
                         <td></td><td class="pull-right"><div ><a href=""><i class="fa fa-pencil-square-o"></i> Suggest an Edit</a></div></td>

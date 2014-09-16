@@ -1,7 +1,7 @@
 .wpbdp-ratings-reviews .message {
     text-align: center;
     padding: 2px 0;
-    border-bottom: dotted 1px #efefef;
+    //border-bottom: dotted 1px #efefef;
 }
 
 
@@ -38,7 +38,7 @@
 .wpbdp-ratings-reviews .review-form .form {
     padding: 0 5px;
 }
-.write-review-btn, .write-review-form{
+.write-review-btn, .write-review-form, .registration-form-embed, .login-form-embed{
     width:750px;
 }
 
@@ -76,6 +76,13 @@
     background:#fff;
     margin:0;
     
+}
+.registration-form-wrapper, .login-form-wrapper{
+    margin-top: 15px;
+    padding-top: 15px;
+    -moz-box-shadow:1px 1px 7px #ccc;
+    -webkit-box-shadow:1px 1px 7px #ccc;
+    box-shadow:1px 1px 7px #ccc;
 }
 
 .flip-form{

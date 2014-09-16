@@ -31,10 +31,22 @@
                                         <div class="<?php echo $content_class; ?>">
 						<!--<div class="content">-->
 							<div class="row">
-								<div class="col-md-6 pull-left">
-									<?php
-										echo do_shortcode("[usersultra_login]");
-                                                                                the_content();
+								<div class="col-md-6 pull-left" style="background-color: #fff;height:780px">
+                                                                    <div class="form_wrapper" id="form_wrapper">
+    
+                                                                            <div class="flip-form registration-form">
+                                                                                
+                                                                                    <?php echo do_shortcode("[usersultra_registration]");?>
+                                                                                
+                                                                            </div>
+                                                                            <div class="flip-form login-form active">
+                                                                                
+                                                                                    <?php echo do_shortcode("[usersultra_login]"); ?>
+                                                                                
+                                                                            </div>    
+                                                                    </div>
+                                                                    <?php        
+                                                                        the_content();
 
 										// WP pages
 	                                    wp_link_pages(array(
@@ -51,7 +63,7 @@
                                     ?>
 
 								</div>
-                                                                <div class="col-md pull-right">
+                                                                <div>
                                                                     <?php $image_url = site_url("/wp-content/uploads/iStock_000021272175Large-2.jpg") ?>
                                                                     <img src="<?php echo $image_url?>" class="hidden-md hidden-sm hidden-xs"/>
                                                                 </div>

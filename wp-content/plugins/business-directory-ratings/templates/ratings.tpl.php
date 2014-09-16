@@ -71,11 +71,19 @@
                                                 </span>
                                             </div>
                                             <!--Actions to edit/delete review as author-->
-                                            <div class="edit-actions">
-                                                <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() ) || current_user_can('administrator')): ?>
-                                                <a href="#" class="edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
-                                                <?php endif; ?>
-                                            </div>
+                                            
+                                            <?php /*if ( $review_to_edit->user_id > 0 && $review_to_edit->user_id == get_current_user_id() ):*/ ?> 
+                                            
+                                            <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() )): ?>
+                                                <?php echo $review_form; ?>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ( current_user_can('administrator')): ?>
+                                                <div class="edit-actions">
+                                                    <a href="#" class="edit" ><i class="icon-pencil"></i> Admin edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i>Admin delete</a>
+                                                </div>
+                                            <?php endif; ?>
+                                            
                                         </div>
                                     </div>
 
@@ -85,6 +93,7 @@
                                     <!--Review Edit form (as author)-->   
                                     <?php if (($rating->user_id > 0 && $rating->user_id == get_current_user_id() ) || current_user_can('administrator')): ?>
                                     <div class="rating-comment-edit" style="display: none;">
+                                         
                                         <textarea><?php echo esc_textarea($rating->comment); ?></textarea>
                                         <input type="button" value="<?php _e('Cancel', 'wpbdp-ratings'); ?>" class="button cancel-button" />
                                         <input type="button" value="<?php _e('Save', 'wpbdp-ratings'); ?>" class="submit save-button" />
@@ -103,7 +112,7 @@
                             <!--Message for no reviews-->
                             <p class="no-reviews-message" style="<?php echo $ratings ? 'display: none;' : ''?>"><?php _e('There are no reviews yet.', 'wpbdp-ratings'); ?></p>
 
-                            <?php if ($review_form): ?>
+                            <?php if ( $reason != 'already-rated') : ?>
                                 <?php echo $review_form; ?>
                             <?php else: ?>
                                 <?php if ($success): ?>
@@ -119,9 +128,38 @@
                                 <div class="message">
                                     <?php if ($reason == 'already-rated'): ?>
                                         <?php _e('(You have already rated this listing)', 'wpbdp-ratings'); ?>
+                                        
+                                    
                                     <?php else: ?>
-                                        <?php _e('(Please login to rate this listing)', 'wpbdp-ratings'); ?>
-                                        <?php echo do_shortcode('[usersultra_registration]'); ?>
+                                        
+                                        
+                                        <div class="form_wrapper" id="form_wrapper">
+    
+                                            <div class="flip-form write-review-btn active">
+                                                <div class="review-button flex active">
+                                                    <div class="listing-action review">
+                                                        <?php $registration_url=  site_url("/registration");?>
+                                                        <a href="<?php $registration_url?>" rel="registration-form" class="linkform"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                            
+
+                                            <div class="flip-form registration-form registration-form-embed">
+                                                <div class="registration-form-wrapper">
+                                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
+
+                                                    <?php echo do_shortcode("[usersultra_registration]");?>
+                                                </div> 
+                                            </div>
+                                            <div class="flip-form login-form login-form-embed">
+                                                <div class="login-form-wrapper">
+                                                    <?php echo do_shortcode("[usersultra_login]"); ?>
+                                                </div>
+                                            </div>    
+
+                                        </div>
                                     <?php endif; ?>
                                 </div>
                                 <?php endif; ?>

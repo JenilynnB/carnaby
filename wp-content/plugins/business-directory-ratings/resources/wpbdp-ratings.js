@@ -148,10 +148,6 @@ $(function(){
             });
     }
     
-    $form_wrapper.find('input[type="submit"]')
-     .click(function(e){
-        e.preventDefault();
-    });
 });
 
 jQuery(function($) {
