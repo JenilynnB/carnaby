@@ -942,6 +942,27 @@ function get_largest_and_smallest_sizes($sizes){
     return $res;
 }
 
+function has_written_review($listing_id=0){
+    
+    if ($listing_id==0){$listing_id = get_the_ID();}
+    if (!wpbdp_get_option('ratings-allow-unregistered') && !is_user_logged_in()) {
+        return false;
+    }
+
+    global $wpdb;
+
+    $user_id = get_current_user_id();
+
+    if ($user_id) {
+
+        return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;
+
+    } else {
+        return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE ip_address = %s AND listing_id = %d", $ip_address, $listing_id) )) == 0;
+    }
+}
+
+
 function render_products(){
     global $post;
     

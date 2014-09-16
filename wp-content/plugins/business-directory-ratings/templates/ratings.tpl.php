@@ -11,7 +11,27 @@
 
                     <div class="col-md-12">
                     <?php if ($ratings): ?>
-                    
+                        <div class="row">
+                            <?php if ($success): ?>
+                                <div class="alert alert-success">
+                                    <?php if (wpbdp_get_option('ratings-require-approval')): ?>
+                                        <?php _e('Your review has been saved and is waiting for approval.', 'wpbdp-ratings'); ?>
+                                    <?php else: ?>
+                                        <?php _e('Your review has been published!', 'wpbdp-ratings'); ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php else: ?>
+
+                                <div class="message">
+                                    <?php if ($reason == 'already-rated'): ?>
+                                        <?php _e('(You have already rated this listing)', 'wpbdp-ratings'); ?>
+                                        
+                                    
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
                         <div class="row">
                             <div class="listing-ratings">
                                 <!--Loop for each review-->
@@ -80,7 +100,7 @@
                                             
                                             <?php if ( current_user_can('administrator')): ?>
                                                 <div class="edit-actions">
-                                                    <a href="#" class="edit" ><i class="icon-pencil"></i> Admin edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i>Admin delete</a>
+                                                    <a href="#" class="edit" ><i class="icon-pencil"></i> Admin edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
                                                 </div>
                                             <?php endif; ?>
                                             
@@ -111,58 +131,11 @@
                         <div class="row">
                             <!--Message for no reviews-->
                             <p class="no-reviews-message" style="<?php echo $ratings ? 'display: none;' : ''?>"><?php _e('There are no reviews yet.', 'wpbdp-ratings'); ?></p>
-
-                            <?php if ( $reason != 'already-rated') : ?>
+                            
+                            <?php if (!has_written_review() || !is_user_logged_in()) : ?>
                                 <?php echo $review_form; ?>
                             <?php else: ?>
-                                <?php if ($success): ?>
-                                <div class="message">
-                                    <?php if (wpbdp_get_option('ratings-require-approval')): ?>
-                                        <?php _e('Your review has been saved and is waiting for approval.', 'wpbdp-ratings'); ?>
-                                    <?php else: ?>
-                                        <?php _e('Your review has been saved.', 'wpbdp-ratings'); ?>
-                                    <?php endif; ?>
-                                </div>
-                                <?php else: ?>
-
-                                <div class="message">
-                                    <?php if ($reason == 'already-rated'): ?>
-                                        <?php _e('(You have already rated this listing)', 'wpbdp-ratings'); ?>
-                                        
-                                    
-                                    <?php else: ?>
-                                        
-                                        
-                                        <div class="form_wrapper" id="form_wrapper">
-    
-                                            <div class="flip-form write-review-btn active">
-                                                <div class="review-button flex active">
-                                                    <div class="listing-action review">
-                                                        <?php $registration_url=  site_url("/registration");?>
-                                                        <a href="<?php $registration_url?>" rel="registration-form" class="linkform"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>    
-                                            
-
-                                            <div class="flip-form registration-form registration-form-embed">
-                                                <div class="registration-form-wrapper">
-                                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
-
-                                                    <?php echo do_shortcode("[usersultra_registration]");?>
-                                                </div> 
-                                            </div>
-                                            <div class="flip-form login-form login-form-embed">
-                                                <div class="login-form-wrapper">
-                                                    <?php echo do_shortcode("[usersultra_login]"); ?>
-                                                </div>
-                                            </div>    
-
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <?php endif; ?>
+                                
                             <?php endif; ?>    
                         </div>
                     </div>

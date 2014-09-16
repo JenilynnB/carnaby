@@ -33,10 +33,10 @@
 
                 </div>
                 <div class="col-md-4 pull-right">
-                    <table class="listing-actions">
+                    <table class="listing-actions edit-trigger">
                     <tr>
                         <td class="listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></td>
-                        <td class="listing-action review"><a href="#rate-listing-form"><i class="fa fa-plus-square-o"></i> Write a Review</a></td>
+                        <td class="listing-action review"><a href="#form_wrapper" id="toplink"><i class="fa fa-plus-square-o"></i><?php echo has_written_review()? " Edit My Review": " Write a Review" ?></a></td>
                     </tr>
                     <tr>
                         <td></td><td class="pull-right"><div ><a href=""><i class="fa fa-pencil-square-o"></i> Suggest an Edit</a></div></td>

@@ -406,25 +406,6 @@ class BusinessDirectory_RatingsModule {
         }
     }
     
-    function has_written_review($listing_id){
-        
-        if (!wpbdp_get_option('ratings-allow-unregistered') && !is_user_logged_in()) {
-            return false;
-        }
-        
-        global $wpdb;
-        
-        $user_id = get_current_user_id();
-        
-        if ($user_id) {
-            
-            return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE (user_id = %d OR ip_address = %s) AND listing_id = %d", $user_id, $ip_address, $listing_id) )) == 0;
-            
-        } else {
-            return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE ip_address = %s AND listing_id = %d", $ip_address, $listing_id) )) == 0;
-        }
-    }
-
     public function _process_form($listing_id) {
         global $wpdb;
         $review = array();
@@ -432,7 +413,7 @@ class BusinessDirectory_RatingsModule {
         $this->_form_state = array();
         $this->_form_state['success'] = false;
         $this->_form_state['validation_errors'] = $this->validate_form();
-        $this->_form_state['edit_review'] = $this->has_written_review($listing_id);
+        $this->_form_state['edit_review'] = has_written_review($listing_id);
         
         if(get_current_user_id()){
             $this->_form_state['review_to_edit'] = $this->get_this_review_by_user(get_current_user_id(), $listing_id);
@@ -454,7 +435,7 @@ class BusinessDirectory_RatingsModule {
                 'approved' => wpbdp_get_option('ratings-require-approval') ? 0 : 1
                 ) );
             
-            if ($this->has_written_review($listing_id)>0) {
+            if (has_written_review($listing_id)>0) {
 
                 if ( ( $review['user_id'] && $review['user_id'] == get_current_user_id() ) || current_user_can('administrator')) {
                     if ($wpdb->update("{$wpdb->prefix}wpbdp_ratings", $review, array('id' => $review_id))) {
@@ -504,7 +485,8 @@ class BusinessDirectory_RatingsModule {
         
         
         $vars = array();
-        $vars['review_form'] = $this->can_post_review($listing_id, $reason) ? wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state) : '';
+        //$vars['review_form'] = $this->can_post_review($listing_id, $reason) ? wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state) : '';
+        $vars['review_form'] = wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state);
         $vars['reason'] = $reason;
         $vars['success'] = $this->_form_state['success'];
         $vars['ratings'] = $this->get_reviews($listing_id);

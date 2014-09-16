@@ -103,6 +103,10 @@ WPBDP.ratings.init = function() {
     jQuery(".listing-ratings .rating-comment-edit input.save-button").click(WPBDP.ratings.saveEdit)
 };
 
+
+
+
+
 $(function(){
     try{
         var $form_wrapper = $('#form_wrapper'), 
@@ -141,12 +145,54 @@ $(function(){
         });
         e.preventDefault();
     });
+    
+    $( "#toplink" ).bind( "click", function(e) {
+        $currentForm = $form_wrapper.children('.review-trigger.active');
+        var target = 'review-action';
+        
+        $currentForm.fadeOut(400, function(){
+            $currentForm.removeClass('active');
+            $currentForm = $form_wrapper.children("."+target);
+            $form_wrapper.stop()
+                .animate({
+                    width: $currentForm.data('width') + 'px',
+                    height: $currentForm.data('height') + 'px'
+                }, 500, function(){
+                    $currentForm.addClass('active');
+                    $currentForm.fadeIn(400);
+                });
+        });
+        e.preventDefault();
+    });
+    /*
+    $toplink.bind('click', function(e){
+        $currentForm = $form_wrapper.children('.edit-actions');
+        var target = 'review-form';
+        $currentForm.fadeOut(400, function(){
+            $currentForm.removeClass('active');
+            $currentForm = $form_wrapper.children("."+target);
+            $form_wrapper.stop()
+                .animate({
+                    width: $currentForm.data('width') + 'px',
+                    height: $currentForm.data('height') + 'px'
+                }, 500, function(){
+                    $currentForm.addClass('active');
+                    $currentForm.fadeIn(400);
+                });
+        });
+        e.preventDefault();
+    });*/
+    
+    
     function setWrapperWidth(){
             $form_wrapper.css({
                     width	: $currentForm.data('width') + 'px',
                     height	: $currentForm.data('height') + 'px'
             });
     }
+    
+    
+
     
 });
 
