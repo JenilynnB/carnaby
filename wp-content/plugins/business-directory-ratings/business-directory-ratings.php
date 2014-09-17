@@ -503,19 +503,46 @@ class BusinessDirectory_RatingsModule {
         global $wpdb;
 
         $res = array('success' => false, 'msg' => __('An unknown error occurred', 'wpbdp-ratings'));
-
+        
+        
         switch (wpbdp_getv($_POST, 'a')) {
             case 'info':
                 $res['info'] = (array) $this->get_rating_info($_POST['listing_id']);
                 $res['success'] = true;                
                 break;
+            case 'new':
+                $res = array('success' => false, 'msg' => __("I got to new", 'wpbdp-ratings'));
+                 
+                
+                $review = stripslashes_deep( array(
+                    'user_id' => get_current_user_id(),
+                    //'user_name' => wpbdp_getv($_POST, 'user_name', ''),
+                    'ip_address' => $this->get_client_ip_address(),
+                    'listing_id' => intval($_POST['listing_id']),
+                    'rating' => intval($_POST['score']),
+                    'comment' => trim($_POST['comment']),
+                    'created_on' => current_time('mysql'),
+                    'approved' => wpbdp_get_option('ratings-require-approval') ? 0 : 1
+                    ) );
+                if ($wpdb->insert("{$wpdb->prefix}wpbdp_ratings", (array) $review)) {
+                    $res['comment'] = $review->comment;
+                    $res['rating'] = $review->rating;
+                    $res['success'] = true;
+                }
+                break;
+                
             case 'edit':
+                //$review['id'] = intval($_POST['id']);
+                $res = array('success' => false, 'msg' => __('I got to edit', 'wpbdp-ratings'));
+                
                 if ($review = $wpdb->get_row( $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE id = %d", $_POST['id']) )) {
                     if ( ( $review->user_id && $review->user_id == get_current_user_id() ) || current_user_can('administrator')) {
                         $review->comment = stripslashes( trim( $_POST['comment'] ) );
+                        $review->rating = intval($_POST['score']);
 
                         if ($wpdb->update("{$wpdb->prefix}wpbdp_ratings", (array) $review, array('id' => $review->id))) {
                             $res['comment'] = $review->comment;
+                            $res['score'] = $review->rating;
                             $res['success'] = true;
                         }
                     }

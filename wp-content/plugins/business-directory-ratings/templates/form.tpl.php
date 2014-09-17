@@ -4,7 +4,7 @@
     <?php if(has_written_review() && is_user_logged_in()):?>
         
         <div class="flip-form edit-actions review-trigger active">
-            <a href="#" class="linkform" rel="write-review-form"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
+            <a href="" class="linkform" rel="write-review-form"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
         </div>
         
     <?php else: ?>
@@ -61,7 +61,7 @@
                         </ul>
                     <?php endif; ?>
                         <a name="rate-listing-form" id="rate-listing-form"></a>
-                        <form action="#rate-listing-form" method="POST">
+                        <!--<form action="#rate-listing-form" method="POST">-->
                             <input type="hidden" name="listing_id" value="<?php echo get_the_ID(); ?>" />
 
                             <div class="field">
@@ -100,10 +100,14 @@
 
                             <div class="submit">
 
-                                <a href="" class="linkform" name="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
-                                <input type="submit" class="submit" name="rate_listing" value="<?php _e($edit_review?'Save My Review':'Post your review', 'wpbdp-ratings'); ?>" />
+                                <a href="" class="btn btn-link linkform" name="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
+                                <?php if(has_written_review()){ ?>
+                                <a href="" class="submit btn btn-primary btn-md linkform" id="save-edit-rate-listing" rel="edit-actions">Save My Review</a>
+                                <?php }else{ ?>
+                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-new-rate-listing" rel="write-review-btn">Post My Review', 'wpbdp-ratings'); ?></a>
+                                <?php } ?>
                             </div>
-                        </form>
+                        <!--</form>-->
                 </div>
             </div>
         </div>

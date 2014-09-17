@@ -79,6 +79,85 @@ WPBDP.ratings.updateRating = function(post_id) {
         }
     }, "json")
 };
+WPBDP.ratings.saveReviewEdit = function(e) {
+    e.preventDefault();
+    var $rating = jQuery(this).parents(".rating");
+    var $link = $(this);
+    var comment = jQuery(".form textarea", $rating).val();
+    var score = jQuery(".review-form input[name='score'][type='hidden']", $rating).val();
+    try{
+        var $form_wrapper = $('#form_wrapper'), 
+            $currentForm = $form_wrapper.children('.active'), 
+            $linkform = $form_wrapper.find('.linkform');
+    }catch(e){
+    }
+    jQuery.post(WPBDP.ratings._config.ajaxurl, {
+        action: "wpbdp-ratings",
+        a: "edit",
+        id: $rating.attr("data-id"),
+        comment: comment,
+        score: score
+    }, function(res) {
+        if (res.success) {
+
+            var target = $link.attr('rel');
+    
+            jQuery(".review-form textarea", $rating).val(res.comment);
+            jQuery(".wpbdp-ratings-stars", $rating).attr('data-value', res.score);
+            jQuery(".wpbdp-ratings-stars input[name='score']", $rating).attr('value', res.score);
+            for (i=1; i<=5; i++){
+                if(i<=res.score){
+                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'fa fa-fw fa-star');
+                }else{
+                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'fa fa-fw fa-star-o');
+                }
+            }
+            jQuery(".rating-comment", $rating).html(res.comment).show();
+            //jQuery(".review-form", $rating).hide();
+            //jQuery(".form-wrapper", $rating).show();
+            
+            $currentForm.fadeOut(400, function(){
+            $currentForm.removeClass('active');
+            $currentForm = $form_wrapper.children("."+target);
+            $form_wrapper.stop()
+                .animate({
+                    width: $currentForm.data('width') + 'px',
+                    height: $currentForm.data('height') + 'px'
+                }, 500, function(){
+                    $currentForm.addClass('active');
+                    $currentForm.fadeIn(400);
+                });
+        });
+            
+        } else {
+            alert(res.msg)
+        }
+    }, "json")
+};
+
+WPBDP.ratings.saveReviewNew = function(e) {
+    e.preventDefault();
+    var $rating = jQuery(this).parents(".review-form");
+    var comment = jQuery(".form textarea", $rating).val();
+    var score = jQuery("input[name='score']", $rating).val();
+    var id = jQuery("input[name='listing_id']", $rating).val();
+    jQuery.post(WPBDP.ratings._config.ajaxurl, {
+        action: "wpbdp-ratings",
+        a: "new",
+        listing_id: id,
+        comment: comment,
+        score: score
+    }, function(res) {
+        if (res.success) {
+            jQuery(".review-form textarea", $rating).val(res.comment);
+            jQuery(".rating-comment", $rating).html(res.comment).show();
+            jQuery(".review-form", $rating).hide()
+        } else {
+            alert(res.msg)
+        }
+    }, "json")
+};
+
 WPBDP.ratings.init = function() {
     var $stars = jQuery(".wpbdp-ratings-stars");
     $stars.each(function(i, v) {
@@ -100,7 +179,10 @@ WPBDP.ratings.init = function() {
     jQuery(".listing-ratings .edit-actions .edit").click(WPBDP.ratings.handleEdit);
     jQuery(".listing-ratings .edit-actions .delete").click(WPBDP.ratings.handleDelete);
     jQuery(".listing-ratings .rating-comment-edit input.cancel-button").click(WPBDP.ratings.cancelEdit);
-    jQuery(".listing-ratings .rating-comment-edit input.save-button").click(WPBDP.ratings.saveEdit)
+    jQuery(".listing-ratings .rating-comment-edit input.save-button").click(WPBDP.ratings.saveEdit);
+    jQuery("#save-edit-rate-listing").click(WPBDP.ratings.saveReviewEdit);
+    jQuery("#save-new-rate-listing").click(WPBDP.ratings.saveReviewNew);
+    
 };
 
 
@@ -164,24 +246,7 @@ $(function(){
         });
         e.preventDefault();
     });
-    /*
-    $toplink.bind('click', function(e){
-        $currentForm = $form_wrapper.children('.edit-actions');
-        var target = 'review-form';
-        $currentForm.fadeOut(400, function(){
-            $currentForm.removeClass('active');
-            $currentForm = $form_wrapper.children("."+target);
-            $form_wrapper.stop()
-                .animate({
-                    width: $currentForm.data('width') + 'px',
-                    height: $currentForm.data('height') + 'px'
-                }, 500, function(){
-                    $currentForm.addClass('active');
-                    $currentForm.fadeIn(400);
-                });
-        });
-        e.preventDefault();
-    });*/
+
     
     
     function setWrapperWidth(){
