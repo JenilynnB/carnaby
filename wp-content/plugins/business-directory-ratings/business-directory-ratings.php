@@ -525,9 +525,86 @@ class BusinessDirectory_RatingsModule {
                     'approved' => wpbdp_get_option('ratings-require-approval') ? 0 : 1
                     ) );
                 if ($wpdb->insert("{$wpdb->prefix}wpbdp_ratings", (array) $review)) {
+                    
+                    $review_id = $wpdb->insert_id;
+                    //need to know how to get new review ID
+                     
+                    $author_first_name = get_the_author_meta('first_name', $review['user_id']);
+                    $author_last_name = get_the_author_meta('last_name', $review['user_id']);
+                    if($author_last_name!=''){
+                        $author_last_initial = substr($author_last_name,0,1);
+                        $author_display_name = $author_first_name." ".$author_last_initial.".";
+                    }else{
+                        $author_display_name = $author_first_name;
+                    }
+                    $user_profile_url = site_url('/profile/?uu_username='.$review['user_id']);
+  
+                    
+                    $new_review .= '<div class="rating" data-id="'.$review_id.'" data-listing-id="'.$review['listing_id'].'"
+                            itemprop="review" itemscope itemtype="http://schema.org/Review">';
+                    $new_review .= '<div class="row">
+                                        <div class="col-md-2">
+                                            <div class="rating-authoring-info">';
+                    $new_review .=              get_user_profile_thumb_circle(100, $review['user_id']);
+                    $new_review .=              '<div class="author" itemprop="author">';
+                    if ($review['user_id'] == 0):
+                        $new_review .= esc_attr($review['user_name']);
+                    else:
+                        $new_review .= '<a href="'. $user_profile_url.'">'.$author_display_name.'</a>';
+                    endif;
+                        
+                    $new_review.= '         </div>
+                                        </div>  
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <div id="form_wrapper_edit" class="form-wrapper">
+                                            <div class="flip-form review-details active" style="width:100%">
+
+                                                <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                                                    <meta itemprop="worstRating" content="0" />
+                                                    <meta itemprop="ratingValue" content="'.$review['rating'].'" />
+                                                    <meta itemprop="bestRating" content="5" />
+                                                    <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="'.$review['rating'].'" itemprop="ratingValue">';
+ 
+                $new_review .=                      '</span>                
+                                                 </span>    
+
+
+                                                <div class="rating-comment" itemprop="description">';
+                $new_review .=                     $review['comment'];
+                $new_review .= '                </div>
+                                                <div class="rating-date">
+                                                    <span class="date" itemprop="datePublished" content="'.$review['created_on'].'">'.
+                                                        date_i18n(get_option('date_format'), strtotime($review->created_on)).
+                                                    '</span>
+                                                </div>
+                                                <div class="edit-actions">
+                                                    <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="delete"><i class="icon-trash"></i></a>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flip-form review-edit" style="width:100%">
+                                                <div class="field">
+                                                    <label>Rating:</label>
+                                                    <span class="stars wpbdp-ratings-stars" data-value="'.$review['rating'].'">';
+                
+                $new_review .=                       '</span>
+                                                </div>
+                                                <textarea>'.$review['comment'].'</textarea>
+                                                <a href="" class="btn btn-link linkform cancel-edit" rel="review-details">Cancel</a>
+                                                <a href="" class="submit btn btn-primary btn-md linkform save-edit" rel="review-details">Save</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                    
+                    
                     $res['comment'] = $review->comment;
                     $res['rating'] = $review->rating;
                     $res['success'] = true;
+                    $res['review'] = $new_review;
                 }
                 break;
                 

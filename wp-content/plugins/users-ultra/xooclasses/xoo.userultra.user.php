@@ -4543,7 +4543,7 @@ class XooUserUser {
 				
 			} else {		
 					
-                            $avatar= get_avatar($id,$size);
+                            $avatar= get_avatar_url($id,$size);
 				
 			
 				

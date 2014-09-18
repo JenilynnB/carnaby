@@ -1,23 +1,18 @@
     
 <div class="form_wrapper" id="form_wrapper">
 
-    <?php if(has_written_review() && is_user_logged_in()):?>
         
-        <div class="flip-form edit-actions review-trigger active">
-            <a href="" class="linkform" rel="write-review-form"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
-        </div>
-        
-    <?php else: ?>
+    <?php if(!has_written_review() || !is_user_logged_in()): ?>
         
         <div class="flip-form write-review-btn review-trigger active">
             <div class="review-button flex active">
                 <div class="listing-action review">
                     <?php if(is_user_logged_in()):?>
 
-                        <a href="" rel="write-review-form" class="linkform"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
+                        <a href="" rel="write-review-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
                     <?php else:?>
                         <?php $registration_url=  site_url("/registration");?>
-                        <a href="<?php $registration_url?>" rel="registration-form" class="linkform"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
+                        <a href="<?php $registration_url?>" rel="registration-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
                     <?php endif;?>
                 </div>
             </div>
@@ -100,11 +95,11 @@
 
                             <div class="submit">
 
-                                <a href="" class="btn btn-link linkform" name="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
+                                <a href="" class="btn btn-link linkform cancel_rate_listing" id="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
                                 <?php if(has_written_review()){ ?>
-                                <a href="" class="submit btn btn-primary btn-md linkform" id="save-edit-rate-listing" rel="edit-actions">Save My Review</a>
+                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-edit-rate-listing" rel="edit-actions">Save My Review</a>
                                 <?php }else{ ?>
-                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-new-rate-listing" rel="write-review-btn">Post My Review', 'wpbdp-ratings'); ?></a>
+                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-new-rate-listing" rel="edit-actions">Post My Review</a>
                                 <?php } ?>
                             </div>
                         <!--</form>-->

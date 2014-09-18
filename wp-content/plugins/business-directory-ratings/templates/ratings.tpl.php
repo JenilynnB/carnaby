@@ -46,7 +46,7 @@
                                         <div class="col-md-2">
                                         <!--Author info--> 
 
-                                            <div class="rating-authoring-info">
+                                            <div    class="rating-authoring-info">
                                                 <?php echo get_user_profile_thumb_circle(100, $rating->user_id);?>
                                                 <div class="author" itemprop="author">
 
@@ -73,54 +73,58 @@
                                         </div>
 
                                         <div class="col-md-10">
+                                            <div id='form_wrapper_edit' class='form-wrapper'>
+                                                <div class='flip-form review-details active' style='width:100%'>
+                                                    <!--Star rating-->
+                                                    <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                                                        <meta itemprop="worstRating" content="0" />
+                                                        <meta itemprop="ratingValue" content="<?php echo $rating->rating; ?>" />
+                                                        <meta itemprop="bestRating" content="5" />
+                                                        <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="<?php echo $rating->rating; ?>" itemprop="ratingValue"></span>                
+                                                    </span> 
+                                                    <div class="rating-comment" itemprop="description">
+                                                        <?php echo esc_attr($rating->comment); ?>
 
-                                            <!--Star rating-->
-                                            <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-                                                <meta itemprop="worstRating" content="0" />
-                                                <meta itemprop="ratingValue" content="<?php echo $rating->rating; ?>" />
-                                                <meta itemprop="bestRating" content="5" />
-                                                <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="<?php echo $rating->rating; ?>" itemprop="ratingValue"></span>                
-                                            </span> 
-                                            <div class="rating-comment" itemprop="description">
-                                                <?php echo esc_attr($rating->comment); ?>
+                                                    </div>
+                                                    <div class="rating-date">
+                                                        <span class="date" itemprop="datePublished" content="<?php echo $rating->created_on; ?>">
+                                                                <?php echo date_i18n(get_option('date_format'), strtotime($rating->created_on)); ?>
+                                                        </span>
+                                                    </div>
+                                                    <!--Actions to edit/delete review as author-->
 
-                                            </div>
-                                            <div class="rating-date">
-                                                <span class="date" itemprop="datePublished" content="<?php echo $rating->created_on; ?>">
-                                                        <?php echo date_i18n(get_option('date_format'), strtotime($rating->created_on)); ?>
-                                                </span>
-                                            </div>
-                                            <!--Actions to edit/delete review as author-->
-                                            
-                                            <?php /*if ( $review_to_edit->user_id > 0 && $review_to_edit->user_id == get_current_user_id() ):*/ ?> 
-                                            
-                                            <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() )): ?>
-                                                <?php echo $review_form; ?>
-                                            <?php endif; ?>
-                                            
-                                            <?php if ( current_user_can('administrator')): ?>
-                                                <div class="edit-actions">
-                                                    <a href="#" class="edit" ><i class="icon-pencil"></i> Admin edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="delete"><i class="icon-trash"></i></a>
+                                                    <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() )): ?>
+                                                        <div class="edit-actions">
+                                                            <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="delete linkform" rel='write-review-btn'><i class="icon-trash"></i></a>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
-                                            <?php endif; ?>
-                                            
+
+                                                <!--Review Edit form (as author)-->   
+                                                <?php if (($rating->user_id > 0 && $rating->user_id == get_current_user_id() ) || current_user_can('administrator')): ?>
+                                                <div class="flip-form review-edit"  style='width:100%'>
+                                                     <div class="field">
+                                                        <label><?php _e('Rating:', 'wpbdp-ratings'); ?></label>
+                                                        <?php 
+                                                            if(isset($rating->rating)){
+                                                                $data_value = $rating->rating;
+                                                            }else{
+                                                                $data_value = 0;
+                                                            }
+
+                                                        ?>
+                                                        <span class="stars wpbdp-ratings-stars" data-value="<?php echo $data_value; ?>"></span>
+
+                                                    </div>
+                                                    <textarea><?php echo esc_textarea($rating->comment); ?></textarea>
+                                                    <a href="" class="btn btn-link linkform cancel-edit" rel="review-details"><?php _e('Cancel', 'wpbdp-ratings'); ?></a>
+                                                    <a href="" class="submit btn btn-primary btn-md linkform save-edit" rel="review-details"><?php _e('Save', 'wpbdp-ratings'); ?></a>
+                                                </div>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
                                     </div>
-
-
-
-
-                                    <!--Review Edit form (as author)-->   
-                                    <?php if (($rating->user_id > 0 && $rating->user_id == get_current_user_id() ) || current_user_can('administrator')): ?>
-                                    <div class="rating-comment-edit" style="display: none;">
-                                         
-                                        <textarea><?php echo esc_textarea($rating->comment); ?></textarea>
-                                        <input type="button" value="<?php _e('Cancel', 'wpbdp-ratings'); ?>" class="button cancel-button" />
-                                        <input type="button" value="<?php _e('Save', 'wpbdp-ratings'); ?>" class="submit save-button" />
-                                    </div>
-                                    <?php endif; ?>
-
-
+                                    
                                 </div>
                                 <?php endforeach; ?>
                             </div>
