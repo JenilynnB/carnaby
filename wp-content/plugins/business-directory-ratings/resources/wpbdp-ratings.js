@@ -294,9 +294,11 @@ WPBDP.ratings.init = function() {
         })
     });
     
-    $('#confirm-review-delete').on('show.bs.modal', function(e){
-        $(this).find(".confirm-delete").attr('data-id', $(e.relatedTarget).attr('data-id'))
-    })
+    try{
+        $('#confirm-review-delete').on('show.bs.modal', function(e){
+            $(this).find(".confirm-delete").attr('data-id', $(e.relatedTarget).attr('data-id'));
+        });
+    }catch(e){}
     
     jQuery(".listing-ratings .edit-actions .edit").click(WPBDP.ratings.handleEdit);
     //jQuery(".listing-ratings .edit-actions .delete").click(WPBDP.ratings.handleDelete);
