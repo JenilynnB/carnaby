@@ -20,7 +20,13 @@
                                 <?php echo $actions; ?>
                             <?php endif; ?>
                             -->
-                            <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
+                            
+                            <?php if(!empty(get_shopstyle_retailer_id($listing_id))): ?>
+                                <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+                            <?php else: ?>
+                                <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
+                            <?php endif; ?>
+                            <div class="listing-element"></div>
                             <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
                          </div>
                         <div class="row">

@@ -961,8 +961,17 @@ function has_written_review($listing_id=0){
         return intval(!$wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings WHERE ip_address = %s AND listing_id = %d", $ip_address, $listing_id) )) == 0;
     }
 }
+function get_shopstyle_retailer_id($listing_id=0)
+{
+    global $post;
+    
+    if ($listing_id == 0){
+        $listing_id = $post->id;
+    }
+    $retailer_id = 'r'.get_field('shopstyle_retailer_id', $listing_id);
 
-
+    return $retailer_id;
+}
 function render_products(){
     global $post;
     
@@ -1153,6 +1162,20 @@ function render_customer_support_info(){
     if(!empty($support_email)) $html.= "<div class='listing-category-label'>Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
 
     return $html;
+}
+
+function get_shopstyle_retailer_url($listing_id){
+    
+    $shopstyle = new ShopStyle();
+    $host = $shopstyle->getHost();
+    $API_key = $shopstyle->getApiKey();
+    
+    $listing_url = esc_url(wpbdp_render_listing_field('URL'));
+    
+    $return = esc_url("http://".$host."/action/apiVisitRetailer?url=".$listing_url."&pid=".$API_key);
+    
+    return $return;
+    
 }
 
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
