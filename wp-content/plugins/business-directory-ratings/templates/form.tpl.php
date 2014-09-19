@@ -48,6 +48,14 @@
                 </div>
 
                 <div class="form">
+                    <div class="alert alert-danger hidden" id="validation-errors">
+                        <ul>
+                            <li class="validation-error-rating hidden">Please enter a rating for this store</li>
+                            <li class="validation-error-comment hidden">Please write a review to submit with your rating</li>
+                            <li class="validation-error-user hidden">Please log in to rate this store</li>
+                        </ul>
+                    </div>
+                    
                     <?php if ($validation_errors): ?>
                         <ul class="validation-errors">
                             <?php foreach($validation_errors as $error_msg): ?>

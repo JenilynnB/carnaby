@@ -580,11 +580,21 @@ class BusinessDirectory_RatingsModule {
                                                     '</span>
                                                 </div>
                                                 <div class="edit-actions">
-                                                    <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="delete"><i class="icon-trash"></i></a>
+                                                    <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a href="" data-toggle="modal" data-target="#confirm-review-delete" data-id="'.$review_id.'">
+                                                        <i class="icon-trash"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         
                                             <div class="flip-form review-edit" style="width:100%">
+                                                <div class="alert alert-danger hidden" id="validation-errors">
+                                                    <ul>
+                                                        <li class="validation-error-rating hidden">Please enter a rating for this store</li>
+                                                        <li class="validation-error-comment hidden">Please write a review to submit with your rating</li>
+                                                        <li class="validation-error-user hidden">Please log in to rate this store</li>
+                                                    </ul>
+                                                </div>                                                
                                                 <div class="field">
                                                     <label>Rating:</label>
                                                     <span class="stars wpbdp-ratings-stars" data-value="'.$review['rating'].'">';

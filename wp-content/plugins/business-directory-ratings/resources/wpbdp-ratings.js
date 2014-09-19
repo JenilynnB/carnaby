@@ -11,8 +11,10 @@ WPBDP.ratings._defaults = {
 };
 WPBDP.ratings.handleDelete = function(e) {
     e.preventDefault();
-    var $rating = jQuery(this).parents(".rating");
-    var rating_id = $rating.attr("data-id");
+    
+    var rating_id = $(this).attr("data-id");
+    var $rating = jQuery(".rating[data-id='"+rating_id+"']");
+    
     jQuery.post(WPBDP.ratings._config.ajaxurl, {
         action: "wpbdp-ratings",
         a: "delete",
@@ -79,6 +81,11 @@ WPBDP.ratings.saveEdit = function(e) {
     var $rating = jQuery(this).parents(".rating");
     var comment = jQuery(".review-edit textarea", $rating).val();
     var score = jQuery(".review-edit input[name='score'][type='hidden']", $rating).val();
+    
+    var errors = WPBDP.ratings.validate(comment,score);
+    if(errors=="error"){
+        return;
+    }
     jQuery.post(WPBDP.ratings._config.ajaxurl, {
         action: "wpbdp-ratings",
         a: "edit",
@@ -140,6 +147,10 @@ WPBDP.ratings.saveNew = function(e) {
             $currentForm = $form_wrapper.children('.active');
     }catch(e){
     }
+    var errors = WPBDP.ratings.validate(comment,score);
+    if(errors=="error"){
+        return;
+    }
     jQuery.post(WPBDP.ratings._config.ajaxurl, {
         action: "wpbdp-ratings",
         a: "new",
@@ -152,6 +163,7 @@ WPBDP.ratings.saveNew = function(e) {
             jQuery(".review-form textarea", $rating).val(res.comment);
             jQuery(".listing-ratings").append(res.review);
             
+            jQuery(".no-reviews-message").addClass("hidden");
             $currentForm.fadeOut(400, function(){
             $currentForm.removeClass('active');
             $currentForm = $form_wrapper.children("."+target);
@@ -185,7 +197,7 @@ WPBDP.ratings.saveNew = function(e) {
             });
             
             jQuery(".edit-actions .edit", $newReview).click(WPBDP.ratings.handleEdit);
-            jQuery(".edit-actions .delete", $newReview).click(WPBDP.ratings.handleDelete);
+            //jQuery(".edit-actions .delete", $newReview).click(WPBDP.ratings.handleDelete);
             jQuery(".review-edit .save-edit", $newReview).click(WPBDP.ratings.saveEdit);
             
         } else {
@@ -193,6 +205,48 @@ WPBDP.ratings.saveNew = function(e) {
         }
     }, "json")
 };
+
+WPBDP.ratings.validate = function(comment, score){
+    
+    var $validationErrors = jQuery("#validation-errors");
+    var return_val = "success";
+    var $rating_error = jQuery(".validation-error-rating", $validationErrors);
+    var $comment_error = jQuery(".validation-error-comment", $validationErrors);
+    $rating_error.addClass("hidden");
+    $comment_error.addClass("hidden");
+    
+    try{
+        var $form_wrapper = $('#form_wrapper');
+        if ($form_wrapper.length==0){
+            var $form_wrapper = $('#form_wrapper_edit'); 
+        }
+    }catch(e){
+        return;
+    }
+    var $currentForm = $form_wrapper.children('.active'); 
+    if (score<=0 || score >5){
+        $validationErrors.removeClass("hidden");
+        $rating_error.removeClass("hidden");
+        return_val =  "error";
+        
+        $form_wrapper.stop().animate({
+                        width: $currentForm.data('width') + 'px',
+                        height: $currentForm.data('height') + 'px'
+                    }, 500);
+    }
+    if(comment.length<1){
+        $validationErrors.removeClass("hidden");
+        $comment_error.removeClass("hidden");
+        return_val = "error";
+        
+        $form_wrapper.animate({
+                width: $currentForm.width() + 'px',
+                height: $currentForm.height() + 'px'
+            });
+            
+    }
+    return return_val;
+}
 
 WPBDP.ratings.switchView = function(e){
     e.preventDefault();
@@ -239,8 +293,14 @@ WPBDP.ratings.init = function() {
             hints: WPBDP.ratings._config.hints
         })
     });
+    
+    $('#confirm-review-delete').on('show.bs.modal', function(e){
+        $(this).find(".confirm-delete").attr('data-id', $(e.relatedTarget).attr('data-id'))
+    })
+    
     jQuery(".listing-ratings .edit-actions .edit").click(WPBDP.ratings.handleEdit);
-    jQuery(".listing-ratings .edit-actions .delete").click(WPBDP.ratings.handleDelete);
+    //jQuery(".listing-ratings .edit-actions .delete").click(WPBDP.ratings.handleDelete);
+    jQuery(".modal .confirm-delete").click(WPBDP.ratings.handleDelete);
     jQuery(".listing-ratings .review-edit .cancel-edit").click(WPBDP.ratings.handleEdit);
     jQuery(".listing-ratings .review-edit .save-edit").click(WPBDP.ratings.saveEdit);
     jQuery("#save-new-rate-listing").click(WPBDP.ratings.saveNew);

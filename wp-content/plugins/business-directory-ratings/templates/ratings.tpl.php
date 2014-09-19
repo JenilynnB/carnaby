@@ -10,30 +10,31 @@
                     <h4><?php _e('Reviews', 'wpbdp-ratings'); ?></h4>
 
                     <div class="col-md-12">
-                    <?php if ($ratings): ?>
-                        <div class="row">
-                            <?php if ($success): ?>
-                                <div class="alert alert-success">
-                                    <?php if (wpbdp_get_option('ratings-require-approval')): ?>
-                                        <?php _e('Your review has been saved and is waiting for approval.', 'wpbdp-ratings'); ?>
+                    <div class="row">
+                        <div class="listing-ratings">
+                            <?php if ($ratings): ?>
+                                <div class="row">
+                                    <?php if ($success): ?>
+                                        <div class="alert alert-success">
+                                            <?php if (wpbdp_get_option('ratings-require-approval')): ?>
+                                                <?php _e('Your review has been saved and is waiting for approval.', 'wpbdp-ratings'); ?>
+                                            <?php else: ?>
+                                                <?php _e('Your review has been published!', 'wpbdp-ratings'); ?>
+                                            <?php endif; ?>
+                                        </div>
                                     <?php else: ?>
-                                        <?php _e('Your review has been published!', 'wpbdp-ratings'); ?>
-                                    <?php endif; ?>
-                                </div>
-                            <?php else: ?>
 
-                                <div class="message">
-                                    <?php if ($reason == 'already-rated'): ?>
-                                        <?php _e('(You have already rated this listing)', 'wpbdp-ratings'); ?>
-                                        
-                                    
+                                        <div class="message">
+                                            <?php if ($reason == 'already-rated'): ?>
+                                                <?php _e('(You have already rated this listing)', 'wpbdp-ratings'); ?>
+
+
+                                            <?php endif; ?>
+                                        </div>
                                     <?php endif; ?>
                                 </div>
-                            <?php endif; ?>
-                        </div>
                         
-                        <div class="row">
-                            <div class="listing-ratings">
+                        
                                 <!--Loop for each review-->
                                 <?php foreach ($ratings as $i => $rating): ?>
 
@@ -46,7 +47,7 @@
                                         <div class="col-md-2">
                                         <!--Author info--> 
 
-                                            <div    class="rating-authoring-info">
+                                            <div class="rating-authoring-info">
                                                 <?php echo get_user_profile_thumb_circle(100, $rating->user_id);?>
                                                 <div class="author" itemprop="author">
 
@@ -95,7 +96,10 @@
 
                                                     <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() )): ?>
                                                         <div class="edit-actions">
-                                                            <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="delete linkform" rel='write-review-btn'><i class="icon-trash"></i></a>
+                                                            <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <a href="" data-toggle="modal" data-target="#confirm-review-delete" data-id="<?php echo $rating->id?>">
+                                                                    <i class="icon-trash"></i>
+                                                            </a>
                                                         </div>
                                                     <?php endif; ?>
                                                 </div>
@@ -103,7 +107,15 @@
                                                 <!--Review Edit form (as author)-->   
                                                 <?php if (($rating->user_id > 0 && $rating->user_id == get_current_user_id() ) || current_user_can('administrator')): ?>
                                                 <div class="flip-form review-edit"  style='width:100%'>
-                                                     <div class="field">
+                                                    <div class="alert alert-danger hidden" id="validation-errors">
+                                                        <ul>
+                                                            <li class="validation-error-rating hidden">Please enter a rating for this store</li>
+                                                            <li class="validation-error-comment hidden">Please write a review of at least 50 characters</li>
+                                                            <li class="validation-error-user hidden">Please log in to rate this store</li>
+                                                        </ul>
+                                                    </div> 
+                                                    
+                                                    <div class="field">
                                                         <label><?php _e('Rating:', 'wpbdp-ratings'); ?></label>
                                                         <?php 
                                                             if(isset($rating->rating)){
@@ -127,10 +139,11 @@
                                     
                                 </div>
                                 <?php endforeach; ?>
-                            </div>
+                            <?php endif; ?>
                         </div>
+                    </div>
 
-                        <?php endif; ?>
+                        
 
                         <div class="row">
                             <!--Message for no reviews-->
@@ -148,4 +161,15 @@
         </div>
     </div>
 </section>
-    
+
+<div class="modal fade modal-small" id="confirm-review-delete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure you want to delete this review?</p>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Woah, no way!</button>
+        <button type="button" class="btn btn-primary confirm-delete" data-dismiss="modal">Yep, trash it</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
