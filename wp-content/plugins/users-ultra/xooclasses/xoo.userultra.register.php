@@ -42,6 +42,7 @@ class XooUserRegister {
 		{
 		    foreach($this->usermeta as $key => $value) {
 		    
+                        
 		        /* Validate username */
 		        if ($key == 'user_login') {
 		            if (esc_attr($value) == '') {
@@ -356,6 +357,13 @@ class XooUserRegister {
 				
 				/* Create account, update user meta */
 				$sanitized_user_login = sanitize_user($_POST['user_login']);
+                                
+                                /*Check if we have to use email as*/				
+				if($xoouserultra->get_option('allow_registering_only_with_email')=='yes')
+				{
+					$sanitized_user_login = sanitize_user($_POST['user_email']);
+								
+				}
 				
 				/* Get password */
 				if (isset($_POST['user_pass']) && $_POST['user_pass'] != '') 

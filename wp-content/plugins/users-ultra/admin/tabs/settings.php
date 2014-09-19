@@ -12,6 +12,19 @@
 <?php 
    
 $this->create_plugin_setting(
+                        'select',
+                        'allow_registering_only_with_email',
+                        __('Allow Email as User Name', 'xoousers'),
+                        array(
+                            'no' => __('NO', 'xoousers'),
+                            'yes' => __('YES', 'xoousers'),
+                            
+                        ),
+                        __('If YES, the user name field will be removed from the registration form. This means that the user will be able to use the email address as username. <br /> ', 'xoousers'),
+                        __('If YES, the user name field will be removed from the registration form. This means that the user will be able to use the email address as username.', 'xoousers')
+                );
+
+$this->create_plugin_setting(
                 'checkbox',
                 'hide_admin_bar',
                 __('Hide WP Admin Tool Bar','xoousers'),

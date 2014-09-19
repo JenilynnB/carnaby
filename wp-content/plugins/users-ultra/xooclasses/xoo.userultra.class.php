@@ -734,7 +734,7 @@ class XooUserUltra
 				'type' => 'usermeta', 
 				'meta' => 'user_login', 
 				'name' => __('Username','xoousers'),
-				'required' => 1
+				'required' => 0
 			),
 			100 => array( 
 				'icon' => 'envelope', 
@@ -780,7 +780,7 @@ class XooUserUltra
 				'type' => 'usermeta', 
 				'meta' => 'user_login', 
 				'name' => __('Username','xoousers'),
-				'required' => 1
+				'required' => 0
 			),
 			100 => array( 
 				'icon' => 'envelope', 
@@ -803,7 +803,7 @@ class XooUserUltra
 				'type' => 'usermeta', 
 				'meta' => 'user_login', 
 				'name' => __('Username or Email','xoousers'),
-				'required' => 1
+				'required' => 0
 			),
 			100 => array( 
 				'icon' => 'lock', 
@@ -1445,15 +1445,6 @@ class XooUserUltra
 		if ($use_in_sidebar) $sidebar_class = 'xoouserultra-sidebar';
 		
 		$display = null;
-		//$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
-		//			<div class="xoouserultra-inner xoouserultra-login-wrapper">';
-		
-		//$display .= '<div class="xoouserultra-head">';
-		//    $display .='<div class="xoouserultra-left">';
-		//        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.__('Login','').'</div>';
-		//    $display .='</div>';
-		//    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
-		//$display .= '</div>';
 						
 						$display .='<div class="xoouserultra-main">';
 						
@@ -1467,8 +1458,6 @@ class XooUserUltra
 
 						$display .= '</div>';
 						
-					//</div>
-				//</div>';
 
 		return $display;
 		
@@ -1705,7 +1694,7 @@ class XooUserUltra
                         'tooshort' => __('Your password is too short.','xoousers'),
                         'veryweak' => __('Your password strength is too weak.','xoousers'),
                         'weak' => __('Your password strength weak.','xoousers'),
-                        'usernamerequired' => __('Please provide username.','xoousers'),
+                        //'usernamerequired' => __('Please provide username.','xoousers'),
                         'emailrequired' => __('Please provide email address.','xoousers'),
                         'validemailrequired' => __('Please provide valid email address.','xoousers'),
                         'usernameexists' => __('That username is already taken, please try a different one.','xoousers'),
@@ -1889,19 +1878,19 @@ class XooUserUltra
 			/* This is a Fieldset seperator */
 						
 			/* separator */
-            if ($type == 'separator' && $deleted == 0 && $private == 0 && isset($array[$key]['show_in_register']) && $array[$key]['show_in_register'] == 1) 
-			{
-                   $display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.$name.'</div>';
-				   
-            }
+                        if ($type == 'separator' && $deleted == 0 && $private == 0 && isset($array[$key]['show_in_register']) && $array[$key]['show_in_register'] == 1) 
+                                    {
+                               $display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.$name.'</div>';
+
+                        }
 			
 			//this hack will be removed soon
 			
 			if ($type == 'seperator' && $deleted == 0 && $private == 0 && isset($array[$key]['show_in_register']) && $array[$key]['show_in_register'] == 1) 
 			{
-                   $display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.$name.'</div>';
+                            $display .= '<div class="xoouserultra-field xoouserultra-seperator xoouserultra-edit xoouserultra-edit-show">'.$name.'</div>';
 				   
-            }
+                        }
 				
 				
 			if ($type == 'usermeta' && $deleted == 0 && $private == 0 && isset($array[$key]['show_in_register']) && $array[$key]['show_in_register'] == 1) 
@@ -1917,10 +1906,10 @@ class XooUserUltra
 					$display .= '<label class="xoouserultra-field-type" for="'.$meta.'">';	
 					
 					if (isset($array[$key]['icon']) && $icon) {
-                            $display .= '<i class="fa fa-' . $icon . '"></i>';
-                    } else {
-                            $display .= '<i class="fa fa-icon-none"></i>';
-                    }
+                                                $display .= '<i class="fa fa-' . $icon . '"></i>';
+                                        } else {
+                                                $display .= '<i class="fa fa-icon-none"></i>';
+                                        }
 											
 					$display .= '<span>'.$name. ' '.$required_text.'</span></label>';
 					
@@ -2095,7 +2084,22 @@ class XooUserUltra
 			
 			extract($field);
 			
-			if ( $type == 'usermeta') {
+                        
+                        $include_username =  true;
+			
+			if($this->get_option('allow_registering_only_with_email')=='yes')
+			{
+				if($meta=='user_login')
+				{
+					$include_username =  false;
+				
+				}
+			
+			}
+                        
+                        
+                        
+			if ( $type == 'usermeta' && $include_username) {
 				
 				$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';
 				
