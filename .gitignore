@@ -1,0 +1,4 @@
+error_log
+.htaccess
+/wp-content/uploads/*
+wp-content/usersultramedia/*
