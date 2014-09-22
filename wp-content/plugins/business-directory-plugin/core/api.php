@@ -964,6 +964,7 @@ function has_written_review($listing_id=0){
 function get_shopstyle_retailer_id($listing_id=0)
 {
     global $post;
+    $retailer_id = '';
     
     if ($listing_id == 0){
         $listing_id = $post->id;

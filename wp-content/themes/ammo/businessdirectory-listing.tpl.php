@@ -21,7 +21,7 @@
                             <?php endif; ?>
                             -->
                             
-                            <?php if(!empty(get_shopstyle_retailer_id($listing_id))): ?>
+                            <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
                                 <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
                             <?php else: ?>
                                 <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
