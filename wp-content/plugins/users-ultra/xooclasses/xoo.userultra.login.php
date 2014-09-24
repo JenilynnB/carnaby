@@ -11,7 +11,6 @@ class XooUserLogin {
 		/*------------------------------*/
 		
 		$this->mIsSocialLogin = false;
-		
 		if (isset($_GET['uultrasocialsignup'])) 
 		{
 			$this->mIsSocialLogin = true;
@@ -326,7 +325,7 @@ class XooUserLogin {
 			$auth_url_google = $this->get_google_auth_url();
 			header("Location: ".$auth_url_google."");
 			
-			
+			exit;
 		}
 		
 		if (isset($_GET['uultrasocialsignup']) && $_GET['uultrasocialsignup']=="twitter") 
