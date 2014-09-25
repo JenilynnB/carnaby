@@ -187,9 +187,8 @@ class WPBDP_FormFieldType {
             case 'edit':
             default:
                 $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
-
-                $html .= sprintf( '<div class="wpbdp-form-field %s %s %s %s" %s>',
-                                  $field->get_field_type()->get_id(),
+                $html .= sprintf( '<div class="wpbdp-form-field %s %s %s" %s>',
+                                  //$field->get_field_type()->get_id(),
                                   $field->get_description() ? 'with-description' : '',
                                   implode( ' ', $field->get_validators() ),
                                   implode( ' ', $field->css_classes),
@@ -1346,7 +1345,7 @@ class WPBDP_FieldValidation {
     /* URL Validator */
     private function url( $value, $args=array() ) {
         if ( is_array( $value ) ) $value = $value[0];
-
+/*
         if ( function_exists( 'filter_var' ) ) {
             if ( !filter_var( $value, FILTER_VALIDATE_URL ) ) {
                 return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) )  );
@@ -1354,9 +1353,9 @@ class WPBDP_FieldValidation {
                 return;
             }
         }
-
-        if ( !preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $value ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) )  );
+*/
+        if ( !preg_match( '|^[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $value ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http:// blah', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) )  );
     }
 
     /* EmailValidator */

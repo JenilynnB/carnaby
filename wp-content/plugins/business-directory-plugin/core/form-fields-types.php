@@ -163,20 +163,23 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
             global $wpbdp;
             return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[0], $context, $extra );
         }
-
+        
         $html  = '';
+        if($context!='submit')
         $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'URL:', 'form-fields api', 'WPBDM' ) );
         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . '][0]',
                           $field->is_required() ? 'inselect required' : 'inselect',
                           esc_attr( $value[0] ) );
-
-        $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'Link Text (optional):', 'form-fields api', 'WPBDM' ) );
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
-                          'wpbdp-field-' . $field->get_id() . '-title',
-                          'listingfields[' . $field->get_id() . '][1]',
-                          esc_attr( $value[1] ) );
+        
+        if($context!='submit'){
+            $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'Link Text (optional):', 'form-fields api', 'WPBDM' ) );
+            $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
+                              'wpbdp-field-' . $field->get_id() . '-title',
+                              'listingfields[' . $field->get_id() . '][1]',
+                              esc_attr( $value[1] ) );
+        }
 
         return $html;
     }

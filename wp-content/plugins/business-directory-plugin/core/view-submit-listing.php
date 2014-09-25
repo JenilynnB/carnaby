@@ -55,8 +55,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $html = '';
         $html .= sprintf( '<div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-%s">',
                           str_replace( '_', '-', $this->state->step ) );
-        $html .= sprintf( '<h2>%s</h2>', $this->state->editing ? _x( 'Edit Your Listing', 'templates', 'WPBDM' ) : _x( 'Submit A Listing', 'templates', 'WPBDM' ) );
+        //$html .= sprintf( '<h2>%s</h2>', $this->state->editing ? _x( 'Edit Your Listing', 'templates', 'WPBDM' ) : _x( 'Submit A Listing', 'templates', 'WPBDM' ) );
 
+        /*
         if ( current_user_can( 'administrator' ) ) {
             if ( $errors = wpbdp_payments_api()->check_config() ) {
                 foreach ( $errors as $error ) $html .= wpbdp_render_msg( $error, 'error' );
@@ -64,6 +65,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
             $html .= wpbdp_render_msg( _x( 'You are logged in as an administrator. Any payment steps will be skipped.', 'templates', 'WPBDM' ) );
         }
+         * */
 
         if ( $this->errors ) {
             foreach ( $this->errors as &$e ) {
