@@ -42,7 +42,7 @@ class BetterRelatedScorer extends BetterRelated {
 	 * @return array Posts IDs and their relatedness score
 	 */
 	public function get_score_for_post( $id = null ) {
-		switch ( $this->get_option( 'storage' ) ) {
+                switch ( $this->get_option( 'storage' ) ) {
 			case 'transient':
 				$score = get_transient( $this->get_option( 'storage_id' ) . $id );
 			break;
@@ -56,7 +56,9 @@ class BetterRelatedScorer extends BetterRelated {
 			break;
 		}
 		$offset = 0;
-		if ( $score ) {
+		
+                /*This block commented out for testing purposes
+                if ( $score ) {
 			$offset = $this->get_offset( $score );
 			if ( $score['ctime'] >= $this->get_option( 'mtime' ) && !$offset ) {
 				return $score;
@@ -68,7 +70,7 @@ class BetterRelatedScorer extends BetterRelated {
 				$this->log( "preserve old score, offset $offset", 'storage' );
 				$this->score = $score;
 			}
-		}
+		}*/
 		$this->build_score_for_post( $id, $offset );
 		$this->save_score_for_post( $id );
 		return $this->score;
@@ -172,7 +174,8 @@ class BetterRelatedScorer extends BetterRelated {
 		$this->build_score_for_content( $id, $offset );
 		if ( $weight = $this->get_option( 'do_x2x' ) )
 			$this->build_score_for_taxonomies( $id, $weight, $offset );
-		$this->score['etime'] = $this->microtime( true );
+		$this->build_score_for_meta($id, $offset);
+                $this->score['etime'] = $this->microtime( true );
 	}
 
 	/**
@@ -396,6 +399,106 @@ class BetterRelatedScorer extends BetterRelated {
 					$this->score[$id][$match_id] += $factor * $weight;
 				}
 			}
+		}
+	}
+        
+        /**
+	 * Award relatedness points for postmeta of a single post.
+	 *
+	 * Get a list of specified postmeta values, and get relatedness scores
+	 * for every value the post has.
+	 *
+	 * @since 0.0.1
+	 *
+	 * @param int $id Post ID of the post we want to find related posts for
+	 * @param int $weight The multiplier to use for relatedness
+	 * @return none
+	 */
+	private function build_score_for_meta( $id ) {
+		// @fixme this is reduntant!?
+                $post_type			= get_post_type( $id );
+		$meta_list = array (
+                    'price' => array('field_key' => 'field_53cd28ca5532d', 'weight' => 3),
+                    'shipping' => array ('field_key' => 'field_53dffd99381ff', 'weight' => 2),
+                    'return_shipping' => array('field_key' => 'field_53dffe8b065ac','weight' => 2),
+                    'good_for' => array('field_key' => 'field_53d02e64b1bbd','weight' => 10),
+                    'mens_style' => array('field_key' => 'field_53ceca2c2f633', 'weight' => 8),
+                    'womens_style' => array('field_key' => 'field_53cd27a88031b', 'weight' => 8),
+                    'kids_style' => array('field_key' => 'field_53d123f50088c', 'weight' => 8),
+                    'womens_extended_sizes' => array('field_key' => 'field_53cd2acca60e7', 'weight' => 6),
+                    'mens_extended_sizes' => array ('field_key' => field_53ceca72a796f, 'weight' => 6)
+                );
+                
+                
+		$matches			= array();
+		foreach( $meta_list as $meta_name => $meta ) {
+                    //this term could contain a single value or an array of values (only returns the VALUES)
+                    $post_terms = get_field($meta['field_key']);
+                    
+                    if ( !is_array( $post_terms ) )
+                            $post_terms = (array)$post_terms;
+                    
+                    //Get the number of meta terms this post has for this field
+                    $post_terms_count	= count( $post_terms );
+
+                    //Get the total number of meta terms that exist for this field
+                    
+                    /* NOTE: Re-think how to calculate relatedness based on number of choices that are selected
+                     *      some meta fields do not have "choices" (like boolean field)
+                     **/
+                    $meta_terms_object = get_field_object($meta['field_key']);
+                    
+                    if($meta_terms["type"]=='checkbox'|| $meta_terms["type"]=='radio'){
+                        $meta_terms = $meta_terms_object['choices'];
+                        $meta_terms_count = count($meta_terms);
+                    }else{
+                        $meta_terms_count = 1;
+                    }
+                    
+                    $related_posts_count= 0;
+                    
+                    /*cycle through each meta term and find other posts with this same term*/
+                    
+                    foreach( $post_terms as $term ) {
+			
+                        $args = array(
+                            'posts_per_page'   => 5,
+                            'orderby'          => 'post_date',
+                            'order'            => 'DESC',
+                            'meta_key'         => $meta_name,
+                            'meta_value'       => $term,
+                            'post_type'        => WPBDP_POST_TYPE,
+                            'post_status'      => 'publish',
+                            );
+                        
+                        $related_posts = get_posts($args);
+			$related_posts_count	+= count( $related_posts );
+
+                        $matches[$term]	= $related_posts;
+                    }
+
+                    // Determine importance of each match in the set.
+                    // @todo option
+                    // @todo different factor/weight for different taxonomies
+                    // this is linear, which leads to matches in small taxonomies being
+                    // very important. good or bad?
+                    $factor = 100 / $meta_terms_count * $post_terms_count;
+                    // At last, apply the scores
+                    //Nested array to cycle through list of matches for each term
+                    foreach ( $matches as $key => $matches ) {
+                        foreach ( $matches as $match ) {
+                            $match_id = $match->ID;
+                            $rating_info = BusinessDirectory_RatingsModule::get_rating_info($match->ID); 
+                            
+                            if ( !isset( $this->score[$id] ) ){
+                                $this->score[$id] = array();
+                            }
+                            if ( !isset( $this->score[$id][$match_id] ) ){
+                                    $this->score[$id][$match_id] = 0;
+                            }
+                            $this->score[$id][$match_id] += $factor * $weight * ($rating_info->count * $rating_info->average);
+                        }
+                    }
 		}
 	}
 

@@ -159,7 +159,12 @@
 
                                 Good For
                                 -->
-
+                        <div class="row">
+                            <div class="listing-side-container col-md-12">
+                                <?php the_related($listing_id); ?>
+                                
+                            </div>
+                        </div>
 
 
                     </div>
