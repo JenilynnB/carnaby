@@ -274,7 +274,33 @@ class BetterRelatedAdmin extends BetterRelated {
 			</td>
 		</tr> <?php
 	}
+  /* Something in this function is making the entire admin not show up. Probably should fix this.     
+        private function input_multi( $name, $meta_list, $comment = false, $size = false ) {
+		if ( is_integer( $size ) )
+			$size = " size=\"$size\" "; 
+                $meta_options = $this->get_option($name);
+                
+                foreach($meta_list as $meta_name => $meta_values){    
+                    $meta_weight = $meta_options[$meta_name];
+                    ?>
 
+                    <tr valign="top">
+                            <th scope="row"> <?php
+                                    echo $name; ?>
+                            </th>
+                            <td> <?php
+                                    echo '<input type="text" name="better-related[' $name.'-' . $meta . ']" value="' . $meta_weight . '"' . $size . '/>';
+                                    if ( $comment )
+                                            echo ' ' . $comment;
+                                    ?>
+                            </td>
+
+
+                    </tr> <?php
+                
+                }
+	}
+*/
 	/**
 	 * Form hidden input helper
 	 *
@@ -557,6 +583,31 @@ class BetterRelatedAdmin extends BetterRelated {
 						<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 					</p>
 
+                                        <h4><?php _e( 'Metadata Scoring', 'better-related' ) ?></h4>
+                                        
+                                        <table class="form-table form-table-clearnone" > <?php
+                                            
+                                            $this->input_multi('Metadata Scoring', 'metafactors');
+                                            
+                                            /*
+                                             * One call to a display helper method needs to be done here, passing
+                                             * the entire array of all metadata
+                                             * 
+                                             * Another method can be called to show a dropdown with all possible
+                                             * options that the admin can select from and add to the list
+                                             * 
+                                             * Search_Filter_Posts_Admin::get_all_post_meta_keys will return the 
+                                             * list you need to put in the dropdown
+                                             */
+                                            
+                                            ?>
+                                        
+                                        </table>   
+                                        
+                                        <p class="submit">
+						<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+					</p>
+                                        
 					<h4><?php _e( 'Performance Options', 'better-related' ) ?></h4>
 					<table class="form-table form-table-clearnone" > <?php
 						/*

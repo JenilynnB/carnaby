@@ -418,35 +418,36 @@ class BetterRelatedScorer extends BetterRelated {
 		// @fixme this is reduntant!?
                 $post_type			= get_post_type( $id );
 		$meta_list = array (
-                    'price' => array('field_key' => 'field_53cd28ca5532d', 'weight' => 3),
-                    'shipping' => array ('field_key' => 'field_53dffd99381ff', 'weight' => 2),
-                    'return_shipping' => array('field_key' => 'field_53dffe8b065ac','weight' => 2),
-                    'good_for' => array('field_key' => 'field_53d02e64b1bbd','weight' => 10),
-                    'mens_style' => array('field_key' => 'field_53ceca2c2f633', 'weight' => 8),
-                    'womens_style' => array('field_key' => 'field_53cd27a88031b', 'weight' => 8),
-                    'kids_style' => array('field_key' => 'field_53d123f50088c', 'weight' => 8),
-                    'womens_extended_sizes' => array('field_key' => 'field_53cd2acca60e7', 'weight' => 6),
-                    'mens_extended_sizes' => array ('field_key' => field_53ceca72a796f, 'weight' => 6)
+                    'price' => 3,
+                    'shipping' => 2,
+                    'return_shipping' => 2,
+                    'good_for' => 10,
+                    'mens_style' => 8,
+                    'womens_style' => 8,
+                    'kids_style' =>  8,
+                    'womens_extended_sizes' => 6,
+                    'mens_extended_sizes' => 6
+                    
                 );
                 
                 
-		$matches			= array();
-		foreach( $meta_list as $meta_name => $meta ) {
+		
+		foreach( $meta_list as $meta_name => $meta_weight ) {
+                    $matches			= array();
                     //this term could contain a single value or an array of values (only returns the VALUES)
-                    $post_terms = get_field($meta['field_key']);
                     
-                    if ( !is_array( $post_terms ) )
-                            $post_terms = (array)$post_terms;
+                    $post_meta_terms = get_field($meta_name);
+                    if ( !is_array( $post_meta_terms ) )
+                            $post_meta_terms = (array)$post_meta_terms;
                     
+
                     //Get the number of meta terms this post has for this field
-                    $post_terms_count	= count( $post_terms );
+                    $post_terms_count	= count( $post_meta_terms );
 
                     //Get the total number of meta terms that exist for this field
                     
-                    /* NOTE: Re-think how to calculate relatedness based on number of choices that are selected
-                     *      some meta fields do not have "choices" (like boolean field)
-                     **/
-                    $meta_terms_object = get_field_object($meta['field_key']);
+                    $field_key = get_field_reference($meta_name, $id);
+                    $meta_terms_object = get_field_object($field_key);
                     
                     if($meta_terms["type"]=='checkbox'|| $meta_terms["type"]=='radio'){
                         $meta_terms = $meta_terms_object['choices'];
@@ -458,9 +459,7 @@ class BetterRelatedScorer extends BetterRelated {
                     $related_posts_count= 0;
                     
                     /*cycle through each meta term and find other posts with this same term*/
-                    
-                    foreach( $post_terms as $term ) {
-			
+                    foreach( $post_meta_terms as $term ) {
                         $args = array(
                             'posts_per_page'   => 5,
                             'orderby'          => 'post_date',
@@ -470,11 +469,13 @@ class BetterRelatedScorer extends BetterRelated {
                             'post_type'        => WPBDP_POST_TYPE,
                             'post_status'      => 'publish',
                             );
-                        
-                        $related_posts = get_posts($args);
-			$related_posts_count	+= count( $related_posts );
 
+                        $related_posts = $this->get_related_posts_by_meta($id, $meta_name, $term, WPBDP_POST_TYPE);
+                        
+                        $related_posts_count	+= count( $related_posts );
+                        
                         $matches[$term]	= $related_posts;
+                                
                     }
 
                     // Determine importance of each match in the set.
@@ -483,22 +484,30 @@ class BetterRelatedScorer extends BetterRelated {
                     // this is linear, which leads to matches in small taxonomies being
                     // very important. good or bad?
                     $factor = 100 / $meta_terms_count * $post_terms_count;
+                    
+                    $factor = 1;
                     // At last, apply the scores
                     //Nested array to cycle through list of matches for each term
+
+                    
                     foreach ( $matches as $key => $matches ) {
                         foreach ( $matches as $match ) {
-                            $match_id = $match->ID;
-                            $rating_info = BusinessDirectory_RatingsModule::get_rating_info($match->ID); 
+                            $rating_info = BusinessDirectory_RatingsModule::get_rating_info($match); 
                             
                             if ( !isset( $this->score[$id] ) ){
                                 $this->score[$id] = array();
                             }
-                            if ( !isset( $this->score[$id][$match_id] ) ){
-                                    $this->score[$id][$match_id] = 0;
+                            if ( !isset( $this->score[$id][$match] ) ){
+                                    $this->score[$id][$match] = 0;
                             }
-                            $this->score[$id][$match_id] += $factor * $weight * ($rating_info->count * $rating_info->average);
+                            if($rating_info->count>0){
+                                $this->score[$id][$match] += $factor * $meta_weight * ($rating_info->count * $rating_info->average);
+                            }else{
+                                $this->score[$id][$match] += $factor * $meta_weight;
+                            }
                         }
                     }
+                    //echo print_r($this->score);
 		}
 	}
 
@@ -564,7 +573,7 @@ class BetterRelatedScorer extends BetterRelated {
 		}
 		$query .= "
 		AND ({$prefix}posts.post_status = 'publish' OR {$prefix}posts.post_status = 'private')
-		GROUP BY {$prefix}posts.ID
+		GROUP BY {$prefix}posts.ID  
 		ORDER BY {$prefix}posts.post_date DESC
 		";
 		if ( $limit = $this->get_option( 'querylimit' ) )
@@ -581,6 +590,88 @@ class BetterRelatedScorer extends BetterRelated {
 			array_push( $r, $post->ID );
 		}
 		return $r;
+	}
+        
+        	/**
+	 * Get a list of related posts by taxonomy, term and/or post type
+	 *
+	 * @todo limit by date
+	 * @todo multisite, find related content on other blogs
+	 * @since 0.0.1
+	 *
+	 * @param int $id Post ID
+	 * @param array $meta list of key=>value meta pairs
+	 * @param str $term the term
+	 * @param mixed $post_type the post type as string or a post types array
+	 * @return mixed array of post IDs
+	 */
+	private function get_related_posts_by_meta( $id, $meta_name, $meta_value, $meta_type, $post_type = false) {
+		global $wpdb;
+		$prefix	= $wpdb->prefix;
+		$term	= $wpdb->escape( $term );
+		$query	= "
+		SELECT SQL_CALC_FOUND_ROWS post_name, ID FROM {$prefix}posts
+		INNER JOIN {$prefix}postmeta ON ({$prefix}posts.ID = {$prefix}postmeta.post_id)
+		WHERE ID != $id
+		";
+		// We can not apply different weights to different taxonomies. This
+		// doesn't look like an important feature at the moment.
+		 
+                if( !empty( $meta_name ) ) {
+                    $query .= " AND ( ";
+                    $multiple = false;
+                    if(is_array($meta_value)){
+                        foreach( $meta_value as $value ) {
+                            if ( $multiple )
+                                        $query .= ' OR ';
+                                $query .= " ({$prefix}postmeta.meta_key = '$meta_name' ";
+                                $multiple = true;
+                                $query .= "AND {$prefix}postmeta.meta_value = '$term')";
+                        }
+                    }else{
+                        $query .= " ({$prefix}postmeta.meta_key = '$meta_name' ";
+                        $query .= "AND {$prefix}postmeta.meta_value LIKE '%$meta_value%')";
+                    }
+                    $query .= " )\n";
+		}
+                
+                 
+		// @todo Wouldn't it be better to find all post types and do the
+		// filtering in the display?
+		if ( $this->get_option( 'usept' ) )
+			$post_type = array_keys( $this->get_option( 'usept' ) );
+		if ( is_string( $post_type ) ) {
+			$query .= " AND {$prefix}posts.post_type = '$post_type' ";
+		}
+		elseif( is_array( $post_type ) ) {
+			$query .= " AND ( ";
+			$multiple = false;
+			foreach( $post_type as $type ) {
+				if ( $multiple )
+					$query .= ' OR ';
+				$query .= " {$prefix}posts.post_type = '$type' ";
+				$multiple = true;
+			}
+			$query .= " )\n";
+		}
+		$query .= "
+		AND ({$prefix}posts.post_status = 'publish' OR {$prefix}posts.post_status = 'private')
+		GROUP BY {$prefix}posts.ID
+		ORDER BY {$prefix}posts.post_date DESC
+		";
+		if ( $limit = $this->get_option( 'querylimit' ) )
+			$query .= " LIMIT $limit ";
+		$query .= ';';
+		$query = apply_filters( 'better-related-metaquery', $query );
+                $this->log( $query, 'query' );
+		$posts = $wpdb->get_results( $query, OBJECT );
+                $this->score['queries']++;
+		$r = array();
+		foreach( @$posts as $post ) {
+			array_push( $r, $post->ID );
+		}
+            	
+                return $r;
 	}
 
 	/**

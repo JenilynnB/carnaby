@@ -163,6 +163,8 @@ if ( !class_exists( 'BetterRelated' ) ) {
 					'post'   => true
 				),
 				'usetax'         => array(),
+                                'metafactors'    => array('price' => array('field_key' => 'field_53cd28ca5532d', 'weight' => 3),
+                    'shipping' => array ('field_key' => 'field_53dffd99381ff', 'weight' => 2),),
 				'autoshowrss'    => false,
 				'do_c2c'         => 1,
 				'do_t2t'         => 0,
@@ -221,9 +223,14 @@ if ( !class_exists( 'BetterRelated' ) ) {
 		 */
 		protected function fulltext_index_exists( $table, $column ) {
 			global $wpdb;
-			$query = "SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_NAME='{$wpdb->prefix}posts' AND COLUMN_NAME='$column' AND INDEX_TYPE='FULLTEXT';";
-			$indexes = $wpdb->get_var( $wpdb->prepare( $query ) );
-			if ( intval( $indexes ) > 1 ) {
+			//$query = "SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_NAME='{$wpdb->prefix}posts' AND COLUMN_NAME='$column' AND INDEX_TYPE='FULLTEXT';";
+			//$indexes = $wpdb->get_var( $wpdb->prepare( $query ) );
+			
+                        /*Fixing warning for incorrect use of the "prepare" function  -JB*/
+                        $query = "SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_NAME='%s' AND COLUMN_NAME='%s' AND INDEX_TYPE='FULLTEXT';";
+			$indexes = $wpdb->get_var( $wpdb->prepare( $query, $wpdb->prefix."posts", $column ) );
+			
+                        if ( intval( $indexes ) > 1 ) {
 				trigger_error( sprintf( __( 'Warning: Multiple fulltext indexes found for %s', 'better-related' ), "{$wpdb->prefix}$table.$column" ) );
 				return true;
 			}
