@@ -622,7 +622,7 @@ function render_category_info(){
  
         
         if(get_field('have_womens_pant_sizes')){
-            $womens_pant_sizes = get_field('women_pants_sizes');
+            $womens_pant_sizes = get_field('womens_pant_sizes');
             if(!empty($womens_pant_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Pant Sizes: </td>';
@@ -700,7 +700,7 @@ function render_category_info(){
         }
         
         if(get_field('have_mens_pant_sizes')){
-            $mens_pant_sizes = get_field('mens_pants_sizes');
+            $mens_pant_sizes = get_field('mens_pant_sizes');
             if(!empty($mens_pant_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Pant Sizes: </td>';
@@ -718,6 +718,17 @@ function render_category_info(){
                 $html .= '</tr>';
             }
         }
+        
+        if(get_field('have_mens_dress_shirt_sizes')){
+            $mens_shirt_sizes = get_field('mens_dress_shirt_sizes');
+            if(!empty($mens_shirt_sizes)) {
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Dress Shirt Sizes: </td>';
+                $html .= '<td class="listing-category-values">'.min($mens_shirt_sizes) . " - " . max($mens_shirt_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
+        
         
         if(get_field('have_mens_shoe_sizes')){
             $mens_shoe_sizes = get_field('mens_shoe_sizes');
@@ -827,6 +838,16 @@ function render_category_info(){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Baby Sizes: </td>';
                 $html .= '<td class="listing-category-values">'. min($baby_sizes) . " - " . max($baby_sizes).'</td>';
+                $html .= '</tr>';
+            }
+        }
+        
+        if(get_field('have_kids-baby_shoe_sizes')){
+            $kids_shoe_sizes = get_field('kids-baby_shoe_sizes');
+            if(!empty($kids_shoe_sizes)){
+                $html.='<tr class="listing-category-row">';
+                $html .= '<td class="listing-category-label">Kids Shoe Sizes: </td>';
+                $html .= '<td class="listing-category-values">'. min($kids_shoe_sizes) . " - " . max($kids_shoe_sizes).'</td>';
                 $html .= '</tr>';
             }
         }
