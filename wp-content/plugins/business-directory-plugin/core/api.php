@@ -548,10 +548,10 @@ function render_category_info(){
         $womens_category_links = array();
         $womens_extended_sizes = array();
         
-        $women_style = get_field('women_style');
+        $women_style = get_field('womens_style');
         
-        $womens_extended_sizes = get_field("women_extended_sizes");
-        $womens_sizes = get_field('women_sizes');
+        $womens_extended_sizes = get_field("womens_extended_sizes");
+        $womens_sizes = get_field('womens_sizes');
         
         
         foreach($womens_categories as $wc){
@@ -600,8 +600,8 @@ function render_category_info(){
         
         
  
-        if(get_field('have_women_dress_sizes')){
-            $womens_dress_sizes = get_field('women_dress_sizes');
+        if(get_field('have_womens_dress_sizes')){
+            $womens_dress_sizes = get_field('womens_dress_sizes');
             if(!empty($womens_dress_sizes)) {
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Dress Sizes: </td>';
@@ -621,8 +621,8 @@ function render_category_info(){
         }
  
         
-        if(get_field('have_women_pant_sizes')){
-            $womens_pant_sizes = get_field('women_pant_sizes');
+        if(get_field('have_womens_pant_sizes')){
+            $womens_pant_sizes = get_field('women_pants_sizes');
             if(!empty($womens_pant_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Pant Sizes: </td>';
@@ -655,9 +655,9 @@ function render_category_info(){
         $mens_category_links = array();
         $mens_extended_sizes = array();
         
-        $men_style = get_field('men_style');
-        $mens_extended_sizes = get_field("men_extended_sizes");
-        $mens_sizes = get_field("men_sizes");
+        $men_style = get_field('mens_style');
+        $mens_extended_sizes = get_field("mens_extended_sizes");
+        $mens_sizes = get_field("mens_sizes");
         //if(!empty($mens_style)) $html .= implode(', ', $men_style);
         
         
@@ -699,8 +699,8 @@ function render_category_info(){
          
         }
         
-        if(get_field('have_men_pant_sizes')){
-            $mens_pant_sizes = get_field('men_pant_sizes');
+        if(get_field('have_mens_pant_sizes')){
+            $mens_pant_sizes = get_field('mens_pants_sizes');
             if(!empty($mens_pant_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Pant Sizes: </td>';
@@ -709,8 +709,8 @@ function render_category_info(){
             }
         }
         
-        if(get_field('have_men_suit_sizes')){
-            $mens_suit_sizes = get_field('men_suit_sizes');
+        if(get_field('have_mens_suit_sizes')){
+            $mens_suit_sizes = get_field('mens_suit_sizes');
             if(!empty($mens_suit_sizes)) {
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Suit Sizes: </td>';
@@ -719,8 +719,8 @@ function render_category_info(){
             }
         }
         
-        if(get_field('have_men_shoe_sizes')){
-            $mens_shoe_sizes = get_field('men_shoe_sizes');
+        if(get_field('have_mens_shoe_sizes')){
+            $mens_shoe_sizes = get_field('mens_shoe_sizes');
             if(!empty($mens_shoe_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Shoe Sizes: </td>';
