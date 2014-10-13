@@ -419,14 +419,14 @@ class BetterRelatedScorer extends BetterRelated {
                 $post_type			= get_post_type( $id );
 		$meta_list = array (
                     'price' => 3,
-                    'shipping' => 2,
-                    'return_shipping' => 2,
+                    'shipping' => 1,
+                    'return_shipping' => 1,
                     'good_for' => 10,
                     'mens_style' => 8,
                     'womens_style' => 8,
                     'kids_style' =>  8,
-                    'womens_extended_sizes' => 6,
-                    'mens_extended_sizes' => 6
+                    'womens_extended_sizes' => 4,
+                    'mens_extended_sizes' => 4
                     
                 );
                 
