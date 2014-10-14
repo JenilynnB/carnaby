@@ -11,6 +11,9 @@
                 <div class="col-md-8">            
                     <div class="wpbdp_listing_heading">
                         <div class="wpbdp-listing-title-info">
+                            <?php if ($main_image): ?>
+                                <div class="main-image"><?php echo $main_image; ?></div>
+                            <?php endif; ?>
                             <div class="entry-title">
                                 <h1 itemprop="name"><?php echo $title; ?></h1>
                             </div>
@@ -21,17 +24,31 @@
                             <?php endif; ?>
                             -->
                             
-                            <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
+                            
+                            <div class="listing-element"></div>
+                            <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
+                                <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
                                 <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
                             <?php else: ?>
                                 <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
                             <?php endif; ?>
-                            <div class="listing-element"></div>
-                            <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
-                         </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
+                            <div class='listing-element'><?php the_terms($listing_id, WPBDP_TAGS_TAX, '<i class="icon-tag"></i> ');?></div>
+                            <div class='listing-element'><?php echo render_good_for(); ?></div>
+                            </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
                                 <div class='listing-element'><?php echo get_top_apparel_categories_html();?></div>
+                                
                                 <div > <?php echo render_listing_highlights(); ?> </div>
                             </div>
                         </div>
@@ -138,6 +155,16 @@
                         <div class="row">
                             <div class="listing-side-container col-md-12">
                                 <?php echo render_return_shipping_info(); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="listing-side-container col-md-12">
+                                <?php echo render_canada_shipping(); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="listing-side-container col-md-12">
+                                <?php echo render_international_shipping(); ?>
                             </div>
                         </div>
 

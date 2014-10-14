@@ -211,6 +211,7 @@ function get_field( $field_key, $post_id = false, $format_value = true, $return_
 	);
 
 	$field = get_field_object( $field_key, $post_id, $options);
+        if( is_array($field))
 	{
             $return = $field['value'];
 	}

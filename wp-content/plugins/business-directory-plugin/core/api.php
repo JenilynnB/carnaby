@@ -928,10 +928,10 @@ function get_top_apparel_categories_html($listing_id=0){
     //echo print_r($categories);
     foreach($categories as $c){
         $wp_category = get_term(intval($c->id), WPBDP_CATEGORY_TAX);
-        $top_categories[] = '<a href="'.get_term_link($wp_category).'">'.$wp_category->name.'</a>';
+        $top_categories[] = '<a href="'.get_term_link($wp_category).'" class="btn btn-default btn-md">'.$wp_category->name.'</a>';
     }
     
-    return '<div class="listing-top-categories">'.implode(", ", $top_categories).'</div>';
+    return '<div class="listing-top-categories">'.implode("", $top_categories).'</div>';
 }
 
 
@@ -1089,7 +1089,7 @@ function render_price_field(){
 
 function render_listing_highlights(){
     
-    $shipping = get_shipping_info();
+    $shipping = get_shipping_info('highlight');
     $returns = get_return_shipping_info();
     $prices = render_price_field();
     
@@ -1109,9 +1109,9 @@ function render_shipping_info(){
 
     $return = '';
 
-    $shipping_info = get_shipping_info();
+    $shipping_info = get_shipping_info($context);
     $return .= '<div class="wpbdp-listing-shipping-info ">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping:</label>';
+    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping</label>';
     $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
     $return .= '</div>';
     
@@ -1121,7 +1121,8 @@ function render_shipping_info(){
 function get_shipping_info($context=''){
     $shipping = get_field('shipping');
     $shipping_cost = get_field('shipping_cost');
-    
+    $shipping_time = get_field('standard_delivery_time');    
+     
     if(!$shipping){
         return;
     }
@@ -1130,12 +1131,24 @@ function get_shipping_info($context=''){
             $shipping_info = 'Free Shipping';
     elseif ( $shipping == "ship_min" ):
             $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount') . '+ orders';
-            if($context!=''): $shipping_info.='<br/>Standard Shipping: $' . $shipping_cost ;endif;
+            if($context!='highlight'): $shipping_info.='<br/>Standard Shipping: $' . $shipping_cost ;endif;
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
     else:
             $shipping_info = 'Shipping costs increase with order size';
     endif; 
+    
+    if($context!='highlight'){
+        if(get_field('have_standard_delivery_time')){
+            $shipping_info .=  '<br/>Arrives in '.min($shipping_time) . " - " . max($shipping_time)." business days";
+        }
+        $shipping_notes = get_field('shipping_notes');
+        if($shipping_notes!=''){
+            $shipping_info .= '<br/>'.$shipping_notes;
+        }
+    }
+    
+    
     
     return $shipping_info;
 }
@@ -1171,6 +1184,64 @@ function get_return_shipping_info(){
     return $return_shipping_info;
 }
 
+function render_canada_shipping(){
+    $can_shipping = '';
+    $can_shipping .= '<div class="wpbdp-listing-can-shipping-info">';
+    $can_shipping .= '<label class="element-title"><i class="icon-globe"></i> Shipping to Canada:</label>';
+    $can_shipping .= '<div class="shipping_info" >';
+    
+    if(get_field('ships_to_canada')){
+        $can_shipping_cost = get_field('shipping_cost_to_canada');
+        $can_taxes_duties = get_field('taxes_and_duties');
+        $can_shipping .= 'Ships to Canada, $';
+        $can_shipping .= $can_shipping_cost;
+        if($can_taxes_duties){
+            $can_shipping .= ' plus taxes & import duties';
+        }
+        $can_shipping_notes = get_field('canada_shipping_notes');
+        if($can_shipping_notes!=''){
+            $can_shipping .= "<br/>".$can_shipping_notes;
+        }
+    }else{
+        $can_shipping .= 'Does not ship to Canada';
+    }
+    
+    $can_shipping .= '</div></div>';
+    return $can_shipping;
+}
+
+function render_international_shipping(){
+    $int_shipping = '';
+    $int_shipping .= '<div class="wpbdp-listing-int-shipping-info">';
+    $int_shipping .= '<label class="element-title"><i class="icon-globe"></i> International Shipping:</label>';
+    $int_shipping .= '<div class="shipping_info" >';
+    
+    if(get_field('international_shipping')){
+        $int_shipping .= 'Ships Internationally';
+        $int_shipping .= $can_shipping_cost;
+        $int_shipping_notes = get_field('international_shipping_notes');
+        if($int_shipping_notes!=''){
+            $int_shipping .= "<br/>".$int_shipping_notes;
+        }
+    }else{
+        $int_shipping .= 'Does not ship Internationally';
+    }
+    
+    $int_shipping .= '</div></div>';
+    return $int_shipping;
+}
+
+function render_good_for(){
+    $good_for_object = get_field_object('good_for');
+    $good_for_values = $good_for_object['value'];
+    
+    foreach($good_for_values as $g){
+        $values[] = $good_for_object['choices'][$g];
+    }
+    $return = '<i class="icon-tag"></i> '.implode(", ", $values);
+
+    return $return;
+}
 function render_category_size_info(){
     
 }
@@ -1181,7 +1252,7 @@ function render_customer_support_info(){
     $support_email = get_field('support_email');
     
     if(!empty($support_phone)) $html.= "<div class='listing-category-label'>Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
-    if(!empty($support_email)) $html.= "<div class='listing-category-label'>Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
+    if(!empty($support_email)) $html.= "<div class='listing-category-label'><i class='icon-envelope-open'></i> Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
 
     return $html;
 }

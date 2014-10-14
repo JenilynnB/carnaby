@@ -192,8 +192,9 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .main-image img {
-    padding: 5px;
+    /* padding: 5px; */
     border: solid 1px #f2f2f2;
+    /* height: 80px; */
 }
 
 .wpbdp-listing-single .listing-details.with-image {
@@ -312,7 +313,7 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-bottom:auto;
 }
 .listing-highlight.spacer::before{
-    content: "•";
+    content: "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢";
 }
 
 .listing-highlight-item{
