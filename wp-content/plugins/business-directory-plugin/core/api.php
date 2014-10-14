@@ -1235,10 +1235,12 @@ function render_good_for(){
     $good_for_object = get_field_object('good_for');
     $good_for_values = $good_for_object['value'];
     
-    foreach($good_for_values as $g){
-        $values[] = $good_for_object['choices'][$g];
+    if(!empty($good_for_values)){
+        foreach($good_for_values as $g){
+            $values[] = $good_for_object['choices'][$g];
+        }
+        $return = '<i class="icon-tag"></i> '.implode(", ", $values);
     }
-    $return = '<i class="icon-tag"></i> '.implode(", ", $values);
 
     return $return;
 }
@@ -1251,7 +1253,7 @@ function render_customer_support_info(){
     $support_phone = get_field('support_phone');
     $support_email = get_field('support_email');
     
-    if(!empty($support_phone)) $html.= "<div class='listing-category-label'>Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
+    if(!empty($support_phone)) $html.= "<div class='listing-category-label'><i class='fa fa-phone'></i> Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
     if(!empty($support_email)) $html.= "<div class='listing-category-label'><i class='icon-envelope-open'></i> Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
 
     return $html;
