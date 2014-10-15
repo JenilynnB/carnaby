@@ -21,7 +21,7 @@ function get_current_menu_class($menies, $menu_item){
     $item_url = untrailingslashit( $raw_item_url );
     $_indexless_current = untrailingslashit( preg_replace( '/' . preg_quote( $wp_rewrite->index, '/' ) . '$/', '', $current_url ) );
     $front_page_url = home_url();
-
+/*
     $term = null;
     $parent = null;
     //Determining if there is an active directory category in the query
@@ -37,7 +37,41 @@ function get_current_menu_class($menies, $menu_item){
         $term = $main_query;
         $parent = get_term($main_query->parent, WPBDP_CATEGORY_TAX);
     }
+  */
+    $query_tax = get_query_var("tax_query");
+    $main_query = get_queried_object();
+    if(!empty($query_tax)){
+        foreach($query_tax as $qt){
+            
+            if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                $queryterms = array();
+                if(!is_array($qt['terms'])){
+                    $queryterms[] = $qt['terms'];
+                }else{
+                    $queryterms = $qt['terms'];
+                }
+                foreach($queryterms as $qtt){
+                    if(strcasecmp($qtt,'women')==0||
+                    strcasecmp($qtt,'men')==0||
+                    strcasecmp($qtt,'kids-baby')==0||
+                    strcasecmp($qtt,'girls')==0||
+                    strcasecmp($qtt,'boys')==0||
+                    strcasecmp($qtt,'baby')==0){
+                        $field = $qt['field'];
+                        $term = get_term_by($field, $qtt, WPBDP_CATEGORY_TAX);
+                    }
+                }
+            }
+        }
+    }else if($main_query){
+        $term = $main_query; 
+    } 
     
+    if($term->parent!=0){
+            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+    }else{
+        $parent_term = $term;
+    }
     
     $classes = implode(" ",$menu_item->classes).' menu-item menu-item-type-'.$menu_item->type.' menu-item-object-'.$menu_item->object;
 
@@ -45,9 +79,9 @@ function get_current_menu_class($menies, $menu_item){
         $classes .= ' current-menu-item';
     } elseif ( $item_url == $front_page_url && is_front_page() ) {
         $classes .= ' current-menu-item';
-    } /*elseif ($term->name == $menu_item->title || $parent->name == $menu_item->title ){
+    }elseif (strcasecmp($parent_term->name, $menu_item->title)==0){
         $classes .= ' current-menu-item';
-    } */
+    }
 
     if ( untrailingslashit($item_url) == home_url() )
         $classes .= ' menu-item-home';

@@ -303,7 +303,6 @@ class Search_Filter_Display_Shortcode {
 		if($id!="")
 		{
 			$base_form_id = $id;
-			
 			$fields = get_post_meta( $id , '_search-filter-fields' , true );
 			$settings = get_post_meta( $id , '_search-filter-settings' , true );
 			$addclass = "";

@@ -5,32 +5,63 @@
 <?php
     //after submitting search & filter form once
     $query_tax = get_query_var("tax_query");
-    //there is only one term inside the array passed in common-functions.php, if more are passed this should be expanded
-    $query_tax = $query_tax[0];    
-    $main_query = get_queried_object();
+    $term = '';
+    if(!empty($query_tax)){
+        foreach($query_tax as $qt){
+            if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                $queryterms = array();
+                if(!is_array($qt['terms'])){
+                    $queryterms[] = $qt['terms'];
+                }else{
+                    $queryterms = $qt['terms'];
+                }
+                foreach($queryterms as $qtt){
+                    if(strcasecmp($qtt,'women')==0||
+                    strcasecmp($qtt,'men')==0||
+                    strcasecmp($qtt,'kids-baby')==0||
+                    strcasecmp($qtt,'girls')==0||
+                    strcasecmp($qtt,'boys')==0||
+                    strcasecmp($qtt,'baby')==0){
+                        $term = $qtt;
+                        $field = $qt['field'];
+                    }
+                }
+            }
+        }
+    }else{
+        $term_object = get_queried_object();
+    }    
     
-    if($query_tax){
-        $term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
-        $parent = get_term($term->parent, WPBDP_CATEGORY_TAX);
+    if($term!=''){
+        $term_object = get_term_by($field, $term, WPBDP_CATEGORY_TAX);
+        if($term_object->parent!=0){
+            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+        }
     }else if($main_query){
-        //$term = get_term_by($query_tax["field"], $query_tax["terms"], WPBDP_CATEGORY_TAX);
-        $term = $main_query;
-        $parent = get_term($main_query->parent, WPBDP_CATEGORY_TAX);
+        if($term_object->parent!=0){
+            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+        }
     }
     
     $breadcrumbs = '';
     //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
     
-    if($parent->term_id!=""){
+    if($parent_term->term_id!=""){
         $parent_base_url = site_url("site_categories");
-        $parent_url = $parent_base_url."/".$parent->slug;
+        $parent_url = $parent_base_url."/".$parent_term->slug;
         
-        $breadcrumbs .= "<a href='".$parent_url."'>".$parent->name."</a>";
-        $breadcrumbs .= " > ";
+        $breadcrumbs .= "<a href='".$parent_url."'>".$parent_term->name."</a>";
+        $breadcrumbs .= " > "; 
+        
     }
     
-    $breadcrumbs .= $term->name;
+    $breadcrumbs .= $term_object->name;
     
+    if($parent_term->term_id!=""){
+        $term = $parent_term->name;
+    }else{
+        $term = $term_object->name;
+    }
     //when starting from a category page
     /*
     if($term){
@@ -146,15 +177,15 @@
                                                 //when starting from a category page
                                                 $main_query = get_queried_object();
                                                 */
-                                                if($term->slug == "women"){
+                                                if(strcasecmp($term, "women")==0){
                                                     echo do_shortcode( '[searchandfilter id="268"]' ); 
-                                                }else if ($term->slug == "men"){
+                                                }else if (strcasecmp($term, "men")==0){
                                                     echo do_shortcode( '[searchandfilter id="1065"]' );
-                                                }else if ($term->slug == "girls"){
+                                                }else if (strcasecmp($term,"girls")==0){
                                                     echo do_shortcode( '[searchandfilter id="1147"]' );
-                                                }else if ($term->slug == "boys"){
+                                                }else if (strcasecmp($term, "boys")==0){
                                                     echo do_shortcode( '[searchandfilter id="1148"]' );
-                                                }else if ($term->slug == "baby"){
+                                                }else if (strcasecmp($term,"baby")==0){
                                                     echo do_shortcode( '[searchandfilter id="1149"]' );
                                                 }else{
                                                     echo do_shortcode( '[searchandfilter id="1143"]' );
