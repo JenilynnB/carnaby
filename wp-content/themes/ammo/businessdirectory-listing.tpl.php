@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
                             <div class='listing-element'><?php the_terms($listing_id, WPBDP_TAGS_TAX, '<i class="icon-tag"></i> ');?></div>
-                            <div class='listing-element'><?php echo render_good_for(); ?></div>
+                            
                             </div>
                         </div>
                         
@@ -145,6 +145,9 @@
                             <div class="listing-side-container col-md-12">
                                 <?php echo the_content();?>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class='listing-element'><?php echo render_good_for(); ?></div>
                         </div>
 
                         <div class="row">
