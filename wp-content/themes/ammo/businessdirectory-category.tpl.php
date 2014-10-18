@@ -62,7 +62,6 @@
     }else{
         $term = $term_object->name;
     }
-
 ?>
                             
 
@@ -89,7 +88,6 @@
 						<div class="content">
 							<div class="row">
 								<div class="col-md-12 single-content">
-                                                                    <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                                                     <?php wpbdp_the_listing_sort_options(); ?>
                                                                     <div id="listings-results">
                                                                     <?php while (have_posts()): the_post(); ?>
