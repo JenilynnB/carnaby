@@ -459,6 +459,8 @@ class Search_Filter_Display_Shortcode {
 		//$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
                 if($field_data["meta_key"]=='shipping_cost_to_canada'){
                     $returnvar.= "<div class='panel-inside-title'>Canada Shipping Cost:</div>";
+                }elseif($field_data["meta_key"]=='ships_to_canada'){
+                    $returnvar.= "";
                 }else{
                     $returnvar .= "<div class='acc-panel panel-default'>";
                     
@@ -520,7 +522,7 @@ class Search_Filter_Display_Shortcode {
 		
 		//$returnvar .= "</li>";
 		
-                if($field_id!="_sfm_ships_to_canada"){
+                if($field_id!="_sfm_ships_to_canada" && $field_id!="_sfm_international_shipping"){
                     $returnvar .= "</div>";
                     $returnvar .= "</div>";
                     $returnvar .= "</div>";
