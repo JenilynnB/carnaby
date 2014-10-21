@@ -1111,7 +1111,7 @@ function filter_results( $query )
             //Figure out how to filter by wpbdp_category
             //$query->set('_sft_wpbdp_cat', '2'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts    
 
-            $taxquery = 
+            $taxquery[] = 
                     array(
                         'taxonomy' => 'wpbdp_category',
                         'field' => 'slug',
