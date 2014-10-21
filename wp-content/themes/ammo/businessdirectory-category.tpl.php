@@ -8,22 +8,24 @@
     $term = '';
     if(!empty($query_tax)){
         foreach($query_tax as $qt){
-            if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
-                $queryterms = array();
-                if(!is_array($qt['terms'])){
-                    $queryterms[] = $qt['terms'];
-                }else{
-                    $queryterms = $qt['terms'];
-                }
-                foreach($queryterms as $qtt){
-                    if(strcasecmp($qtt,'women')==0||
-                    strcasecmp($qtt,'men')==0||
-                    strcasecmp($qtt,'kids-baby')==0||
-                    strcasecmp($qtt,'girls')==0||
-                    strcasecmp($qtt,'boys')==0||
-                    strcasecmp($qtt,'baby')==0){
-                        $term = $qtt;
-                        $field = $qt['field'];
+            if(isset($qt['taxonomy'])){
+                if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                    $queryterms = array();
+                    if(!is_array($qt['terms'])){
+                        $queryterms[] = $qt['terms'];
+                    }else{
+                        $queryterms = $qt['terms'];
+                    }
+                    foreach($queryterms as $qtt){
+                        if(strcasecmp($qtt,'women')==0||
+                        strcasecmp($qtt,'men')==0||
+                        strcasecmp($qtt,'kids-baby')==0||
+                        strcasecmp($qtt,'girls')==0||
+                        strcasecmp($qtt,'boys')==0||
+                        strcasecmp($qtt,'baby')==0){
+                            $term = $qtt;
+                            $field = $qt['field'];
+                        }
                     }
                 }
             }

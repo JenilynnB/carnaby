@@ -42,23 +42,24 @@ function get_current_menu_class($menies, $menu_item){
     $main_query = get_queried_object();
     if(!empty($query_tax)){
         foreach($query_tax as $qt){
-            
-            if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
-                $queryterms = array();
-                if(!is_array($qt['terms'])){
-                    $queryterms[] = $qt['terms'];
-                }else{
-                    $queryterms = $qt['terms'];
-                }
-                foreach($queryterms as $qtt){
-                    if(strcasecmp($qtt,'women')==0||
-                    strcasecmp($qtt,'men')==0||
-                    strcasecmp($qtt,'kids-baby')==0||
-                    strcasecmp($qtt,'girls')==0||
-                    strcasecmp($qtt,'boys')==0||
-                    strcasecmp($qtt,'baby')==0){
-                        $field = $qt['field'];
-                        $term = get_term_by($field, $qtt, WPBDP_CATEGORY_TAX);
+            if(isset($qt['taxonomy'])){
+                if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                    $queryterms = array();
+                    if(!is_array($qt['terms'])){
+                        $queryterms[] = $qt['terms'];
+                    }else{
+                        $queryterms = $qt['terms'];
+                    }
+                    foreach($queryterms as $qtt){
+                        if(strcasecmp($qtt,'women')==0||
+                        strcasecmp($qtt,'men')==0||
+                        strcasecmp($qtt,'kids-baby')==0||
+                        strcasecmp($qtt,'girls')==0||
+                        strcasecmp($qtt,'boys')==0||
+                        strcasecmp($qtt,'baby')==0){
+                            $field = $qt['field'];
+                            $term = get_term_by($field, $qtt, WPBDP_CATEGORY_TAX);
+                        }
                     }
                 }
             }
