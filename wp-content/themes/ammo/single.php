@@ -59,18 +59,7 @@ End Title -->
 									    		echo '</li>';
 									    	}
 										
-										/*Displaying shipping info*/
-										if ( get_field('free_shipping') ):
-								                        $shipping_info = 'Free Shipping';
-										elseif ( get_field('free_shipping_minimum_order') ):
-											$shipping_info = 'Free Shipping with orders $' . get_field('free_shipping_minimum_amount') . '+, Standard Shipping: $' . get_field('shipping_cost') ;
-							                        elseif ( get_field('flat_rate_shipping') ):
-								                        $shipping_info = 'Standard shipping: $' . get_field('shipping_cost') ;
-							                        else:
-								                        $shipping_info = 'Shipping costs increase with order size';
-                    								endif;
-										echo '<li itemprop="shipping_info" class="meta-tag">' . $shipping_info . '</li>';	
-					
+										
 								    ?>
 									    
 
