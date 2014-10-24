@@ -359,64 +359,12 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
                         var this_url = $ajaxed_search_form_post.attr('data-ajax-url');
                         var $new = $data_obj.find(ajax_target_attr);
 			
-                        //var $pagination = $data_obj.find(ajax_links_selector);
-                        var $pagination = $data_obj.find(".wpbdp-pagination");
                         
                         $ajax_target_object.html($new.html());
-                        $ajax_links_object.html($pagination.html());
-			
-                        /*
-                        var $pagiPrev = $pagination.find(".prev a");
-                        var $pagiNext = $pagination.find(".next a");
-
-                        if($pagiNext.length>0)
-                        {
-                            
-                            $pagiNext.click(function(e){
-
-                                if(!$(this).hasClass("disabled"))
-                                {
-                                    e.preventDefault();
-
-                                    var pageNumber = $ajax_target_object.attr("data-paged"); 
-                                    pageNumber++;
-                                    $ajax_target_object.attr("data-paged", pageNumber);
-
-                                    postAjaxResults($thisform, form_id);
-                                }
-
-                                return false;
-                            });
-                        }
-                        if($pagiPrev.length>0)
-                        {
-                           
-                            $pagiPrev.click(function(e){
-
-                                e.preventDefault();
-
-                                if(!$(this).hasClass("disabled"))
-                                {
-                                    var pageNumber = $ajax_target_object.attr("data-paged");
-                                    pageNumber--;
-                                    if(pageNumber<1)
-                                    {
-                                            pageNumber = 1;
-                                    }
-                                    $ajax_target_object.attr("data-paged", pageNumber);
-
-                                    postAjaxResults($thisform, form_id);
-                                }
-
-                                return false;
-                            });
-                        }       
-                        */
+                      
 			if(use_history_api==1)
 			{
-				
-				
-				
+			
 				//now check if the browser supports history state push :)
 				if (window.history && window.history.pushState)
 				{

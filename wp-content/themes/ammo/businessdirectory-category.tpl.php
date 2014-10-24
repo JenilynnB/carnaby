@@ -99,7 +99,7 @@
                                                                             //echo do_shortcode('[searchandfilter id="268" show="results"]');
                                                                         ?>
                                                                     <?php endwhile; ?>
-                                                                    </div>
+                                                                    
                                                                     <div class="wpbdp-pagination">
                                                                     <?php if (function_exists('wp_pagenavi')) : ?>
                                                                             <?php wp_pagenavi(); ?>
@@ -109,6 +109,7 @@
                                                                         <span class="prev"><?php previous_posts_link(_x('&laquo; Previous ', 'templates', 'WPBDM')); ?></span>
                                                                         <span class="next"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
                                                                     <?php endif; ?>
+                                                                    </div>
                                                                     </div>
                                                                    
                                                                     <?php
