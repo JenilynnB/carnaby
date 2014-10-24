@@ -91,6 +91,7 @@
 							<div class="row">
 								<div class="col-md-12 single-content">
                                                                     <?php wpbdp_the_listing_sort_options(); ?>
+                                                                    <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                                                     <div id="listings-results">
                                                                     <?php while (have_posts()): the_post(); ?>
                                                                         <?php 

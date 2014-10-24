@@ -310,16 +310,20 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 			
 			var ajax_target_attr = $thisform.attr("data-ajax-target");
 			var ajax_links_selector = $thisform.attr("data-ajax-links-selector");
-			
+			 
+                        
 			var $ajax_target_object = jQuery(ajax_target_attr);
-			
+			var $ajax_links_object = jQuery(ajax_links_selector);
+                        
 			$ajax_target_object.animate({ opacity: 0.5 }, "fast"); //loading
-			
+			//var pageNumber = $ajax_target_object.attr("data-paged");
+                        
 			$thisform.trigger("sf:ajaxstart", [ "Custom", "Event" ]);
 			
 			var jqxhr = $.post(SF_LDATA.homeurl, $thisform.serialize(), function(data, status, request)
 			{
-				var $timestamp_input = $(data).find('.sf_ajax_timestamp');
+                             
+                                var $timestamp_input = $(data).find('.sf_ajax_timestamp');
 				var newTimestamp = 0;
 				if($timestamp_input.length>0)
 				{
@@ -329,12 +333,14 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 				if(newTimestamp>ajaxLastTimestamp)
 				{
 					ajaxLastTimestamp = newTimestamp;
-					handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object);
+					handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object, $ajax_links_object);
 				}
 				else
 				{
 					
 				}
+                                
+                                
 			
 			}).fail(function()
 			{
@@ -346,16 +352,70 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 			});
 		}
 		
-		function handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object)
+		function handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object, $ajax_links_object)
 		{
 			var $data_obj = $(data);
+			var $ajaxed_search_form_post = $data_obj.find('*[data-sf-form-id='+form_id+']');
+                        var this_url = $ajaxed_search_form_post.attr('data-ajax-url');
+                        var $new = $data_obj.find(ajax_target_attr);
 			
-			$ajax_target_object.html($data_obj.find(ajax_target_attr).html());
+                        //var $pagination = $data_obj.find(ajax_links_selector);
+                        var $pagination = $data_obj.find(".wpbdp-pagination");
+                        
+                        $ajax_target_object.html($new.html());
+                        $ajax_links_object.html($pagination.html());
 			
+                        /*
+                        var $pagiPrev = $pagination.find(".prev a");
+                        var $pagiNext = $pagination.find(".next a");
+
+                        if($pagiNext.length>0)
+                        {
+                            
+                            $pagiNext.click(function(e){
+
+                                if(!$(this).hasClass("disabled"))
+                                {
+                                    e.preventDefault();
+
+                                    var pageNumber = $ajax_target_object.attr("data-paged"); 
+                                    pageNumber++;
+                                    $ajax_target_object.attr("data-paged", pageNumber);
+
+                                    postAjaxResults($thisform, form_id);
+                                }
+
+                                return false;
+                            });
+                        }
+                        if($pagiPrev.length>0)
+                        {
+                           
+                            $pagiPrev.click(function(e){
+
+                                e.preventDefault();
+
+                                if(!$(this).hasClass("disabled"))
+                                {
+                                    var pageNumber = $ajax_target_object.attr("data-paged");
+                                    pageNumber--;
+                                    if(pageNumber<1)
+                                    {
+                                            pageNumber = 1;
+                                    }
+                                    $ajax_target_object.attr("data-paged", pageNumber);
+
+                                    postAjaxResults($thisform, form_id);
+                                }
+
+                                return false;
+                            });
+                        }       
+                        */
 			if(use_history_api==1)
 			{
-				var $ajaxed_search_form_post = $data_obj.find('*[data-sf-form-id='+form_id+']');
-				var this_url = $ajaxed_search_form_post.attr('data-ajax-url');
+				
+				
 				
 				//now check if the browser supports history state push :)
 				if (window.history && window.history.pushState)
@@ -363,6 +423,7 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 					history.pushState(null, null, this_url);
 				}
 			}
+                        
 		}
 		
 		function dateSelect()
@@ -587,7 +648,7 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 											// #entries is the ID of the inner div wrapping your posts
 											var jqxhr_get = $.get(link, function(data)
 											{
-												handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object)
+												handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object, $ajax_links_object)
 												$ajax_target_object.stop(true,true).animate({ opacity: 1}, "fast"); //finished loading				
 											})
 											.always(function()
