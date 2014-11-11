@@ -263,7 +263,7 @@ class Search_Filter_Display_Shortcode {
 		var_dump($sf_form_data->get_count_table());
 		echo "</pre>";*/
 	}
-	
+        
 	// get current URL
 	function get_current_URL() 
 	{
@@ -285,9 +285,10 @@ class Search_Filter_Display_Shortcode {
 		$this->set_defaults();
 				
 		//load scripts on this page where the shortcode is called
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
+		//wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
 		wp_enqueue_script( $this->plugin_slug . '-plugin-ajax-script' );
-		wp_enqueue_script( 'jquery-ui-datepicker' ); 
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+                
 		
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
@@ -426,10 +427,65 @@ class Search_Filter_Display_Shortcode {
 			}
 			
 		}
+                
+                $rules = $this->get_field_rules();
+                
+                if(!empty($rules)){
+                    foreach($rules as $rule){
+                
+                    ?>
+<script type="text/javascript">
+(function($) {
+	
+	//if( typeof $fieldConditions !== 'undefined' )
+	//{
+            $fieldConditions.push(<?php echo json_encode($rule); ?>);
+	//}
+	
+})(jQuery);	
+</script>
+			<?php
+                    }
+                }
+                
+                
 		
 		return $returnvar;
 	}
 	
+        
+        private function get_field_rules(){
+            
+            $acfs = apply_filters('acf/get_field_groups', array());
+		if( $acfs )
+		{
+			foreach( $acfs as $acf )
+			{
+					$standard_fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+                        
+                        }
+                }
+                
+                if($standard_fields){
+                    $rules = array();
+                    foreach($standard_fields as $field){
+                        
+                        $field_key = $field['key'];
+                        $logic = $field['conditional_logic'];
+                        
+                        if($logic['status']){
+                            
+                            $logic['master_field_key'] = $field_key;
+                            $logic['master_field_name'] = $field['name'];
+                            $rules[] = $logic;
+                        }
+                        
+                    }
+                }
+                
+                return $rules;
+        }
+        
 	//switch for different field types
 	private function get_field($field_data, $post_types)
 	{
@@ -457,19 +513,88 @@ class Search_Filter_Display_Shortcode {
 		
 		//$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
 		//$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
-                if($field_data["meta_key"]=='shipping_cost_to_canada'){
-                    $returnvar.= "<div class='panel-inside-title'>Canada Shipping Cost:</div>";
-                }elseif($field_data["meta_key"]=='ships_to_canada'){
-                    $returnvar.= "";
-                }else{
+                if($field_data["meta_key"]!='shipping_cost_to_canada' && $field_data["meta_key"]!='ships_to_canada'){
                     $returnvar .= "<div class='acc-panel panel-default'>";
                     
                 }
+                $field_key = get_standard_field_key($field_data['meta_key']);
                 
+                /*Determine whether the field should be shown, based on the current filters*/
+                $rules = $this->get_field_rules();
+                $new_field_value = get_current_filters_by_field($field_data['meta_key']);
                 
+                $hidden = '';
                 
+                foreach($rules as $rule){
+                    
+                    
+                    if($rule['master_field_key']==$field_key){
+                        if($rule['allorany']=='all'){
+                            $match = 1;
+                            //look for non-matches and set match = 0
+                            foreach($rule['rules'] as $sub_rule){
+                                $field_rule_value = $sub_rule['value'];
+                                
+                                //getting the current value for the field the rule depends on needs the human-readable name
+                                $field_rule_object = (get_field_object($sub_rule['field']));
+                                
+                                $field_rule_name = $field_rule_object['name'];
+                                
+                                $field_actual_values = get_current_filters_by_field($field_rule_name);
+                                
+                                if($sub_rule['operator']=='=='){
+                                    //echo print_r($field_actual_values);
+                                    if(is_array($field_actual_values)){
+                                        foreach($field_actual_values as $fav){   
+                                            if ($field_rule_value != $fav){
+                                                $match = 0;
+                                            }
+                                        }
+                                    }else{
+                                        if ($field_rule_value != $field_actual_values){
+                                            $match = 0;
+                                        }
+                                    }
+                                }elseif ($sub_rule['operator']=='!='){
+                                    if(is_array($field_actual_values)){
+                                        foreach($field_actual_values as $fav){
+                                            if ($field_rule_value == $field_actual_value){
+                                                $match = 0;
+                                            }
+                                        }
+                                    }else{
+                                        if ($field_rule_value == $fav){
+                                                $match = 0;
+                                            }
+                                    }
+                                }
+                            }
+                        }elseif($rule['allorany']=='any'){
+                            $match = 0;
+                            //look for matches and set match = 1
+                            foreach($rule['rules'] as $sub_rule){
+                                $field_rule_value = $sub_rule['value'];
+                                $field_actual_value = get_current_filters_by_field($sub_rule['field']);
+                                if($sub_rule['operator']=='=='){
+                                    if ($field_rule_value == $field_actual_value){
+                                        $match = 1;
+                                    }
+                                }elseif ($sub_rule['operator']=='!='){
+                                    if ($field_rule_value != $field_actual_value){
+                                        $match = 1;
+                                    }
+                                }
+                            } 
+                        }
+                        if ($match==0){
+                            $hidden = 'hidden';
+                        }
+                    }
+                }
                 
-		//display a heading? (available to all field types)
+                $field_data['hide_field'] = $hidden;
+                
+                //display a heading? (available to all field types)
 		if(isset($field_data['heading']))
 		{
 			if($field_data['heading']!="")
@@ -481,11 +606,15 @@ class Search_Filter_Display_Shortcode {
                                 $returnvar .= "</div>";
                                 //$returnvar .= "<label for='".$field_name."'>".esc_html($field_data['heading'])."</label>";
                                 $returnvar .= '<div class="panel-collapse collapse" id="'.$field_id.'">';
-                                $returnvar .= '<div class=panel-body>';
-			}
+                                
+                                $returnvar .= '<div class="panel-body">';
+			
+                                
+                        }
 		}
 		
-
+                
+                $returnvar .= '<div id="'.$field_key.'" data-field_key="'.$field_key.'" data-field_name="'.$field_object['name'].'"'. $hidden.'>';
                 
 		if($field_data['type']=="search")
 		{
@@ -505,7 +634,7 @@ class Search_Filter_Display_Shortcode {
 		}
 		else if($field_data['type']=="post_meta")
 		{
-			$returnvar .= $this->get_post_meta_field($field_data);
+                        $returnvar .= $this->get_post_meta_field($field_data);
 		}
 		else if($field_data['type']=="sort_order")
 		{
@@ -528,7 +657,7 @@ class Search_Filter_Display_Shortcode {
                     $returnvar .= "</div>";
                 }
                 
-                
+                $returnvar .= "</div>";
                 
 		return $returnvar;
 	}
@@ -537,6 +666,9 @@ class Search_Filter_Display_Shortcode {
 	{
 		$returnvar = "";
 		
+                if(strcmp($field_data['hide_field'], 'hidden')==0){
+                    $disabled = 'disabled';
+                }
 		//set defaults so no chance of any php errors when accessing un init vars
 		$defaults = array(
 			'placeholder'			=> __("Search &hellip;", $this->plugin_slug)
@@ -549,7 +681,7 @@ class Search_Filter_Display_Shortcode {
 			$searchterm = esc_attr($this->searchterm);
 		}
 		
-		$returnvar .=  '<input type="text" name="'.SF_FPRE.'search" placeholder="'.$values['placeholder'].'" value="'.$searchterm.'">';
+		$returnvar .=  '<input type="text" name="'.SF_FPRE.'search" placeholder="'.$values['placeholder'].'" value="'.$searchterm.'" '.$disabled.'>';
 		
 		return $returnvar;
 	}
@@ -585,7 +717,11 @@ class Search_Filter_Display_Shortcode {
 			$values['all_items_label'] = $taxonomydata->labels->all_items;
 		}
 		
-		
+		if(strcmp($field_data['hide_field'], 'hidden')==0){
+                    $args['disabled'] = 'disabled';
+                }else{
+                    $args['disabled'] = '';
+                }
 		
 		//check the taxonomy exists
 		if($taxonomydata)
@@ -693,7 +829,7 @@ class Search_Filter_Display_Shortcode {
 		$returnvar = "";
 		
 		$field_name = SF_FPRE."post_type";
-		
+                
 		//set defaults so no chance of any php errors when accessing un init vars
 		$defaults = array(
 			'post_types'			=> array(),
@@ -748,7 +884,7 @@ class Search_Filter_Display_Shortcode {
 		}
 		$elem_attr = "";
 		
-		if($values['input_type']=="select")
+                if($values['input_type']=="select")
 		{
 			if($values['combo_box']==1)
 			{
@@ -985,7 +1121,6 @@ class Search_Filter_Display_Shortcode {
 	private function get_post_meta_field($field_data)
 	{
 		$returnvar = "";
-		
 		//set defaults so no chance of any php errors when accessing un init vars
 		$defaults = array(
 			
@@ -1028,6 +1163,10 @@ class Search_Filter_Display_Shortcode {
 			$values['all_items_label'] = __("All Items", $this->plugin_slug);
 		}
 		
+                
+                if($values['hide_field']=='hidden'){
+                    $values['hide_field'] = 'disabled';
+                }
 		$field_name = SF_META_PRE.$meta_key;
 		
 			
@@ -1036,7 +1175,7 @@ class Search_Filter_Display_Shortcode {
 		{
 			$defaults = $this->defaults[$field_name];
 		}
-		
+	
 		if($values['meta_type']=="number")
 		{
 			if($values['number_input_type']=="range-slider")
@@ -1056,8 +1195,7 @@ class Search_Filter_Display_Shortcode {
 				{
 					$defaults = array($values['range_min'], $values['range_max']);
 				}
-				
-				$returnvar .= $this->create_input->generate_range_slider($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults[0], $defaults[1], $values['range_value_prefix'], $values['range_value_postfix']);
+				$returnvar .= $this->create_input->generate_range_slider($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults[0], $defaults[1], $values['range_value_prefix'], $values['range_value_postfix'], $values['hide_field']);
 			}
 			else if($values['number_input_type']=="range-number")
 			{
@@ -1086,7 +1224,7 @@ class Search_Filter_Display_Shortcode {
 					$defaults = array($values['range_min'], $values['range_max']);
 				}
 				
-				$returnvar .= $this->create_input->generate_range_number($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults[0], $defaults[1], $values['range_value_prefix'], $values['range_value_postfix']);
+				$returnvar .= $this->create_input->generate_range_number($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults[0], $defaults[1], $values['range_value_prefix'], $values['range_value_postfix'], $values['hide_field']);
 			}
 			else if($values['number_input_type']=="range-radio")
 			{
@@ -1098,12 +1236,12 @@ class Search_Filter_Display_Shortcode {
 					}
 				}
 				
-				$returnvar .= $this->create_input->generate_range_radio($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults, $values['range_value_prefix'], $values['range_value_postfix']);
+				$returnvar .= $this->create_input->generate_range_radio($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $defaults, $values['range_value_prefix'], $values['range_value_postfix'], $values['hide_field']);
 				
 			}
 			else if($values['number_input_type']=="range-checkbox")
 			{
-				$returnvar .= $this->create_input->generate_range_checkbox($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $values['range_min'], $values['range_max'], $values['range_value_prefix'], $values['range_value_postfix']);
+				$returnvar .= $this->create_input->generate_range_checkbox($field_name, $values['range_min'], $values['range_max'], $values['range_step'], $values['range_min'], $values['range_max'], $values['range_value_prefix'], $values['range_value_postfix'], $values['hide_field']);
 			}
 		}
 		else if($values['meta_type']=="choice")
@@ -1131,15 +1269,15 @@ class Search_Filter_Display_Shortcode {
 						{
 							$elem_attr = ' data-combobox="1"';
 						}
-						$returnvar .= $this->create_input->generate_select($taxonomychildren, $field_name, $defaults, $values['all_items_label'], $elem_attr);
+						$returnvar .= $this->create_input->generate_select($taxonomychildren, $field_name, $defaults, $values['all_items_label'], $elem_attr, $values['hide_field']);
 					}
 					else if($values['choice_input_type']=="checkbox")
 					{
-						$returnvar .= $this->create_input->generate_checkbox($taxonomychildren, $field_name, $defaults);
+						$returnvar .= $this->create_input->generate_checkbox($taxonomychildren, $field_name, $defaults, $values['hide_field']);
 					}
 					else if($values['choice_input_type']=="radio")
 					{
-						$returnvar .= $this->create_input->generate_radio($taxonomychildren, $field_name, $defaults, $values['all_items_label']);
+						$returnvar .= $this->create_input->generate_radio($taxonomychildren, $field_name, $defaults, $values['all_items_label'], $values['hide_field']);
 					}
 					else if($values['choice_input_type']=="multiselect")
 					{
@@ -1147,7 +1285,7 @@ class Search_Filter_Display_Shortcode {
 						{
 							$elem_attr = ' data-combobox="1" data-placeholder="'.esc_attr($values['all_items_label']).'"';
 						}
-						$returnvar .= $this->create_input->generate_multiselect($taxonomychildren, $field_name, $defaults, $elem_attr);
+						$returnvar .= $this->create_input->generate_multiselect($taxonomychildren, $field_name, $defaults, $elem_attr, $values['hide_field']);
 					}
 				}
 			}			

@@ -158,8 +158,7 @@ class Search_Filter_Taxonomy_Walker extends Walker_Category {
 								$checked = ' checked="checked"';
 							}
 						}
-						
-						$output .= "<li class='".SF_ITEM_CLASS_PRE."0'><span><input type='".$this->type."' name='".$name."[]' value='0'".$checked." /> ".$show_option_all_sf."</span></li>";
+						$output .= "<span><input type='".$this->type."' name='".$name."[]' value='0'".$checked." /> ".$show_option_all_sf."</span>";
 					}
 				}
 			}

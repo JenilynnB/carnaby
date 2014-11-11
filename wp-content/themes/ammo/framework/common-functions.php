@@ -1138,3 +1138,405 @@ function get_user_profile_thumb_circle($size, $user_id){
 
     return $items;
 }
+
+function get_current_filters(){
+    global $sf_form_data;
+    global $wp_query;
+
+    //$this->frmqreserved = array(SF_FPRE."category_name", SF_FPRE."s", SF_FPRE."tag", SF_FPRE."submitted", SF_FPRE."post_date", SF_FPRE."post_types", SF_FPRE."sort_order", SF_FPRE."author"); //same as reserved
+
+    $categories = array();
+    $defaults = array();
+
+    if(isset($wp_query->query['category_name']))
+    {
+            $category_params = (preg_split("/[,\+ ]/", esc_attr($wp_query->query['category_name']))); //explode with 2 delims
+
+            //$category_params = explode("+",esc_attr($wp_query->query['category_name']));
+
+            foreach($category_params as $category_param)
+            {
+                    $category = get_category_by_slug( $category_param );
+                    if(isset($category->cat_ID))
+                    {
+                            $categories[] = $category->cat_ID;
+                    }
+            }
+    }
+
+    //$this->defaults[SF_FPRE.'category'] = $categories;
+    $defaults['category'] = $categories;
+    
+    //grab search term for prefilling search input
+    if(isset($wp_query->query['s']))
+    {//!"�$%^&*()
+            $this->searchterm = trim(get_search_query());
+    }
+
+    //check to see if tag is set
+
+    $tags = array();
+
+    if(isset($wp_query->query['tag']))
+    {
+            $tag_params = (preg_split("/[,\+ ]/", esc_attr($wp_query->query['tag']))); //explode with 2 delims
+
+            foreach($tag_params as $tag_param)
+            {
+                    $tag = get_term_by("slug",$tag_param, "post_tag");
+                    if(isset($tag->term_id))
+                    {
+                            $tags[] = $tag->term_id;
+                    }
+            }
+    }
+
+    //$this->defaults[SF_FPRE.'post_tag'] = $tags;
+    $defaults['post_tag'] = $tags;
+
+    $taxonomies_list = get_taxonomies('','names');
+
+
+    $taxs = array();
+
+    //loop through all the query vars
+    if(isset($wp_query->query))
+    {
+            foreach($wp_query->query as $key=>$val)
+            {
+
+                    if (strpos($key, SF_TAX_PRE) === 0)
+                    {
+                            $key = substr($key, strlen(SF_TAX_PRE));
+
+                            $taxslug = ($val);
+                            //$tax_params = explode("+",esc_attr($taxslug));
+
+                            $tax_params = (preg_split("/[,\+ ]/", esc_attr($taxslug))); //explode with 2 delims
+
+                            foreach($tax_params as $tax_param)
+                            {
+                                    $tax = get_term_by("slug",$tax_param, $key);
+
+                                    if(isset($tax->term_id))
+                                    {
+                                            $taxs[] = $tax->term_id;
+                                    }
+                            }
+
+                            //$this->defaults[SF_TAX_PRE.$key] = $taxs;
+                            $defaults[$key] = $taxs;
+
+
+                    }
+                    else if (strpos($key, SF_META_PRE) === 0)
+                    {
+                            $key = substr($key, strlen(SF_META_PRE));
+
+                            $meta_data = array("","");
+
+                            if(isset($wp_query->query[SF_META_PRE.$key]))
+                            {
+                                    //get meta field options
+                                    $meta_field_data = $sf_form_data->get_field_by_key(SF_META_PRE.$key);
+
+
+                                    if($meta_field_data['meta_type']=="number")
+                                    {
+                                            $meta_data = array("","");
+                                            if(isset($wp_query->query[$key]))
+                                            {
+
+                                                    $meta_data = (preg_split("/[,\+ ]/", esc_attr(($wp_query->query[SF_META_PRE.$key])))); //explode with 2 delims
+
+                                                    if(count($meta_data)==1)
+                                                    {
+                                                            $meta_data[1] = "";
+                                                    }
+                                            }
+
+                                            //$this->defaults[SF_FPRE.$key] = $meta_data;	
+                                            $defaults[$key] = $meta_data;
+                                    }
+                                    else if($meta_field_data['meta_type']=="choice")
+                                    {
+                                            if($meta_field_data["operator"]=="or")
+                                            {
+                                                    $ochar = "-,-";
+                                                    $meta_data = explode($ochar, esc_attr($wp_query->query[SF_META_PRE.$key]));
+                                            }
+                                            else
+                                            {
+                                                    $ochar = "-+-";
+                                                    $meta_data = explode($ochar, esc_attr(urlencode($wp_query->query[SF_META_PRE.$key])));
+                                                    $meta_data = array_map( 'urldecode', ($meta_data) );
+                                            }
+
+                                            if(count($meta_data)==1)
+                                            {
+                                                    $meta_data[1] = "";
+                                            }
+                                    }
+                                    else if($meta_field_data['meta_type']=="date")
+                                    {
+                                            $meta_data = array("","");
+                                            if(isset($wp_query->query[$key]))
+                                            {
+                                                    $meta_data = array_map('urldecode', explode("+", esc_attr(urlencode($wp_query->query[SF_META_PRE.$key]))));
+                                                    if(count($meta_data)==1)
+                                                    {
+                                                            $meta_data[1] = "";
+                                                    }
+                                            }
+                                    }
+                            }
+
+                            //$this->defaults[SF_META_PRE.$key] = $meta_data;					
+                            $defaults[$key] = $meta_data;					
+
+                    }
+            }
+        }
+
+        $post_date = array("","");
+        if(isset($wp_query->query['post_date']))
+        {
+                $post_date = array_map('urldecode', explode("+", esc_attr(urlencode($wp_query->query['post_date']))));
+                if(count($post_date)==1)
+                {
+                        $post_date[1] = "";
+                }
+        }
+        //$this->defaults[SF_FPRE.'post_date'] = $post_date;
+        $defaults['post_date'] = $post_date;
+
+        $post_types = array();
+        if(isset($wp_query->query['post_types']))
+        {
+                $post_types = explode(",",esc_attr($wp_query->query['post_types']));
+        }
+        //$this->defaults[SF_FPRE.'post_type'] = $post_types;
+        $defaults['post_type'] = $post_types;
+
+        $sort_order = array();
+        if(isset($wp_query->query['sort_order']))
+        {
+                $sort_order = explode(",",esc_attr(urlencode($wp_query->query['sort_order'])));
+        }
+        //$this->defaults[SF_FPRE.'sort_order'] = $sort_order;
+        $defaults['sort_order'] = $sort_order;
+
+        $authors = array();
+        if(isset($wp_query->query['authors']))
+        {
+                $authors = explode(",",esc_attr($wp_query->query['authors']));
+        }
+
+        //$this->defaults[SF_FPRE.'author'] = $authors;
+        $defaults['author'] = $authors;
+
+        /*echo "<pre>";
+        //var_dump($this->defaults);
+        global $sf_form_data;
+        var_dump($sf_form_data->get_count_table());
+        echo "</pre>";*/
+
+        return $defaults;
+}
+
+function get_current_filters_by_field($field_name){
+    global $sf_form_data;
+    global $wp_query;
+
+    //$this->frmqreserved = array(SF_FPRE."category_name", SF_FPRE."s", SF_FPRE."tag", SF_FPRE."submitted", SF_FPRE."post_date", SF_FPRE."post_types", SF_FPRE."sort_order", SF_FPRE."author"); //same as reserved
+    $categories = array();
+    $defaults = array();
+
+        
+    if($field_name=='category'){
+        if(isset($wp_query->query['category_name']))
+        {
+                $category_params = (preg_split("/[,\+ ]/", esc_attr($wp_query->query['category_name']))); //explode with 2 delims
+
+                //$category_params = explode("+",esc_attr($wp_query->query['category_name']));
+
+                foreach($category_params as $category_param)
+                {
+                    $category = get_category_by_slug( $category_param );
+                        if(isset($category->cat_ID))
+                        {
+                                $categories[] = $category->cat_ID;
+                        }
+                }
+        }
+
+        //$this->defaults[SF_FPRE.'category'] = $categories;
+        return $categories;
+    }elseif($field_name=='tag'){
+    
+        //check to see if tag is set
+        $tags = array();
+
+        if(isset($wp_query->query['tag']))
+        {
+                $tag_params = (preg_split("/[,\+ ]/", esc_attr($wp_query->query['tag']))); //explode with 2 delims
+
+                foreach($tag_params as $tag_param)
+                {
+                        
+                    $tag = get_term_by("slug",$tag_param, "post_tag");
+                        if(isset($tag->term_id))
+                        {
+                                $tags[] = $tag->term_id;
+                        }
+                }
+        }
+
+        //$this->defaults[SF_FPRE.'post_tag'] = $tags;
+        return $tags;
+    }elseif($field_name=='post_date'){
+        
+        $post_date = array("","");
+        if(isset($wp_query->query['post_date']))
+        {
+                $post_date = array_map('urldecode', explode("+", esc_attr(urlencode($wp_query->query['post_date']))));
+                if(count($post_date)==1)
+                {
+                        $post_date[1] = "";
+                }
+        }
+        //$this->defaults[SF_FPRE.'post_date'] = $post_date;
+        return $post_date;
+    }elseif($field_name=='post_types'){
+
+        $post_types = array();
+        if(isset($wp_query->query['post_types']))
+        {
+                $post_types = explode(",",esc_attr($wp_query->query['post_types']));
+        }
+        //$this->defaults[SF_FPRE.'post_type'] = $post_types;
+        return $post_types;
+    }elseif($field_name=='sort_order'){
+
+        $sort_order = array();
+        if(isset($wp_query->query['sort_order']))
+        {
+                $sort_order = explode(",",esc_attr(urlencode($wp_query->query['sort_order'])));
+        }
+        //$this->defaults[SF_FPRE.'sort_order'] = $sort_order;
+        return $sort_order;
+    }elseif($field_name=='authors'){
+
+        $authors = array();
+        if(isset($wp_query->query['authors']))
+        {
+                $authors = explode(",",esc_attr($wp_query->query['authors']));
+        }
+
+        //$this->defaults[SF_FPRE.'author'] = $authors;
+        return $authors;
+    
+    }else{
+
+        $taxs = array();
+        //loop through all the query vars
+        if(isset($wp_query->query))
+        {
+                foreach($wp_query->query as $key=>$val)
+                {
+                        if (strpos($key, SF_TAX_PRE) === 0 && $field_name == 'taxonomy')
+                        {
+                                $key = substr($key, strlen(SF_TAX_PRE));
+
+                                $taxslug = ($val);
+                                //$tax_params = explode("+",esc_attr($taxslug));
+
+                                $tax_params = (preg_split("/[,\+ ]/", esc_attr($taxslug))); //explode with 2 delims
+
+                                foreach($tax_params as $tax_param)
+                                {
+                                    
+                                    $tax = get_term_by("slug",$tax_param, $key);
+
+                                        if(isset($tax->term_id))
+                                        {
+                                                $taxs[] = $tax->term_id;
+                                        }
+                                }
+
+                                //$this->defaults[SF_TAX_PRE.$key] = $taxs;
+                                $defaults[$key] = $taxs;
+
+
+                        }
+                        else if (strpos($key, SF_META_PRE) === 0 && ($field_name == substr($key, strlen(SF_META_PRE))||$field_name==$key)) 
+                       {
+                                if($field_name!=$key){
+                                    $key = substr($key, strlen(SF_META_PRE));
+                                }    
+                                $meta_data = array("","");
+
+                                if(isset($wp_query->query[SF_META_PRE.$key]))
+                                {
+                                        //get meta field options
+                                        $meta_field_data = $sf_form_data->get_field_by_key(SF_META_PRE.$key);
+                                        if($meta_field_data['meta_type']=="number")
+                                        {
+                                                $meta_data = array("","");
+                                                if(isset($wp_query->query[$key]))
+                                                {
+
+                                                        $meta_data = (preg_split("/[,\+ ]/", esc_attr(($wp_query->query[SF_META_PRE.$key])))); //explode with 2 delims
+
+                                                        if(count($meta_data)==1)
+                                                        {
+                                                                $meta_data[1] = "";
+                                                        }
+                                                }
+
+                                                //$this->defaults[SF_FPRE.$key] = $meta_data;	
+                                                $defaults[$key] = $meta_data;
+                                        }
+                                        else if($meta_field_data['meta_type']=="choice")
+                                        {
+                                                if($meta_field_data["operator"]=="or")
+                                                {
+                                                        $ochar = "-,-";
+                                                        $meta_data = explode($ochar, esc_attr($wp_query->query[SF_META_PRE.$key]));
+                                                }
+                                                else
+                                                {
+                                                        $ochar = "-+-";
+                                                        $meta_data = explode($ochar, esc_attr(urlencode($wp_query->query[SF_META_PRE.$key])));
+                                                        $meta_data = array_map( 'urldecode', ($meta_data) );
+                                                }
+                                                /*
+                                                if(count($meta_data)==1)
+                                                {
+                                                        $meta_data[1] = "";
+                                                }*/
+                                        }
+                                        else if($meta_field_data['meta_type']=="date")
+                                        {
+                                                $meta_data = array("","");
+                                                if(isset($wp_query->query[$key]))
+                                                {
+                                                        $meta_data = array_map('urldecode', explode("+", esc_attr(urlencode($wp_query->query[SF_META_PRE.$key]))));
+                                                        if(count($meta_data)==1)
+                                                        {
+                                                                $meta_data[1] = "";
+                                                        }
+                                                }
+                                        }
+                                }
+
+                                //$this->defaults[SF_META_PRE.$key] = $meta_data;					
+                                //$defaults[$key] = $meta_data;					
+                        }
+                }
+            }
+    }
+
+
+        return $meta_data;
+}

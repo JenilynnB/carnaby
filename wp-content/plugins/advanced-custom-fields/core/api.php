@@ -1554,4 +1554,43 @@ function acf_filter_post_id( $post_id )
 	return apply_filters('acf/get_post_id', $post_id );
 }
 
+/*
+ * This function returns all the fields and their rules, unrelated to any post
+ *  
+ */
+
+function get_standard_fields(){
+    $acfs = apply_filters('acf/get_field_groups', array());
+    if( $acfs )
+    {
+            foreach( $acfs as $acf )
+            {
+                $standard_fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+
+            }
+    }
+}
+
+/*
+ * Need the field key for any field? This is a reliable way to return it.
+ */
+
+function get_standard_field_key($field_name){
+    
+    $acfs = apply_filters('acf/get_field_groups', array());
+    if( $acfs )
+    {
+            foreach( $acfs as $acf )
+            {
+                $standard_fields=  apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+                foreach($standard_fields as $field){
+                    if(strcmp($field['name'], $field_name)==0){
+                        return $field['key'];
+                    }
+                }
+            }
+    }
+    
+}
+
 ?>

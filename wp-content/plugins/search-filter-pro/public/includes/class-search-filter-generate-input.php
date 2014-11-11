@@ -27,7 +27,7 @@ class Search_Filter_Generate_Input {
 			$elem_attr .= $args['elem_attr'];
 		}
 		
-		$returnvar = '<select name="'.$args['name'].'[]" class="postform"'.$elem_attr.'>';
+		$returnvar = '<select name="'.$args['name'].'[]" class="postform"'.$elem_attr.' '.$args['disabled'].'>';
 		$returnvar .= $this->walk_taxonomy('select', $args);
 		$returnvar .= "</select>";
 		
@@ -42,7 +42,7 @@ class Search_Filter_Generate_Input {
 			$elem_attr .= $args['elem_attr'];
 		}
 		
-		$returnvar = '<select multiple="multiple" name="'.$args['name'].'[]" class="postform"'.$elem_attr.'>';
+		$returnvar = '<select multiple="multiple" name="'.$args['name'].'[]" class="postform"'.$elem_attr.' '.$args['disabled'].'>';
 		$returnvar .= $this->walk_taxonomy('multiselect', $args);
 		$returnvar .= "</select>";
 		
@@ -68,16 +68,16 @@ class Search_Filter_Generate_Input {
 	}
 	
 	//generate generic form inputs for use elsewhere, such as post types and non taxonomy fields
-	public function generate_select($dropdata, $name, $defaults, $all_items_label = null, $elem_attr = "")
+	public function generate_select($dropdata, $name, $defaults, $all_items_label = null, $elem_attr = "", $disabled='')
 	{
 		$returnvar = "";
 		
-		$returnvar .= '<select class="postform" name="'.$name.'[]"'.$elem_attr.'>';
+		$returnvar .= '<select class="postform" name="'.$name.'[]"'.$elem_attr.' '.$args['disabled'].'>';
 		if(isset($all_items_label))
 		{
 			if($all_items_label!="")
 			{//check to see if all items has been registered in field then use this label
-				$returnvar .= '<option class="level-0" value="">'.esc_html($all_items_label).'</option>';
+				$returnvar .= '<option class="level-0" value="" '.$disabled.'>'.esc_html($all_items_label).'</option>';
 			}
 		}
 
@@ -99,14 +99,14 @@ class Search_Filter_Generate_Input {
 				}
 			}
 			
-			$returnvar .= '<option class="level-0" value="'.esc_attr($dropdown->term_id).'"'.$selected.'>'.esc_html($dropdown->cat_name).'</option>';
+			$returnvar .= '<option class="level-0" value="'.esc_attr($dropdown->term_id).'"'.$selected.' '.$disabled.'>'.esc_html($dropdown->cat_name).'</option>';
 
 		}
 		$returnvar .= "</select>";
 
 		return $returnvar;
 	}
-	public function generate_multiselect($dropdata, $name, $defaults, $elem_attr = "")
+	public function generate_multiselect($dropdata, $name, $defaults, $elem_attr = "", $disabled='')
 	{
 		$returnvar = "";
 
@@ -129,7 +129,7 @@ class Search_Filter_Generate_Input {
 					}
 				}
 			}
-			$returnvar .= '<option class="level-0" value="'.esc_attr($dropdown->term_id).'"'.$selected.'>'.esc_html($dropdown->cat_name).'</option>';
+			$returnvar .= '<option class="level-0" value="'.esc_attr($dropdown->term_id).'"'.$selected.' '.$disabled.'>'.esc_html($dropdown->cat_name).'</option>';
 
 		}
 		$returnvar .= "</select>";
@@ -137,9 +137,8 @@ class Search_Filter_Generate_Input {
 		return $returnvar;
 	}
 	
-	public function generate_checkbox($dropdata, $name, $defaults)
+	public function generate_checkbox($dropdata, $name, $defaults, $disabled='')
 	{
-		
                 
                 foreach($dropdata as $dropdown)
 		{
@@ -159,7 +158,7 @@ class Search_Filter_Generate_Input {
 					}
 				}				
 			}
-			$returnvar .= '<div class="cat-item"><span><input class="postform cat-item" type="checkbox" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.'> '.esc_html($dropdown->cat_name).'</span></div>';
+			$returnvar .= '<div class="cat-item"><span><input class="postform cat-item" type="checkbox" name="'.$name.'[]" value="'.esc_attr($dropdown->term_id).'"'.$checked.' '.$disabled.'> '.esc_html($dropdown->cat_name).'</span></div>';
 		
 		}
 		
@@ -167,7 +166,7 @@ class Search_Filter_Generate_Input {
 		return $returnvar;
 	}
 	
-	public function generate_radio($dropdata, $name, $defaults, $all_items_label = null)
+	public function generate_radio($dropdata, $name, $defaults, $all_items_label = null, $disabled='')
 	{
 		
                 
@@ -188,7 +187,7 @@ class Search_Filter_Generate_Input {
 					}
 				}
 				
-				$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$name.'[]" value=""'.$checked.'> '.esc_html($all_items_label).'</span></div>';
+				$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$name.'[]" value=""'.$checked.' '.$disabled.'> '.esc_html($all_items_label).'</span></div>';
 			}
 		}
 		
@@ -239,7 +238,7 @@ class Search_Filter_Generate_Input {
 	
 	public function walk_taxonomy( $type = "checkbox", $args = array() )
 	{
-		//echo print_r($args);
+		
                 $args['walker'] = new Search_Filter_Taxonomy_Walker($type, $args['name']);
                 $output = wp_list_categories($args);
 		if ( $output )
@@ -256,9 +255,12 @@ class Search_Filter_Generate_Input {
 			return $output;
 	}
 	
-	public function generate_range_slider($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "")
+	public function generate_range_slider($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "", $disabled='')
 	{
-		$returnvar = "";
+                $field_key_object = get_field_object(substr($field, strlen(SF_META_PRE)));
+                $field_key = $field_key_object['key'];
+                
+                $returnvar = "";
 		
 		if($value_prefix!="")
 		{
@@ -281,11 +283,14 @@ class Search_Filter_Generate_Input {
 		}
 		$smax = (int)$smax;
 		
-		$returnvar .= '<div class="meta-range" data-start-min="'.esc_attr($smin).'" data-start-max="'.esc_attr($smax).'" data-min="'.esc_attr($min).'" data-max="'.esc_attr($max).'" data-step="'.esc_attr($step).'">';
+		$returnvar .= '<div class="meta-range" data-start-min="'.esc_attr($smin).'" data-start-max="'.esc_attr($smax).'" data-min="'.esc_attr($min).'" data-max="'.esc_attr($max).'" data-step="'.esc_attr($step).'" '.$hidden.' data-field_key="'.$field_key.'">';
+                if($field=='_sfm_shipping_cost_to_canada'){
+                    $returnvar.= "<div class='panel-inside-title'>Canada Shipping Cost:</div>";
+                }
                 $returnvar .= '<div class="meta-range-inputs">';
-		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-min" value="'.(int)$smin.'" />'.$value_postfix;
+		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-min" value="'.(int)$smin.'" '.$disabled.'/>'.$value_postfix;
 		$returnvar .= ' - ';
-		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-max" value="'.(int)$smax.'" />'.$value_postfix;
+		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-max" value="'.(int)$smax.'" '.$disabled.'/>'.$value_postfix;
 		$returnvar .= '</div>';
                 $returnvar .= '<div class="meta-slider"></div>';
 		$returnvar .= '</div>';
@@ -293,7 +298,7 @@ class Search_Filter_Generate_Input {
 		return $returnvar;
 	}
 	
-	public function generate_range_number($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "")
+	public function generate_range_number($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "", $disabled='')
 	{
 		$returnvar = "";
 		
@@ -314,14 +319,14 @@ class Search_Filter_Generate_Input {
 		$smax = (int)$smax;
 		
 		$returnvar .= '<div class="meta-range" data-start-min="'.esc_attr($smin).'" data-start-max="'.esc_attr($smax).'" data-min="'.esc_attr($min).'" data-max="'.esc_attr($max).'" data-step="'.esc_attr($step).'">';
-		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-min" value="'.(int)$smin.'" />'.$value_postfix;
+		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-min" value="'.(int)$smin.'" '.$disabled.' />'.$value_postfix;
 		$returnvar .= ' - ';
-		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-max" value="'.(int)$smax.'" />'.$value_postfix;
+		$returnvar .= $value_prefix.'<input name="'.$field.'[]" type="number" min="'.esc_attr($min).'" max="'.esc_attr($max).'" step="'.esc_attr($step).'" class="range-max" value="'.(int)$smax.'"'.$disabled.' />'.$value_postfix;
 		$returnvar .= '</div>';
 		
 		return $returnvar;
 	}
-	public function generate_range_radio($field, $min, $max, $step, $default, $value_prefix = "", $value_postfix = "")
+	public function generate_range_radio($field, $min, $max, $step, $default, $value_prefix = "", $value_postfix = "" ,$disabled='')
 	{
 
 		
@@ -349,7 +354,7 @@ class Search_Filter_Generate_Input {
 			{
 				$checked = ' checked="checked"';
 			}
-			$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$field.'[]" value="'.$radio_value.'"'.$checked.'> '.esc_html($radio_label).'</span></div>';
+			$returnvar .= '<div class="cat-item"><span><input class="postform" type="radio" name="'.$field.'[]" value="'.$radio_value.'"'.$checked.' '.$disabled.'> '.esc_html($radio_label).'</span></div>';
 		}
 		
 		
@@ -358,7 +363,7 @@ class Search_Filter_Generate_Input {
 		return $returnvar;
 	}
 	
-	public function generate_range_checkbox($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "")
+	public function generate_range_checkbox($field, $min, $max, $step, $smin, $smax, $value_prefix = "", $value_postfix = "", $disabled='')
 	{
 		//$returnvar = '<ul>';
             
@@ -395,7 +400,7 @@ class Search_Filter_Generate_Input {
 			
 			$radio_label = $value_prefix.$radio_value.$value_postfix." - ".$value_prefix.$radio_top_value.$value_postfix;
 			//$returnvar .= '<li class="cat-item"><label><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'"> '.esc_html($radio_label).'</label></li>';
-                        $returnvar .= '<div class="cat-item"><span><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'"> '.esc_html($radio_label).'</span></div>';
+                        $returnvar .= '<div class="cat-item"><span><input class="postform" type="checkbox" name="'.SF_FPRE.'meta_'.$field.'[]" value="'.esc_attr($radio_value).'" '.$disabled.'> '.esc_html($radio_label).'</span></div>';
 		}
 		
 		

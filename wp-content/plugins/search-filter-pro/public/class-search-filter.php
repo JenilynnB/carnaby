@@ -395,6 +395,7 @@ class Search_Filter {
 			wp_localize_script($this->plugin_slug . '-plugin-ajax-script', 'SF_LDATA', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'homeurl' => trailingslashit(home_url()), 'sfid' => $sf_form_data->get_active_form_id() ));
 			
 			wp_register_script( $this->plugin_slug . '-chosen-script', plugins_url( 'assets/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), self::VERSION );
+                        wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
 		//}
 		
 	}

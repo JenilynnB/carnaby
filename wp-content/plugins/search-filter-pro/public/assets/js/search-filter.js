@@ -20,6 +20,8 @@ a.behaviour.tap&&p(q.start,k,O,{b:k,target:b});a.behaviour.extend&&(b.addClass(g
 function(){b=b.concat(f(this).data("store").elements)});f.each(b,function(){1<this.length&&this[0].off(h)});a.removeClass(g.join(" "));a.empty().removeData("base options")}function V(a){return this.each(function(){var b=f(this).val()||!1,c=f(this).data("options"),d=f.extend({},c,a);!1!==b&&U(f(this));a&&(f(this).noUiSlider(d),!1!==b&&d.start===c.start&&f(this).val(b))})}var z=f(document),y=f("body"),h=".nui",W=f.fn.val,g="noUi-base noUi-origin noUi-handle noUi-input noUi-active noUi-state-tap noUi-target -lower -upper noUi-connect noUi-horizontal noUi-vertical noUi-background noUi-stacking noUi-block noUi-state-blocked noUi-ltr noUi-rtl noUi-dragable noUi-extended noUi-state-drag".split(" "),
 q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"pointerup"}:window.navigator.msPointerEnabled?{start:"MSPointerDown",move:"MSPointerMove",end:"MSPointerUp"}:{start:"mousedown touchstart",move:"mousemove touchmove",end:"mouseup touchend"};f.fn.val=function(){return this.hasClass(g[6])?arguments.length?T.apply(this,arguments):S.apply(this):W.apply(this,arguments)};return(D?V:R).call(this,C)}})(window.jQuery||window.Zepto);
 
+var $fieldConditions = [];
+
 (function($){
 	
 	"use strict";
@@ -487,11 +489,106 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 			
 			
 		}
-		
+		function toggleFields(el)
+                {
+                    
+                    var newValue = el.currentTarget.getAttribute('value');
+                    var fieldType = el.currentTarget.getAttribute('type');
+                    var checked;
+                    if(fieldType==='checkbox'||fieldType==='radio'){
+                        checked = el.currentTarget.checked;
+                    }
+                    
+                    var parent = el.currentTarget.parentNode;
+                    //fieldKey = the field key identifier from the data-field_key element on the containing div
+                    var fieldKey = parent.getAttribute('data-field_key');
+                    var parentClass = parent.getAttribute('class');
+                    
+                    while (parentClass!='panel-body' && fieldKey === null){
+                        parent = parent.parentNode;
+                        fieldKey = parent.getAttribute('data-field_key');
+                        parentClass = parent.getAttribute('class');
+                    }
+                    
+                    for (var i = 0; i < $fieldConditions.length; i++)
+                    {
+                        var inRuleSet = 0;
+                        var thisCondition = $fieldConditions[i];
+                        var subRules = thisCondition.rules;
+
+                        for(var j=0; j<subRules.length; j++)
+                        {
+                              if(subRules[j].field == fieldKey){
+                                   inRuleSet=1;
+                                   j=subRules.length;
+                              }
+                        }
+                        
+                        if(inRuleSet>0)
+                        {
+                            for(var j=0; j<subRules.length; j++)
+                            {
+                                var match;
+                                //in the 'all' condition, one mismatch will ruin the match
+                                if(thisCondition.allorany === 'all'){
+                                    match = 1;
+                                    if (subRules[j].operator === '!=' && 
+                                            (newValue === subRules[j].value && (checked===true ||checked===null))||
+                                            (newValue != subRules[j].value && checked===false)){
+                                        match = 0;
+                                    }else if (subRules[j].operator === '==' && 
+                                            (newValue != subRules[j].value && (checked===true ||checked===null)) ||
+                                            (newValue === subRules[j].value && checked ===false)){
+                                        match = 0;
+                                    }   
+                                //in the 'any' condition, any one match can make the whole match    
+                                }else if(thisCondition.allorany === 'any'){
+                                    match = 0;
+                                    if (subRules[j].operator === '!=' &&
+                                            (newValue === subRules[j].value && (checked===true ||checked===null))||
+                                            (newValue != subRules[j].value && checked===false)){
+                                        match = 1;
+                                    }else if (subRules[j].operator ==='==' && 
+                                            (newValue === subRules[j].value && (checked===true ||checked===null))||
+                                            (newValue != subRules[j].value && checked===false)){
+                                        match = 1;
+                                    }
+                                }
+                               
+                            
+                            }    
+                        
+                            var fieldToUpdate = document.getElementById($fieldConditions[i].master_field_key);
+
+                            if(fieldToUpdate!=null){    
+                                if(match>0){
+                                    //match, show the current field we are looping through
+                                    fieldToUpdate.removeAttribute('hidden');
+                                    var inputs = fieldToUpdate.getElementsByTagName('input');
+                                    for(var k=0; k<inputs.length; k++){
+                                        inputs[k].removeAttribute('disabled');
+                                    }
+                                    //get input fields here and enable them
+
+                                }else{
+                                    //no match, hide the field that we are looping through
+                                    fieldToUpdate.setAttribute('hidden', true);
+                                    //get input fields here and disable them
+                                    var inputs = fieldToUpdate.getElementsByTagName('input');
+                                    for(var k=0; k<inputs.length; k++){
+                                        inputs[k].setAttribute('disabled', true);
+                                    }
+                                }
+                            }
+                        }     
+                    }
+                }
+       
 		function initSearchForms()
 		{
 			var $search_forms = $('.searchandfilter');
 			
+                        
 			if($search_forms.length>0)
 			{//loop through each page form, and see if they have pagination
 				
@@ -523,6 +620,7 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 						//init combo boxes
 						var $chosen = $thisform.find("select[data-combobox=1]");
 						
+                                                
 						if($chosen.length>0)
 						{
 							$chosen.chosen();
@@ -554,7 +652,8 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 								{
 									$($thisform).on('change', 'input[type=radio], input[type=checkbox], select', function(e)
 									{
-										inputUpdate(200);
+										toggleFields(e);
+                                                                                inputUpdate(200);
 									});
 									$($thisform).on('change', '.meta-slider', function(e)
 									{
@@ -592,6 +691,7 @@ q=window.navigator.pointerEnabled?{start:"pointerdown",move:"pointermove",end:"p
 											var link = jQuery(this).attr('href');
 											
 											
+                                                                                        
 											$thisform.trigger("sf:ajaxstart", [ "Custom", "Event" ]);
 											// #entries is the ID of the inner div wrapping your posts
 											var jqxhr_get = $.get(link, function(data)
