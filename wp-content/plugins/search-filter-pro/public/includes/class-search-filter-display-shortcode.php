@@ -437,10 +437,10 @@ class Search_Filter_Display_Shortcode {
 <script type="text/javascript">
 (function($) {
 	
-	//if( typeof $fieldConditions !== 'undefined' )
-	//{
+	if( typeof $fieldConditions !== 'undefined' )
+	{
             $fieldConditions.push(<?php echo json_encode($rule); ?>);
-	//}
+	}
 	
 })(jQuery);	
 </script>
