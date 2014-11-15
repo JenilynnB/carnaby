@@ -46,7 +46,7 @@ class XooUserRegister {
 		        /* Validate username */
 		        if ($key == 'user_login') {
 		            if (esc_attr($value) == '') {
-		                $this->errors[] = __('<strong>ERROR:</strong> Please enter a username.','xoousers');
+		                $this->errors[] = __('Please enter an emial address for registration so we know who you are.','xoousers');
 		            } elseif (username_exists($value)) {
 		                $this->errors[] = __('<strong>ERROR:</strong> This username is already registered. Please choose another one.','xoousers');
 		            }
@@ -60,10 +60,10 @@ class XooUserRegister {
 		                $this->errors[] = __('<strong>ERROR:</strong> Please type your e-mail address.','xoousers');
 		            } elseif (!is_email($value)) 
 					{
-		                $this->errors[] = __('<strong>ERROR:</strong> The email address isn\'t correct.','xoousers');
+		                $this->errors[] = __('Whoops! That doesn\'t really look like an email address.','xoousers');
 		            } elseif (email_exists($value)) 
 					{
-		                $this->errors[] = __('<strong>ERROR:</strong> This email is already registered, please choose another one.','xoousers');
+		                $this->errors[] = __('This email address is already registered, you sure you didn\'t mean to sign in instead?','xoousers');
 		            }
 		        }
 		    
@@ -78,7 +78,7 @@ class XooUserRegister {
 			 
 			 if ($this->usermeta["user_pass"]!= $this->usermeta["user_pass_confirm"]) 
 			 {
-				 $this->errors[] = __('<strong>ERROR:</strong> The passwords must be identical','xoousers');           
+				 $this->errors[] = __('You might want to check those password boxes, they don\'t seem to match','xoousers');           
 				
 		     }
 		    

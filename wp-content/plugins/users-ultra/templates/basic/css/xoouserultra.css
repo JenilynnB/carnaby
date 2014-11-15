@@ -266,11 +266,54 @@
 .xoouserultra-field-value {
 	float: left;
 	width: 100%;
+        position: relative;
 }
 
+.xoouserultra-field-value .placeholder{
+    position: absolute;
+    top: 17px;
+    bottom: 0;
+    left: 12px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #788991;
+    width: 100%;
+    right: 100%;
+    transition: 0.2s;   
+}
+
+.xoouserultra-field-value input[type="password"], .xoouserultra-field-value input[type="text"]{
+    height: 50px;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.xoouserultra-field-value  input:focus,  .xoouserultra-field-value  input:hover{
+    background-color: transparent;
+    position: relative;
+    //z-index: 100;
+}
+.xoouserultra-field-value input[type="password"]:valid, .xoouserultra-field-value input[type="text"]:valid{
+    background-color: #fff;
+}
+
+.xoouserultra-field-value  input:focus + .placeholder {
+    top: 100%;
+    margin-top: -47px;
+    font-size: 70%;
+    color: #66cccc;
+    z-index: 2;
+}
+
+
+
+
+/*
 .xoouserultra-input:invalid{
     border-color: #F31212;
 }
+*/
 
 .xoouserultra-field-type span, .xoouserultra-field-value span {
 	float: left;
@@ -358,8 +401,12 @@ textarea.xoouserultra-input {
 .xoouserultra-hide-from-public, .xoouserultra-rememberme {
 	/*loat: left;*/
 	cursor: pointer;
-	font-size: 11px;
-	line-height: 17px;
+	font-size: 14px;
+	line-height:17px;
+}
+
+.xoouserultra-hide-from-public, .xoouserultra-rememberme label {
+    font-weight: normal;
 }
 
 .xoouserultra-hide-from-public {

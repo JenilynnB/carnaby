@@ -73,7 +73,8 @@
 <!--displaying the custom tags-->
 	<footer class="entry-meta">
 		<span class="tag-links">
-			<?php 
+			/*
+                        <?php 
 				/*Shipping Info*/
 				if ( get_field('free_shipping') ):
 					echo 'Free Shipping';

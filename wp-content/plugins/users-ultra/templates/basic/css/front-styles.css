@@ -2419,10 +2419,11 @@ border-radius:.5em;}
     //background-image: url('../img/error.png');
 }
 
+/*
 input:required:invalid{
     border-color: #D8000C;
 }
-
+*/
 
 /*Validation Messages*/
 
