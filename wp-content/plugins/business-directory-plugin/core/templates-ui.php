@@ -395,6 +395,71 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     return '' ;
 }
 
+/**
+ * Displays the listing main image.
+ * @since 2.3
+ */
+function wpbdp_listing_main_image( $listing_id=null, $args=array(), $size='full' ) {
+    if ( !$listing_id ) $listing_id = get_the_ID();
+
+    $args = wp_parse_args( $args, array(
+        'link' => 'picture',
+        'class' => '',
+        'echo' => false,
+    ) );
+
+    $main_image = false;
+    $image_img = '';
+    //$image_classes = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
+
+    $images = wpbdp_listings_api()->get_images($listing_id);
+    
+    if ( $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id ) ) {
+        $main_image = get_post( $thumbnail_id );
+    } else {
+        $images = wpbdp_listings_api()->get_images( $listing_id );
+        
+        if ( $images )
+            $main_image = $images[0];
+    }
+
+    if ( !$main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
+        $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );
+    } elseif( !$main_image && wpbdp_get_option( 'use-default-picture' ) ) {
+        $image_img = sprintf( '<img src="%s" alt="%s" title="%s" border="0" width="600px" class="%s" />',
+                              WPBDP_URL . 'core/images/default-image-big.gif',
+                              get_the_title( $listing_id ),
+                              get_the_title( $listing_id ),
+                              //wpbdp_get_option( 'thumbnail-width' ),
+                              $image_classes
+                            );
+        $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'core/images/default-image-big.gif' : '';
+    } elseif ( $main_image ) {
+        $image_img = wp_get_attachment_image( $main_image->ID,
+                                              $size,
+                                              false,
+                                              array(
+                                                'alt' => get_the_title( $listing_id ),
+                                                'title' => get_the_title( $listing_id ),
+                                                'class' => $image_classes
+                                                )
+                                             );
+        
+    }
+
+    if ( $image_img ) {
+        if ( !$image_link ) {
+            return $image_img;
+        } else {
+            return sprintf( '<div class="listing-thumbnail"><a href="%s" class="%s" %s>%s</a></div>',
+                            //$args['link'] == 'picture' ? 'thickbox' : '',
+                            //$args['link'] == 'picture' ? 'data-lightbox="wpbdpgal"' : '',
+                            $image_img );
+        }
+    }
+
+    return '' ;
+}
 
 /**
  * Renders the listing contact form.

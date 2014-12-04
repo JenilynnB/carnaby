@@ -302,6 +302,7 @@
     top: 100%;
     margin-top: -47px;
     font-size: 70%;
+    font-weight: bold;
     color: #66cccc;
     z-index: 2;
 }

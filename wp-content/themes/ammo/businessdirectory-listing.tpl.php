@@ -11,9 +11,7 @@
                 <div class="col-md-8">            
                     <div class="wpbdp_listing_heading">
                         <div class="wpbdp-listing-title-info">
-                            <?php if ($main_image): ?>
-                                <div class="main-image"><?php echo $main_image; ?></div>
-                            <?php endif; ?>
+                            
                             <div class="entry-title">
                                 <h1 itemprop="name"><?php echo $title; ?></h1>
                             </div>
@@ -32,10 +30,10 @@
                         <div class="row">
                             <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
                                 <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
-                                <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
-                            <?php else: ?>
-                                <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
-                            <?php endif; ?>
+                                    <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+                                <?php else: ?>
+                                    <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -90,7 +88,10 @@
                     ?> 
                         
                         <div class='wpbdp-listing-screenshot'>
-                        <?php echo do_shortcode("[screenshot width=600]".$listing_url."[/screenshot]"); ?>
+                        <?php if ($main_image): ?>
+                                <div class="main-image"><?php echo $main_image; ?></div>
+                        <?php endif; ?>
+                        <!--<?php echo do_shortcode("[new_screenshot width=600]".$listing_url."[/new_screenshot]"); ?>-->
                         </div>    
                     <?php 
                      }    
@@ -202,6 +203,8 @@
             </div>
         </div>
     </div>
+    
+    <!--<?php do_shortcode("[update_screenshot width=600 listing_id=".$listing_id."]".$listing_url."[/update_screenshot]"); ?>    -->
 </section>
 
 
