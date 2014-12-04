@@ -1274,6 +1274,17 @@ function get_shopstyle_retailer_url($listing_id){
     
 }
 
+function set_thumbnail_id( $listing_id, $image_id ) {
+    if(!$listing_id){
+        return;
+    }
+    
+    if ( ! $image_id )
+        return delete_post_meta( $listing_id, '_wpbdp[thumbnail_id]' );
+
+    return update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $image_id );
+}
+
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
     $n = max(intval($n), 0);
 

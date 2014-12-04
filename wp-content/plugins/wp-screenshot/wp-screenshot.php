@@ -178,6 +178,7 @@ function save_image($url, $listing_id){
             
             //Save the new image media id to the listing
             wp_update_post(array('ID' => $attachment_id, 'post_parent' => $listing_id));
+            set_thumbnail_id($listing_id, $attachment_id);
             
             if(!empty($media)){
                 foreach($media as $m){

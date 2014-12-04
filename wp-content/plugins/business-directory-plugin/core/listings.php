@@ -413,7 +413,8 @@ class WPBDP_ListingsAPI {
 
         if ( $images = $this->get_images( $listing_id ) ) {
             update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $images[0]->ID );
-            return $images[0]->ID;
+            $num_images = sizeof($images);
+            return $images[num_images-1]->ID;
         }
 
         return 0;
