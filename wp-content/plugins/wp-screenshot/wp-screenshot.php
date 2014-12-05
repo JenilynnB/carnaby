@@ -7,7 +7,7 @@
  * Stable tag: 1.4
  * Version: 1.4
  */
- 
+
 function myScreenshot($atts, $content = null) {
 	 extract(shortcode_atts(array(  
         "width" => 'width'  
@@ -37,6 +37,9 @@ add_shortcode("screenshot", "myScreenshot");
  */
 
 function updateScreenshot($post){
+    
+    $width = 960;
+    
     $listing_id = $post->ID;
     
     //Check if the post this method is being called on is a Business Directory Listing
@@ -45,7 +48,7 @@ function updateScreenshot($post){
         return;
     }
     
-    $width = 600;
+    
     $url = wpbdp_render_listing_field('URL');
     $ids = get_field('screenshot_modal_ids', $listing_id);
     $functions = get_field('screenshot_modal_functions', $listing_id);
@@ -67,7 +70,7 @@ function updateScreenshot($post){
     if(!empty($media)){
         //cycle through all attached media and look for a screenshot match
         foreach($media as $m){
-             
+            //Looks for the naming convention of previous programmatically uploaded screenshots 
             if(!(strpos($m->title, "screenshot"))){
                 
                 //If the screenshot exists, check if it was taken more than a week ago
@@ -78,6 +81,10 @@ function updateScreenshot($post){
     
                     return;
                 }
+            }else{
+                //if there is media uploaded and doesn't follow the programmatically uploaded
+                //screenshot naming convention, do not overwrite it.
+                return;
             }
         }
     }

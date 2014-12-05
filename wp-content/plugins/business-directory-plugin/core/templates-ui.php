@@ -435,7 +435,7 @@ function wpbdp_listing_main_image( $listing_id=null, $args=array(), $size='full'
                             );
         $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'core/images/default-image-big.gif' : '';
     } elseif ( $main_image ) {
-        $image_img = wp_get_attachment_image( $main_image->ID,
+        /*$image_img = wp_get_attachment_image( $main_image->ID,
                                               $size,
                                               false,
                                               array(
@@ -443,7 +443,11 @@ function wpbdp_listing_main_image( $listing_id=null, $args=array(), $size='full'
                                                 'title' => get_the_title( $listing_id ),
                                                 'class' => $image_classes
                                                 )
-                                             );
+                                             );*/
+        $image_src = wp_get_attachment_image_src( $main_image->ID,
+                                              $size,
+                                              false  );
+        $image_img = '<img src="'.$image_src[0].'" width = "765" />';
         
     }
 

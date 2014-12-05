@@ -91,7 +91,6 @@
                         <?php if ($main_image): ?>
                                 <div class="main-image"><?php echo $main_image; ?></div>
                         <?php endif; ?>
-                        <!--<?php echo do_shortcode("[new_screenshot width=600]".$listing_url."[/new_screenshot]"); ?>-->
                         </div>    
                     <?php 
                      }    

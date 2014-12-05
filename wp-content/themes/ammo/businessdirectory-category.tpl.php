@@ -114,6 +114,16 @@
                                                                     <?php wpbdp_the_listing_sort_options(); ?>
                                                                     <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                                                     <div id="listings-results">
+                                                                    <div class="wpbdp-pagination">
+                                                                    <?php if (function_exists('wp_pagenavi')) : ?>
+                                                                            <?php wp_pagenavi(); ?>
+                                                                    <?php elseif (function_exists('wp_paginate')): ?>
+                                                                            <?php wp_paginate(); ?>
+                                                                    <?php else: ?>
+                                                                        <span class="prev"><?php previous_posts_link(_x('&laquo; Previous ', 'templates', 'WPBDM')); ?></span>
+                                                                        <span class="next"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
+                                                                    <?php endif; ?>
+                                                                    </div>
                                                                     <?php while (have_posts()): the_post(); ?>
                                                                         <?php 
                                                                             echo wpbdp_render_listing(null, 'excerpt'); 

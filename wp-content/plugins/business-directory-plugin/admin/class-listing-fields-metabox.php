@@ -38,6 +38,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 
         // Current images.
         echo '<h4>' . _x( 'Current Images', 'templates', 'WPBDM' ) . '</h4>';
+        echo '<span>When manually uploading screenshots, ensure that the file type is "jpg" and the filename does not contain the word "screenshot". Otherwise your file will be overwritten by the uploading service. </span>';
         echo '<div id="no-images-message" style="' . ( $images ? 'display: none;' : '' ) . '">' . _x( 'There are no images currently attached to the listing.', 'templates', 'WPBDM' ) . '</div>';
         echo '<div id="wpbdp-uploaded-images" class="cf">';
         

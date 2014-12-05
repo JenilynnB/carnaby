@@ -274,6 +274,14 @@ form#wpbdmsearchform a.advanced-search-link {
     width:100%;
 
     display:flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 .wpbdp-listing-screenshot img{
     margin:auto;
@@ -313,7 +321,7 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-bottom:auto;
 }
 .listing-highlight.spacer::before{
-    content: "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢";
+    content: "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢";
 }
 
 .listing-highlight-item{
