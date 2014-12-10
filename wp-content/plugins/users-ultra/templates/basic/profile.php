@@ -6,6 +6,7 @@ global $xoouserultra;
 <?php
     $first_name = $xoouserultra->userpanel->get_user_meta('first_name');
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
+    $headline = $xoouserultra->userpanel->get_user_meta('headline');
     $location = $xoouserultra->userpanel->get_user_meta('location');
     $description = $xoouserultra->userpanel->get_user_meta('description');
     $loves = $xoouserultra->userpanel->get_user_meta('loves');
@@ -47,7 +48,9 @@ global $xoouserultra;
         </div>
         
         <div class="profile-headline">
-            <h5>"<?php echo $xoouserultra->userpanel->get_user_meta('headline') ?>"</h5>
+            <?php if($headline!=''){ ?>
+                <h5>"<?php echo $headline ?>"</h5>
+            <?php } ?>
         </div>
         <div class="profile-text-element">
             <?php
