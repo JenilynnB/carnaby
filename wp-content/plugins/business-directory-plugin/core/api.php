@@ -953,7 +953,9 @@ function get_top_apparel_categories_html($listing_id=0){
     //echo print_r($categories);
     foreach($categories as $c){
         $wp_category = get_term(intval($c->id), WPBDP_CATEGORY_TAX);
-        $top_categories[] = '<a href="'.get_term_link($wp_category).'" class="btn btn-default btn-md">'.$wp_category->name.'</a>';
+        if(!is_wp_error($wp_category)){
+            $top_categories[] = '<a href="'.get_term_link($wp_category).'" class="btn btn-default btn-md">'.$wp_category->name.'</a>';
+        }
     }
     
     return '<div class="listing-top-categories">'.implode("", $top_categories).'</div>';
