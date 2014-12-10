@@ -8,100 +8,210 @@ global $xoouserultra;
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
     $location = $xoouserultra->userpanel->get_user_meta('location');
     $description = $xoouserultra->userpanel->get_user_meta('description');
+    $loves = $xoouserultra->userpanel->get_user_meta('loves');
     $website = $xoouserultra->userpanel->get_user_meta('user_url');
     $facebook = $xoouserultra->userpanel->get_user_meta('facebook');
+    $instagram = $xoouserultra->userpanel->get_user_meta('instagram');
+    $pinterest = $xoouserultra->userpanel->get_user_meta('pinterest');
     $google = $xoouserultra->userpanel->get_user_meta('google');
     $twitter = $xoouserultra->userpanel->get_user_meta('twitter');
+    
+    
+    $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
+    $num_reviews = sizeof($user_reviews);
+    
+    $user_favorites = wpfp_get_users_favorites($user_id);
+    $num_favorites = sizeof($user_favorites);
+    
+    $current_user = wp_get_current_user();
 ?>
 
 
-<div class="col-md-3">
+<div class="col-md-4">
     <div class="avatar">
         <?php echo $xoouserultra->userpanel->get_user_pic( $user_id, $pic_size, $pic_type, $pic_boder_type,  $pic_size_type)?>
     </div>
     <div class="profile-sidebar-info">
-        <div class="profile-location">
-            <?php 
+        <h2><?php    
+            echo  $first_name . ' ' . $last_name;
+            ?>
+        </h2>
+        <div class="user_stats">
+            
+            <div class="user_stats_reviews">
+                <?php echo $num_reviews. " Reviews"; ?>
+            </div>
+            <div class="user_stats_favorites">
+                <?php echo $num_favorites. " Favorites"; ?>
+            </div>
+        </div>
+        
+        <div class="profile-headline">
+            <h5>"<?php echo $xoouserultra->userpanel->get_user_meta('headline') ?>"</h5>
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $description != "" ){?>
+                    <label>My Style</label>
+            <?php    
+                }
+                if($description != ""){
+                    echo $description;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
+                }
+            ?>
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $location != "" ){?>
+                    <label>My Location</label>
+            <?php    
+                }
                 if($location != ""){
                     echo $location;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
             ?>
         </div>
-         <div class="profile-description">
+        
+        <div class="profile-text-element">
             <?php
-                if($description != ""){
-                    echo "My style: " . $description;
+                if($current_user->id==$user_id || $website != "" ){?>
+                    <label>My Favorite Website</label>
+            <?php    
                 }
-            ?>
-        </div>
-        <div class="profile-website">
-            <?php
                 if($website != ""){
-                    echo "Favorite website: " . $website;
+                    echo $website;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
             ?>
+           
         </div>
-        <div class="profile-facebook">
+        <div class="profile-text-element">
             <?php
+                if($current_user->id==$user_id || $loves != "" ){?>
+                    <label>Things I Love</label>
+            <?php    
+                }
+                if($loves != ""){
+                    echo $loves;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
+                }
+            ?>
+           
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $facebook != "" ){?>
+                    <label>Facebook Profile</label>
+            <?php    
+                }
                 if($facebook != ""){
                     echo $facebook;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
             ?>
         </div>
-         <div class="profile-twitter">
+        <div class="profile-text-element">
             <?php
+                if($current_user->id==$user_id || $instagram != "" ){?>
+                    <label>Instagram</label>
+            <?php    
+                }
+                if($instagram != ""){
+                    echo $instagram;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
+                }
+            ?>
+             
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $pinterest != "" ){?>
+                    <label>Pinterest</label>
+            <?php    
+                }
+                if($pinterest != ""){
+                    echo $pinterest;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
+                }
+            ?>
+             
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $twitter != "" ){?>
+                    <label>Twitter</label>
+            <?php    
+                }
                 if($twitter != ""){
                     echo $twitter;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
             ?>
+             
         </div>
-         <div class="profile-google">
+        <div class="profile-text-element">
             <?php
+                if($current_user->id==$user_id || $google != "" ){?>
+                    <label>Google+</label>
+            <?php    
+                }
                 if($google != ""){
                     echo $google;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
             ?>
+             
         </div>
     </div>
 </div>
 
-<div class="col-md-5">
-    <h2><?php    
-        echo  $first_name . ' ' . $last_name;
-        ?>
-    </h2>
-
-    <div class="profile-headline">
-        <h5>"<?php echo $xoouserultra->userpanel->get_user_meta('headline') ?>"</h5>
-    </div>
-    <div class="profile-favorite-listings">
-        <h4>Favorite Stores</h4>
-        <?php echo do_shortcode("[wp-favorite-posts]"); ?>
-    </div>
+<div class="col-md-8">
+    
+    
     <div class="profile-user-reviews">
-        <h4>My Reviews</h4>
+        <h4><?php echo $first_name."'s Reviews" ?></h4>
             
         <?php 
-            $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
             foreach($user_reviews as $ur){
                 $review_html = '';                
                 //get the listing with $ur->listing_id;
+                
+                $post = get_post($ur->listing_id);
+                if(!empty($post)){
         ?>
-        
+            <div class="profile-review-business-img">
+                
+            </div>
             <div class="profile-review-business-name">
                 <?php echo get_the_title($ur->listing_id); ?>
             </div>
-
+<!--
             <div class="profile-review-business-categories">
                 <?php
                     $top_listing_categories = get_top_apparel_categories($ur->listing_id);
+                    $top_listing_categories_names = array();
                     foreach($top_listing_categories as $tc){
-                        $top_listing_categories_names[] .= $tc->name;
+                        $top_listing_categories_names[] = $tc->name;
                     }
-                    echo "Categories: " . implode (", ", $top_listing_categories_names);
+                    echo implode (", ", $top_listing_categories_names);
                 ?>
             
             </div>
+-->
+            <span class="date" itemprop="datePublished" content="<?php echo $ur->created_on ?>">
+                <?php echo date_i18n(get_option('date_format'), strtotime($ur->created_on)) ?>
+            </span>
 
             <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
             <meta itemprop="worstRating" content="0" />
@@ -110,16 +220,17 @@ global $xoouserultra;
             <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="<?php echo $ur->rating; ?>" itemprop="ratingValue"></span>
             </span>   
 
-            <span class="date" itemprop="datePublished" content="<?php echo $ur->created_on ?>">
-                <?php echo date_i18n(get_option('date_format'), strtotime($ur->created_on)) ?>
-            </span>
-
             <div class="rating-comment" itemprop="description">
                 <?php echo $ur->comment ?>
             </div>
         <?php
+                }
             } 
         ?> 
+    </div>
+    <div class="profile-favorite-listings">
+        <h4>Favorite Stores</h4>
+        <?php echo do_shortcode("[wp-favorite-posts]"); ?>
     </div>
 </div>
     

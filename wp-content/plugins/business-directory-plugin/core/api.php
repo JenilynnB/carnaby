@@ -905,15 +905,33 @@ function get_listing_name($listing_id){
 function get_top_apparel_categories($listing_id){
     
     $listing = WPBDP_Listing::get( $listing_id );
+    if(empty($listing)){
+        return;
+    }
     $wpbdp_categories = $listing->get_categories( 'all' );
-    
     $top_categories = array();
+    $i = 0;
     
+    foreach($wpbdp_categories as $wpbdp_c){
+        $wp_cats = get_term($wpbdp_c->id, WPBDP_CATEGORY_TAX);
+        
+        if($wp_cats->parent == 0){
+            $top_categories[$i] = $wp_cats;
+            $i++;
+        }
+    }
+    
+    
+    /*
     foreach($wpbdp_categories as $cat){
         if($cat->name=="Women" || $cat->name =="Men" || $cat->name == "Girls" || $cat->name == "Boys" || $cat->name=="Baby"):
             $top_categories[] = $cat;
         endif;
     }
+     * 
+     */
+    
+    
     return $top_categories;
 }
 

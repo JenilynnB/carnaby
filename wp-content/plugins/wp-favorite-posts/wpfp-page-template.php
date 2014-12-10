@@ -29,10 +29,7 @@
         foreach ($favorite_post_ids as $post_id) {
             $p = get_post($post_id);
             echo wpbdp_render_listing($post_id, 'excerpt');
-            echo "<li>";
-            echo "<a href='".get_permalink($post_id)."' title='". $p->post_title ."'>" . $p->post_title . "</a> ";
-            wpfp_remove_favorite_link($post_id);
-            echo "</li>";
+            
         }
  
         /*while ( have_posts() ) : the_post();
