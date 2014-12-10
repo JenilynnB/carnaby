@@ -897,6 +897,12 @@ function get_listing_name($listing_id){
     
 }
 
+function get_listing_image($listing_id, $size='thumbnail'){
+    
+    $image = wpbdp_listing_thumbnail( $listing_id, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' );
+    return $image;
+}
+
 /*
  * Gets the top apparel categories for a given listing. Returns as WPBDP categories.
  * If the listing includes Kids & Baby, only the relevant sub-categories will be returned

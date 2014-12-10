@@ -211,7 +211,10 @@ global $xoouserultra;
                 
             </div>
             <div class="profile-review-business-name">
-                <?php echo get_the_title($ur->listing_id); ?>
+                <?php 
+                echo get_the_title($ur->listing_id);
+                echo get_listing_image($ur->listing_id);
+                ?>
             </div>
 <!--
             <div class="profile-review-business-categories">
