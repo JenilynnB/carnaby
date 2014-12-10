@@ -8,6 +8,7 @@ global $xoouserultra;
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
     $headline = $xoouserultra->userpanel->get_user_meta('headline');
     $location = $xoouserultra->userpanel->get_user_meta('location');
+    $headline = $xoouserultra->userpanel->get_user_meta('headline');
     $description = $xoouserultra->userpanel->get_user_meta('description');
     $loves = $xoouserultra->userpanel->get_user_meta('loves');
     $website = $xoouserultra->userpanel->get_user_meta('user_url');
@@ -73,6 +74,19 @@ global $xoouserultra;
                 }
                 if($location != ""){
                     echo $location;
+                }elseif($current_user->id==$user_id ){
+                    echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
+                }
+            ?>
+        </div>
+        <div class="profile-text-element">
+            <?php
+                if($current_user->id==$user_id || $hometown != "" ){?>
+                    <label>My Hometown</label>
+            <?php    
+                }
+                if($hometown != ""){
+                    echo $hometown;
                 }elseif($current_user->id==$user_id ){
                     echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
                 }
