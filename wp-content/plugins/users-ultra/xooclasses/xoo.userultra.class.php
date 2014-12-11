@@ -1453,7 +1453,6 @@ class XooUserUltra
 						{
 							$display .= $this->login->get_errors();
 						}
-						
 						$display .= $this->show_login_form( $sidebar_class, $redirect_to , $args);
 
 						$display .= '</div>';
@@ -1472,7 +1471,6 @@ class XooUserUltra
                 
                 $hide_form = $args['hide_form'];
                 $active = $hide_form == 0 ? 'active' : '';
-                
                 
 		$display .= '<form action="" method="post" id="xoouserultra-login-form-'.$this->login_code_count.'">';
 		
@@ -1612,7 +1610,6 @@ class XooUserUltra
 		$display .= '</div>';
 		$display .= ' </div>
 					</div><div class="xoouserultra-clear"></div>';
-		
 		$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
 		
 		$display .= '</form>';
@@ -2288,7 +2285,8 @@ class XooUserUltra
 		$modules = array();
 		$modules  = explode(',', $disable);
 		
-		require_once(xoousers_path.'/templates/'.xoousers_template."/dashboard.php");
+                require_once(xoousers_path.'/templates/'.xoousers_template."/myaccount.php");
+		//require_once(xoousers_path.'/templates/'.xoousers_template."/dashboard.php");
 	}
 	
 	/**

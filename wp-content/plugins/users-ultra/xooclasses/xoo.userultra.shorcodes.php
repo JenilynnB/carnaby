@@ -107,7 +107,7 @@ class XooShortCode {
 		} else {
 			
 			//display mini profile
-			wp_redirect(site_url("/home"));
+			wp_redirect(site_url("/dashboard"));
                         //return $xoouserultra->show_minified_profile( $atts );		
 			
 			

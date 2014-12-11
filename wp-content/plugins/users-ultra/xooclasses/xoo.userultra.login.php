@@ -950,9 +950,11 @@ class XooUserLogin {
 		if($order->order_user_id!="")
 		{
 			$account_page_id = get_option('xoousersultra_my_account_page');
-		    $my_account_url = get_permalink($account_page_id);
+                        $my_account_url = get_permalink($account_page_id);
+                        $dashboard_url = site_url('/dashboard');
 			wp_set_auth_cookie( $order->order_user_id, true, $secure );
-			wp_redirect($my_account_url);			
+			//wp_redirect($my_account_url);
+                        wp_redirect($dashboard_url);
 			exit;
 			
 		}
@@ -1414,7 +1416,6 @@ class XooUserLogin {
 		
 		require_once(ABSPATH . 'wp-includes/link-template.php');		
 		require_once(ABSPATH . 'wp-includes/pluggable.php');
-		
 		if (isset($_REQUEST['redirect_to']))
 		{
 			$url = $_REQUEST['redirect_to'];
@@ -1429,6 +1430,7 @@ class XooUserLogin {
 				$account_page_id = get_option('xoousersultra_my_account_page');
 				$my_account_url = get_permalink($account_page_id);
 				
+                                /*
 				if($my_account_url=="")
 				{
 					$url = $_SERVER['REQUEST_URI'];
@@ -1438,7 +1440,9 @@ class XooUserLogin {
 					$url = $my_account_url;				
 				
 				}
-				
+                                 * *
+                                 */
+				$url = site_url('/dashboard');
 				
 		}
 		

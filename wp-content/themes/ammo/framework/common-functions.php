@@ -929,9 +929,9 @@ function tt_search_form( $form ) {
     $form = '<div class="search-form">
                 <form method="get" id="searchform" action="'.esc_url( home_url( '/' ) ).'">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="s" placeholder="'. __('Type & Enter ...', 'themeton'). '">
+                        <input type="text" class="form-control" name="s" placeholder="'. __('What are you shopping for today? ...', 'themeton'). '">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">'. __('Go!', 'themeton'). '</button>
+                            <button class="btn btn-default" type="submit">'. __('Search!', 'themeton'). '</button>
                         </span>
                     </div>
                 </form>
@@ -1017,13 +1017,13 @@ function redirect_to_specific_page() {
     
     if ( is_page('login') && is_user_logged_in() ) {
 
-    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    wp_redirect(site_url('/dashboard')); 
     exit;
     }
     
     if ( is_page('registration') && is_user_logged_in() ) {
 
-    wp_redirect(site_url('/myaccount?module=dashboard')); 
+    wp_redirect(site_url('/dashboard')); 
     exit;
     }
     

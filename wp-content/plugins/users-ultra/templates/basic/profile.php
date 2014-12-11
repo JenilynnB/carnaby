@@ -8,7 +8,6 @@ global $xoouserultra;
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
     $headline = $xoouserultra->userpanel->get_user_meta('headline');
     $location = $xoouserultra->userpanel->get_user_meta('location');
-    $headline = $xoouserultra->userpanel->get_user_meta('headline');
     $description = $xoouserultra->userpanel->get_user_meta('description');
     $loves = $xoouserultra->userpanel->get_user_meta('loves');
     $website = $xoouserultra->userpanel->get_user_meta('user_url');
