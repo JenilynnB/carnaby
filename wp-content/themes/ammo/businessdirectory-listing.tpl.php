@@ -30,9 +30,10 @@
                         <div class="row">
                             <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
                                 <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
-                                    <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+                                    <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
                                 <?php else: ?>
-                                    <div class="listing-element"><?php echo wpbdp_render_listing_field_html('URL'); ?></div>
+                                    <div class="listing-element"><a href="<?php echo wpbdp_render_listing_field('URL'); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+                                    
                                 <?php endif; ?>
                             </div>
                         </div>

@@ -4,7 +4,14 @@
     <div class="entry-title">
         <h4 itemprop="name"><?php echo wpbdp_render_listing_field_html('Business Name'); ?></h4>
     </div>
-    
+    <div class="listing-url">
+        <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
+            <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+        <?php else: ?>
+            <div class="listing-element"><a href="<?php echo wpbdp_render_listing_field('URL'); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+
+        <?php endif; ?>
+    </div>
     
     <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
     <div class="separator">•</div>
