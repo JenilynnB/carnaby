@@ -427,6 +427,7 @@ function _wpbdp_render_excerpt() {
         $listing_url = '<a href="'.wpbdp_render_listing_field('URL').'" target="_blank">'.wpbdp_render_listing_field('URL').'</a>';
     }
    
+   
     //$g = WPDP_ListingFieldDisplayItem::
 
     $vars = array(
@@ -469,12 +470,15 @@ function _wpbdp_render_excerpt() {
  * 
  */
 
-function wpbdp_render_listing_field_html($field_name) {
+function wpbdp_render_listing_field_html($field_name, $post_id='') {
     global $post;
     
+    if($post_id=''){
+        $post_id = $post->ID;
+    }
     $html = '';
     
-    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
+    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post_id, 'listing' );
     $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'html', $d->fields, $field_name ));
    return $html;
 }
@@ -483,12 +487,15 @@ function wpbdp_render_listing_field_html($field_name) {
 /*
  * Same as above function, returns without formatted HTML
  */
-function wpbdp_render_listing_field($field_name) {
+function wpbdp_render_listing_field($field_name,$post_id=null) {
     global $post;
+    if(empty($post_id)){
+        $post_id = $post->ID;
+    }
     
     $html = '';
     
-    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
+    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post_id, 'listing' );
     $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name ));
     return $html;
 }
@@ -1024,7 +1031,12 @@ function get_shopstyle_retailer_id($listing_id=0)
     if ($listing_id == 0){
         $listing_id = $post->id;
     }
-    $retailer_id = 'r'.get_field('shopstyle_retailer_id', $listing_id);
+    
+    $retailer_id = get_field('shopstyle_retailer_id', $listing_id);
+    
+    if(!empty($retailer_id)){
+        $retailer_id = 'r'.$retailer_id;
+    }
 
     return $retailer_id;
 }
@@ -1104,10 +1116,15 @@ function render_products(){
 }
 
 
-function render_price_field(){
+function render_price_field($post_id=''){
+    global $post;
+    if($post_id==''){
+        $post_id=$post->ID;
+    }
+    
     /*Price info*/
-    $prices = get_field_object('price');  //returns the array of all key-value pairs, along with the selected value
-    $price = get_field('price');    //returns an array of all selected values
+    $prices = get_field_object('price', $post_id);  //returns the array of all key-value pairs, along with the selected value
+    $price = get_field('price', $post_id);    //returns an array of all selected values
 
     $n = count($price);
     $result = $prices['choices'][$price[0]];
@@ -1152,10 +1169,15 @@ function render_shipping_info(){
     return $return;
 }
 
-function get_shipping_info($context=''){
-    $shipping = get_field('shipping');
-    $shipping_cost = get_field('shipping_cost');
-    $shipping_time = get_field('standard_delivery_time');    
+function get_shipping_info($context='', $post_id=''){
+    global $post;
+    if($post_id==''){
+        $post_id = $post->ID;
+    }
+    
+    $shipping = get_field('shipping', $post_id);
+    $shipping_cost = get_field('shipping_cost', $post_id);
+    $shipping_time = get_field('standard_delivery_time', $post_id);    
      
     if(!$shipping){
         return;
@@ -1164,7 +1186,7 @@ function get_shipping_info($context=''){
     if ( $shipping == "ship_free" ):
             $shipping_info = 'Free Shipping';
     elseif ( $shipping == "ship_min" ):
-            $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount') . '+ orders';
+            $shipping_info = 'Free Shipping, $' . get_field('free_shipping_minimum_amount', $post_id) . '+ orders';
             if($context!='highlight'): $shipping_info.='<br/>Standard Shipping: $' . $shipping_cost ;endif;
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
@@ -1200,9 +1222,13 @@ function render_return_shipping_info(){
     return $return;
 }
 
-function get_return_shipping_info(){
+function get_return_shipping_info($post_id=''){
+    global $post;
+    if($post_id==''){
+        $post_id=$post->ID;
+    }
     
-    $return_shipping = get_field('return_shipping');
+    $return_shipping = get_field('return_shipping', $post_id);
 
     if(!$return_shipping){
         return;
@@ -1210,7 +1236,7 @@ function get_return_shipping_info(){
     if ( $return_shipping == "return_free" ):
         $return_shipping_info = 'Free Returns';
     elseif ( $return_shipping =="return_flat" ):
-        $return_shipping_info =  'Flat rate return fee $' . get_field('return_shipping_cost');
+        $return_shipping_info =  'Flat rate return fee $' . get_field('return_shipping_cost', $post_id);
     else:
         $return_shipping_info = 'Buyer handles return shipping';
     endif;
@@ -1299,7 +1325,7 @@ function get_shopstyle_retailer_url($listing_id){
     $host = $shopstyle->getHost();
     $API_key = $shopstyle->getApiKey();
     
-    $listing_url = esc_url(wpbdp_render_listing_field('URL'));
+    $listing_url = esc_url(wpbdp_render_listing_field('URL', $listing_id));
     
     $return = esc_url("http://".$host."/action/apiVisitRetailer?url=".$listing_url."&pid=".$API_key);
     

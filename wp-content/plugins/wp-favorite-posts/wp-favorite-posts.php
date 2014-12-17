@@ -143,11 +143,13 @@ function wpfp_check_favorited($cid) {
     return false;
 }
 
-function wpfp_link( $return = 0, $action = "", $show_span = 1, $args = array() ) {
+function wpfp_link( $return = 0, $action = "", $show_span = 1, $args = array(), $post_id = "" ) {
     //this function seems to only be called on pageload
     global $post;
     //print_r($post);
-    $post_id = &$post->ID;
+    if($post_id==""){
+        $post_id = &$post->ID;
+    }
     extract($args);
     $str = "";
     if ($show_span)
@@ -235,6 +237,21 @@ function wpfp_list_most_favorited($limit=5) {
         echo "</ul>";
     }
 }
+
+function wpfp_return_most_favorited($limit=5) {
+    global $wpdb;
+    $query = "SELECT post_id, meta_value, post_status FROM $wpdb->postmeta";
+    $query .= " LEFT JOIN $wpdb->posts ON post_id=$wpdb->posts.ID";
+    $query .= " WHERE post_status='publish' AND meta_key='".WPFP_META_KEY."' AND meta_value > 0 ORDER BY ROUND(meta_value) DESC LIMIT 0, $limit";
+    $results = $wpdb->get_results($query);
+    if ($results) {
+        foreach ($results as $o):
+            $posts[] = get_post($o->post_id);
+        endforeach;
+        return $posts;
+    }
+}
+
 
 include("wpfp-widgets.php");
 

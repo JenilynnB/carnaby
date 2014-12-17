@@ -136,6 +136,344 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
 
 }
 
+
+class WPBDP_FeaturedListingsAdvancedWidget extends WP_Widget {
+    
+    public function __construct() {
+        parent::__construct(false, _x('Advanced Featured Stores', 'widgets', 'WPBDM'),
+                            array('description' => _x('Displays a list of the featured stores.', 'widgets', 'WPBDM')));
+    }
+
+    public function form($instance) {
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('title'),
+                     _x('Title:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('title'),
+                     $this->get_field_name('title'),
+                     isset($instance['title']) ? esc_attr($instance['title']) : _x('Advanced Featured Stores', 'widgets', 'WPBDM')
+                    );
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('number_of_listings'),
+                     _x('Number of listings to display:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('number_of_listings'),
+                     $this->get_field_name('number_of_listings'),
+                     isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 3
+                    );
+        
+    }
+
+    public function update($new_instance, $old_instance) {
+        $new_instance['title'] = strip_tags($new_instance['title']);
+        $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        //$new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
+        return $new_instance;
+    }
+
+    public function widget($args, $instance) {
+        extract($args);
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+        $posts = get_posts(array(
+            'post_type' => WPBDP_POST_TYPE,
+            'post_status' => 'publish',
+            'numberposts' => $instance['number_of_listings'],
+            'orderby' => 'date',
+            'meta_query' => array(
+                array('key' => '_wpbdp[sticky]', 'value' => 'sticky')
+            )
+        ));
+
+        if ($posts) {
+            echo $before_widget;
+            if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
+
+
+            echo '<div>';
+            foreach ($posts as $post) {
+                $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+                $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
+                
+                if((get_shopstyle_retailer_id($post->ID))!=''){
+                    $listing_url = '<a href="'.get_shopstyle_retailer_url($post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                 }else{
+                    $listing_url = '<a href="http://'.wpbdp_render_listing_field('URL', $post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                }
+                if (function_exists('wpfp_link')) { 
+                    $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
+                }
+                
+                echo '<div>';
+                if ( $thumbnail )
+                    echo $thumbnail;
+                echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+                echo '<div>'.$listing_url.'</div>';
+                echo '<div class="favorite-icon">'.$favorite_link.'</div>';
+                echo '<div class="listing-rating">'.$rating.'</div>';
+                echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
+                echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
+                echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
+                
+                echo '</div>';
+            }
+
+            echo '</div>';
+            echo $after_widget;
+        }
+    }    
+
+
+}
+
+
+class WPBDP_PopularStoresWidget extends WP_Widget {
+    
+    public function __construct() {
+        parent::__construct(false, _x('Popular Stores', 'widgets', 'WPBDM'),
+                            array('description' => _x('Displays a list of the popular stores.', 'widgets', 'WPBDM')));
+    }
+
+    public function form($instance) {
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('title'),
+                     _x('Title:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('title'),
+                     $this->get_field_name('title'),
+                     isset($instance['title']) ? esc_attr($instance['title']) : _x('Popular Stores', 'widgets', 'WPBDM')
+                    );
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('number_of_listings'),
+                     _x('Number of listings to display:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('number_of_listings'),
+                     $this->get_field_name('number_of_listings'),
+                     isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 3
+                    );
+        
+    }
+
+    public function update($new_instance, $old_instance) {
+        $new_instance['title'] = strip_tags($new_instance['title']);
+        $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        //$new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
+        return $new_instance;
+    }
+
+    public function widget($args, $instance) {
+        extract($args);
+        
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+        $posts = wpfp_return_most_favorited($instance['number_of_listings']);
+        
+        if ($posts) {
+            echo $before_widget;
+            if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
+
+
+            echo '<div>';
+            foreach ($posts as $post) {
+                $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+                $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
+                
+                if((get_shopstyle_retailer_id($post->ID))!=''){
+                    $listing_url = '<a href="'.get_shopstyle_retailer_url($post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                 }else{
+                    $listing_url = '<a href="http://'.wpbdp_render_listing_field('URL', $post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                }
+                if (function_exists('wpfp_link')) { 
+                    $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
+                }
+                
+                echo '<div>';
+                if ( $thumbnail )
+                    echo $thumbnail;
+                echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+                echo '<div>'.$listing_url.'</div>';
+                echo '<div class="favorite-icon">'.$favorite_link.'</div>';
+                echo '<div class="listing-rating">'.$rating.'</div>';
+                echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
+                echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
+                echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
+                
+                echo '</div>';
+            }
+
+            echo '</div>';
+            echo $after_widget;
+        }
+    }    
+
+
+}
+
+
+class WPBDP_FeaturedListingsAdvancedWidget extends WP_Widget {
+    
+    public function __construct() {
+        parent::__construct(false, _x('Advanced Featured Stores', 'widgets', 'WPBDM'),
+                            array('description' => _x('Displays a list of the featured stores.', 'widgets', 'WPBDM')));
+    }
+
+    public function form($instance) {
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('title'),
+                     _x('Title:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('title'),
+                     $this->get_field_name('title'),
+                     isset($instance['title']) ? esc_attr($instance['title']) : _x('Advanced Featured Stores', 'widgets', 'WPBDM')
+                    );
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('number_of_listings'),
+                     _x('Number of listings to display:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('number_of_listings'),
+                     $this->get_field_name('number_of_listings'),
+                     isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 3
+                    );
+        
+    }
+
+    public function update($new_instance, $old_instance) {
+        $new_instance['title'] = strip_tags($new_instance['title']);
+        $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        //$new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
+        return $new_instance;
+    }
+
+    public function widget($args, $instance) {
+        extract($args);
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+        $posts = get_posts(array(
+            'post_type' => WPBDP_POST_TYPE,
+            'post_status' => 'publish',
+            'numberposts' => $instance['number_of_listings'],
+            'orderby' => 'date',
+            'meta_query' => array(
+                array('key' => '_wpbdp[sticky]', 'value' => 'sticky')
+            )
+        ));
+
+        if ($posts) {
+            echo $before_widget;
+            if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
+
+
+            echo '<div>';
+            foreach ($posts as $post) {
+                $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+                $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
+                
+                if((get_shopstyle_retailer_id($post->ID))!=''){
+                    $listing_url = '<a href="'.get_shopstyle_retailer_url($post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                 }else{
+                    $listing_url = '<a href="http://'.wpbdp_render_listing_field('URL', $post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                }
+                if (function_exists('wpfp_link')) { 
+                    $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
+                }
+                
+                echo '<div>';
+                if ( $thumbnail )
+                    echo $thumbnail;
+                echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+                echo '<div>'.$listing_url.'</div>';
+                echo '<div class="favorite-icon">'.$favorite_link.'</div>';
+                echo '<div class="listing-rating">'.$rating.'</div>';
+                echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
+                echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
+                echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
+                
+                echo '</div>';
+            }
+
+            echo '</div>';
+            echo $after_widget;
+        }
+    }    
+
+
+}
+
+
+class WPBDP_OtherStoresYouMightLikeWidget extends WP_Widget {
+    
+    public function __construct() {
+        parent::__construct(false, _x('Other Stores You Might Like', 'widgets', 'WPBDM'),
+                            array('description' => _x('Displays a list of stores similar to the user\'s favorites.', 'widgets', 'WPBDM')));
+    }
+
+    public function form($instance) {
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('title'),
+                     _x('Title:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('title'),
+                     $this->get_field_name('title'),
+                     isset($instance['title']) ? esc_attr($instance['title']) : _x('Other Stores You Might Like', 'widgets', 'WPBDM')
+                    );
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('number_of_listings'),
+                     _x('Number of listings to display:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('number_of_listings'),
+                     $this->get_field_name('number_of_listings'),
+                     isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 3
+                    );
+        
+    }
+
+    public function update($new_instance, $old_instance) {
+        $new_instance['title'] = strip_tags($new_instance['title']);
+        $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        //$new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
+        return $new_instance;
+    }
+
+    public function widget($args, $instance) {
+        extract($args);
+        
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+        $posts = wpfp_return_most_favorited($instance['number_of_listings']);
+        
+        if ($posts) {
+            echo $before_widget;
+            if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
+
+
+            echo '<div>';
+            foreach ($posts as $post) {
+                $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+                $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
+                
+                if((get_shopstyle_retailer_id($post->ID))!=''){
+                    $listing_url = '<a href="'.get_shopstyle_retailer_url($post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                 }else{
+                    $listing_url = '<a href="http://'.wpbdp_render_listing_field('URL', $post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
+                }
+                if (function_exists('wpfp_link')) { 
+                    $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
+                }
+                
+                echo '<div>';
+                if ( $thumbnail )
+                    echo $thumbnail;
+                echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+                echo '<div>'.$listing_url.'</div>';
+                echo '<div class="favorite-icon">'.$favorite_link.'</div>';
+                echo '<div class="listing-rating">'.$rating.'</div>';
+                echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
+                echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
+                echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
+                
+                echo '</div>';
+            }
+
+            echo '</div>';
+            echo $after_widget;
+        }
+    }    
+
+
+}
+
 /**
  * Random listings widget.
  * @since 2.1

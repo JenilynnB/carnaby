@@ -99,8 +99,8 @@ $howmany = 5;
                                     get_search_form();    
                                 endif; 
                                 
-                                echo do_shortcode('[do_widget "Business Directory - Featured Listings"]');
-                                
+                                echo do_shortcode('[do_widget "Advanced Featured Stores"]');
+                                echo do_shortcode('[do_widget "Popular Stores"]');
                                 echo do_shortcode('[do_widget ": Recent Posts"]');
                                 
                                 ?>
