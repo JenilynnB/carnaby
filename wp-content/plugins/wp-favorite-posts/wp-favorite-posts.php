@@ -187,7 +187,8 @@ function wpfp_get_users_favorites($user = "") {
     # collect favorites from cookie and if user is logged in from database.
     if (is_user_logged_in()):
         $favorite_post_ids = wpfp_get_user_meta();
-	else:
+	
+    else:
 	    if (wpfp_get_cookie()):
 	        foreach (wpfp_get_cookie() as $post_id => $post_title) {
 	            array_push($favorite_post_ids, $post_id);
@@ -209,7 +210,7 @@ function wpfp_list_favorite_posts( $args = array() ) {
         $favorite_post_ids = wpfp_get_users_favorites();
     }
 
-	if ( @file_exists(TEMPLATEPATH.'/wpfp-page-template.php') || @file_exists(STYLESHEETPATH.'/wpfp-page-template.php') ):
+    if ( @file_exists(TEMPLATEPATH.'/wpfp-page-template.php') || @file_exists(STYLESHEETPATH.'/wpfp-page-template.php') ):
         if(@file_exists(TEMPLATEPATH.'/wpfp-page-template.php')) :
             include(TEMPLATEPATH.'/wpfp-page-template.php');
         else :
@@ -218,6 +219,21 @@ function wpfp_list_favorite_posts( $args = array() ) {
     else:
         include("wpfp-page-template.php");
     endif;
+}
+
+function wpfp_return_favorite_posts( $args = array() ) {
+    $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : "";
+    extract($args);
+    global $favorite_post_ids;
+    if ( !empty($user) ) {
+        if ( wpfp_is_user_favlist_public($user) )
+            $favorite_post_ids = wpfp_get_users_favorites($user);
+
+    } else {
+        $favorite_post_ids = wpfp_get_users_favorites();
+    }
+
+    return $favorite_post_ids;
 }
 
 function wpfp_list_most_favorited($limit=5) {

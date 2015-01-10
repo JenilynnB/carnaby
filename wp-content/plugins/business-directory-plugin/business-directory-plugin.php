@@ -781,6 +781,7 @@ class WPBDP_Plugin {
         register_widget('WPBDP_PopularStoresWidget');
         register_widget('WPBDP_RandomListingsWidget');
         register_widget('WPBDP_SearchWidget');
+        register_widget('WPBDP_OtherStoresYouMightLikeWidget');
     }
 
     public function _listings_shortcode($atts) {

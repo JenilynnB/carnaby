@@ -7,8 +7,13 @@
     <div class="listing-url">
         <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
             <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
-        <?php else: ?>
-            <div class="listing-element"><a href="<?php echo wpbdp_render_listing_field('URL'); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+        <?php else: 
+            $url = wpbdp_render_listing_field('URL');
+            if (strcmp(substr($url, 0, 7), "http://") !=0){
+                $url = "http://" . $url;
+            }
+          ?>
+            <div class="listing-element"><a href="<?php echo $url; ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
 
         <?php endif; ?>
     </div>

@@ -421,11 +421,7 @@ function _wpbdp_render_excerpt() {
     
     //$listing_url = wpbdp_render_listing_field('URL');
             
-    if((get_shopstyle_retailer_id($listing_id))!=''){
-        $listing_url = '<a href="'.get_shopstyle_retailer_url($listing_id).'" target="_blank">'.wpbdp_render_listing_field('URL').'</a>';
-    }else{
-        $listing_url = '<a href="'.wpbdp_render_listing_field('URL').'" target="_blank">'.wpbdp_render_listing_field('URL').'</a>';
-    }
+    
    
    
     //$g = WPDP_ListingFieldDisplayItem::

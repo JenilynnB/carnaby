@@ -344,8 +344,43 @@ class WPBDP_OtherStoresYouMightLikeWidget extends WP_Widget {
         extract($args);
         
         $title = apply_filters( 'widget_title', $instance['title'] );
-
-        $posts = wpfp_return_most_favorited($instance['number_of_listings']);
+        global $xoouserultra;
+        $current_user = $xoouserultra->userpanel->get_user_info();
+        $user_id = $current_user->ID;
+        $user_favorites = wpfp_return_favorite_posts();
+        $num_favorites = sizeof($user_favorites);
+        
+        
+        if ($num_favorites==0){
+            $posts = wpfp_return_most_favorited($instance['number_of_listings']);
+        }else if($num_favorites==1){    
+            $scores = the_related_get_scores($user_favorites[0]);       
+            $post_ids = array_slice( array_keys( $scores ), 0, 5 ); // keep only the the five best results
+            
+            $posts = get_posts(array(
+                'post_type' => WPBDP_POST_TYPE,
+                'post_status' => 'publish',
+                'numberposts' => $instance['number_of_listings'],
+                'post__in' => $post_ids
+            ));  
+            
+        }else if($num_favorites>1){
+            $related_posts = array();
+            foreach($user_favorites as $uf){
+                $scores = the_related_get_scores($uf);       
+                $post_ids = array_slice( array_keys( $scores ), 0, 5 ); // keep only the the five best results
+                $related_post_ids[] = $post_ids;
+                
+            }
+            $post_id_intersection = call_user_func_array('array_intersect', $related_post_ids);  
+            $posts = get_posts(array(
+                    'post_type' => WPBDP_POST_TYPE,
+                    'post_status' => 'publish',
+                    'numberposts' => $instance['number_of_listings'],
+                    'post__in' => $post_id_intersection
+                ));
+        }
+        
         
         if ($posts) {
             echo $before_widget;

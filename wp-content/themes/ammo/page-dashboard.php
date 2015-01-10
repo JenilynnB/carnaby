@@ -1,9 +1,6 @@
 <?php
 	get_header();
-?>
 
-
-<?php
 	global $post, $wp_query;
 
 	/* include header
@@ -20,41 +17,42 @@
 		$content_class = 'col-md-9';
 		$content_class .= $layout=='left' ? ' pull-right' : '';
 	}
-?>
+
+    global $xoouserultra;
+
+    $module = "";
+    $act= "";
+    $gal_id= "";
+    $page_id= "";
+    $view= "";
+    $reply= "";
+    $post_id ="";
 
 
-<?php
-global $xoouserultra;
+    if(isset($_GET["module"])){	$module = $_GET["module"];	}
+    if(isset($_GET["act"])){$act = $_GET["act"];	}
+    if(isset($_GET["gal_id"])){	$gal_id = $_GET["gal_id"];}
+    if(isset($_GET["page_id"])){	$page_id = $_GET["page_id"];}
+    if(isset($_GET["view"])){	$view = $_GET["view"];}
+    if(isset($_GET["reply"])){	$reply = $_GET["reply"];}
+    if(isset($_GET["post_id"])){	$post_id = $_GET["post_id"];}
 
-$module = "";
-$act= "";
-$gal_id= "";
-$page_id= "";
-$view= "";
-$reply= "";
-$post_id ="";
+    $current_user = $xoouserultra->userpanel->get_user_info();
+    
+    if($current_user->ID==0){
+        wp_redirect(site_url('/'));
+    }
+    $user_id = $current_user->ID;
+    $user_email = $current_user->user_email;
+    $first_name = $xoouserultra->userpanel->get_user_meta('first_name');
+    $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
+    $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
+    $num_reviews = sizeof($user_reviews);
 
+    $user_favorites = wpfp_get_users_favorites($user_id);
+    $num_favorites = sizeof($user_favorites);
 
-if(isset($_GET["module"])){	$module = $_GET["module"];	}
-if(isset($_GET["act"])){$act = $_GET["act"];	}
-if(isset($_GET["gal_id"])){	$gal_id = $_GET["gal_id"];}
-if(isset($_GET["page_id"])){	$page_id = $_GET["page_id"];}
-if(isset($_GET["view"])){	$view = $_GET["view"];}
-if(isset($_GET["reply"])){	$reply = $_GET["reply"];}
-if(isset($_GET["post_id"])){	$post_id = $_GET["post_id"];}
-
-$current_user = $xoouserultra->userpanel->get_user_info();
-
-$user_id = $current_user->ID;
-$user_email = $current_user->user_email;
-
-$user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
-$num_reviews = sizeof($user_reviews);
-
-$user_favorites = wpfp_get_users_favorites($user_id);
-$num_favorites = sizeof($user_favorites);
-
-$howmany = 5;
+    $howmany = 5;
 
 
 ?>
@@ -100,8 +98,10 @@ $howmany = 5;
                                 endif; 
                                 
                                 echo do_shortcode('[do_widget "Advanced Featured Stores"]');
+                                echo do_shortcode('[do_widget "Other Stores You Might Like"]');
                                 echo do_shortcode('[do_widget "Popular Stores"]');
                                 echo do_shortcode('[do_widget ": Recent Posts"]');
+                                
                                 
                                 ?>
                                 
