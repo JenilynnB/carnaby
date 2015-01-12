@@ -1085,7 +1085,7 @@ function render_products(){
         $response .= '<div class="post_filter_item col-md-3 col-sm-6 col-xs-12 swiper-slide swiper-slide-visible swiper-slide-active">';
         $response .=    '<article class="entry">';
         $response .=        '<div class="entry-media"">';
-        $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="max-height:150px; width:auto; margin:auto; "/></a>';
+        $response .=            '<a href="'.$product_url.'" target="_blank"><img src="'.$image_url.'" class="carousel-image" style="max-height:150px; width:auto; margin:auto; "/></a>';
         /*
         if ($image_height>$image_width){
             $response .=            '<a href="'.$product_url.' target="_blank""><img src="'.$image_url.'" class="carousel-image" style="height:150px; width:auto; margin-left: auto; margin-right:auto;"/></a>';
@@ -1246,20 +1246,27 @@ function render_canada_shipping(){
     $can_shipping .= '<label class="element-title"><i class="icon-globe"></i> Shipping to Canada:</label>';
     $can_shipping .= '<div class="shipping_info" >';
     
-    if(get_field('ships_to_canada')){
-        $can_shipping_cost = get_field('shipping_cost_to_canada');
+    $can_shipping_cost = get_field('shipping_cost_to_canada');
+    if(get_field('ships_to_canada') && can_shipping_cost !=''){
         $can_taxes_duties = get_field('taxes_and_duties');
-        $can_shipping .= 'Ships to Canada, $';
-        $can_shipping .= $can_shipping_cost;
+        if($can_shipping_cost==0){
+            $can_shipping .= 'Free Shipping to Canada';
+        }else{
+            $can_shipping .= '$';
+            $can_shipping .= number_format($can_shipping_cost, 2);
+            $can_shipping .= ' shipping fee';
+        }
         if($can_taxes_duties){
-            $can_shipping .= ' plus taxes & import duties';
+            $can_shipping .= '. Customs & import duties extra.';
+        }else{
+            $can_shipping .= '. Customs & import duties included.';
         }
         $can_shipping_notes = get_field('canada_shipping_notes');
         if($can_shipping_notes!=''){
             $can_shipping .= "<br/>".$can_shipping_notes;
         }
     }else{
-        $can_shipping .= 'Does not ship to Canada';
+        $can_shipping .= 'Does not ship to Canada.';
     }
     
     $can_shipping .= '</div></div>';
