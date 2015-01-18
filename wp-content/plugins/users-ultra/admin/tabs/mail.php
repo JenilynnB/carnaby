@@ -52,6 +52,14 @@ $this->create_plugin_setting(
 );
 
 $this->create_plugin_setting(
+        'input',
+        'admin_email',
+        __('Admin Email', 'xoousers'), array(),
+        __('Enter the email address to direct users to email for support.', 'xoousers'),
+        __('Enter the email address to direct users to email for support.', 'xoousers')
+);
+
+$this->create_plugin_setting(
         'textarea',
         'messaging_welcome_email_client',
         __('Client Welcome Message','xoousers'),array(),
