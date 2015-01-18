@@ -71,7 +71,7 @@ class XooMessaging extends XooUserUltraCommon
 	}
 	
 	//--- Automatic Activation	
-	public function  welcome_email($u_email, $user_login, $user_pass)
+	public function  welcome_email($u_email, $user_name, $user_pass)
 	{
 		global $xoouserultra;
 		
@@ -80,18 +80,18 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$admin_email =get_option('admin_email'); 
 		
-		//get welcome email
+                //get welcome email
 		$template_client =stripslashes($this->get_option('messaging_welcome_email_client'));
 		$template_admim = stripslashes($this->get_option('messaging_welcome_email_client_admin'));
 		
 		$login_url =site_url("/");
 		
-		$subject = __('Registration','xoousers');
+		$subject = __('Welcome to Carnaby West','xoousers');
 		$subject_admin = __('New Registration','xoousers');
 		
 		$template_client = str_replace("{{userl_ultra_login_url}}", $login_url,  $template_client);				
 		$template_client = str_replace("{{userultra_user_email}}", $u_email,  $template_client);
-		$template_client = str_replace("{{userultra_user_name}}", $user_login,  $template_client);
+		$template_client = str_replace("{{userultra_user_name}}", $user_name,  $template_client);
 		$template_client = str_replace("{{userultra_pass}}", $user_pass,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);
 		
@@ -187,7 +187,7 @@ class XooMessaging extends XooUserUltraCommon
 		$admin_email =get_option('admin_email'); 
 		
 		
-		$subject = __('Verify Your Account','xoousers');
+		$subject = __('Welcome to Carnaby West','xoousers');
 		$subject_admin = __('New Account To Verify','xoousers');
 		
 		//get welcome email
@@ -266,6 +266,7 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$template_client = str_replace("{{userl_ultra_login_url}}", $login_url,  $template_client);				
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);		
+                $template_client = str_replace("{{userultra_user_name}}", $user_nick,  $template_client);		
 		
 		$this->send($u_email, $subject, $template_client);
 		
@@ -348,7 +349,7 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$login_url =site_url("/");
 		
-		$subject = __('Registration ','xoousers');
+		$subject = __('Welcome to Carnaby West ','xoousers');
 		
 		$template_client = str_replace("{{userl_ultra_login_url}}", $login_url,  $template_client);				
 		$template_client = str_replace("{{userultra_user_email}}", $u_email,  $template_client);
@@ -362,7 +363,7 @@ class XooMessaging extends XooUserUltraCommon
 	}
 	
 	//--- Private Message to User	
-	public function  send_private_message_user($receiver, $sender_nick, $uu_subject, $uu_message)
+	public function  send_private_message_user($receiver, $sender_first, $sender_last, $uu_subject, $uu_message)
 	{
 		global $xoouserultra;
 		require_once(ABSPATH . 'wp-includes/pluggable.php');
@@ -377,9 +378,9 @@ class XooMessaging extends XooUserUltraCommon
 		$blogname  = $this->get_option('messaging_send_from_name');
 		
 		$login_url =site_url("/");		
+		$sender_nick = $sender_first . " ". substr($sender_last, 0, 1). ".";
 		
-		
-		$subject = __('New Private Message','xoousers');
+		$subject = __($sender_nick.' has sent you a message','xoousers');
 		
 		$template_client = str_replace("{{userultra_user_name}}", $sender_nick,  $template_client);
 		$template_client = str_replace("{{user_ultra_blog_name}}", $blogname,  $template_client);

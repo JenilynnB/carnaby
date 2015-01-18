@@ -836,36 +836,36 @@ class XooUserAdmin extends XooUserUltraCommon
 	// update settings
     function update_settings() 
 	{
-		foreach($_POST as $key => $value) 
-		{
-            if ($key != 'submit')
-			{
-				if (strpos($key, 'html_') !== false)
-                {
-                      //$this->userultra_default_options[$key] = stripslashes($value);
-                }else{
-					
-					 // $this->userultra_default_options[$key] = esc_attr($value);
-                    }  
-					
-					$this->userultra_set_option($key, $value) ;
-					//special setting for page
-					if($key=="xoousersultra_my_account_page")
-					{
-						//echo "Page : " . $value;
-						 update_option('xoousersultra_my_account_page',$value);
-					}     
+            //echo var_dump($_POST);
+            foreach($_POST as $key => $value) 
+            {
+                if ($key != 'submit'){
+                    if (strpos($key, 'html_') !== false)
+                    {
+                    //$this->userultra_default_options[$key] = stripslashes($value);
+                    }else{
 
+                                     // $this->userultra_default_options[$key] = esc_attr($value);
+                    }  
+                    
+                    $this->userultra_set_option($key, stripslashes($value)) ;
+                    //special setting for page
+                    if($key=="xoousersultra_my_account_page")
+                    {
+                            //echo "Page : " . $value;
+                             update_option('xoousersultra_my_account_page',$value);
+                    }     
+
+                }   
             }
-        }
-		
+
 		//get checks for each tab
 		
 		
-		 if ( isset ( $_GET['tab'] ) )
-		 {
-			 
-			    $current = $_GET['tab'];
+             if ( isset ( $_GET['tab'] ) )
+             {
+
+                        $current = $_GET['tab'];
 				
           } else {
                 $current = $this->default_tab;
@@ -922,8 +922,8 @@ class XooUserAdmin extends XooUserUltraCommon
 		
 		
 		if (isset($_POST['update_settings'])) {
-            $this->update_settings();
-        }
+                    $this->update_settings();
+                }
 		
 
 		if (isset($_POST['reset-options'])) {

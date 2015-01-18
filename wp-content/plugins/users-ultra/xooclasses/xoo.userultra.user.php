@@ -393,7 +393,7 @@ class XooUserUser {
 						update_user_meta ($user_id, 'usersultra_account_status','active');
 						
 						//automatic activation
-						$xoouserultra->messaging->welcome_email($email, $sanitized_user_login, $user_pass);
+						$xoouserultra->messaging->welcome_email($email, $f_name, $user_pass);
 						
 					}
 					
@@ -425,7 +425,7 @@ class XooUserUser {
 						  }
 						  
 						  //send link to user
-						  $xoouserultra->messaging->welcome_email_with_activation($email, $sanitized_user_login, $user_pass, $activation_link);
+						  $xoouserultra->messaging->welcome_email_with_activation($email, $f_name, $user_pass, $activation_link);
 
 					}
 					

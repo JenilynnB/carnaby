@@ -373,6 +373,10 @@ class XooUserRegister {
 					$user_pass = wp_generate_password( 12, false);
 				}
 				
+                                if (isset($_POST['user_first']) && $POST['user_pass'] != ''){
+                                    $user_first_name = $_POST['user_first'];
+                                }
+                                
 				/* We create the New user */
 				$user_id = wp_create_user( $sanitized_user_login, $user_pass, $_POST['user_email'] );
 				
@@ -508,7 +512,7 @@ class XooUserRegister {
 							  //this package doesn't require moderation
 							   update_user_meta ($user_id, 'usersultra_account_status', 'active');
 							  //notify user					   
-		 					   $xoouserultra->messaging->welcome_email($_POST['user_email'], $sanitized_user_login, $user_pass);
+		 					   $xoouserultra->messaging->welcome_email($_POST['user_email'], $user_first_name, $user_pass);
 							  
 							   //login
 							   $secure = "";		

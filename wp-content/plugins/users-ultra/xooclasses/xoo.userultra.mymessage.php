@@ -117,7 +117,7 @@ class XooUserMyMessage {
 					$wpdb->insert( $wpdb->prefix . 'users_ultra_pm', $new_message, array( '%d', '%s', '%s', '%s',  '%s', '%s', '%s' , '%s' ));
 					
 			
-			$xoouserultra->messaging->send_private_message_user($receiver ,$sender->display_name,  $uu_subject,$_POST["uu_message"]);
+			$xoouserultra->messaging->send_private_message_user($receiver ,$sender->first_name,  $sender->last_name,$uu_subject,$_POST["uu_message"]);
 			
 			
 		
@@ -184,7 +184,7 @@ class XooUserMyMessage {
 					$wpdb->insert( $wpdb->prefix . 'users_ultra_pm', $new_message, array( '%d', '%s', '%s', '%s',  '%s', '%s', '%s', '%s' , '%s' ));
 					
 			
-			$xoouserultra->messaging->send_private_message_user($receiver ,$sender->display_name,  $uu_subject,$_POST["uu_message"]);
+			$xoouserultra->messaging->send_private_message_user($receiver ,$sender->first_name, $sender->last_name, $uu_subject,$_POST["uu_message"]);
 			
 			
 		

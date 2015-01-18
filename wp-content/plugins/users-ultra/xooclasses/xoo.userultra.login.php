@@ -550,7 +550,7 @@ class XooUserLogin {
 								 //Build user data
 								 $user_data = array (
 												'user_login' => $user_login,
-												'display_name' => $u_name,
+												'first_name' => $u_name,
 												'user_email' => $u_email,																				
 												'user_pass' => $user_pass
 											);
@@ -572,7 +572,7 @@ class XooUserLogin {
 								$this->user_account_status($user_id);	
 								
 								//notify client			
-								$xoouserultra->messaging->welcome_email($u_email, $user_login, $user_pass);
+								$xoouserultra->messaging->welcome_email($u_email, $u_name, $user_pass);
 								
 								$creds['user_login'] = sanitize_user($user_login);				
 								$creds['user_password'] = $user_pass;
@@ -758,7 +758,7 @@ class XooUserLogin {
 								 //Build user data
 								 $user_data = array (
 												'user_login' => $user_login,
-												'display_name' => $u_name,
+												'first_name' => $u_name,
 												'user_email' => $u_email,																				
 												'user_pass' => $user_pass
 											);
@@ -774,12 +774,12 @@ class XooUserLogin {
 								
 																
 								$verify_key = $this->get_unique_verify_account_id();					
-						        update_user_meta ($user_id, 'xoouser_ultra_very_key', $verify_key);	
+                                                                update_user_meta ($user_id, 'xoouser_ultra_very_key', $verify_key);	
 								
 								$this->user_account_status($user_id);	
 								
 								//notify client			
-								$xoouserultra->messaging->welcome_email($u_email, $user_login, $user_pass);
+								$xoouserultra->messaging->welcome_email($u_email, $u_name, $user_pass);
 								
 								$creds['user_login'] = sanitize_user($user_login);				
 								$creds['user_password'] = $user_pass;
@@ -1204,7 +1204,7 @@ class XooUserLogin {
 								 //Build user data
 								 $user_data = array (
 												'user_login' => $user_login,
-												'display_name' => $u_name,
+												'first_name' => $u_name,
 												'user_email' => $u_email,																				
 												'user_pass' => $user_pass
 											);
@@ -1230,7 +1230,7 @@ class XooUserLogin {
 								$this->user_account_status($user_id);	
 								
 								//notify client			
-								$xoouserultra->messaging->welcome_email($u_email, $user_login, $user_pass);
+								$xoouserultra->messaging->welcome_email($u_email, $u_name, $user_pass);
 								
 								$creds['user_login'] = sanitize_user($user_login);				
 								$creds['user_password'] = $user_pass;
@@ -1763,10 +1763,13 @@ class XooUserLogin {
 	  //check if login automatically
 	  $activation_type= $xoouserultra->get_option('registration_rules');
 	  
+          $user = get_user_by('id', $user_id);
+          $user_first_name = $user->first_name;
+          
 	  if($activation_type==1)
 	  {
 		  //automatic activation
-		  $xoouserultra->messaging->welcome_email($u_email, $user_login, $user_pass);
+		  $xoouserultra->messaging->welcome_email($u_email, $user_first_name, $user_pass);
 		  						
 	  
 	  }elseif($activation_type==2){
@@ -1791,13 +1794,13 @@ class XooUserLogin {
 		  }
 		  
 		  //send link to user
-		  $xoouserultra->messaging->welcome_email_with_activation($u_email, $user_login, $user_pass, $activation_link);
+		  $xoouserultra->messaging->welcome_email_with_activation($u_email, $user_first_name, $user_pass, $activation_link);
 		  
 	  
 	  }elseif($activation_type==3){		  
 		  
 		  //admin approvation
-		   $xoouserultra->messaging->welcome_email_with_admin_activation($u_email, $user_login, $user_pass, $activation_link);
+		   $xoouserultra->messaging->welcome_email_with_admin_activation($u_email, $user_first_name, $user_pass, $activation_link);
 		 
 	  
 	  
@@ -2006,7 +2009,7 @@ class XooUserLogin {
 								//update_user_meta ($user_id, 'xoouser_ultra_facebook_id', $u_fb_id);
 								
 								//notify client			
-								$xoouserultra->messaging->welcome_email($u_email, $user_login, $user_pass);
+								$xoouserultra->messaging->welcome_email($u_email, $u_name, $user_pass);
 								
 								$creds['user_login'] = sanitize_user($u_user);				
 								$creds['user_password'] = $user_pass;
