@@ -78,7 +78,7 @@ class XooMessaging extends XooUserUltraCommon
 		require_once(ABSPATH . 'wp-includes/pluggable.php');
 		require_once(ABSPATH . 'wp-includes/link-template.php');
 		
-		$admin_email =get_option('admin_email'); 
+		$admin_email =stripslashes($this->get_option('admin_email')); 
 		
                 //get welcome email
 		$template_client =stripslashes($this->get_option('messaging_welcome_email_client'));
