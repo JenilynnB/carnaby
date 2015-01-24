@@ -46,6 +46,7 @@
     $user_email = $current_user->user_email;
     $first_name = $xoouserultra->userpanel->get_user_meta('first_name');
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name');
+    $last_initial = $last_name!='' ? substr($last_name, 0, 1).".": '';
     $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
     $num_reviews = sizeof($user_reviews);
 
@@ -57,65 +58,156 @@
 
 ?>
 
-<section class="primary section" id="post-<?php echo get_the_ID(); ?>">
-    <div class="container">
-	<div class="row">
-            <div class="<?php echo $content_class; ?>">
-                <div class="row">
-                    <div class="content">
-                        <div class="col-md-12 single-content">
-                            <div class="col-md-4">
+<section class="primary section">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class='row'>
+                    <div class="col-md-4">
 
-                            <div class="myavatar rounded">
+                        <div class='box-section'>
+                            <div class='row'>
+                                <div class='col-md-5'>
+                                    
+                                    <div class="user-avatar">
+                                        <?php 
+                                            $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic')
+                                        ?>
+                                        <div class="user-avatar-rounded" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
 
-                                <div class="pic" id="uu-backend-avatar-section">
-
-                                    <?php echo $xoouserultra->userpanel->get_user_pic( $user_id, "", 'avatar', 'rounded', 'dynamic')?>
-
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-7'>
+                                    <div class='dash-user-info'>
+                                        <h3><?php    
+                                            echo  $first_name . ' ' . $last_initial;
+                                            ?>
+                                        </h3>
+                                        <a class='btn btn-secondary btn-md'>VIEW PROFILE</a>
+                                    </div>
                                 </div>
                             </div>
-                            <h2><?php    
-                                echo  $first_name . ' ' . $last_name;
-                                ?>
-                            </h2>
+
                             <div class="user_stats">
 
                                 <div class="user_stats_reviews">
+                                    <span>
+                                        <i class='fa fa-fw fa-star star-on'></i>
+                                    </span>
                                     <?php echo $num_reviews. " Reviews"; ?>
                                 </div>
                                 <div class="user_stats_favorites">
+                                    <span>
+                                        <i class='fa fa-fw fa-heart heart-on'></i>
+                                    </span>
                                     <?php echo $num_favorites. " Favorites"; ?>
                                 </div>
                             </div>
+                        </div>  
+                        <div class='box-section'>
+                            <?php echo $xoouserultra->userpanel->get_user_backend_menu('messages');?>
+                        </div>
+                        <div class='box-section'>
+                            <?php echo $xoouserultra->userpanel->get_user_backend_menu('friends');?>     
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <?php 
+                        if($module==''){
+                            // Search Box
+                            if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
+                                get_search_form();    
+                            endif; 
+
+                            echo do_shortcode('[do_widget "Advanced Featured Stores"]');
+                            echo do_shortcode('[do_widget "Other Stores You Might Like"]');
+                            echo do_shortcode('[do_widget "Popular Stores"]');
+                            echo do_shortcode('[do_widget ": Recent Posts"]');
+
+
+                            ?>
+
+                            Featured Stores
+                            Latest from Our Blog
+                            Some other Stores You Might Like
+                            Recent Reviews
+                            Popular Stores
+                        <?php
+
+                        }else if($module=='messages'){
+                        ?>     
+                            <div class="commons-panel xoousersultra-shadow-borers" >
+
+                                <div class="commons-panel-heading">
+                                    <h2> <?php  _e('Received Messages','xoousers');?> </h2>
+                                </div>
+
+                                <div class="commons-panel-content">
+
+                                    <div class="uultra-myprivate-messages">       
+
+                                        <?php  
+
+                                        if(!$view && !$reply) 
+                                        {
+                                                $xoouserultra->mymessage->show_usersultra_my_messages();
+
+                                        }
+
+                                        if(isset($view) && $view>0) 
+                                        {
+                                                //display view box
+                                                $xoouserultra->mymessage->show_view_my_message_form($view);
+
+
+                                        }
+
+                                        ?>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <div class="col-md-8">
-                                
-                                <?php 
-                                // Search Box
-                                if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
-                                    get_search_form();    
-                                endif; 
-                                
-                                echo do_shortcode('[do_widget "Advanced Featured Stores"]');
-                                echo do_shortcode('[do_widget "Other Stores You Might Like"]');
-                                echo do_shortcode('[do_widget "Popular Stores"]');
-                                echo do_shortcode('[do_widget ": Recent Posts"]');
-                                
-                                
-                                ?>
-                                
-                                Featured Stores
-                                Latest from Our Blog
-                                Some other Stores You Might Like
-                                Recent Reviews
-                                Popular Stores
+                       <?php
+                        }else if($module=='messages_sent'){
+
+                            ?>
+                            <div class="commons-panel xoousersultra-shadow-borers" >
+
+                                <div class="commons-panel-heading">
+                                    <h2> <?php  _e('Sent Messages','xoousers');?> </h2>
+                                </div>
+
+                                <div class="commons-panel-content">
+
+                                    <div class="uultra-myprivate-messages">       
+
+                                        <?php  
+                                            $xoouserultra->mymessage->show_usersultra_my_messages_sent();
+                                        ?>
+
+                                    </div>
+
+                                </div>	 
                             </div>
-                        </div>
+                        <?php
+                        }else if($module=='friends'){
+
+                        }
+
+                        ?>
                     </div>
-                </div>  
+                    </div>
+                </div>
             </div>
-        </div>
+        </div>  
     </div>
 </section>
 

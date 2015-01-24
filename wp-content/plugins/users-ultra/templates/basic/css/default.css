@@ -518,33 +518,34 @@ a.uultra-btn-u-menu i{
 }
 
 a.uultra-btn-u-menu{ 
-		display:inline-block; 
-		height:30px;
-		width:97%;
-		padding-top:5px;
-		text-align:left;
-		font-size:12px;
-			
-		
-		border:solid 1px #E8E8E8;
-		 background: #F2F2F2 ; 
-		-moz-border-radius: 5px; 
-	     border-radius:5px;
-		 color: #333 !important;
-		 text-decoration:none;
+    display:inline-block; 
+    height:30px;
+    
+    padding-top:5px;
+    text-align:left;
+    color: #788991;
+                
+    //font-size:12px;
+    //width:97%;
+    //border:solid 1px #E8E8E8;
+    //background: #F2F2F2 ; 
+    //-moz-border-radius: 5px; 
+    //border-radius:5px;
+    //color: #333 !important;
+    //text-decoration:none;
 
 }
 
 a.uultra-btn-u-menu:hover{ 
-				
-		border:solid 1px #000;
-		 background: #000; 
-		-moz-border-radius: 5px; 
-	     border-radius:5px;
-		 color: #FFF !important;
+    color: #66cccc;
+    //border:solid 1px #000;
+    // background: #000; 
+    //-moz-border-radius: 5px; 
+    //border-radius:5px;
+    // color: #FFF !important;
 
 }
-
+/*
 a.uultra-btn-u-menu:active{ 
 				
 		border:solid 1px #000;
@@ -554,7 +555,7 @@ a.uultra-btn-u-menu:active{
 		 color: #FFF;
 
 }
-
+*/
 
 
 
@@ -646,9 +647,6 @@ width:90%
 	font-size:12px;
 	background:#CCE6FF
 }
-
-
-
 
 
 .usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar .pic{

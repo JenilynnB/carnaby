@@ -469,9 +469,10 @@ function _wpbdp_render_excerpt() {
 function wpbdp_render_listing_field_html($field_name, $post_id='') {
     global $post;
     
-    if($post_id=''){
+    if($post_id==''){
         $post_id = $post->ID;
     }
+    
     $html = '';
     
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post_id, 'listing' );

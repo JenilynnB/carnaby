@@ -112,9 +112,9 @@ WPBDP.ratings.saveEdit = function(e) {
             
             for (i=1; i<=5; i++){
                 if(i<=res.score){
-                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'fa fa-fw fa-star');
+                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'on');
                 }else{
-                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'fa fa-fw fa-star-o');
+                    jQuery(".wpbdp-ratings-stars i[data-score="+i+"]", $rating).attr('class', 'off');
                 }
             }
     

@@ -111,7 +111,7 @@ class XooMessaging extends XooUserUltraCommon
 	}
 	
 	//--- Link Activation Resend	
-	public function  re_send_activation_link($u_email, $user_login, $activation_link)
+	public function  re_send_activation_link($u_email, $user_name, $activation_link)
 	{
 		global $xoouserultra;
 		
@@ -130,7 +130,7 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$template_client = str_replace("{{user_ultra_activation_url}}", $activation_link,  $template_client);
 		$template_client = str_replace("{{userultra_user_email}}", $u_email,  $template_client);
-		$template_client = str_replace("{{userultra_user_name}}", $user_login,  $template_client);
+		$template_client = str_replace("{{userultra_user_name}}", $user_name,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);
 		
 		
@@ -177,7 +177,7 @@ class XooMessaging extends XooUserUltraCommon
 	
 	
 	//--- Link Activation	
-	public function  welcome_email_with_activation($u_email, $user_login, $user_pass,  $activation_link)
+	public function  welcome_email_with_activation($u_email, $user_name, $user_pass,  $activation_link)
 	{
 		global $xoouserultra;
 		
@@ -198,13 +198,13 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$template_client = str_replace("{{user_ultra_activation_url}}", $activation_link,  $template_client);
 		$template_client = str_replace("{{userultra_user_email}}", $u_email,  $template_client);
-		$template_client = str_replace("{{userultra_user_name}}", $user_login,  $template_client);
+		$template_client = str_replace("{{userultra_user_name}}", $user_name,  $template_client);
 		$template_client = str_replace("{{userultra_pass}}", $user_pass,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);
 		
 		//admin
 		$template_admim = str_replace("{{userultra_user_email}}", $u_email,  $template_admim);
-		$template_admim = str_replace("{{userultra_user_name}}", $user_login,  $template_admim);
+		$template_admim = str_replace("{{userultra_user_name}}", $user_name,  $template_admim);
 		$template_admim = str_replace("{{userultra_admin_email}}", $admin_email,  $template_admim);	
 				
 		
@@ -335,7 +335,7 @@ class XooMessaging extends XooUserUltraCommon
 	}
 	
 	//--- Email Activation	
-	public function  welcome_email_link_activation($u_email, $user_login, $user_pass)
+	public function  welcome_email_link_activation($u_email, $user_name, $user_pass)
 	{
 		global $xoouserultra;
 		require_once(ABSPATH . 'wp-includes/pluggable.php');
@@ -353,7 +353,7 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$template_client = str_replace("{{userl_ultra_login_url}}", $login_url,  $template_client);				
 		$template_client = str_replace("{{userultra_user_email}}", $u_email,  $template_client);
-		$template_client = str_replace("{{userultra_user_name}}", $user_login,  $template_client);
+		$template_client = str_replace("{{userultra_user_name}}", $user_name,  $template_client);
 		$template_client = str_replace("{{userultra_pass}}", $user_pass,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);		
 		
@@ -372,6 +372,7 @@ class XooMessaging extends XooUserUltraCommon
 		$admin_email =get_option('admin_email'); 
 		
 		$u_email = $receiver->user_email;
+                $user_first_name = $receiver->first_name;
 		
 		$template_client =stripslashes($this->get_option('messaging_user_pm'));
 		
@@ -382,7 +383,8 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$subject = __($sender_nick.' has sent you a message','xoousers');
 		
-		$template_client = str_replace("{{userultra_user_name}}", $sender_nick,  $template_client);
+                $template_client = str_replace("{{userultra_user_name}}", $user_first_name,  $template_client);
+		$template_client = str_replace("{{userultra_sender_name}}", $sender_nick,  $template_client);
 		$template_client = str_replace("{{user_ultra_blog_name}}", $blogname,  $template_client);
 		$template_client = str_replace("{{userultra_pm_subject}}", $uu_subject,  $template_client);
 		$template_client = str_replace("{{userultra_pm_message}}", stripslashes($uu_message),  $template_client);

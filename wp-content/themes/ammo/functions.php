@@ -175,6 +175,8 @@ function themeton_enqueue_scripts() {
     
     wp_enqueue_style( 'theme-style', get_less_to_css_path() );
     
+    wp_enqueue_style('carnaby', get_template_directory_uri().'/carnaby.css' );
+    
     /* Ultimate Page Custom LESS */
     global $post;
     if( isset($post->ID) && get_post_meta( $post->ID, '_wp_page_template', true )=='page-ultimate.php' ){

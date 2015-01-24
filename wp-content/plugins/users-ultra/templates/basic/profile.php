@@ -47,6 +47,37 @@ global $xoouserultra;
             </div>
         </div>
         
+        
+         <?php if($display_private_message=="yes"){?>
+        
+         <div class="uu-options-bar">
+         
+             <div class="opt">
+             
+               <?php if($display_private_message=="yes"){?>
+             
+             <a class="uultra-btn-email" href="#" id="uu-send-private-message" data-id="<?php echo $user_id?>"><span><i class="fa fa-envelope-o"></i></span><?php echo _e("Send Message", 'xoousers')?></a>
+             
+                            
+               <?php }?>
+               
+             </div>
+         </div>
+        
+          <?php }?>
+          
+         <?php if($display_private_message=="yes"){?>
+         
+             <div class="uu-private-messaging rounded" id="uu-pm-box">
+             
+                 <?php echo $xoouserultra->mymessage->get_send_form( $user_id);?>
+                 
+                  <div id="uu-message-noti-id"></div>
+             
+             </div>
+         
+          <?php }?>
+        
         <div class="profile-headline">
             <?php if($headline!=''){ ?>
                 <h5>"<?php echo $headline ?>"</h5>

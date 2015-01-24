@@ -758,10 +758,11 @@ class XooUserUser {
 		
 		$user = get_user_by( 'id', $user_id );
 		$u_email=$user->user_email;
+                $user_first_name=$user->first_name;
 		$user_login= $user->user_login;
 		
 		//noti user		
-		$xoouserultra->login->user_resend_activation_link($user_id, $u_email, $user_login);
+		$xoouserultra->login->user_resend_activation_link($user_id, $u_email, $user_first_name);
 		
 		echo "<div class='user-ultra-success uultra-notification'>".__("Activation link sent", 'xoousers')."</div>";
 		
@@ -2056,11 +2057,11 @@ class XooUserUser {
 			
 			if(!isset($_GET["page_id"]))
 			{
-				$url = '<a class="uultra-btn-u-menu" href="?module=messages"><span><i class="fa fa-envelope-o fa-2x"></i></span>'.__('My Messages', 'xoousers').'</a>';	
+				$url = '<a class="uultra-btn-u-menu" href="?module=messages"><span><i class="fa icon-envelope"></i></span>'.__('My Messages', 'xoousers').'</a>';	
 				
 			}else{
 				
-				$url = '<a class="uultra-btn-u-menu" href="?page_id='.$_GET["page_id"].'&module=messages"><span><i class="fa fa-envelope-o fa-2x"></i></span>'.__('Messages', 'xoousers').'</a>';			
+				$url = '<a class="uultra-btn-u-menu" href="?page_id='.$_GET["page_id"].'&module=messages"><span><i class="icon-envelope"></i></span>'.__('Messages', 'xoousers').'</a>';			
 			
 			}
 			
@@ -2102,11 +2103,11 @@ class XooUserUser {
 			
 			if(!isset($_GET["page_id"]))
 			{
-				$url = '<a class="uultra-btn-u-menu" href="?module=friends"><span><i class="fa fa-users fa-2x"></i></span>'.__('My Friends', 'xoousers').'</a>';	
+				$url = '<a class="uultra-btn-u-menu" href="?module=friends"><span><i class="icon-users"></i></span>'.__('My Friends', 'xoousers').'</a>';	
 				
 			}else{
 				
-				$url = '<a class="uultra-btn-u-menu" href="?page_id='.$_GET["page_id"].'&module=friends"><span><i class="fa fa-users fa-2x"></i></span>'.__('My Friends', 'xoousers').'</a>';			
+				$url = '<a class="uultra-btn-u-menu" href="?page_id='.$_GET["page_id"].'&module=friends"><span><i class="icon-users"></i></span>'.__('My Friends', 'xoousers').'</a>';			
 			
 			}
 		

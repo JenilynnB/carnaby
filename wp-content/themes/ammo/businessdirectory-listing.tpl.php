@@ -24,7 +24,7 @@
                             
                             
                             <div class="listing-element"></div>
-                            <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>
+                            <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)', $listing_id); ?></div>
                             
                         </div>
                         <div class="row">
