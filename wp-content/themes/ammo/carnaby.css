@@ -1,0 +1,86 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 23, 2015, 1:41:59 PM
+    Author     : jennifer
+*/
+
+
+
+/*********************
+Carnaby Dashboard Styles
+**********************/
+.box-section{
+    padding: 10px;
+    border: 1px solid #efefef;
+    margin: 10px;
+    background-color: #fff;
+}
+.box-section h2, .box-section h3{
+    text-transform: uppercase;
+}
+
+.box-section i{
+    font-size: 18px;
+}
+
+.box-section span{
+    margin: 0px 10px 0px 5px;
+    text-align: left;
+}
+
+/*********************
+Carnaby Avatar Styles
+*********************/
+
+.user-avatar-rounded{
+    background-repeat: no-repeat;
+    background-position: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+.dash-user-info{
+    margin:10px;
+}
+
+.btn-secondary,
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    background-color: #000;
+    color: #ffffff;
+}
+.btn-secondary:hover,
+button:hover,
+html input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+.btn-secondary:focus,
+button:focus,
+html input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus {
+    background-color: #000000;
+    //border-color: #40bfbf;
+    color: #d3d3d3;
+}
+
+.star-on, .star-half{
+    color: #ffd02c;
+}
+.star-off, .heart-off{
+    color: #cdcdcd;
+}
+
+.heart-on{
+    color: #ff3a3a;
+}
