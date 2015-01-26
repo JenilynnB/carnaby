@@ -47,8 +47,8 @@ global $xoouserultra;
             </div>
         </div>
         
-        
-         <?php if($display_private_message=="yes"){?>
+        <?php echo $xoouserultra->social->get_friends($user_id); ?>
+        <?php if($display_private_message=="yes"){?>
         
          <div class="uu-options-bar">
          

@@ -14,11 +14,14 @@ and open the template in the editor.
 Carnaby Dashboard Styles
 **********************/
 .box-section{
+    margin: 10px;
+}
+.box-section-outline{
     padding: 10px;
     border: 1px solid #efefef;
-    margin: 10px;
     background-color: #fff;
 }
+
 .box-section h2, .box-section h3{
     text-transform: uppercase;
 }
@@ -32,6 +35,20 @@ Carnaby Dashboard Styles
     text-align: left;
 }
 
+.box-listing-excerpt{
+    background-color: #fff;
+    width: 330px;
+    padding: 3px;
+}
+
+.box-listing-excerpt.image{
+    
+}
+.box-listing-excerpt.name{
+    
+}
+
+.box-listing-excerpt{}
 /*********************
 Carnaby Avatar Styles
 *********************/
@@ -40,10 +57,10 @@ Carnaby Avatar Styles
     background-repeat: no-repeat;
     background-position: 50%;
     -webkit-border-radius: 50%;
-    -moz-border-radius: 50%
+    -moz-border-radius: 50%;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 96px;
+    height: 96px;
     margin: 10px;
 }
 

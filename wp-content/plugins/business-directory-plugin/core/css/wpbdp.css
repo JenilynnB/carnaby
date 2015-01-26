@@ -127,17 +127,32 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* listing view > excerpt */
-.wpbdp-listing-excerpt {
+
+.wpbdp-listing-excerpt{
+    width: 320px;
+    display: inline-block;
+    margin: 10px;
     padding: 10px;
-    border-bottom: solid 1px #ddd;
+    background-color: #ffffff;
+    text-align: center;
 }
 
-.wpbdp-listing-excerpt.odd {  }
-.wpbdp-listing-excerpt.sticky { background: #fff0cf; border-bottom: solid 1px #b37800; }
+//.wpbdp-listing-excerpt.odd {  }
+//.wpbdp-listing-excerpt.sticky { background: #fff0cf; border-bottom: solid 1px #b37800; }
+
+.wpbdp-listing-excerpt .wpbdp-field-title{
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.wpbdp-listing-excerpt .wpbdp-field-title a {
+        color: #788991;
+}
 
 .wpbdp-listing-excerpt .listing-thumbnail {
-    float: left;
-    margin: 0 10px 0 0;
+    margin-bottom: 10px;
 }
 
 
@@ -445,14 +460,15 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-excerpt-details .price-field {
     display: inline-block;
+    margin-left: 15px;
 }
 
 .wpbdp-listing-excerpt-details .shipping-field {
-    display: inline-block;
+    display: block;
 }
 
 .wpbdp-listing-excerpt-details .return-shipping-field {
-    display: inline-block;
+    display: block;
 }
 
 .wpbdp-listing-excerpt-details .favorite-icon {

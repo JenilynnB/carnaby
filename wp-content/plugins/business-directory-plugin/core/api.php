@@ -1136,8 +1136,9 @@ function render_price_field($post_id=''){
 }
 
 function render_listing_highlights(){
+    global $post;
     
-    $shipping = get_shipping_info('highlight');
+    $shipping = get_shipping_info($post->ID, 'highlight');
     $returns = get_return_shipping_info();
     $prices = render_price_field();
     
@@ -1153,20 +1154,16 @@ function render_listing_highlights(){
     
     
 }
-function render_shipping_info(){
+function render_shipping_info($listing_id='', $context=''){
 
     $return = '';
-
-    $shipping_info = get_shipping_info($context);
-    $return .= '<div class="wpbdp-listing-shipping-info ">';
-    $return .= '<label class="element-title"><i class="fa fa-truck"></i> US Shipping</label>';
-    $return .= '<div class="shipping_info"><p>' . $shipping_info . '</p></div>';
-    $return .= '</div>';
+    $shipping_info = get_shipping_info($listing_id, $context); 
+    $return .= '<div class="shipping_info">' . $shipping_info . '</div>';
     
-    return $return;
+    echo $return;
 }
 
-function get_shipping_info($context='', $post_id=''){
+function get_shipping_info($post_id='', $context=''){
     global $post;
     if($post_id==''){
         $post_id = $post->ID;
@@ -1201,22 +1198,17 @@ function get_shipping_info($context='', $post_id=''){
         }
     }
     
-    
-    
     return $shipping_info;
 }
 
-function render_return_shipping_info(){
+function render_return_shipping_info($listing_id=''){
     
      /*Return Shipping Info*/
     
-    $return_shipping_info = get_return_shipping_info();
-    $return .= '<div class="wpbdp-listing-shipping-info">';
-    $return .= '<label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>';
+    $return_shipping_info = get_return_shipping_info($listing_id);
     $return .= '<div class="shipping_info" >' . $return_shipping_info . '</div>';
-    $return .= '</div>';
     
-    return $return;
+    echo $return;
 }
 
 function get_return_shipping_info($post_id=''){
@@ -1496,4 +1488,51 @@ function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
 function wpbdp_has_module( $module ) {
     global $wpbdp;
     return $wpbdp->has_module( $module );
+}
+
+function get_listing_outbound_url($id){
+    $base_url = wpbdp_render_listing_field('URL', $id);
+    if((get_shopstyle_retailer_id($id))!=''){
+        $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>'.$base_url.'</a>';
+    }else{
+        
+        if (strcmp(substr($base_url, 0, 7), "http://") !=0){
+            $url = "http://" . $url;
+        }else{
+            $url = $base_url;
+        }
+        $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>'.$base_url.'</a>';
+    }
+    return $listing_url;
+}
+
+function carnaby_display_listing_excerpt($title, $posts){
+    if ( ! empty( $title ) ) echo $title;
+
+    echo '<div class="box-listing-excerpt">';
+    foreach ($posts as $post) {
+        $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+        $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
+
+        $listing_url = get_listing_outbound_url($post->ID);
+        if (function_exists('wpfp_link')) { 
+            $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
+        }
+
+        echo '<div>';
+        if ( $thumbnail )
+            echo $thumbnail;
+        echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+        echo '<div>'.$listing_url.'</div>';
+        echo '<div class="favorite-icon">'.$favorite_link.'</div>';
+        echo '<div class="listing-rating">'.$rating.'</div>';
+        echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
+        echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
+        echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
+
+        echo '</div>';
+    }
+
+    echo '</div>';
+
 }

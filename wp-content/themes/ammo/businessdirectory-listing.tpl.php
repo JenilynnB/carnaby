@@ -29,17 +29,23 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
-                                <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
+                                
+                                <?php 
+                                    $url = get_listing_outbound_url($listing_id);
+                                /*
+                                if((get_shopstyle_retailer_id($listing_id))!=''): ?>
                                     <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
                                 <?php else: 
                                     $url = wpbdp_render_listing_field('URL');
                                     if (strcmp(substr($url, 0, 7), "http://") !=0){
                                         $url = "http://" . $url;
                                     }
+                                 * 
+                                 */
                                   ?>
-                                    <div class="listing-element"><a href="<?php echo $url; ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
+                                    <div class="listing-element"><?php echo $url; ?></div>
                                     
-                                <?php endif; ?>
+                               
                             </div>
                         </div>
                         <div class="row">
@@ -157,11 +163,13 @@
 
                         <div class="row">
                             <div class="listing-side-container col-md-12">
+                                <label class="element-title"><i class="fa fa-truck"></i> US Shipping</label>
                                 <?php echo render_shipping_info(); ?>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="listing-side-container col-md-12">
+                                <label class="element-title"><i class="fa fa-mail-reply"></i> US Return Shipping:</label>
                                 <?php echo render_return_shipping_info(); ?>
                             </div>
                         </div>

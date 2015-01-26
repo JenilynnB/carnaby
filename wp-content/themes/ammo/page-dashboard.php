@@ -53,6 +53,7 @@
     $user_favorites = wpfp_get_users_favorites($user_id);
     $num_favorites = sizeof($user_favorites);
 
+    //$num_friends = get_friend_count($user_id);
     $howmany = 5;
 
 
@@ -66,7 +67,7 @@
                     <div class='row'>
                     <div class="col-md-4">
 
-                        <div class='box-section'>
+                        <div class='box-section box-section-outline'>
                             <div class='row'>
                                 <div class='col-md-5'>
                                     
@@ -96,47 +97,67 @@
                                     <span>
                                         <i class='fa fa-fw fa-star star-on'></i>
                                     </span>
-                                    <?php echo $num_reviews. " Reviews"; ?>
+                                    <?php 
+                                    if($num_reviews==1){
+                                        echo $num_reviews. " Review";
+                                    }else{
+                                        echo $num_reviews. " Reviews";
+                                    }
+                                    ?>
                                 </div>
                                 <div class="user_stats_favorites">
                                     <span>
                                         <i class='fa fa-fw fa-heart heart-on'></i>
                                     </span>
-                                    <?php echo $num_favorites. " Favorites"; ?>
+                                    <?php 
+                                    if($num_favorites==1){
+                                        echo $num_favorites. " Favorite"; 
+                                    }else{
+                                        echo $num_favorites. " Favorites"; 
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>  
-                        <div class='box-section'>
+                        <div class='box-section box-section-outline'>
                             <?php echo $xoouserultra->userpanel->get_user_backend_menu('messages');?>
                         </div>
-                        <div class='box-section'>
+                        <div class='box-section box-section-outline '>
                             <?php echo $xoouserultra->userpanel->get_user_backend_menu('friends');?>     
                         </div>
 
                     </div>
 
                     <div class="col-md-8">
-
+                        
                         <?php 
                         if($module==''){
-                            // Search Box
-                            if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
-                                get_search_form();    
-                            endif; 
-
+                            
+                            ?>
+                            <div class='box-section'>
+                                
+                                <?php
+                                // Search Box
+                                if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
+                                    get_search_form();    
+                                endif; 
+                                ?>
+                            </div>
+                            <?php
                             echo do_shortcode('[do_widget "Advanced Featured Stores"]');
                             echo do_shortcode('[do_widget "Other Stores You Might Like"]');
                             echo do_shortcode('[do_widget "Popular Stores"]');
                             echo do_shortcode('[do_widget ": Recent Posts"]');
 
+                            
+                            //Get number of friends
+                            //Get reviews from friends (sort by recency)
+                            //If there are no reviews written within the last 7 days
+                            //Get 5 most recent reviews from community and display
 
                             ?>
 
-                            Featured Stores
-                            Latest from Our Blog
-                            Some other Stores You Might Like
-                            Recent Reviews
-                            Popular Stores
+                            
                         <?php
 
                         }else if($module=='messages'){
@@ -199,10 +220,59 @@
                             </div>
                         <?php
                         }else if($module=='friends'){
+                               
+                           ?>
+       
+                            <div class="commons-panel xoousersultra-shadow-borers" >
+                                
+                                <div class="commons-panel-heading">
+                                    <h2> <?php  _e('My Friends','xoousers');?> </h2>
+                                </div>
 
-                        }
 
-                        ?>
+                                <div class="commons-panel-content" id="uultra-my-friends-request">
+
+                                <?php  _e('loading ...','xoousers');?>          
+
+                                </div>
+
+                                <div class="commons-panel-content" id="uultra-my-friends-list">                        
+                                <?php  _e('loading ...','xoousers');?>
+
+
+                                </div>
+
+
+                                <script type="text/javascript">
+                                    jQuery(document).ready(function($){		
+                                        $.post(ajaxurl, {
+
+                                            action: 'show_friend_request'
+
+                                                }, function (response){									
+
+                                                    $("#uultra-my-friends-request").html(response);
+                                                    //alert	(response);
+                                                    show_all_friends();										
+                                                });
+
+                                    });				
+
+
+                                    function show_all_friends()
+                                    {
+                                        $.post(ajaxurl, {
+                                           action: 'show_all_my_friends'
+                                                }, function (response){									
+                                                        $("#uultra-my-friends-list").html(response);										
+                                            });		
+                                    }
+                                </script>
+                        
+                            </div>
+              
+                        <?php }?>
+       
                     </div>
                     </div>
                 </div>

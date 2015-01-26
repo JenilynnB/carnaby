@@ -264,8 +264,52 @@ class XooSocial
 	
 	
 	}
+        
+        /*Returns the friends list as a multi-dimensional array*/
+        public function get_friends_list($user_id){
+            global $wpdb,  $xoouserultra;		
+            require_once(ABSPATH . 'wp-includes/formatting.php');
+
+            $total = 0;		
+
+            $sql = "SELECT count(*) as total FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$user_id' AND 	friend_status = 1 ";	 
+
+            $res = $wpdb->get_results( $sql );
+ 
+            return $res;
+        }
+	
+	public function get_friend_count($user_id){
+            global $wpdb,  $xoouserultra;		
+            //require_once(ABSPATH . 'wp-includes/formatting.php');
+
+            $total = 0;		
+
+             $sql = "SELECT count(*) as total FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$user_id' AND 	friend_status = 1 ";	 
+
+             $res = $wpdb->get_results( $sql );
+
+             if(!empty($res))
+             {
+                      foreach ( $res as $like )
+                     {
+                            $total = $like->total;				
+                     }
+
+
+              }else{
+
+                      $total = 0;  
+
+              }
+
+             if($total=="")$total = 0;	
+
+
+            return $total;
 	
 	
+        }
 	
 	
 	public function friend_request_action()

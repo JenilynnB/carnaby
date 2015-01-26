@@ -188,8 +188,10 @@ class WPBDP_FeaturedListingsAdvancedWidget extends WP_Widget {
             if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
 
-            echo '<div>';
+            //echo '<div>';
             foreach ($posts as $post) {
+                wpbdp_render_listing($post->ID, 'excerpt', true);
+                /*
                 $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
                 $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
                 
@@ -214,9 +216,11 @@ class WPBDP_FeaturedListingsAdvancedWidget extends WP_Widget {
                 echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
                 
                 echo '</div>';
+                 * 
+                 */
             }
 
-            echo '</div>';
+            //echo '</div>';
             echo $after_widget;
         }
     }    
@@ -269,8 +273,10 @@ class WPBDP_PopularStoresWidget extends WP_Widget {
             if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
 
-            echo '<div>';
+            //echo '<div>';
             foreach ($posts as $post) {
+                wpbdp_render_listing($post->ID, 'excerpt', true);
+                /*
                 $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
                 $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
                 
@@ -295,9 +301,11 @@ class WPBDP_PopularStoresWidget extends WP_Widget {
                 echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
                 
                 echo '</div>';
+                 * 
+                 */
             }
 
-            echo '</div>';
+            //echo '</div>';
             echo $after_widget;
         }
     }    
@@ -387,8 +395,10 @@ class WPBDP_OtherStoresYouMightLikeWidget extends WP_Widget {
             if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
 
-            echo '<div>';
+            //echo '<div>';
             foreach ($posts as $post) {
+                wpbdp_render_listing($post->ID, 'excerpt', true);
+                /*
                 $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
                 $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
                 
@@ -413,9 +423,11 @@ class WPBDP_OtherStoresYouMightLikeWidget extends WP_Widget {
                 echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
                 
                 echo '</div>';
+                 * 
+                 */
             }
 
-            echo '</div>';
+            //echo '</div>';
             echo $after_widget;
         }
     }    
