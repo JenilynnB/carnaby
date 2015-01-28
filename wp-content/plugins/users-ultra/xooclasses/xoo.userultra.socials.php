@@ -270,13 +270,15 @@ class XooSocial
             global $wpdb,  $xoouserultra;		
             require_once(ABSPATH . 'wp-includes/formatting.php');
 
-            $total = 0;		
-
-            $sql = "SELECT count(*) as total FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$user_id' AND 	friend_status = 1 ";	 
+            $sql = "SELECT friend_sender_user_id FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$user_id' AND 	friend_status = 1 ";	 
 
             $res = $wpdb->get_results( $sql );
- 
-            return $res;
+            
+            foreach($res as $r){
+                $friends[] = $r->friend_sender_user_id;
+            }
+            
+            return $friends;
         }
 	
 	public function get_friend_count($user_id){

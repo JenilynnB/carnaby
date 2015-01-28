@@ -1,5 +1,5 @@
 <a name="ratings"></a>
-
+Is this used? businessdirectory-ratings.tpl.php
 <div class="wpbdp-ratings-reviews">
     <h3><?php _e('Reviews', 'wpbdp-ratings'); ?></h3>
 

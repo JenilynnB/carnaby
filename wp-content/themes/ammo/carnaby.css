@@ -22,7 +22,10 @@ Carnaby Dashboard Styles
     background-color: #fff;
 }
 
-.box-section h2, .box-section h3{
+.dashboard .box-section h2, 
+.dashboard .box-section h3,  
+.dashboard .box-section h4,
+.dashboard .box-section h5 {
     text-transform: uppercase;
 }
 
@@ -31,7 +34,7 @@ Carnaby Dashboard Styles
 }
 
 .box-section span{
-    margin: 0px 10px 0px 5px;
+    //margin: 0px 10px 0px 5px;
     text-align: left;
 }
 
@@ -90,6 +93,10 @@ input[type="submit"]:focus {
     //border-color: #40bfbf;
     color: #d3d3d3;
 }
+.user-stats{
+    margin-top: 5px;
+    margin-left: 8px;
+}
 
 .star-on, .star-half{
     color: #ffd02c;
@@ -100,4 +107,45 @@ input[type="submit"]:focus {
 
 .heart-on{
     color: #ff3a3a;
+}
+
+.dashboard .search-form{
+    margin-bottom: 30px;
+}
+.dashboard .search-form input{
+    height: 50px;
+    text-transform: uppercase;
+}
+
+.dashboard .search-form button{
+    background-color: #000000;
+    color: #ffffff;
+    height: 48px;
+}
+
+.dashboard .widget-thumb-large{
+    width: 300px;
+    height: 200px;
+}
+.dashboard .widget-posts{
+  width: 300px;
+  display: inline-block;
+  margin: 20px;
+  //padding: 10px;
+  background-color: #ffffff;
+  
+}
+
+.dashboard .widget-posts-title{
+    padding: 15px;
+}
+
+.dashboard .widget-posts-title a{
+    color: #788991;
+}
+
+.dashboard .widget-posts-title i{
+    font-size: 14px;
+    color: #cdcdcd;
+    float: right;
 }

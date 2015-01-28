@@ -10,6 +10,10 @@
 
 require_once(plugin_dir_path(__FILE__) . 'admin.php');
 
+define( 'WPBDP_RATINGS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WPBDP_RATINGS_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
+define( 'WPBDP_RATINGS_TEMPLATES_PATH', WPBDP_RATINGS_PATH . 'templates' );
+
 class BusinessDirectory_RatingsModule {
 
     const VERSION = '3.4';
@@ -350,6 +354,37 @@ class BusinessDirectory_RatingsModule {
         }
 
         $reviews = $wpdb->get_results($query);
+        return $reviews;
+    }
+    
+    public function get_recent_reviews($last_x_days = 0, $number_of_reviews = 5){
+        global $wpdb;
+        
+        if($last_x_days !=0){
+            $date_limit = date('Y-m-d', strtotime('-'.$last_x_days.' days'));
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d AND created_on > %d ORDER BY created_on DESC LIMIT %d", $user_id, 1, $date_limit, $number_of_reviews);
+        }else{
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d ORDER BY created_on DESC LIMIT %d", $user_id, 1, $date_limit, $number_of_reviews);
+        }
+        
+        $reviews = $wpdb->get_results($query);
+        return $reviews;
+    }
+    
+    public function get_recent_friend_reviews($friend_ids = array(), $last_x_days=0, $number_of_reviews = 5){
+        global $wpdb;
+        
+        $user_ids = implode(',', $friend_ids);
+        
+        if($last_x_days !=0){
+            $date_limit = date('Y-m-d', strtotime('-'.$last_x_days.' days'));
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id IN (%d) AND approved = %d AND created_on > %d ORDER BY created_on DESC LIMIT %d", $user_ids, 1, $date_limit, $number_of_reviews);
+        }else{
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE user_id IN (%d) AND approved = %d ORDER BY created_on DESC LIMIT %d", $user_ids, 1, $number_of_reviews);
+        }
+        
+        $reviews = $wpdb->get_results($query);
+        
         return $reviews;
     }
     

@@ -52,15 +52,18 @@
 
     $user_favorites = wpfp_get_users_favorites($user_id);
     $num_favorites = sizeof($user_favorites);
-
-    //$num_friends = get_friend_count($user_id);
+    
+    global $xoouserultra;
+    
+    $friends = $xoouserultra->social->get_friends_list($user_id);
+    $num_friends = sizeof($friends);
     $howmany = 5;
 
 
 ?>
 
 <section class="primary section">
-    <div class="content">
+    <div class="content dashboard">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -82,18 +85,18 @@
                                 </div>
                                 <div class='col-md-7'>
                                     <div class='dash-user-info'>
-                                        <h3><?php    
+                                        <h4><?php    
                                             echo  $first_name . ' ' . $last_initial;
                                             ?>
-                                        </h3>
+                                        </h4>
                                         <a class='btn btn-secondary btn-md'>VIEW PROFILE</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="user_stats">
+                            <div class="user-stats">
 
-                                <div class="user_stats_reviews">
+                                <div class="user-stats-reviews">
                                     <span>
                                         <i class='fa fa-fw fa-star star-on'></i>
                                     </span>
@@ -105,7 +108,7 @@
                                     }
                                     ?>
                                 </div>
-                                <div class="user_stats_favorites">
+                                <div class="user-stats-favorites">
                                     <span>
                                         <i class='fa fa-fw fa-heart heart-on'></i>
                                     </span>
@@ -135,7 +138,6 @@
                             
                             ?>
                             <div class='box-section'>
-                                
                                 <?php
                                 // Search Box
                                 if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
@@ -143,19 +145,58 @@
                                 endif; 
                                 ?>
                             </div>
-                            <?php
-                            echo do_shortcode('[do_widget "Advanced Featured Stores"]');
-                            echo do_shortcode('[do_widget "Other Stores You Might Like"]');
-                            echo do_shortcode('[do_widget "Popular Stores"]');
-                            echo do_shortcode('[do_widget ": Recent Posts"]');
-
                             
-                            //Get number of friends
-                            //Get reviews from friends (sort by recency)
-                            //If there are no reviews written within the last 7 days
-                            //Get 5 most recent reviews from community and display
+                            <!--
+                            <div class='box-section'>
+                                <h3>Featured Stores</h3>
+                                <?php //echo do_shortcode('[do_widget "Advanced Featured Stores"]'); ?>
+                            </div>
+                            -->
+                        
+                            <div class='box-section'>
+                                <h3>From Our Blog</h3>
+                                <?php echo do_shortcode('[do_widget "Carnaby Recent Posts"]'); ?>
+                            </div>
+                            
+                            <div class='box-section'>
+                                <h3>Other Stores You Might Like</h3>
+                                <?php echo do_shortcode('[do_widget "Other Stores You Might Like"]'); ?>
+                            </div>    
+                            
+                            
 
-                            ?>
+                        
+                            <div class='box-section'>
+                                <h3>Recent Reviews</h3>
+                                <?php
+                                //Showing 5 most recent reviews from friends in the last 7 days
+                                if($num_friends>0){
+                                    $reviews = BusinessDirectory_RatingsModule::get_recent_friend_reviews($friends, 7, 5);
+                                }
+                                $num_friend_reviews = sizeof($reviews);
+                                //If there are not 5 reviews from friends in the last 7 days, show reviews from the community
+                                if($num_friend_reviews<5){
+                                    $additional_reviews = BusinessDirectory_RatingsModule::get_recent_reviews(0, 5 - $num_friend_reviews);
+                                    foreach($additional_reviews as $ar){
+                                        $reviews[] = $ar;
+                                    }
+                                }
+
+                                foreach($reviews as $review){
+                                    $vars = array();
+                                    $vars['rating'] = $review;
+
+                                    $template_path = WPBDP_RATINGS_TEMPLATES_PATH . '/single-review.tpl.php';
+                                    echo wpbdp_render_page($template_path, $vars);
+                                }
+
+                                ?>
+                            </div>
+                        
+                            <div class='box-section'>
+                                <h3>Popular Stores</h3>
+                                <?php echo do_shortcode('[do_widget "Popular Stores"]'); ?>
+                            </div>    
 
                             
                         <?php

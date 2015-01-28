@@ -22,7 +22,10 @@
 }
 
 .wpbdp-ratings-reviews{
-    margin-bottom: 60px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    padding: 25px 15px 25px 20px;
+    
 }
 
 .wpbdp-ratings-reviews .date{
@@ -30,7 +33,22 @@
     
 }
 
+.wpbdp-ratings-reviews .review-rating-date{
+    display:inline-block;
+}
+.wpbdp-ratings-reviews .review-rating{
+    display:inline-block;
+    margin-left: 10px;
+}
 
+.listing-ratings .author-review-store-info{
+    display:none;
+}
+
+.wpbdp-ratings-reviews .author-review-store-info{
+    font-weight: normal;
+    display: inline-block;
+}
 
 /*
  * Form
@@ -138,7 +156,7 @@
     
 }
 
-.wpbdp-ratings-reviews .listing-ratings .rating .author {
+.wpbdp-ratings-reviews .author {
     font-weight: bold;
     margin-top: 5px;
 }
