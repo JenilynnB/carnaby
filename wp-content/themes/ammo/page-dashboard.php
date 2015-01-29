@@ -172,6 +172,8 @@
                                 //Showing 5 most recent reviews from friends in the last 7 days
                                 if($num_friends>0){
                                     $reviews = BusinessDirectory_RatingsModule::get_recent_friend_reviews($friends, 7, 5);
+                                }else{
+                                    $reviews = array();
                                 }
                                 $num_friend_reviews = sizeof($reviews);
                                 //If there are not 5 reviews from friends in the last 7 days, show reviews from the community

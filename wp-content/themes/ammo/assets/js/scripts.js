@@ -869,8 +869,7 @@ $(document).ready(function(){
 	  dots: true,
           infinite: false,
           slidesToShow: 3,
-          slidesToScroll: 6,
-          fade: true,
+          slidesToScroll: 3,
           responsive: [
             {
               breakpoint: 1024,

@@ -173,6 +173,12 @@ function themeton_enqueue_scripts() {
     wp_enqueue_style( 'animate', get_template_directory_uri() . '/assets/css/animate.css' );
     wp_enqueue_style( 'theme-default-styles', get_stylesheet_uri() );
     
+    /* Slick Slider */
+    wp_enqueue_style('slick', get_template_directory_uri().'/assets/plugins/slick/slick.css');
+    wp_enqueue_script('slick', get_template_directory_uri().'/assets/plugins/slick/slick.min.js');
+    
+
+    
     wp_enqueue_style( 'theme-style', get_less_to_css_path() );
     
     wp_enqueue_style('carnaby', get_template_directory_uri().'/carnaby.css' );

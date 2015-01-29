@@ -88,9 +88,6 @@ function blox_render_scripts() {
     wp_enqueue_style('blox-admin-global-css',   BLOX_PATH.'css/blox-admin-global.css');
     wp_enqueue_script('blox-admin-global-js',   BLOX_PATH.'js/blox-admin-global.js', false, false, true);
 
-    /* Slick */
-    wp_enqueue_style('slick',                   get_template_directory_uri().'assets/plugins/slick.css');
-    wp_enqueue_script('slick',                  get_template_directory_uri().'assets/plugins/slick.min.js');
     global $post_types;
     if ($post_types != '') {
         foreach ($post_types as $key => $value) {

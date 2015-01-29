@@ -30,7 +30,7 @@ Carnaby Dashboard Styles
 }
 
 .box-section i{
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .box-section span{
@@ -148,4 +148,110 @@ input[type="submit"]:focus {
     font-size: 14px;
     color: #cdcdcd;
     float: right;
+}
+
+.slick-prev:before, .slick-next:before{
+    color: #000;   
+}
+
+/****************************************
+Carnaby Homepage Styles
+*****************************************/
+
+.homepage .main-panel{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 250px;
+    padding-top: 250px;
+    
+    //width: 1441px;
+    //max-width: 1441px;
+    //height: 600px;
+}
+
+.homepage .main-panel .header-content{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.homepage .main-panel h1{
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.homepage .main-panel .search-box{
+    width: 500px;
+    margin: auto;
+}
+
+.homepage .main-panel input{
+    text-transform: uppercase;
+    color: #cdcdcd;
+    height: 50px;
+    width: 500px;
+    max-width: 500px;
+}
+
+.homepage .main-panel button{
+    background-color: #000000;
+    color: #ffffff;
+    height: 50px;
+    padding: 0px 20px 0px 20px;
+}
+
+.homepage .info-panel{
+    
+}
+
+.homepage .categories-panel{
+    
+}
+
+.homepage .posts-panel{
+    
+}
+
+@media only screen and (max-width: 991px){
+    .homepage .main-panel{
+        padding-top: 130px;
+    }
+    .homepage .main-panel h1 { 
+        font-size:42px;
+    }
+    
+}
+
+@media only screen and (max-width: 767px){
+    .homepage .main-panel .search-box{
+        width: 400px;
+    }
+    .homepage .main-panel input{
+        width: 300px;
+        font-size: 90%;
+    }
+    .homepage .main-panel h1 { 
+        font-size:34px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .homepage {
+        padding-top: -45px;
+    }
+    
+    .homepage .main-panel h1 { 
+        font-size:25px;
+    }
+    .homepage .main-panel .search-box{
+        width: 250px;
+    }
+    .homepage .main-panel input{
+        width: 175px;
+        font-size: 65%;
+    }
 }

@@ -129,9 +129,9 @@ form#wpbdmsearchform a.advanced-search-link {
 /* listing view > excerpt */
 
 .wpbdp-listing-excerpt{
-    width: 320px;
+    width: 300px;
     display: inline-block;
-    margin: 10px;
+    margin: 0px 20px 20px 0px;
     padding: 10px;
     background-color: #ffffff;
     text-align: center;

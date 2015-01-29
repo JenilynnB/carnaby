@@ -138,7 +138,7 @@ class Carnaby_RecentPostsWidget extends WP_Widget {
         if ($title != '')
             echo $args['before_title'] . $title . $args['after_title'];
 
-        echo '<div class="slider slick-initialized slick-slider slick-slider-posts">';
+        echo '<div class="slick-slider-posts">';
         while (have_posts()) : the_post();
             echo '<div class="widget widget-posts">';
             $comments = wp_count_comments($post->ID);
@@ -148,13 +148,16 @@ class Carnaby_RecentPostsWidget extends WP_Widget {
                     <span class="month">'.date_i18n( 'M',  strtotime( get_the_date( "Y-m-d" ) ) ).'</span>
                 </span>';
             } else {
-                echo '<span class="widget-thumb-large">';
+                echo '<div class="widget-thumb-large">';
                 if(has_post_thumbnail()) {
-                    the_post_thumbnail(array(300,200));
+                    $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'medium');
+                    $thumbnail_url = $thumbnail_url[0];
+                    echo '<img src="'.$thumbnail_url.'" width="300" height="200">';
+                    //the_post_thumbnail(array(300,200));
                 } else {
                     echo '<span class="entry-format"></span>';
                 }
-                echo '</span>';
+                echo '</div>';
             }
             echo '<div class="widget-posts-title">';
             echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
