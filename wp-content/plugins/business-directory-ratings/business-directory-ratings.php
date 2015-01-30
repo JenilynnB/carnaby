@@ -362,9 +362,9 @@ class BusinessDirectory_RatingsModule {
         
         if($last_x_days !=0){
             $date_limit = date('Y-m-d', strtotime('-'.$last_x_days.' days'));
-            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d AND created_on > %d ORDER BY created_on DESC LIMIT %d", $user_id, 1, $date_limit, $number_of_reviews);
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d AND created_on > %d ORDER BY created_on DESC LIMIT %d", 1, $date_limit, $number_of_reviews);
         }else{
-            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d ORDER BY created_on DESC LIMIT %d", $user_id, 1, $date_limit, $number_of_reviews);
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d ORDER BY created_on DESC LIMIT %d", 1, $number_of_reviews);
         }
         
         $reviews = $wpdb->get_results($query);
