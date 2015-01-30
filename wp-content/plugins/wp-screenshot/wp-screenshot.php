@@ -78,7 +78,9 @@ function updateScreenshot($post){
                 
                 if($date_diff->d < 7){
                     //If it was taken less than a week ago, return
-    
+                    $screenshot_url = get_screenshot_url($url, $width);
+                    save_image($screenshot_url, $listing_id);
+                    
                     return;
                 }
             }else{
@@ -89,8 +91,11 @@ function updateScreenshot($post){
         }
     }
     
-    /*If the code proceeds to this point, the screenshot exists and was taken more than a week ago OR the 
-        screenshot doesn't exist, take a new one.*/
+    /*If the code proceeds to this point, the screenshot exists and was taken more than a week ago OR the
+     * screenshot doesn't exist, take a new one.
+     */
+    
+    
     
     //One of these two following sections should always be commented out. Used to switch the method of getting screenshots
     
@@ -177,23 +182,43 @@ function save_image($url, $listing_id){
             'post_content' => '',
             'post_status' => 'inherit'
         ), $upload['file']) ) {
+            
+            //get the size and dimensions of the file specified ($filename);
+        
+        
             $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
             wp_update_attachment_metadata( $attachment_id, $attach_metadata );
             
             //Look through existing attached media and delete existing screenshots
             $media = get_attached_media('image/jpeg', $listing_id);
             
-            //Save the new image media id to the listing
-            wp_update_post(array('ID' => $attachment_id, 'post_parent' => $listing_id));
-            set_thumbnail_id($listing_id, $attachment_id);
+            $filesize = filesize( get_attached_file( $attachment_id ) );
             
-            if(!empty($media)){
-                foreach($media as $m){
-                    $title_length = strlen($post_title);
-                    $nospace_post_title = preg_replace("/[\s_]/", "-",$post_title."-screenshot");
-                    
-                    if(strcmp(substr($m->post_title, 0, $title_length+11),$nospace_post_title)==0){
-                        wp_delete_attachment($m->ID);
+            /*Checks to see if the filesize is less than 10kb, which means that the file is most likely 
+             * the wordpress loading image. We do not want to set this as the thumbnail for the listing.
+             */
+            if($filesize>10000){
+                //Save the new image media id to the listing
+                wp_update_post(array('ID' => $attachment_id, 'post_parent' => $listing_id));
+                set_thumbnail_id($listing_id, $attachment_id);
+                
+                /*
+                 * Goes through all media and removes old attachments
+                 */
+                if(!empty($media)){
+                    foreach($media as $m){
+                        $title_length = strlen($post_title);
+                        $nospace_post_title = preg_replace("/[\s_]/", "-",$post_title."-screenshot");
+
+                        if(strcmp(substr($m->post_title, 0, $title_length+11),$nospace_post_title)==0){
+                            wp_delete_attachment($m->ID);
+                        }
+                        /*
+                        if($filesize<10000){
+                            wp_delete_attachment($m->ID);
+                        }
+                         * 
+                         */
                     }
                 }
             }
