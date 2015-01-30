@@ -335,7 +335,7 @@ var $fieldConditions = [];
 				if(newTimestamp>ajaxLastTimestamp)
 				{
 					ajaxLastTimestamp = newTimestamp;
-					handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object, $ajax_links_object);
+                                        handleAjaxUpdate(data, form_id, use_history_api, ajax_target_attr, ajax_links_selector, $ajax_target_object, $ajax_links_object);
 				}
 				else
 				{
@@ -364,6 +364,8 @@ var $fieldConditions = [];
                         
                         $ajax_target_object.html($new.html());
                       
+                        WPBDP.ratings.init();
+					
 			if(use_history_api==1)
 			{
 			
