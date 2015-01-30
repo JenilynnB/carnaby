@@ -272,7 +272,7 @@ Carnaby Homepage Styles
     text-align: center;
 }
 
-.homepage .categories-panel .category-content{
+.homepage .category-content{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -302,16 +302,9 @@ Carnaby Homepage Styles
     top: 10px;
     left: 10px;
 }
-#women-category-title, #men-category-title, #kids-category-title{
-    //-webkit-transition: display 5s ease-in;
-    //-moz-transition: display 5s ease-in;
-    //-webkit-transition-delay: .5s;
-    //-moz-transition-delay: .5s;
-    //transition-delay: .5s;
-}
+
 
 #category-women:hover #overlay-women{opacity: .6;}
-//#category-women:hover #women-category-title{display:none;}
 #category-men:hover #overlay-men{opacity: .6;}
 #category-kids:hover #overlay-kids{opacity: .6;}
 
@@ -341,40 +334,50 @@ Carnaby Homepage Styles
     color: #ffffff;
 }
 
+.homepage .posts-content{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    width: 350px;
+    margin: 10px;   
+    padding: 0px;
+    position: relative;
+    
+}
+
 .homepage .posts-panel{
     text-align: center;
 }
 
-.homepage .posts-panel .widget-thumb-large{
+.homepage .posts-panel .post-thumb-container{
     width: 350px;
     height: 200px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 10px 10px 0px 10px;
-}
-.homepage .widget-post{
-    padding: 0px;
+    overflow: hidden;
+    
 }
 
-.homepage .widget-posts-title{
+.homepage .posts-panel .post-thumb-container img{
+    width: 100%;    
+}
+
+
+.homepage .post-title{
     padding: 15px;
-    margin: 0px 10px;
     background-color: #ffffff;
     text-align: left;
 }
 
-.homepage .widget-posts-title a{
+.homepage .post-title a{
     color: #788991;
     
 }
 
-.homepage .widget-posts-title i{
+.homepage .post-title i{
     font-size: 14px;
     color: #cdcdcd;
     float: right;
 }
-
 
 .divider-space{
     height: 20px;
