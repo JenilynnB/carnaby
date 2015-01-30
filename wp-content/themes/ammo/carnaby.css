@@ -13,6 +13,18 @@ and open the template in the editor.
 /*********************
 Carnaby Dashboard Styles
 **********************/
+.centered {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     /* bring your own prefixes */
+     transform: translate(-50%, -50%);
+}
+
+.content{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
 .box-section{
     margin: 10px;
 }
@@ -158,6 +170,12 @@ input[type="submit"]:focus {
 Carnaby Homepage Styles
 *****************************************/
 
+.homepage h2, .homepage h3, homepage h4{
+    text-transform: uppercase;
+}
+.homepage h4{
+    font-size: 15px;
+}
 .homepage .main-panel{
     background-size: cover;
     background-repeat: no-repeat;
@@ -206,15 +224,160 @@ Carnaby Homepage Styles
 }
 
 .homepage .info-panel{
-    
+    background-color: #ffffff;
+}
+.homepage .info-panel-content{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+}
+.homepage .info-panel .info-box{
+    width: 320px;
+    padding: 10px 5px 30px 5px;
+    text-align: center;
+    display: inline-block;
+    -webkit-animation: fadeInUp;
+    animation: fadeInUp;
+    margin: auto;
+}
+
+.homepage .info-panel i{
+    font-size: 35px;
+    line-height: 2em;
+    font-weight: bold;
+    color: #66cccc;
 }
 
 .homepage .categories-panel{
+    text-align: center;
+}
+
+.homepage .categories-panel-content, .homepage .posts-panel-content{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  
+    -webkit-flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.homepage .categories-panel .category-content{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    width: 350px;
+    height: 200px;
+    margin: 10px;   
+    padding: 0px;
+    position: relative;
     
 }
 
+.homepage .categories-panel .category-overlay{
+    background-color: #000;
+    opacity: 0;
+    text-align: center;
+    -webkit-transition: opacity .5s ease-in;
+    -moz-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+    -webkit-transition: opacity .25s ease-out;
+    -moz-transition: opacity .25s ease-out;
+    transition: opacity .25s ease-out;
+    width: 95%;
+    height: 90%;
+    margin: auto;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+#women-category-title, #men-category-title, #kids-category-title{
+    //-webkit-transition: display 5s ease-in;
+    //-moz-transition: display 5s ease-in;
+    //-webkit-transition-delay: .5s;
+    //-moz-transition-delay: .5s;
+    //transition-delay: .5s;
+}
+
+#category-women:hover #overlay-women{opacity: .6;}
+//#category-women:hover #women-category-title{display:none;}
+#category-men:hover #overlay-men{opacity: .6;}
+#category-kids:hover #overlay-kids{opacity: .6;}
+
+.homepage .category-content .category-label{
+    font-family: Playfair Display, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    position: absolute;
+    top: 45px;
+    z-index: 100;
+}
+.homepage .category-label a{
+    color: #fff;
+}
+
+#women-category-title{left:95px;}
+#men-category-title{left:125px}
+#kids-category-title{left:10px}
+
+.homepage .category-btn{
+    border: 1px solid #ffffff;
+    position: absolute;
+    top: 105px;
+    left: 140px;
+}
+.homepage .category-btn a{
+    color: #ffffff;
+}
+
 .homepage .posts-panel{
+    text-align: center;
+}
+
+.homepage .posts-panel .widget-thumb-large{
+    width: 350px;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 10px 10px 0px 10px;
+}
+.homepage .widget-post{
+    padding: 0px;
+}
+
+.homepage .widget-posts-title{
+    padding: 15px;
+    margin: 0px 10px;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+.homepage .widget-posts-title a{
+    color: #788991;
     
+}
+
+.homepage .widget-posts-title i{
+    font-size: 14px;
+    color: #cdcdcd;
+    float: right;
+}
+
+
+.divider-space{
+    height: 20px;
 }
 
 @media only screen and (max-width: 991px){
