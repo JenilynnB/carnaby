@@ -21,16 +21,16 @@ get_header();
                         <div class="search-box">
                             <?php
                             if( isset($smof_data['search_box']) && $smof_data['search_box'] == 1):
-                                get_search_form();    
+                                get_search_form();
                             endif; 
                             ?>
+  
                         </div>
                     </div>
                 </div>
             </div>
         </div> 
     </div>
-    
     <div class="section-normal info-panel">
         <div class="divider-space"></div>
         <div class="container">

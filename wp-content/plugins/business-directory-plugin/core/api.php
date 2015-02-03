@@ -1299,7 +1299,7 @@ function render_good_for(){
         foreach($good_for_values as $g){
             $values[] = $good_for_object['choices'][$g];
         }
-        $return = '<i class="icon-tag"></i> '.implode(", ", $values);
+        $return = '<i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $values);
     }
 
     return $return;
@@ -1494,21 +1494,56 @@ function wpbdp_has_module( $module ) {
     return $wpbdp->has_module( $module );
 }
 
-function get_listing_outbound_url($id){
+function get_listing_outbound_link($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
+    $dubdub = strpos($base_url, "www.");
+    
+    if ( $dubdub ===FALSE){
+        $no_dub_url = $base_url;
+        
+    }else{
+       $no_dub_url = substr($base_url,$dubdub+4); 
+    }
+    
     if((get_shopstyle_retailer_id($id))!=''){
-        $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>'.$base_url.'</a>';
+        $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
     }else{
         
         if (strcmp(substr($base_url, 0, 7), "http://") !=0){
-            $url = "http://" . $url;
+            $url = "http://" . $base_url;
         }else{
             $url = $base_url;
         }
-        $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>'.$base_url.'</a>';
+        $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;&nbsp;Visit'.$no_dub_url.'</a>';
     }
     return $listing_url;
 }
+
+function get_listing_outbound_url($id){
+    $base_url = wpbdp_render_listing_field('URL', $id);
+    $dubdub = strpos($base_url, "www.");
+    
+    if ( $dubdub ===FALSE){
+        $no_dub_url = $base_url;
+        
+    }else{
+       $no_dub_url = substr($base_url,$dubdub+4); 
+    }
+    
+    if((get_shopstyle_retailer_id($id))!=''){
+        $listing_url = get_shopstyle_retailer_url($id);
+    }else{
+        
+        if (strcmp(substr($base_url, 0, 7), "http://") !=0){
+            $url = "http://" . $base_url;
+        }else{
+            $url = $base_url;
+        }
+        $listing_url = $url;
+    }
+    return $listing_url;
+}
+
 
 function carnaby_display_listing_excerpt($title, $posts){
     if ( ! empty( $title ) ) echo $title;
@@ -1539,4 +1574,8 @@ function carnaby_display_listing_excerpt($title, $posts){
 
     echo '</div>';
 
+}
+
+function support_email_address(){
+    return "support@carnabywest.com";
 }

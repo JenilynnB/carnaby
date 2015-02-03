@@ -210,7 +210,7 @@ Carnaby Homepage Styles
 
 .homepage .main-panel input{
     text-transform: uppercase;
-    color: #cdcdcd;
+    color: #788991;
     height: 50px;
     width: 500px;
     max-width: 500px;
@@ -369,7 +369,7 @@ Carnaby Homepage Styles
 }
 
 .homepage .post-title a{
-    color: #788991;
+    color: #000000;
     
 }
 
@@ -383,6 +383,7 @@ Carnaby Homepage Styles
     height: 20px;
 }
 
+
 @media only screen and (max-width: 991px){
     .homepage .main-panel{
         padding-top: 130px;
@@ -391,6 +392,24 @@ Carnaby Homepage Styles
         font-size:42px;
     }
     
+    .listing-actions-mobile{
+        display:none;
+    }
+    .listing-actions{
+        display: inline-block;
+    }
+    .wpbdp-listing .listing-header{
+        //padding-top: 130px;
+    }
+}
+
+@media only screen and (min-width: 767px){
+    .wpbdp-listing .listing-actions-mobile{
+        display: none;
+    }
+    .listing-actions{
+        display: inline-block;
+    }
 }
 
 @media only screen and (max-width: 767px){
@@ -403,6 +422,12 @@ Carnaby Homepage Styles
     }
     .homepage .main-panel h1 { 
         font-size:34px;
+    }
+    .listing-actions-mobile{
+        display:inline-block;
+    }
+    .listing-actions{
+        display: none;
     }
 }
 @media only screen and (max-width: 400px) {
@@ -420,4 +445,100 @@ Carnaby Homepage Styles
         width: 175px;
         font-size: 65%;
     }
+    
+    .listing-actions{
+        display:none;
+    }
+    .listing-actions-mobile{
+        display: inline-block;
+    }
+    .listing-action{
+        text-align: center;
+    }
+    .listing-action i{
+        font-size: 18px;
+    }
+    
+    .listing-action.link a{
+        content: "Visit";
+    }
+}
+
+.listing-header .content{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.wpbdp-listing .listing-header{
+    background-color: #ebebeb;
+    position: relative;
+    //margin-top: -20px;  
+}
+
+.wpbdp-listing .listing-element{
+    margin: 0px 10px 0px 10px;
+    
+}
+.wpbdp-listing .topline-items:first-child{
+    margin-left: 0px;
+}
+
+.wpbdp-listing .listing-element h1{
+    font-size: 28px;
+}
+
+.wpbdp-listing .listing-element.tags{
+    font-style: italic;
+    display: block;
+}
+
+.wpbdp-listing .listing-actions .wpfp-link.remove:after{
+    content: "  Remove from Favorites";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions .wpfp-link.add:after{
+    content: " Add to Favorites";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions-mobile .wpfp-link.remove:after{
+    content: "  Favorite";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions-mobile .wpfp-link.add:after{
+    content: "  Favorite";
+    padding-left: 8px;
+}
+
+.wpbdp-listing-single .listing-actions-mobile, .wpbdp-listing-single .listing-actions{
+    margin: 20px 0px 20px 0px;
+}
+
+.wpbdp-listing-single .listing-actions-mobile i{
+    font-size: 22px;
+}
+
+
+.wpbdp-listing-single .listing-actions-mobile .listing-action{
+    border: 1px solid;
+    border-color: #dedede;
+    padding: 10px 15px;
+    text-align: center;
+    height: 60px;
+}
+.wpbdp-listing-single .suggest-edit{
+    margin-top: 10px;
+    
+}
+
+.wpbdp-listing-single .listing-actions .listing-action{
+    
+    border: 1px solid;
+    border-color: #dedede;
+    padding: 10px 15px; 
+}
+
+.wpbdp-listing .listing-action a{
+    color: #000000;
 }

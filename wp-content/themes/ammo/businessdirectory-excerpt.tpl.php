@@ -8,17 +8,10 @@
         <?php echo wpbdp_render_listing_field_html('Business Name'); ?>
     </div>
     <div class="listing-url">
-        <?php if((get_shopstyle_retailer_id($listing_id))!=''): ?>
-            <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
-        <?php else: 
-            $url = wpbdp_render_listing_field('URL');
-            if (strcmp(substr($url, 0, 7), "http://") !=0){
-                $url = "http://" . $url;
-            }
+        <?php
+            $url = get_listing_outbound_url($listing_id);
           ?>
-            <div class="listing-element"><a href="<?php echo $url; ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
-
-        <?php endif; ?>
+        <div class="listing-element"><?php echo $url;?></div>
     </div>
     
     <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)'); ?></div>

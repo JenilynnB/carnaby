@@ -89,20 +89,6 @@ form#wpbdmsearchform a.advanced-search-link {
     color: #ff0000;
 }
 
-/*.listing-actions a {
-    background: none repeat scroll 0 0 #000;
-    border-radius: 3px 3px 3px 3px;
-    color: #fff;
-    padding: 2px 8px;
-    text-decoration: none;
-    margin-right: 8px;
-    text-align: center;
-}
-
-.listing-actions a.delete-listing {
-    margin-left: 20px;
-    background: #ff0000;
-}*/
 
 .wpbdp-listing .listing-details .field-value {
     margin-bottom: 10px;
@@ -160,19 +146,7 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-top: 15px;
 }
 
-/* listing views > single */
-.wpbdp-listing-single .listing-actions {
-    margin-top: -15px;
-    font-size:12px;
-    flex-wrap: wrap;
-    border-spacing: 5px;
-    border-collapse: separate;
-    border: none;
-}
 
-.listing-actions>tbody>tr>td{
-    border:none;
-}
 
 .wpbdp-listing-single .stickytag {
     float: right;
@@ -183,13 +157,14 @@ form#wpbdmsearchform a.advanced-search-link {
     border: 0;
     box-shadow: none;
 }
-
+/*
 .wpbdp-listing-single .listing-title {
     padding: 2px 8px;
     background: #efefef;
     border: dotted 1px #ddd;
     margin-bottom: 7px;
 }
+*/  
 
 .wpbdp-listing-single .listing-title h2 {
     clear: none;
@@ -370,45 +345,8 @@ form#wpbdmsearchform a.advanced-search-link {
 */
 }
 
-.listing-action{
-    margin:3px;
-    padding: 10px 15px;
-}
-
-.listing-action.favorite{
-    border: 1px solid;
-    border-color: #f2f2f2;
-    border-radius: 4px;
-    text-transform: uppercase;
-    background-color:#fff;
-    width: 170px;
-}
-
-.listing-action.review{
-    background-color: #66cccc;
-    text-transform: uppercase;
-    border-radius: 4px;
-    width: 170px;
-    margin:auto;
-}
-.listing-action.review a{
-    color: #ffffff;  
-}
 
 
-.listing-action-suggest-edit{
-    margin:3px auto;
-//    padding: 10px 25px;
-    min-width: 210px;
-    display: flex;
-    display: -ms-flexbox;    
-    display: -webkit-box;    
-    display: -webkit-flexbox; 
-    display: -webkit-flex;
-}
-.listing-action-suggest-edit a{
- margin: auto;  
-}
 
 .flex{
     display: -ms-flexbox;    

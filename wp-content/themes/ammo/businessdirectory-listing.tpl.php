@@ -1,83 +1,66 @@
-<section class="primary section">
+<section class="section listing-header">
    
      <div class="container">
         
         <div class="content">       
-            <?php 
-            if ($is_sticky):
-                 echo $sticky_tag;
-            endif; ?>
+
             <div class="row">
                 <div class="col-md-8">            
-                    <div class="wpbdp_listing_heading">
-                        <div class="wpbdp-listing-title-info">
+                    <div class="wpbdp-listing short-info">
+                        <div class="listing-title">
                             
-                            <div class="entry-title">
-                                <h1 itemprop="name"><?php echo $title; ?></h1>
-                            </div>
-
-                            <!--
-                            <?php if ($actions): ?>
-                                <?php echo $actions; ?>
-                            <?php endif; ?>
-                            -->
-                            
-                            
-                            <div class="listing-element"></div>
-                            <div class="listing-rating"><?php echo wpbdp_render_listing_field_html('Rating (average)', $listing_id); ?></div>
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
+                            <div class="topline-items">
                                 
-                                <?php 
-                                    $url = get_listing_outbound_url($listing_id);
-                                /*
-                                if((get_shopstyle_retailer_id($listing_id))!=''): ?>
-                                    <div class="listing-element"><a href="<?php echo get_shopstyle_retailer_url($listing_id); ?>" target="_blank"><?php echo wpbdp_render_listing_field('URL'); ?></a></div>
-                                <?php else: 
-                                    $url = wpbdp_render_listing_field('URL');
-                                    if (strcmp(substr($url, 0, 7), "http://") !=0){
-                                        $url = "http://" . $url;
-                                    }
-                                 * 
-                                 */
-                                  ?>
-                                    <div class="listing-element"><?php echo $url; ?></div>
-                                    
-                               
+                                <div class="listing-element"><h1 itemprop="name"><?php echo $title; ?></h1></div>
+                                <div class="listing-element"><?php echo wpbdp_render_listing_field_html('Rating (average)', $listing_id); ?></div>
+                                <div class="listing-element"><?php echo render_price_field(); ?></div>
                             </div>
+                            
+                            <div class='listing-element tags'><?php echo render_good_for(); ?></div>
+                            
                         </div>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
-                            <div class='listing-element'><?php the_terms($listing_id, WPBDP_TAGS_TAX, '<i class="icon-tag"></i> ');?></div>                            
-                            </div>
-                        </div>
+                        <div class="listing-element"><?php echo the_content();?></div>
                         
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8 col col-sm-9 col-xs-12">
-                                <div class='listing-element'><?php echo get_top_apparel_categories_html();?></div>
-                                
-                                <div > <?php echo render_listing_highlights(); ?> </div>
-                            </div>
-                        </div>
+                        
+                        <!--<div class='listing-element'><?php the_terms($listing_id, WPBDP_TAGS_TAX, '<i class="icon-tag"></i> ');?></div>  -->
+                        
+                        <!--<div class='listing-element'><?php echo get_top_apparel_categories_html();?></div>-->
+                        <!--<div > <?php echo render_listing_highlights(); ?> </div> -->
+                            
                     </div> 
 
                 </div>
-                <div class="col-md-4 pull-right">
-                    <table class="listing-actions edit-trigger">
-                    <tr>
-                        <td class="listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></td>
-                        <?php if(has_written_review()): ?>
-                            <td class="listing-action review"><a href="#form_wrapper_edit" id="toplink"><i class="fa fa-plus-square-o"></i> Edit My Review</a></td>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="listing-actions edit-trigger">
+                        
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action link"><?php echo get_listing_outbound_link($listing_id); ?></div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action review">
+                            <?php if(has_written_review()): ?>
+                            <a href="#form_wrapper_edit" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Edit My Review</a>
                         <?php else: ?>
-                            <td class="listing-action review"><a href="#form_wrapper" id="toplink"><i class="fa fa-plus-square-o"></i>Write a Review</a></td>
+                            <a href="#form_wrapper" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
                         <?php endif; ?>
-                    </tr>
-                    <tr>
-                        <td></td><td class="pull-right"><div ><a href=""><i class="fa fa-pencil-square-o"></i> Suggest an Edit</a></div></td>
-                    </tr>
-                    </table>
+                        </div>
+                        <div class="sugggest-edit pull-right"><div class="suggest-edit"><a href="mailto: <?php echo support_email_address();?>"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp; Suggest an Edit</a></div></div>
+                    </div>
+                    
+                    <div class="listing-actions-mobile edit-trigger">
+                        
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action link">
+                            <a href="<?php echo get_listing_outbound_url($listing_id); ?>" target="_blank"><i class="fa fa-external-link"></i><br/> Visit</a>
+                        </div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action review">
+                            <?php if(has_written_review()): ?>
+                            <a href="#form_wrapper_edit" id="toplink"><i class="fa icon-bubble"></i><br/>Review</a>
+                        <?php else: ?>
+                            <a href="#form_wrapper" id="toplink"><i class="fa icon-bubble"></i><br/>Review</a>
+                        <?php endif; ?>
+                        </div>
+                        <div class="sugggest-edit pull-right"><div class="suggest-edit"><a href="mailto: <?php echo support_email_address();?>"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp; Suggest an Edit</a></div></div>
+                    </div>
+                    
                 </div>
             </div>     
             
@@ -154,11 +137,11 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="listing-side-container col-md-12">
-                                <?php echo the_content();?>
+                                
                             </div>
                         </div>
                         <div class="row">
-                            <div class='listing-element'><?php echo render_good_for(); ?></div>
+                            
                         </div>
 
                         <div class="row">

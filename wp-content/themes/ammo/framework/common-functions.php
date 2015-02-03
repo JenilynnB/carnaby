@@ -929,7 +929,7 @@ function tt_search_form( $form ) {
     $form = '<div class="search-form">
                 <form method="get" id="searchform" action="'.esc_url( home_url( '/' ) ).'">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="s" placeholder="'. __('What are you shopping for today? ...', 'themeton'). '">
+                        <input type="text" class="form-control" name="s" placeholder="'. __('What are you shopping for?', 'themeton'). '">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit">'. __('Search!', 'themeton'). '</button>
                         </span>
