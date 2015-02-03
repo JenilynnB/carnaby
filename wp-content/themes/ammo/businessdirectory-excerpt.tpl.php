@@ -9,7 +9,7 @@
     </div>
     <div class="listing-url">
         <?php
-            $url = get_listing_outbound_url($listing_id);
+            $url = get_listing_outbound_link($listing_id);
           ?>
         <div class="listing-element"><?php echo $url;?></div>
     </div>

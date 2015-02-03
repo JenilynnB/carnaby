@@ -1514,7 +1514,7 @@ function get_listing_outbound_link($id){
         }else{
             $url = $base_url;
         }
-        $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;&nbsp;Visit'.$no_dub_url.'</a>';
+        $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
     }
     return $listing_url;
 }
