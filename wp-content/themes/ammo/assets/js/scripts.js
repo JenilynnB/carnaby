@@ -845,6 +845,11 @@ jQuery(window).load(function() {
 
 });
 
+/******************************************************
+ * Animation to scroll user down the page when
+ * they click to write a review on the listing page
+ ******************************************************/
+
 $(document).ready(function(){
   $('a[href*=#][id="toplink"]').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
@@ -863,6 +868,10 @@ $(document).ready(function(){
   
 });
 
+/*******************************************
+ * Slick Slider animation
+ * *****************************************
+ */
 
 $(document).ready(function(){
     $('.slick-slider-posts').slick({
@@ -896,4 +905,197 @@ $(document).ready(function(){
             }
           ]
 	});
+});
+
+
+/******************************************************************************
+ * Flipping forms between registration and login
+ ******************************************************************************/
+
+
+
+$('.linkform').live('click', function(e){
+   try{
+        var $form_wrapper = $('#reg_form_wrapper'), 
+            $currentForm = $form_wrapper.children('.active');
+    }catch(e){
+        return;
+    }
+    var $link = jQuery(this);
+    var target = $link.attr('rel');
+    
+    
+    $currentForm.fadeOut(400, function(){
+        $currentForm.removeClass('active');
+        $currentForm = $form_wrapper.children("."+target);
+    
+    /*Can this be cleaned up since the size should not change? Simply a fade in of the new form?*/
+    $form_wrapper.stop()
+            .animate({
+                //width: $currentForm.data('width') + 'px',
+                //height: $currentForm.data('height') + 'px'
+            }, 500, function(){
+                $currentForm.addClass('active');
+                $currentForm.fadeIn(400);
+            });
+    });
+   
+});
+
+/* Initializing the registration & login forms to flip*/
+
+$(function(){
+    
+    try{
+        var $form_wrapper = $('#reg_form_wrapper'), 
+            $currentForm = $form_wrapper.children('.active'), 
+            $linkform = $form_wrapper.find('.linkform');
+        if ($form_wrapper.length==0){
+            var $form_wrapper = $('#form_wrapper_edit'), 
+            $currentForm = $form_wrapper.children('.active'), 
+            $linkform = $form_wrapper.find('.linkform');
+        }
+    }catch(e){
+        return;
+    }
+    
+    $form_wrapper.children('.flip-form').each(function(i){
+        var $theForm = $(this);
+        if(!$theForm.hasClass('active'))
+            $theForm.hide();
+        $theForm.data({    
+            //width : $theForm.width(),
+            //height: $theForm.height() 
+       });
+    });
+
+    
+    /* Function to animate scroll down the page and open appropriate form when
+     * the user clicks to write a review
+     * 
+     * Additional logic needs to be added here to have different outcomes when 
+     * the user is logged in and logged out
+     **/
+    $( "#toplink" ).bind( "click", function(e) {
+        $currentForm = $form_wrapper.children('.write-review-btn');
+        if ($currentForm.length==0){
+            $currentForm = $form_wrapper.children('.review-details');
+        }
+        
+        var target = $linkform.attr('rel');
+        
+        $currentForm.fadeOut(400, function(){
+            $currentForm.removeClass('active');
+            $currentForm = $form_wrapper.children("."+target);
+            $form_wrapper.stop()
+                .animate({
+                    width: $currentForm.data('width') + 'px',
+                    height: $currentForm.data('height') + 'px'
+                }, 500, function(){
+                    $currentForm.addClass('active');
+                    $currentForm.fadeIn(400);
+                });
+        });
+        e.preventDefault();
+    });
+
+    
+});
+
+/*
+ * Determines whether the header is fixed and adjusts the height of the
+ * registration modal as necessary.
+ */
+$(document).on("show.bs.modal", ".modal", function() {
+    try{
+       var $modal = $('#reg-modal-dialog'), $header = $('#header');
+    }catch(e){
+        return;
+    }
+    //get the position from the header
+    var height;
+    if($header.css('position')=='fixed'){
+        height = $header.height();
+    }else{
+        height = 0;
+    }
+   
+    height +=10;
+    $modal.css('padding-top', height);
+   
+});
+
+
+
+/******************************************************************************
+ * Flipping forms for writing a review
+ ******************************************************************************/
+
+
+
+$('.linkform').live('click', function(e){
+   try{
+        var $form_wrapper = $('#form_wrapper'), 
+            $currentForm = $form_wrapper.children('.active');
+    }catch(e){
+        return;
+    }
+    var $link = jQuery(this);
+    var target = $link.attr('rel');
+    
+    
+    $currentForm.fadeOut(400, function(){
+        $currentForm.removeClass('active');
+        $currentForm = $form_wrapper.children("."+target);
+    
+    /*Can this be cleaned up since the size should not change? Simply a fade in of the new form?*/
+    $form_wrapper.stop()
+            .animate({
+                //width: $currentForm.data('width') + 'px',
+                //height: $currentForm.data('height') + 'px'
+            }, 500, function(){
+                $currentForm.addClass('active');
+                $currentForm.fadeIn(400);
+            });
+    });
+   
+});
+
+/* Initializing the review forms to flip*/
+
+$(function(){
+    
+    try{
+        var $form_wrapper = $('#form_wrapper'), 
+            $currentForm = $form_wrapper.children('.active'), 
+            $linkform = $form_wrapper.find('.linkform');
+        if ($form_wrapper.length==0){
+            var $form_wrapper = $('#form_wrapper_edit'), 
+            $currentForm = $form_wrapper.children('.active'), 
+            $linkform = $form_wrapper.find('.linkform');
+        }
+    }catch(e){
+        return;
+    }
+    
+    $form_wrapper.children('.flip-form').each(function(i){
+        var $theForm = $(this);
+        if(!$theForm.hasClass('active'))
+            $theForm.hide();
+        $theForm.data({    
+            //width : $theForm.width(),
+            //height: $theForm.height() 
+       });
+    });
+    
+    function setWrapperWidth(){
+            $form_wrapper.css({
+                    width	: $currentForm.data('width') + 'px',
+                    height	: $currentForm.data('height') + 'px'
+            });
+    }
+    
+    
+
+    
 });

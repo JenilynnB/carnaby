@@ -1477,11 +1477,7 @@ class XooUserUltra
 		$display .= '<form action="" method="post" id="xoouserultra-login-form-'.$this->login_code_count.'">';
 		
                 // this is the Register Link
-		$register_link = site_url('/wp-login.php?action=register');
-		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link linkform" rel="registration-form">'.__('Register here','xoousers').'</a>';
-                
-                $display .= '<div class="xoouultra-registration-text">Don\'t have an account?   ' .$register_link. '</div>';
-                
+		
 		//get social sign up methods
 		$display .= $this->get_social_buttons(__("Sign in ",'xoousers' ),$args);
 		
@@ -1609,10 +1605,17 @@ class XooUserUltra
 		
 		$display .= '<input type="submit" name="xoouserultra-login" class="xoouserultra-button xoouserultra-login'.$login_btn_class.'" value="'.__('Log In','xoousers').'" /><br />'.$forgot_pass;
 		
+                $register_link = site_url('/wp-login.php?action=register');
+		$register_link = '<a href="javascript:void(0)" class="xoouserultra-login-register-link linkform" rel="registration-form">'.__('Register here','xoousers').'</a>';
+                
+                $display .= '<div class="xoouultra-registration-text">Don\'t have an account?   ' .$register_link. '</div>';
+                
+                
 		$display .= '</div>';
 		$display .= ' </div>
 					</div><div class="xoouserultra-clear"></div>';
 		
+                
 		$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
 		
 		$display .= '</form>';
@@ -1808,9 +1811,6 @@ class XooUserUltra
                 
                 $display .= '<form action="" method="post" id="xoouserultra-registration-form" enctype="multipart/form-data">';
 		
-                $login_link = site_url('/wp-login.php');
-		$login_link = '<a href="'.$login_link.'" class="xoouserultra-login-login-link linkform" rel="login-form">'.__('Login here','xoousers').'</a>';
-                $display .= '<div class="xoouultra-registration-text">Already have an account?   ' .$login_link. '</div>';
                 //$display .= '<div class="xoouserultra-field xoouserultra-seperator-requiredfields xoouserultra-edit xoouserultra-edit-show">'.__('Fields with (*) are required','xoousers').'</div>';	
 		
 		
@@ -2253,10 +2253,17 @@ class XooUserUltra
 		$display .=				'<div class="xoouserultra-field-value">';
 		$display .=				    '<input type="hidden" name="xoouserultra-register-form" value="xoouserultra-register-form" />';
 		$display .=					'<input type="submit" name="xoouserultra-register" id="xoouserultra-register-btn" class="xoouserultra-register" value="'.__('Register','xoousers').'" />';
-		$display .='				</div>
+		
+                $login_link = site_url('/wp-login.php');
+		$login_link = '<a href="javascript:void(0)" class="xoouserultra-login-login-link linkform" rel="login-form">'.__('Login here','xoousers').'</a>';
+                $display .= '<div class="xoouultra-registration-text">Already have an account?   ' .$login_link. '</div>';
+                			
+			
+                
+                $display .='				</div>
 					</div><div class="xoouserultra-clear"></div>';
-					
-					
+		
+               		
 		if ($redirect_to != '' )
 		{
 			$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';

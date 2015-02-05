@@ -312,69 +312,7 @@ WPBDP.ratings.init = function() {
 };
 
 
-$(function(){
-    
-    try{
-        var $form_wrapper = $('#form_wrapper'), 
-            $currentForm = $form_wrapper.children('.active'), 
-            $linkform = $form_wrapper.find('.linkform');
-        if ($form_wrapper.length==0){
-            var $form_wrapper = $('#form_wrapper_edit'), 
-            $currentForm = $form_wrapper.children('.active'), 
-            $linkform = $form_wrapper.find('.linkform');
-        }
-    }catch(e){
-        return;
-    }
-    
-    $form_wrapper.children('.flip-form').each(function(i){
-        var $theForm = $(this);
-        if(!$theForm.hasClass('active'))
-            $theForm.hide();
-        $theForm.data({
-            width : $theForm.width(),
-            height: $theForm.height() 
-       });
-    });
 
-    setWrapperWidth();
-    
-    $( "#toplink" ).bind( "click", function(e) {
-        $currentForm = $form_wrapper.children('.write-review-btn');
-        if ($currentForm.length==0){
-            $currentForm = $form_wrapper.children('.review-details');
-        }
-        
-        var target = $linkform.attr('rel');
-        
-        $currentForm.fadeOut(400, function(){
-            $currentForm.removeClass('active');
-            $currentForm = $form_wrapper.children("."+target);
-            $form_wrapper.stop()
-                .animate({
-                    width: $currentForm.data('width') + 'px',
-                    height: $currentForm.data('height') + 'px'
-                }, 500, function(){
-                    $currentForm.addClass('active');
-                    $currentForm.fadeIn(400);
-                });
-        });
-        e.preventDefault();
-    });
-
-    
-    
-    function setWrapperWidth(){
-            $form_wrapper.css({
-                    width	: $currentForm.data('width') + 'px',
-                    height	: $currentForm.data('height') + 'px'
-            });
-    }
-    
-    
-
-    
-});
 
 jQuery(function($) {
     WPBDP.ratings.init()

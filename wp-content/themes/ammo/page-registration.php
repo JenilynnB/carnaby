@@ -23,79 +23,32 @@
 ?>
 <!-- Start Content
 ================================================== -->
-<section class="primary section" id="post-<?php echo get_the_ID(); ?>">
+<section class="primary section">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-                                <div class="row">
-                                        <div class="<?php echo $content_class; ?>">
-						<!--<div class="content">-->
-							<div class="row">
-								<div class="col-md-6 pull-left">
-									<div class="form_wrapper" id="form_wrapper">
-                                                                            <div class="flip-form registration-form active">
-                                                                                
-                                                                                    <?php echo do_shortcode("[usersultra_registration]");?>
-                                                                                
-                                                                            </div>
-                                                                            <div class="flip-form login-form">
-                                                                                
-                                                                                    <?php echo do_shortcode("[usersultra_login]"); ?>
-                                                                                
-                                                                            </div>    
-                                                                        </div>
-                                                                        <?php 
-                                                                                the_content();
+		
+            <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="reg_form_wrapper" id="reg_form_wrapper">
+                                <div class="flip-form registration-form active" rel="login-form">
 
-										// WP pages
-	                                    wp_link_pages(array(
-	                                        'before' => '<div class="page-link"><span>' . __('Pages:', 'themeton') . '</span>',
-	                                        'after' => '</div>',
-	                                        'link_before' => '<span>',
-	                                        'link_after' => '</span>'
-	                                    ));
-									?>
+                                        <?php echo do_shortcode("[usersultra_registration]");?>
 
-                                    <?php
-                                    if (isset($smof_data['share_visibility']['share_pages']) && $smof_data['share_visibility']['share_pages'] == 1)
-                                        social_share();
-                                    ?>
+                                </div>
+                                <div class="flip-form login-form" rel="registration-form">
 
-								</div>
-                                                                <div>
-                                                                    <?php $image_url = site_url("/wp-content/uploads/iStock_000021272175Large-2.jpg") ?>
-                                                                    <img src="<?php echo $image_url?>" class="hidden-md hidden-sm hidden-xs"/>
-                                                                </div>
-							</div>
-							
-							<!-- Page Comment -->
-							<?php if (isset($smof_data['page_comment']) && $smof_data['page_comment'] == 1 && $post->comment_status=='open' ): ?>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="comments">
-										<?php comments_template('', true); ?>
-									</div>
-								</div>
-							</div>
-							<?php endif; ?>
+                                        <?php echo do_shortcode("[usersultra_login]"); ?>
 
-						<!--</div>-->
-						
-					</div>
-					<?php
-					if( in_array($layout, array('left', 'right' )) ){
-						global $current_sidebar;
-						$current_sidebar = tt_getmeta('sidebar');
-						if( isset($parent_onepage) && $parent_onepage==true )
-							include file_require(dirname(__FILE__).'/sidebar.php');
-						else
-							get_sidebar();
-					}
-					?>
-				</div>
-		</div>
-		</div>
-	</div>
+                                </div>    
+                            </div>
+
+                    </div>
+                    <div>
+                        <?php $image_url = site_url("/wp-content/uploads/iStock_000021272175Large-2.jpg") ?>
+                        <img src="<?php echo $image_url?>" class="hidden-md hidden-sm hidden-xs"/>
+                    </div>
+            </div>
+
+        </div>
 </section>
 <!-- End Content
 ================================================== -->

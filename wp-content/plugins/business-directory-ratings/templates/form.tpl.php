@@ -12,7 +12,10 @@
                         <a href="" rel="write-review-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
                     <?php else:?>
                         <?php $registration_url=  site_url("/registration");?>
-                        <a href="<?php $registration_url?>" rel="registration-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registrationModal">
+                            Write a review
+                        </button>
+                        <!--<a href="<?php $registration_url?>" rel="registration-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>-->
                     <?php endif;?>
                 </div>
             </div>
@@ -21,6 +24,38 @@
     <?php endif; ?>
     
     <?php if (!is_user_logged_in()):?>
+        
+        <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="reg-modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="reg_form_wrapper" id="reg_form_wrapper">
+                        <div class="flip-form registration-form registration-form-embed active review-action">
+                                <div class="alert alert-warning text-center">
+                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
+                                </div>
+                                <?php echo do_shortcode("[usersultra_registration]");?>
+
+                        </div>
+                        <div class="flip-form login-form login-form-embed">
+
+                                <div class="alert alert-warning text-center">
+                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
+                                </div>
+                                <?php echo do_shortcode("[usersultra_login]"); ?>
+
+                        </div>
+                    </div>            
+                </div>
+            </div> 
+        </div>
+    
+       <!--
         <div class="flip-form registration-form registration-form-embed review-action">
             <div class="registration-form-wrapper">
                 <div class="alert alert-warning text-center">
@@ -37,6 +72,7 @@
                 <?php echo do_shortcode("[usersultra_login]"); ?>
             </div>
         </div>
+        -->
     <?php else: ?>
     
         <div class="flip-form write-review-form review-action">

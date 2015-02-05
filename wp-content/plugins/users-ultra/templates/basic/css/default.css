@@ -302,20 +302,20 @@ color: #888;
 
 .xoouserultra-or-divider {
     border-top: 1px solid #CCCCCC;
-    margin: 50px 0 10px;
+    margin: 30px 0 -10px;
 }
 
 .xoouserultra-or-divider div {
     background: none repeat scroll 0 0 #CCCCCC;
     border-radius: 50%;
     color: #5F5F5F;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     padding: 5px 0 8px;
     position: relative;
     text-align: center;
     top: -19px;
-    width: 40px;
+    width: 30px;
 	margin:0 auto 0 auto;
 }
 
@@ -385,12 +385,11 @@ input.btnuultra {
 .btnuultra-facebook, .btnuultra-yahoo, .btnuultra-google, .btnuultra-linkedin, .btnuultra-twitter, .btnuultra-yammer {
     border: 0 none;
     box-shadow: none;
-    min-width:250px;
-    width: 275px;   
     font-size: 16px;
     font-weight: normal;
     padding: 5px 15px 5px 10px;
     color:#FFF !important;
+    width: 100%;
 }
 .btnuultra-facebook {
     background: none repeat scroll 0 0 #6481BE;
