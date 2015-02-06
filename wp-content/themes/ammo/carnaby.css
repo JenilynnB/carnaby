@@ -512,7 +512,7 @@ Carnaby Homepage Styles
 }
 
 .wpbdp-listing-single .listing-actions-mobile, .wpbdp-listing-single .listing-actions{
-    margin: 20px 0px 20px 0px;
+    margin-top: 20px;
 }
 
 .wpbdp-listing-single .listing-actions-mobile i{

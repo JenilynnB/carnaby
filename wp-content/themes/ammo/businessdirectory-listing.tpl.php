@@ -39,7 +39,11 @@
                             <?php if(has_written_review()): ?>
                             <a href="#form_wrapper_edit" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Edit My Review</a>
                         <?php else: ?>
-                            <a href="#form_wrapper" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
+                            <?php if(is_user_logged_in()): ?>
+                                <a href="#form_wrapper" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
+                            <?php else: ?>
+                                <a href="" data-toggle="modal" data-target="#registrationModal"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
+                            <?php endif; ?>
                         <?php endif; ?>
                         </div>
                         <div class="sugggest-edit pull-right"><div class="suggest-edit"><a href="mailto: <?php echo support_email_address();?>"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp; Suggest an Edit</a></div></div>

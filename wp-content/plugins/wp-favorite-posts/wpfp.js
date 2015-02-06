@@ -1,6 +1,9 @@
 jQuery(document).ready( function($) {
     $('.wpfp-link').live('click', function() {
         dhis = $(this);
+        if(dhis.hasClass('wpfp-login')){
+            return;
+        }
         wpfp_do_js( dhis, 1 );
         // for favorite post listing page
         if (dhis.hasClass('remove-parent')) {

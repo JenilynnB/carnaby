@@ -328,7 +328,8 @@ class XooUserUltra
 		
 		if($redirect_to=="")
 		{
-				$redirect_to =$my_account_url;
+				//$redirect_to =$my_account_url;
+                                $redirect_to = $this->current_page;
 		
 		}
 		$logout_url = wp_logout_url($redirect_to);
@@ -1616,8 +1617,12 @@ class XooUserUltra
 					</div><div class="xoouserultra-clear"></div>';
 		
                 
-		$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
-		
+		if ($redirect_to != '' )
+		{
+                        $display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
+		}else{
+                        $display .= '<input type="hidden" name="redirect_to" value="'.  get_permalink().'" />';
+                }
 		$display .= '</form>';
 		
 		
@@ -1752,14 +1757,9 @@ class XooUserUltra
 		if(get_option('users_can_register') == '1')
 		{
 		
-		    $display .= 		'<div class="xoouserultra-main">
+		    $display .= 		'<div class="xoouserultra-main">';
 							
-							<div class="xoouserultra-errors" style="display:none;" id="pass_err_holder">
-							    <span class="xoouserultra-error xoouserultra-error-block" id="pass_err_block">
-							        <i class="xoouserultra-icon-remove"></i><strong>ERROR:</strong> Please enter a username.
-							    </span>
-							</div>
-							';
+
 							
 						/*Display errors*/
 						if (isset($_POST['xoouserultra-register-form'])) 
@@ -2262,12 +2262,13 @@ class XooUserUltra
                 
                 $display .='				</div>
 					</div><div class="xoouserultra-clear"></div>';
-		
-               		
+			
 		if ($redirect_to != '' )
 		{
-			$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
-		}
+                        $display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
+		}else{
+                        $display .= '<input type="hidden" name="redirect_to" value="'.  get_permalink().'" />';
+                }
 		
 		$display .= '</form>';
 		

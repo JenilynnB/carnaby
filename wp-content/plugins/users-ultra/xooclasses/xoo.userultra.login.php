@@ -166,7 +166,7 @@ class XooUserLogin {
 			{
 				if (esc_attr($value) == '') 
 				{
-					$this->errors[] = __('<strong>ERROR:</strong> The password field is empty.','xoousers');
+					$this->errors[] = __('Hmmmm...you seem to be missing a password','xoousers');
 				}
 			}
 		}
@@ -260,14 +260,14 @@ class XooUserLogin {
 						
 						//echo "TTEES here" ;
 						if ($user->get_error_code() == 'invalid_username') {
-							$this->errors[] = __('<strong>ERROR:</strong> Invalid Username was entered.','xoousers');
+							$this->errors[] = __('Invalid Username was entered.','xoousers');
 						}
 						if ($user->get_error_code() == 'incorrect_password') {
-							$this->errors[] = __('<strong>ERROR:</strong> Incorrect password was entered.','xoousers');
+							$this->errors[] = __('Incorrect password. Please try again.','xoousers');
 						}
 						
 						if ($user->get_error_code() == 'empty_password') {
-							$this->errors[] = __('<strong>ERROR:</strong> Please provide Password.','xoousers');
+							$this->errors[] = __('Please provide Password.','xoousers');
 						}
 						
 						

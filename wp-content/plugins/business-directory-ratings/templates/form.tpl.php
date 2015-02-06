@@ -1,7 +1,6 @@
     
 <div class="form_wrapper" id="form_wrapper">
 
-        
     <?php if(!has_written_review() || !is_user_logged_in()): ?>
         
         <div class="flip-form write-review-btn review-trigger active">
@@ -9,12 +8,14 @@
                 <div class="listing-action review">
                     <?php if(is_user_logged_in()):?>
 
-                        <a href="" rel="write-review-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>
+                        <a href="javascript:void(0)" rel="write-review-form" class="linkform write-review-btn-trigger">
+                            <i class="fa fa-plus-square-o"></i>  Write a Review
+                        </a>
                     <?php else:?>
                         <?php $registration_url=  site_url("/registration");?>
-                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registrationModal">
-                            Write a review
-                        </button>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#registrationModal">
+                            <i class="fa fa-plus-square-o"></i>  Write a Review
+                        </a>
                         <!--<a href="<?php $registration_url?>" rel="registration-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>-->
                     <?php endif;?>
                 </div>
@@ -24,8 +25,28 @@
     <?php endif; ?>
     
     <?php if (!is_user_logged_in()):?>
+        <?php 
+        $modal_class = "";
+        $modal_style = '';
+        $modal_hidden = 'false';
+        $reg_modal = "active";
+        $login_modal = "";
         
-        <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+        if (isset($_POST['xoouserultra-register-form'])) : 
+            $modal_class = "in";
+            $modal_style = "style=display:block;";
+            $modal_hidden = "true";
+        elseif (isset($_POST['xoouserultra-login'])) :
+            $modal_class = "in";
+            $modal_style = "style=display:block;";
+            $modal_hidden = "true";
+            $login_modal = "active";
+            $reg_modal = "";
+        endif; 
+        
+        ?>
+    
+        <div class="modal fade <?php echo $modal_class;?>"  <?php echo $modal_style;?> id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="<?php echo $modal_hidden; ?>">
             <div class="modal-dialog" id="reg-modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -35,17 +56,17 @@
                     </div>
 
                     <div class="reg_form_wrapper" id="reg_form_wrapper">
-                        <div class="flip-form registration-form registration-form-embed active review-action">
-                                <div class="alert alert-warning text-center">
-                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
+                        <div class="flip-form registration-form registration-form-embed review-action  <?php echo $reg_modal;?>">
+                                <div class="alert alert-warning text-center" id="reg-alert-warning">
+                                    <?php _e('(Please create an account or log in to write a review or save stores)', 'wpbdp-ratings'); ?>
                                 </div>
                                 <?php echo do_shortcode("[usersultra_registration]");?>
 
                         </div>
-                        <div class="flip-form login-form login-form-embed">
+                        <div class="flip-form login-form login-form-embed  <?php echo $login_modal;?>" id="login-alert-warning">
 
                                 <div class="alert alert-warning text-center">
-                                    <?php _e('(Please register or login to rate this listing)', 'wpbdp-ratings'); ?>
+                                    <?php _e('(Please create an account or log in to write a review or save stores)', 'wpbdp-ratings'); ?>
                                 </div>
                                 <?php echo do_shortcode("[usersultra_login]"); ?>
 

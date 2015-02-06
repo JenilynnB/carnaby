@@ -973,6 +973,7 @@ function add_user_menu($items, $args)
             $user_last_initial = substr($user_last_name,0,1);
             $name=$user->first_name." ".$user_last_initial.".";
 
+            $user_dashboard_url = site_url("/dashboard");
             $user_profile_url = site_url("/profile");
             $user_account_url = site_url("/myaccount");
             $logout_url = site_url("/logout");
@@ -984,6 +985,9 @@ function add_user_menu($items, $args)
             $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
             $items .=    '<a style="display:inline;"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
             $items .=       '<ul class="dropdown-menu" style="display:none;">';
+            $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+            $items .=               '<a href="'.$user_dashboard_url.'"><span class="menu-text">Dashboard</span></a>';
+            $items .=           '</li>';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_profile_url.'"><span class="menu-text">My Profile</span></a>';
             $items .=           '</li>';

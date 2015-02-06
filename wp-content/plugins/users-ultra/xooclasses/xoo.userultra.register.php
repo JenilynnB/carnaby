@@ -46,7 +46,7 @@ class XooUserRegister {
 		        /* Validate username */
 		        if ($key == 'user_login') {
 		            if (esc_attr($value) == '') {
-		                $this->errors[] = __('Please enter an emial address for registration so we know who you are.','xoousers');
+		                $this->errors[] = __('Please enter an email address for registration so we know who you are.','xoousers');
 		            } elseif (username_exists($value)) {
 		                $this->errors[] = __('<strong>ERROR:</strong> This username is already registered. Please choose another one.','xoousers');
 		            }
@@ -566,7 +566,7 @@ class XooUserRegister {
 		$display = null;
 		if (isset($this->errors) && count($this->errors)>0) 
 		{
-		$display .= '<div class="usersultra-errors">';
+		$display .= '<div class="xoouserultra-errors">';
 			foreach($this->errors as $newError) {
 				
 				$display .= '<span class="usersultra-error usersultra-error-block"><i class="usersultra-icon-remove"></i>'.$newError.'</span>';
