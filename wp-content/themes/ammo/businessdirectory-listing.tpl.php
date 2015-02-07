@@ -171,7 +171,7 @@ if($module != "more_info" && $module != "reviews"):
                                 </div>       
                             </div>              
                         </div>
-                        <div class="hidden-md col-sm-12 col-xs-12">
+                        <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
                             <div class="row">
                             <a href="?module=more_info" class="btn btn-secondary more-info">More <?php echo $title; ?> Info</a>
                             </div>
