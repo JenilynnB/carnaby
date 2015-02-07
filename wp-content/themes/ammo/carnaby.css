@@ -384,6 +384,131 @@ Carnaby Homepage Styles
 }
 
 
+
+/******* Listing *****************/
+
+.listing-header .content, .listing-products .content, .full-category-info .content{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.wpbdp-listing .listing-header{
+    background-color: #ebebeb;
+    position: relative;
+    //margin-top: -20px;  
+}
+
+.wpbdp-listing .listing-element{
+    margin: 0px 10px 0px 10px;
+    
+}
+.wpbdp-listing .topline-items:first-child{
+    margin-left: 0px;
+}
+
+.wpbdp-listing .listing-element h1{
+    font-size: 28px;
+}
+
+.wpbdp-listing .listing-element.tags{
+    font-style: italic;
+    display: block;
+}
+
+.wpbdp-listing .listing-actions .wpfp-link.remove:after{
+    content: "  Remove from Favorites";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions .wpfp-link.add:after{
+    content: " Add to Favorites";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions-mobile .wpfp-link.remove:after{
+    content: "  Favorite";
+    padding-left: 8px;
+}
+
+.wpbdp-listing .listing-actions-mobile .wpfp-link.add:after{
+    content: "  Favorite";
+    padding-left: 8px;
+}
+
+.wpbdp-listing-single .listing-actions-mobile, .wpbdp-listing-single .listing-actions{
+    margin-top: 20px;
+}
+
+.wpbdp-listing-single .listing-actions-mobile i{
+    font-size: 22px;
+}
+
+
+.wpbdp-listing-single .listing-actions-mobile .listing-action{
+    border: 1px solid;
+    border-color: #dedede;
+    padding: 10px 15px;
+    text-align: center;
+    height: 60px;
+}
+.wpbdp-listing-single .suggest-edit{
+    margin-top: 10px;
+    
+}
+
+.wpbdp-listing-single .listing-actions .listing-action{
+    
+    border: 1px solid;
+    border-color: #dedede;
+    padding: 10px 15px; 
+}
+
+.wpbdp-listing .listing-action a{
+    color: #000000;
+}
+
+
+.wpbdp-listing .info-container{
+    margin-bottom: 20px;
+    min-height: 70px;
+}
+
+.wpbdp-listing .listing-site-info{
+    padding: 35px 0px 0px 35px;
+    margin-right: 20px;
+    background-color: #fff;
+}
+
+.wpbdp-listing .category-info h3{
+    font-weight: bold;
+    color: #cdcdcd;
+}
+
+.wpbdp-listing .btn.more-info{
+    width: 100%;
+    padding: 20px 0px 20px 0px;
+    margin-right: 20px;
+}
+
+.wpbdp-listing .full-category-info .category-info{
+    padding: 15px;
+    background-color: #fff;
+}
+
+.wpbdp-listing .breadcrumb{
+    padding-left: 0px;
+    position: relative;
+    top: -15px;
+    background-color: transparent;
+}
+
+.wpbdp-listing .carnaby-info{
+    background-color: #f6f6f6;
+    border: solid 1px #dedede;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+/**** Media Queries ****/
 @media only screen and (max-width: 991px){
     .homepage .main-panel{
         padding-top: 130px;
@@ -462,83 +587,4 @@ Carnaby Homepage Styles
     .listing-action.link a{
         content: "Visit";
     }
-}
-
-.listing-header .content{
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-.wpbdp-listing .listing-header{
-    background-color: #ebebeb;
-    position: relative;
-    //margin-top: -20px;  
-}
-
-.wpbdp-listing .listing-element{
-    margin: 0px 10px 0px 10px;
-    
-}
-.wpbdp-listing .topline-items:first-child{
-    margin-left: 0px;
-}
-
-.wpbdp-listing .listing-element h1{
-    font-size: 28px;
-}
-
-.wpbdp-listing .listing-element.tags{
-    font-style: italic;
-    display: block;
-}
-
-.wpbdp-listing .listing-actions .wpfp-link.remove:after{
-    content: "  Remove from Favorites";
-    padding-left: 8px;
-}
-
-.wpbdp-listing .listing-actions .wpfp-link.add:after{
-    content: " Add to Favorites";
-    padding-left: 8px;
-}
-
-.wpbdp-listing .listing-actions-mobile .wpfp-link.remove:after{
-    content: "  Favorite";
-    padding-left: 8px;
-}
-
-.wpbdp-listing .listing-actions-mobile .wpfp-link.add:after{
-    content: "  Favorite";
-    padding-left: 8px;
-}
-
-.wpbdp-listing-single .listing-actions-mobile, .wpbdp-listing-single .listing-actions{
-    margin-top: 20px;
-}
-
-.wpbdp-listing-single .listing-actions-mobile i{
-    font-size: 22px;
-}
-
-
-.wpbdp-listing-single .listing-actions-mobile .listing-action{
-    border: 1px solid;
-    border-color: #dedede;
-    padding: 10px 15px;
-    text-align: center;
-    height: 60px;
-}
-.wpbdp-listing-single .suggest-edit{
-    margin-top: 10px;
-    
-}
-
-.wpbdp-listing-single .listing-actions .listing-action{
-    
-    border: 1px solid;
-    border-color: #dedede;
-    padding: 10px 15px; 
-}
-
-.wpbdp-listing .listing-action a{
-    color: #000000;
 }

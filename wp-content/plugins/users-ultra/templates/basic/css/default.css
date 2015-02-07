@@ -469,7 +469,8 @@ input.btnuultra {
 
 .xoouserultra-register
 {
-        alignment-adjust: margin-left: auto !important;
+        //alignment-adjust: 
+        margin-left: auto !important;
 	margin-right: auto !important;
 	width:99%;
 	max-width:700px !important; 

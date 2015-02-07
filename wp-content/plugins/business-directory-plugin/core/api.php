@@ -546,20 +546,12 @@ function render_category_info(){
        endif;
     }
     
-    $html.="<div class = 'side-panel-group'>";
     
     if(!empty($womens_categories)):
          
-        $html.= "<div class='listing-side-container'> 
-
-                    <div class='listing-side-container-circle-heading col-md-3 col-xs-3'  data-animate='flipInY' style='-webkit-animation: 0.1s; -webkit-animation-name:flipInY'>
-                        Women
-                    </div>
+        $html.= "<h3>Women</h3>
+                <table class='listing-cat-info'>";
                     
-                    <div class='listing-side-container-info col-md-9 col-xs-9'>
-                        <div class='panel-body'>
-                            <table class='listing-cat-info'>";
-        
         $womens_style = array();
         $womens_category_links = array();
         $womens_extended_sizes = array();
@@ -571,7 +563,7 @@ function render_category_info(){
         
         
         foreach($womens_categories as $wc){
-            $url = '/business-directory/site_categories/' . $wc->slug . '/';
+            $url = site_url().'/business-directory/site_categories/' . $wc->slug . '/';
             $link = "<a href='" . $url . "'>" . $wc->name . "</a>";
             $womens_category_links[] = $link;
         }
@@ -648,24 +640,13 @@ function render_category_info(){
         }
        $html.='</table>';  
         
-        $html.=         "</div>
-                    </div>     
-                </div>";
-        //$html .= "<br /><br />";
-        
     endif;
     
     if(!empty($mens_categories)):
         
         
-        $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading  col-md-3 col-xs-3'>
-                        Men
-                    </div>
-                    
-                    <div class='listing-side-container-info col-md-9 col-xs-9'>
-                        <div class='panel-body'>
-                            <table class='listing-cat-info'>";
+        $html.= "<h3>Men</h3>
+                <table class='listing-cat-info'>";
     
         $mens_style = array();
         $mens_category_links = array();
@@ -678,7 +659,7 @@ function render_category_info(){
         
         
         foreach($mens_categories as $mc){
-            $url = '/business-directory/site_categories/' . $mc->slug . '/';
+            $url = site_url().'/business-directory/site_categories/' . $mc->slug . '/';
             $link = "<a href='" . $url . "'>" . $mc->name . "</a>";
             $mens_category_links[] = $link;
         }
@@ -757,21 +738,12 @@ function render_category_info(){
         }
         
         $html.='</table>'; 
-        $html.=         "</div>
-                    </div>     
-                </div>";
          
     endif;
     
     if(!empty($kids_categories)):
-        $html.= "<div class='listing-side-container'> 
-                    <div class='listing-side-container-circle-heading  col-md-3 col-xs-3'>
-                        Kids & Baby
-                    </div>
-                    
-                    <div class='listing-side-container-info col-md-9 col-xs-9'>
-                        <div class='panel-body'>
-                            <table class='listing-cat-info'>";
+        $html.= "<h3>Kids & Baby</h3>
+                <table class='listing-cat-info'>";
         
         //Need to make label disappear if there are no values
         $kids_style = array();
@@ -780,7 +752,7 @@ function render_category_info(){
         
         
         foreach($girls_categories as $gc){
-            $url = '/business-directory/site_categories/' . $gc->slug . '/';
+            $url = site_url().'/business-directory/site_categories/' . $gc->slug . '/';
             $link = "<a href='" . $url . "'>" . $gc->name . "</a>";
             $girls_category_links[] = $link;
         }
@@ -793,7 +765,7 @@ function render_category_info(){
         }
         
         foreach($boys_categories as $bc){
-            $url = '/business-directory/site_categories/' . $bc->slug . '/';
+            $url = site_url().'/business-directory/site_categories/' . $bc->slug . '/';
             $link = "<a href='" . $url . "'>" . $bc->name . "</a>";
             $boys_category_links[] = $link;
         }
@@ -807,7 +779,7 @@ function render_category_info(){
         }
         
         foreach($baby_categories as $bbc){
-            $url = '/business-directory/site_categories/' . $bbc->slug . '/';
+            $url = site_url().'/business-directory/site_categories/' . $bbc->slug . '/';
             $link = "<a href='" . $url . "'>" . $bbc->name . "</a>";
             $baby_category_links[] = $link;
         }
@@ -869,12 +841,9 @@ function render_category_info(){
         }
         
         $html.='</table>'; 
-        $html.=         "</div>
-                    </div>     
-                </div>";
+
         
     endif;
-    $html .= "</div>";
     
     return $html;
     
@@ -1222,7 +1191,8 @@ function get_return_shipping_info($post_id=''){
     }
     
     $return_shipping = get_field('return_shipping', $post_id);
-
+    
+    
     if(!$return_shipping){
         return;
     }
@@ -1233,6 +1203,13 @@ function get_return_shipping_info($post_id=''){
     else:
         $return_shipping_info = 'Buyer handles return shipping';
     endif;
+    
+    $return_policy = get_field('return_policy', $post_id);
+    if ($return_policy>0){
+        $return_shipping_info .= "<br/>".$return_policy." Days to Return";
+    }
+    
+    
     
     return $return_shipping_info;
 }
@@ -1247,7 +1224,7 @@ function render_canada_shipping(){
     if(get_field('ships_to_canada') && strlen($can_shipping_cost) !=0){
         $can_taxes_duties = get_field('taxes_and_duties');
         if($can_shipping_cost==0){
-            $can_shipping .= 'Free Shipping to Canada';
+            $can_shipping .= 'Free Shipping';
         }else{
             $can_shipping .= '$';
             $can_shipping .= number_format($can_shipping_cost, 2);
@@ -1308,15 +1285,47 @@ function render_category_size_info(){
     
 }
 
-function render_customer_support_info(){
+function render_customer_support_phone(){
    
     $support_phone = get_field('support_phone');
-    $support_email = get_field('support_email');
-    
     if(!empty($support_phone)) $html.= "<div class='listing-category-label'><i class='fa fa-phone'></i> Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
-    if(!empty($support_email)) $html.= "<div class='listing-category-label'><i class='icon-envelope-open'></i> Support Email: </div><div class='listing-category-values'>".$support_email."</div>";
-
     return $html;
+}
+
+function render_customer_support_email(){
+    $support_email = get_field('support_email');
+    if(!empty($support_email)) {
+        $html.= "<div class='listing-category-label'>"
+               . "  <i class='icon-envelope-open'></i> Support Email: "
+               . "</div>";
+    
+        if(filter_var($support_email, FILTER_VALIDATE_EMAIL)){
+            $html.= "<div class='listing-category-values'>"
+                   . "<a href='mailto:".$support_email."'>".$support_email."</a></div>";
+
+        }else{
+            $html.= "<div class='listing-category-values'>"
+    . "<a href='".$support_email."' target=_blank>Contact Form</a></div>";
+        }
+    }
+    return $html;
+}
+
+function render_delivery_time(){
+    if(get_field('have_standard_delivery_time')){
+        
+        $delivery_time = get_field('standard_delivery_time');
+        $html = '<div class="listing-category-label"><i class="fa fa-truck"></i> US Delivery Time</div>';
+        $html .= $delivery_time . " Days";
+    }else{
+        $html = "";
+    }
+    
+    return $html;
+}
+
+function render_shipping_notes(){
+    
 }
 
 function get_shopstyle_retailer_url($listing_id){
