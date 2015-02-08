@@ -78,8 +78,9 @@ function updateScreenshot($post){
                 
                 if($date_diff->d < 7){
                     //If it was taken less than a week ago, return
-                    $screenshot_url = get_screenshot_url($url, $width);
-                    save_image($screenshot_url, $listing_id);
+                    
+                    ////$screenshot_url = get_screenshot_url($url, $width);
+                    //save_image($screenshot_url, $listing_id);
                     
                     return;
                 }
