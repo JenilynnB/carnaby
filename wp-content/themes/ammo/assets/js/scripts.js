@@ -911,8 +911,8 @@ $(document).ready(function(){
         slidesToShow: 1,
         slidesToScroll: 3,
         variableWidth: true,
-        dots: false,
-        infinite: false,
+        dots: true,
+        
            
         responsive: [
             {

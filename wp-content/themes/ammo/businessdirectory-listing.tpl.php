@@ -93,9 +93,10 @@ if($module != "more_info" && $module != "reviews"):
                          <?php 
                          $retailer_id = get_field("shopstyle_retailer_id");
                          if ($retailer_id>0){
+                            echo "<h2>Popular ".$title." Products</h2>";
+                             
                             echo render_products_slick_slider(); 
                          }else{
-                            //$listing_url = wpbdp_render_listing_field('URL');
                         ?> 
 
                             <div class='wpbdp-listing-screenshot'>
@@ -107,7 +108,7 @@ if($module != "more_info" && $module != "reviews"):
                          }    
                          ?> 
                     
-                    
+                            <h2>Site Info</h2>
                             <div class="listing-site-info">
                                 <div class="row">
                                     <div class="info-container col-md-6 col-sm-6 col-xs-12">

@@ -387,6 +387,11 @@ Carnaby Homepage Styles
 
 /******* Listing *****************/
 
+.wpbdp-listing h2{
+    text-transform: uppercase;
+    font-size: 20px;
+    
+}
 .listing-header .content, .listing-products .content, .full-category-info .content{
     padding-top: 40px;
     padding-bottom: 40px;
@@ -508,6 +513,7 @@ Carnaby Homepage Styles
     margin-bottom: 25px;
     margin-left: 15px;
 }
+
 
 .wpbdp-listing .listing-products{
     margin: 30px;

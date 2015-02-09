@@ -1044,11 +1044,15 @@ function render_products_slick_slider($listing_id=null){
     
     
     /*Put the slick slider initial code here*/
+    $response .= '<div class="products-slider-container">';
     $response .= '<div class="slick-slider-products listing-products">';
     
     foreach($products as $p){
         
         $product_name = $p["name"];
+        if(strlen($product_name)>40){
+            $product_name = substr($product_name, 0, 40)."...";
+        }
         $product_price = $p["price"];
         $product_url = $p["clickUrl"];
         $product_id = $p["id"];
@@ -1082,7 +1086,7 @@ function render_products_slick_slider($listing_id=null){
     
     
     //closing swiper code
-    $response .= '</div>';
+    $response .= '</div></div>';
     
     return $response;
 }
@@ -1612,7 +1616,7 @@ function get_listing_outbound_link($id){
 function get_listing_outbound_url($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
     $link_text = $base_url[1];
-    $base_url = 
+    $base_url = $base_url[0];
     $dubdub = strpos($base_url, "www.");
     
     if ( $dubdub ===FALSE){
