@@ -1583,8 +1583,12 @@ function wpbdp_has_module( $module ) {
 
 function get_listing_outbound_link($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
-    $link_text = $base_url[1];
-    $base_url = $base_url[0];
+    
+    if(is_array($base_url)){
+        $base_url = $base_url[0];
+        $link_text = $base_url[1];
+    }
+    
     
     $dubdub = strpos($link_text, "www.");
     
@@ -1611,8 +1615,9 @@ function get_listing_outbound_link($id){
 
 function get_listing_outbound_url($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
-    $link_text = $base_url[1];
-    $base_url = $base_url[0];
+    if(is_array($base_url)){
+        $base_url = $base_url[0];
+    }
     
     $dubdub = strpos($base_url, "www.");
     
