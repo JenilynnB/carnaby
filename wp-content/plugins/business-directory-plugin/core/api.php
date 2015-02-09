@@ -1611,6 +1611,9 @@ function get_listing_outbound_link($id){
 
 function get_listing_outbound_url($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
+    $link_text = $base_url[1];
+    $base_url = $base_url[0];
+    
     $dubdub = strpos($base_url, "www.");
     
     if ( $dubdub ===FALSE){
