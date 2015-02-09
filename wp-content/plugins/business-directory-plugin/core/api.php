@@ -497,7 +497,16 @@ function wpbdp_render_listing_field($field_name,$post_id=null) {
     $html = '';
     
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post_id, 'listing' );
-    $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name ));
+    
+    if($field_name=="URL"){   
+        $fields = WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name );
+        foreach($fields as $field){
+            $html = $field;
+        }
+        
+    }else{
+        $html .= implode( '', WPBDP_ListingFieldDisplayItem::get_field( 'value', $d->fields, $field_name ));
+    }
     return $html;
 }
 
@@ -1010,6 +1019,74 @@ function get_shopstyle_retailer_id($listing_id=0)
 
     return $retailer_id;
 }
+
+function render_products_slick_slider($listing_id=null){
+    global $post;
+    if ($listing_id=null){
+        $listing_id = $post->id;
+    }
+    
+    $retailer_id = 'r'.get_field('shopstyle_retailer_id', $listing_id);
+    
+    if($retailer_id=='r'){
+        return;
+    }
+    
+    $product_params = array(
+            'fl' => $retailer_id,
+            'sort'  => 'popular'
+        );
+    $shopstyle = new ShopStyle();
+    
+    $products_response = $shopstyle->getProducts(12, 0, $product_params);
+
+    $products = $products_response["products"];
+    
+    
+    /*Put the slick slider initial code here*/
+    $response .= '<div class="slick-slider-products listing-products">';
+    
+    foreach($products as $p){
+        
+        $product_name = $p["name"];
+        $product_price = $p["price"];
+        $product_url = $p["clickUrl"];
+        $product_id = $p["id"];
+        
+        $product_images = $p["image"];
+        $image_sizes = $product_images["sizes"];
+        
+        $image = $image_sizes["Large"];
+        $image_url = $image["url"];
+        $image_height = $image["height"];
+        $image_width = $image["width"];
+        
+        
+        //Format more swiper code for each product here
+        $response .= '<div class="slick-slider-product">';
+        $response .=    '<a href="'.$product_url.'" target="_blank">';
+        $response .=        '<div class="product-image" id="product-image-'.$product_id.'" rel="product-overlay-'.$product_id.'" style="background-image:url('.$image_url.'); '
+                            . 'height:'.$image_height.'px; '
+                            . 'width: '.$image_width.'px;">';
+        
+        $response .=            '<div class="product-overlay" id="product-overlay-'.$product_id.'" >';
+        $response .=            '<div class="title">'.$product_name.'</div>';
+        $response .=            '<div class="price">$'.number_format($product_price, 2).'</div>';
+        $response .=            '<div class="link">View</div>';
+        $response .=            '</div>';
+        
+        $response .= '      </div>';
+        $response .=    '</a>';
+        $response .= '</div>';
+    }
+    
+    
+    //closing swiper code
+    $response .= '</div>';
+    
+    return $response;
+}
+
 function render_products(){
     global $post;
     
@@ -1334,7 +1411,8 @@ function get_shopstyle_retailer_url($listing_id){
     $host = $shopstyle->getHost();
     $API_key = $shopstyle->getApiKey();
     
-    $listing_url = esc_url(wpbdp_render_listing_field('URL', $listing_id));
+    $listing_url = wpbdp_render_listing_field('URL', $listing_id);
+    $listing_url = esc_url($listing_url[0]);
     
     $return = esc_url("http://".$host."/action/apiVisitRetailer?url=".$listing_url."&pid=".$API_key);
     
@@ -1505,13 +1583,16 @@ function wpbdp_has_module( $module ) {
 
 function get_listing_outbound_link($id){
     $base_url = wpbdp_render_listing_field('URL', $id);
-    $dubdub = strpos($base_url, "www.");
+    $link_text = $base_url[1];
+    $base_url = $base_url[0];
+    
+    $dubdub = strpos($link_text, "www.");
     
     if ( $dubdub ===FALSE){
-        $no_dub_url = $base_url;
+        $no_dub_url = $link_text;
         
     }else{
-       $no_dub_url = substr($base_url,$dubdub+4); 
+       $no_dub_url = substr($link_text,$dubdub+4); 
     }
     
     if((get_shopstyle_retailer_id($id))!=''){

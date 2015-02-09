@@ -49,7 +49,8 @@ function updateScreenshot($post){
     }
     
     
-    $url = wpbdp_render_listing_field('URL');
+    $url = wpbdp_render_listing_field('URL', $listing_id);
+    $url = $url[0];
     $ids = get_field('screenshot_modal_ids', $listing_id);
     $functions = get_field('screenshot_modal_functions', $listing_id);
     
@@ -79,7 +80,7 @@ function updateScreenshot($post){
                 if($date_diff->d < 7){
                     //If it was taken less than a week ago, return
                     
-                    ////$screenshot_url = get_screenshot_url($url, $width);
+                    $screenshot_url = get_screenshot_url($url, $width);
                     //save_image($screenshot_url, $listing_id);
                     
                     return;
@@ -346,7 +347,6 @@ function save_martin_image($url, $listing_id){
 function get_screenshot_url($content, $width){
     
     //Get the new screenshot
-    
     $screenshot_base_url = "http://s.wordpress.com/mshots/v1/http%3A%2F%2F";
     
     if($content!=""){

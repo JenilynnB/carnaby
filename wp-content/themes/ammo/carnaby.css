@@ -506,6 +506,65 @@ Carnaby Homepage Styles
     border: solid 1px #dedede;
     padding: 15px;
     margin-bottom: 25px;
+    margin-left: 15px;
+}
+
+.wpbdp-listing .listing-products{
+    margin: 30px;
+    
+}
+
+.wpbdp-listing .slick-slider-product{
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #e6e6e6;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wpbdp-listing .product-image{
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+   overflow: hidden; 
+   position: relative;
+}
+
+.wpbdp-listing .product-overlay{
+    background-color: #000;
+    opacity: .6;
+    text-align: center;
+    color: #ffffff;
+    padding: 10px;
+    -webkit-transition: opacity .5s ease-in;
+    -moz-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+    -webkit-transition: opacity .25s ease-out;
+    -moz-transition: opacity .25s ease-out;
+    transition: opacity .25s ease-out;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: absolute;
+    display: none;
+}
+.wpbdp-listing .product-overlay .price{
+    
+}
+.wpbdp-listing .product-overlay .title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.wpbdp-listing .product-overlay .link{
+    border: 1px solid;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 35px;
 }
 
 /**** Media Queries ****/

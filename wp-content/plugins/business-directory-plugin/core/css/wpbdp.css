@@ -182,9 +182,9 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .main-image img {
-    /* padding: 5px; */
     border: solid 1px #f2f2f2;
-    /* height: 80px; */
+    width: 100%;
+    height: auto;
 }
 
 .wpbdp-listing-single .listing-details.with-image {
@@ -685,16 +685,7 @@ ul.validation-errors li {
     -webkit-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
-.listing-products{
-    background-color: #fff;
-    padding-bottom: 30px;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-color: #e6e6e6;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-}
+
 
 .user-thumb-photo{
     background-position: 50% 50%;

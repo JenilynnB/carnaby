@@ -81,37 +81,6 @@ if($module != "more_info" && $module != "reviews"):
          </div>
     </div>
 </section>
-<section class="listing-products">
-    <div class="container">
-        <div class="content">
-            <div class="row">     
-                <div class="col-md-12">
-                    
-                    
-                     <?php 
-                     $retailer_id = get_field("shopstyle_retailer_id");
-                     if ($retailer_id>0){
-                        echo render_products(); 
-                     }else{
-                        $listing_url = wpbdp_render_listing_field('URL');
-                    ?> 
-                        
-                        <div class='wpbdp-listing-screenshot'>
-                        <?php if ($main_image): ?>
-                                <div class="main-image"><?php echo $main_image; ?></div>
-                        <?php endif; ?>
-                        </div>    
-                    <?php 
-                     }    
-                     ?> 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="primary section">
     <div class="container">
         <div class="content">                
@@ -121,6 +90,24 @@ if($module != "more_info" && $module != "reviews"):
 
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             
+                         <?php 
+                         $retailer_id = get_field("shopstyle_retailer_id");
+                         if ($retailer_id>0){
+                            echo render_products_slick_slider(); 
+                         }else{
+                            //$listing_url = wpbdp_render_listing_field('URL');
+                        ?> 
+
+                            <div class='wpbdp-listing-screenshot'>
+                            <?php if ($main_image): ?>
+                                    <div class="main-image"><?php echo $main_image; ?></div>
+                            <?php endif; ?>
+                            </div>    
+                        <?php 
+                         }    
+                         ?> 
+                    
+                    
                             <div class="listing-site-info">
                                 <div class="row">
                                     <div class="info-container col-md-6 col-sm-6 col-xs-12">
@@ -166,7 +153,7 @@ if($module != "more_info" && $module != "reviews"):
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12category-info">
+                                <div class="col-md-12 category-info">
                                     <?php echo render_category_info(); ?>
                                 </div>       
                             </div>              
@@ -182,7 +169,6 @@ if($module != "more_info" && $module != "reviews"):
         </div>
     </div>
     
-    <!--<?php do_shortcode("[update_screenshot width=600 listing_id=".$listing_id."]".$listing_url."[/update_screenshot]"); ?>    -->
 </section>
 
 <?php

@@ -583,13 +583,15 @@ class WPBDP_ListingFieldDisplayItem {
             if( $f->id == $field_id){
                 $res[ $k ] = $f->{$prop};
             }elseif ($f->field->get_label() == $field_id){
-                if($field_id=='URL'&&$prop=='value'){
-                    $res[ $k ] = $f->{$prop}[1];
-                }else{
+                
+                //if($field_id=='URL'&&$prop=='value'){
+                    //$res[ $k ] = $f->{$prop}[1];
+                //}else{
                     $res[ $k ] = $f->{$prop};
-                }
+                //}
             } 
         }
+        //echo print_r($res);
         return $res;
     }
     
