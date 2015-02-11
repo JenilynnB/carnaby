@@ -19,8 +19,8 @@ $user_profile_url = site_url('/profile/?uu_username='.$rating->user_id);
 $listing_name = get_the_title($rating->listing_id);
 $listing_url = get_permalink($rating->listing_id);
 
-
 ?>
+
 
 <div class="rating wpbdp-ratings-reviews" data-id="<?php echo $rating->id; ?>" data-listing-id="<?php echo get_the_ID(); ?>"
      itemprop="review" itemscope itemtype="http://schema.org/Review">

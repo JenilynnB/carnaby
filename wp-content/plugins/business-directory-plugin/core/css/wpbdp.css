@@ -674,16 +674,7 @@ ul.validation-errors li {
     box-shadow: none
 }
 
-.reviews{
-    background-color: #fff;
-    padding-top:30px;
-    padding-bottom: 30px;
-    border-top: 1px solid;
-    border-color: #e6e6e6;
-    box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
-}
+
 
 
 

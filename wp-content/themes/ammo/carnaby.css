@@ -392,7 +392,7 @@ Carnaby Homepage Styles
     font-size: 20px;
     
 }
-.listing-header .content, .listing-products .content, .full-category-info .content{
+.listing-header .content, .listing-products .content, .full-category-info .content, .reviews .content{
     padding-top: 40px;
     padding-bottom: 40px;
 }
@@ -573,6 +573,20 @@ Carnaby Homepage Styles
     margin: 35px;
 }
 
+.wpbdp-listing .reviews{
+    
+    background-color: #fff;
+    padding-bottom: 30px;
+    border-top: 1px solid;
+    border-color: #e6e6e6;
+    box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wpbdp-listing .author-review-store-info{
+    display: none;
+}
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){
     .homepage .main-panel{

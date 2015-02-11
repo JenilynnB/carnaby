@@ -1014,12 +1014,14 @@ $(function(){
      * the user is logged in and logged out
      **/
     $( "#toplink" ).bind( "click", function(e) {
-        $currentForm = $form_wrapper.children('.write-review-btn');
-        if ($currentForm.length==0){
+        $currentForm = jQuery('.write-review-btn');
+        $form_wrapper = jQuery('#form_wrapper');
+        
+        if ($currentForm.length===0){
             $currentForm = $form_wrapper.children('.review-details');
         }
         
-        var target = $linkform.attr('rel');
+        var target = $(this).attr('rel');
         
         $currentForm.fadeOut(400, function(){
             $currentForm.removeClass('active');

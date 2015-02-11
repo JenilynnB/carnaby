@@ -206,6 +206,36 @@ WPBDP.ratings.saveNew = function(e) {
     }, "json")
 };
 
+WPBDP.ratings.getRatings = function (e){
+    e.preventDefault();
+    
+    var moreReviewsBtn = $(this);
+    moreReviewsBtn.fadeOut(300);
+    
+    var pageNum = moreReviewsBtn.attr('data-page_num');
+    var id = moreReviewsBtn.attr('data-listing_id');
+    var maxPages = moreReviewsBtn.attr('data-page_max');
+    
+    jQuery.post(WPBDP.ratings._config.ajaxurl, {
+        action: "wpbdp-ratings",
+        a: "get_reviews",
+        listing_id: id,
+        page: pageNum
+    }, function(res) {
+        //Grab the container that holds the reviews (.listing-ratings)
+        //Add res.reviews to it
+        jQuery('.listing-ratings').append(res.reviews);     
+        //Show the "get more reviews" button again
+        
+        pageNum++;
+        if(pageNum<maxPages){
+            moreReviewsBtn.fadeIn(300);
+            //Update the page number on the button
+            moreReviewsBtn.attr('data-page_num', (pageNum));
+        }
+    }, "json");
+};
+
 WPBDP.ratings.validate = function(comment, score){
     
     var $validationErrors = jQuery("#validation-errors");
@@ -246,7 +276,7 @@ WPBDP.ratings.validate = function(comment, score){
             
     }
     return return_val;
-}
+};
 
 WPBDP.ratings.switchView = function(e){
     e.preventDefault();
@@ -273,7 +303,7 @@ WPBDP.ratings.switchView = function(e){
             });
     });
     
-}
+};
 
 WPBDP.ratings.init = function() {
     var $stars = jQuery(".wpbdp-ratings-stars");
@@ -308,7 +338,7 @@ WPBDP.ratings.init = function() {
     jQuery("#save-new-rate-listing").click(WPBDP.ratings.saveNew);
     jQuery(".flip-form .write-review-btn-trigger").click(WPBDP.ratings.switchView);
     //jQuery(".flip-form .cancel_rate_listing").click(WPBDP.ratings.switchView);
-    
+    jQuery('.more-reviews').click(WPBDP.ratings.getRatings);
 };
 
 

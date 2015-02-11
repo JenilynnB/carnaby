@@ -13,6 +13,7 @@ require_once(plugin_dir_path(__FILE__) . 'admin.php');
 define( 'WPBDP_RATINGS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_RATINGS_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_RATINGS_TEMPLATES_PATH', WPBDP_RATINGS_PATH . 'templates' );
+define( 'NUM_REVIEWS_TO_PAGINTE', 5);
 
 class BusinessDirectory_RatingsModule {
 
@@ -344,6 +345,50 @@ class BusinessDirectory_RatingsModule {
         return $reviews;
     }
     
+    public function get_reviews_paginated($listing_id, $reviews_per_page = 0, $page = 1){
+        global $wpdb;
+        
+        if($reviews_per_page==0){
+            $reviews_per_page = NUM_REVIEWS_TO_PAGINTE;
+        }
+        $offset = ($reviews_per_page * ($page-1));
+        
+        
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = %d AND approved = 1 ORDER BY created_on DESC LIMIT %d,%d", $listing_id, $offset, $reviews_per_page);
+        
+        $reviews = $wpdb->get_results($query);
+        
+        return $reviews;
+    }
+    
+    public function get_review_by_id($id){
+        global $wpdb;
+        
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE id = %d", $id);
+        
+        $review = $wpdb->get_results($query);
+        if(isset($review) && sizeof($review)>0){
+            $review = $review[0];
+        }
+        
+        return $review;
+    }
+    
+    public function get_total_reviews($listing_id){
+        global $wpdb;
+        $count = 0;
+        
+        $query = $wpdb->prepare("SELECT COUNT(user_id) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = %d AND approved = 1", $listing_id);
+        
+        $results = $wpdb->get_results($query);
+        if(sizeof($results)>0 && isset($results)){
+            $results = $results[0];
+            $count = $results->{'COUNT(user_id)'};
+        }
+        
+        return $count;
+    }
+    
     public function get_reviews_by_user($user_id, $only_approved=true){
         global $wpdb;
 
@@ -518,13 +563,23 @@ class BusinessDirectory_RatingsModule {
         if (!$this->enabled() || ( apply_filters( 'wpbdp_listing_ratings_enabled', true, $listing_id ) == false ) )
             return;
         
+        if(isset($_GET["module"])){	$module = $_GET["module"];	}
+        if($module=="reviews"){
+            /*if we're on the mobile reviews page, show two pages of reviews at
+             * once because the user has already clicked "More Reviews" once
+             */
+            $num_reviews = NUM_REVIEWS_TO_PAGINTE * 2;
+        }else{
+            $num_reviews = NUM_REVIEWS_TO_PAGINTE;
+        }
         
         $vars = array();
         //$vars['review_form'] = $this->can_post_review($listing_id, $reason) ? wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state) : '';
         $vars['review_form'] = wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state);
         $vars['reason'] = $reason;
         $vars['success'] = $this->_form_state['success'];
-        $vars['ratings'] = $this->get_reviews($listing_id);
+        $vars['ratings'] = $this->get_reviews_paginated($listing_id, $num_reviews);
+        $vars['num_reviews'] = $this->get_total_reviews($listing_id);
 
         echo wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/ratings.tpl.php', $vars);
     }
@@ -562,8 +617,17 @@ class BusinessDirectory_RatingsModule {
                 if ($wpdb->insert("{$wpdb->prefix}wpbdp_ratings", (array) $review)) {
                     
                     $review_id = $wpdb->insert_id;
-                    //need to know how to get new review ID
-                     
+                    
+                    $review_object = $this->get_review_by_id($review_id);
+                    
+                    
+                    $vars=array();
+                    $vars['rating'] = $review_object;
+                    
+                    $new_review .= wpbdp_render(WPBDP_RATINGS_TEMPLATES_PATH.'/single-review.tpl.php', $vars);    
+                    
+                    
+                    /*
                     $author_first_name = get_the_author_meta('first_name', $review['user_id']);
                     $author_last_name = get_the_author_meta('last_name', $review['user_id']);
                     if($author_last_name!=''){
@@ -645,7 +709,7 @@ class BusinessDirectory_RatingsModule {
                                 </div>
                             </div>';
                     
-                    
+                    */
                     $res['comment'] = $review->comment;
                     $res['rating'] = $review->rating;
                     $res['success'] = true;
@@ -679,6 +743,31 @@ class BusinessDirectory_RatingsModule {
                         }
                     }
                 }
+                break;
+            
+            case 'get_reviews':
+                
+                
+                $res = array('success' => false, 'msg' => __("I got to get reviews", 'wpbdp-ratings'));
+                 
+                $listing_id = $_POST['listing_id'];
+                $page_num = $_POST['page'] + 1;    //get the next page
+                $html = '';
+                
+                $ratings = $this->get_reviews_paginated($listing_id, NUM_REVIEWS_TO_PAGINTE, $page_num);
+                
+                
+                foreach($ratings as $i=>$rating){
+                    //get each review formatted as in single-review.php
+                    $vars=array();
+                    $vars['rating'] = $rating;
+                    $html .= wpbdp_render(WPBDP_RATINGS_TEMPLATES_PATH.'/single-review.tpl.php', $vars);    
+                }
+                 
+                
+                $res['success'] = true;
+                $res['reviews'] = $html;
+                
                 break;
             default:
                 break;

@@ -50,7 +50,7 @@ if($module != "more_info" && $module != "reviews"):
                             <a href="#form_wrapper_edit" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Edit My Review</a>
                         <?php else: ?>
                             <?php if(is_user_logged_in()): ?>
-                                <a href="#form_wrapper" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
+                                <a href="#form_wrapper" id="toplink" rel="write-review-form"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
                             <?php else: ?>
                                 <a href="" data-toggle="modal" data-target="#registrationModal"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
                             <?php endif; ?>
@@ -202,24 +202,3 @@ if($module=="more_info"):
 <?php
 endif;
 ?>
-
-
-<?php
-if($module != "more_info" && $module != "reviews"):
-
-?>
-
-<section class="primary section">
-    <div class="container">
-        <div class="content">                
-            <div class="row">
-                <div class="col-md-12">
-                    <?php the_related($listing_id); ?>
-                                
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<?php endif; ?>
