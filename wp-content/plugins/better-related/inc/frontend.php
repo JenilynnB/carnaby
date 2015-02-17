@@ -62,8 +62,9 @@ class BetterRelatedFrontend extends BetterRelated {
 	public function the_related( $id, $config = null ) {
 		if ( isset( $config ) )
 			$this->override_options( $config );
-		echo $this->get_the_related( $id, $config );
+		return $this->get_the_related( $id, $config );
 	}
+        
 
 	/**
 	 * Template tag helper, returns scores for a post
@@ -128,10 +129,12 @@ class BetterRelatedFrontend extends BetterRelated {
 							$score
 						);
 					}
-					$related .= "<li> <a href=\"$link\" title=\"Permanent link to $description\">$title</a> $showscore </li>\n";
+					//$related .= "<li> <a href=\"$link\" title=\"Permanent link to $description\">$title</a> $showscore </li>\n";
+                                        $related .= wpbdp_render_listing($id, 'excerpt', false);
 				}
 			}
 		}
+                /*
 		if ( $related ) {
 			// thanks link
 			$atitle = __( 'Related content found by the Better Related Posts plugin', 'better-related' );
@@ -166,7 +169,8 @@ class BetterRelatedFrontend extends BetterRelated {
 			$r .= $relatednone;
 			$r .= '</div>';
 		}
-		return $r;
+                */
+		return $related;
 	}
 
 	/**
@@ -303,7 +307,7 @@ if ( !function_exists( 'the_related' ) ) {
 		if ( !isset( $id ) || !is_integer( $id ) )
 			$id = get_the_ID();
 		global $BetterRelatedFrontend;
-		$BetterRelatedFrontend->the_related( $id, $config );
+		return $BetterRelatedFrontend->the_related( $id, $config );
 	}
 }
 

@@ -398,42 +398,16 @@ class WPBDP_OtherStoresYouMightLikeWidget extends WP_Widget {
             //echo '<div>';
             foreach ($posts as $post) {
                 wpbdp_render_listing($post->ID, 'excerpt', true);
-                /*
-                $thumbnail = wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
-                $rating = wpbdp_render_listing_field_html('Rating (average)', $post->ID);
-                
-                if((get_shopstyle_retailer_id($post->ID))!=''){
-                    $listing_url = '<a href="'.get_shopstyle_retailer_url($post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
-                 }else{
-                    $listing_url = '<a href="http://'.wpbdp_render_listing_field('URL', $post->ID).'" target="_blank"><i class="fa fa-external-link"></i></a>';
-                }
-                if (function_exists('wpfp_link')) { 
-                    $favorite_link = wpfp_link(1, "", 0, array(), $post->ID); 
-                }
-                
-                echo '<div>';
-                if ( $thumbnail )
-                    echo $thumbnail;
-                echo sprintf( '<div><a href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
-                echo '<div>'.$listing_url.'</div>';
-                echo '<div class="favorite-icon">'.$favorite_link.'</div>';
-                echo '<div class="listing-rating">'.$rating.'</div>';
-                echo '<div class="listing-price">'. render_price_field($post->ID).'</div>';
-                echo '<div class="listing-shipping">'.get_shipping_info('highlight', $post->ID).'</div>';
-                echo '<div class="listing-return-shipping">'.get_return_shipping_info($post->ID).'</div>';
-                
-                echo '</div>';
-                 * 
-                 */
             }
 
             //echo '</div>';
             echo $after_widget;
         }
     }    
-
-
 }
+
+
+
 
 /**
  * Random listings widget.

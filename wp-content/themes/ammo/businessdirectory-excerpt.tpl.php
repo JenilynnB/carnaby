@@ -39,21 +39,6 @@
     <div class="shipping-field">
         <?php
                 render_shipping_info($listing_id, 'highlight');
-                /*
-                $shipping_cost = get_field('shipping_cost');
-
-                if ( $shipping == "ship_free" ):
-                        $shipping_info = 'Free Shipping';
-                elseif ( $shipping == "ship_min" ):
-                        $shipping_info = 'Free Shipping with orders $' . get_field('free_shipping_minimum_amount') . '+';
-                elseif ( $shipping == "ship_flat" ):
-                        $shipping_info = 'Standard shipping: $' . $shipping_cost ;
-                else:
-                        $shipping_info = 'Shipping costs increase with order size';
-                endif;
-                echo '<div itemprop="shipping_info" class="meta-tag">' . $shipping_info . '</div>';
-                 * 
-                 */
         ?>
     </div>
     <div class="return-shipping-field">

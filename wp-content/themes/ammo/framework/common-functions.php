@@ -962,6 +962,7 @@ add_filter( 'get_product_search_form', 'tt_product_search_form' );
 add_filter( 'wp_nav_menu_items', 'add_user_menu', 10, 2);
 function add_user_menu($items, $args)
 {
+    
     if($args->theme_location == 'primary'){
         if(is_user_logged_in())
         {
@@ -976,20 +977,30 @@ function add_user_menu($items, $args)
             $user_dashboard_url = site_url("/dashboard");
             $user_profile_url = site_url("/profile");
             $user_account_url = site_url("/myaccount");
+            $user_friends_url = site_url("myaccount/?module=friends");
+            $user_messages_url = site_url("myaccount/?module=messages");
             $logout_url = site_url("/logout");
 
             //$user_photo = get_avatar($user->ID, 40);
             $user_photo = $xoouserultra->userpanel->get_user_pic_url( $user->ID, 40, "avatar");
-
-            $items .= '<li class="menu-item has-children menu-item-user-name">';
+            $unread_messages_count = $xoouserultra->mymessage->get_unread_messages_amount($user->ID);
+            
+            $items .= '<li class="menu-item has-children" id="menu-item-user-name">';
             $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
-            $items .=    '<a style="display:inline;"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
+            $items .=    '<a class="menu-item-user-name-link"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
             $items .=       '<ul class="dropdown-menu" style="display:none;">';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_dashboard_url.'"><span class="menu-text">Dashboard</span></a>';
             $items .=           '</li>';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_profile_url.'"><span class="menu-text">My Profile</span></a>';
+            $items .=           '</li>';
+            $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+            $items .=               '<a href="'.$user_messages_url.'"><span class="menu-text">My Messages</span>';
+            $items .=               '<div class="uultra-noti-bubble" title="'.__('Unread Messages', 'xoousers').'">'.$unread_messages_count.'</div></a>';
+            $items .=           '</li>';
+            $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
+            $items .=               '<a href="'.$user_friends_url.'"><span class="menu-text">My Friends</span></a>';
             $items .=           '</li>';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_account_url.'"><span class="menu-text">My Account</span></a>';
@@ -1001,10 +1012,31 @@ function add_user_menu($items, $args)
 
         }else{
             $login_url = site_url('/login');
+            $register_url = site_url('/registration');
+            $items .= '<li class="menu-item" id="menu-item-register">';
+            $items .= '<div class="menu-btn-container">';
+            $items .= '<a href="'.$register_url.'" class="btn btn-secondary" id="user-name-menu"><span class="menu-btn-text" >Sign up</span></a>';
+            $items .= '</div>';
+            $items .= '</li>';
+            $items .= '<li class="menu-item" id="menu-item-login">';
+            $items .= '<div class="menu-btn-container">';
+            $items .= '<a href="'.$login_url.'" class="btn btn-secondary" id="user-name-menu"><span class="menu-btn-text" >Login</span></a>';
+            $items .= '</div>';
+            $items .= '</li>';
+            
+            /*
+            $items .= '<li class="menu-item menu-item-user-name">';
+            $items .= '<div class="">';
+            $items .= '<button href="'.$register_url.'" class="btn btn-secondary" id="user-name-menu"><span class="menu-icon icon-user"></span><span class="menu-text" >Sign up</span></a>';
+            $items .= '</div>';
+            $items .= '</li>';
             $items .= '<li class="menu-item menu-item-user-name">';
             $items .= '<a href="'.$login_url.'" id="user-name-menu"><span class="menu-icon icon-user"></span><span class="menu-text" >Login</span></a>';
-            $items .= '</ul>';
+            $items .= '</li>';
+            */
         }
+        
+        
     }
     return $items;
 }

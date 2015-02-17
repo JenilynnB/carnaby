@@ -34,6 +34,21 @@ Carnaby Dashboard Styles
     background-color: #fff;
 }
 
+.menu-btn-container{
+    height: 70px;
+    position: relative;
+}
+/*
+.menu-item-user-name{
+    display: flex;
+    align-items: center;
+}
+*/
+.menu-item-user-name-link{
+    flex-grow: 6;
+}
+
+
 .dashboard .box-section h2, 
 .dashboard .box-section h3,  
 .dashboard .box-section h4,

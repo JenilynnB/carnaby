@@ -128,6 +128,35 @@ if($module == "" || $module == "reviews"):
         </div>
     </div>
 </section>
+    
+    
+<?php
+if($module != "more_info" && $module != "reviews"):
+?>
+
+<section class="primary section wpbdp-listing">
+    <div class="container">
+        <div class="content">                
+            <div class="row">
+                <div class="col-md-12">
+                    <?php 
+                    $related = the_related($listing_id); 
+                    
+                    if($related){
+                    ?>
+                        <h2>Other Stores You Might Like</h2>
+                    <?php
+                        echo $related;
+                    }
+                    ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php endif; ?>
 
 <div class="modal fade modal-small" id="confirm-review-delete" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -147,23 +176,3 @@ endif;
 
 
 
-
-<?php
-if($module != "more_info" && $module != "reviews"):
-
-?>
-
-<section class="primary section">
-    <div class="container">
-        <div class="content">                
-            <div class="row">
-                <div class="col-md-12">
-                    <?php the_related($listing_id); ?>
-                                
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<?php endif; ?>
