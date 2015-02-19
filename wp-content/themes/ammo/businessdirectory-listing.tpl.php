@@ -48,7 +48,7 @@ if($module != "more_info" && $module != "reviews"):
                         <div class="col-md-12 col-sm-4 col-xs-4 listing-action review">
                             <?php if(has_written_review()): ?>
                             <a href="#form_wrapper_edit" id="toplink"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Edit My Review</a>
-                        <?php else: ?>
+                            <?php else: ?>
                             <?php if(is_user_logged_in()): ?>
                                 <a href="#form_wrapper" id="toplink" rel="write-review-form"><i class="fa icon-bubble"></i>&nbsp;&nbsp;&nbsp;&nbsp;Write a Review</a>
                             <?php else: ?>

@@ -27,7 +27,8 @@
 			{
 				var form_id = $thisform.attr("data-sf-form-id");
 				
-				if(use_ajax==1)
+                                //If the form can't find the html object to update with the ajax results, the form is submitted the usual way
+				if(use_ajax==1 && $ajax_target_object.length>0)
 				{
 					
 					e.preventDefault();

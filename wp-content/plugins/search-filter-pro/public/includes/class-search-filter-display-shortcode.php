@@ -651,13 +651,21 @@ class Search_Filter_Display_Shortcode {
 		
 		//$returnvar .= "</li>";
 		
-                if($field_id!="_sfm_ships_to_canada" && $field_id!="_sfm_international_shipping"){
-                    $returnvar .= "</div>";
-                    $returnvar .= "</div>";
-                    $returnvar .= "</div>";
+                
+                $returnvar .= "</div>"; //div with field info
+                
+                if(($field_data['heading']!="" || $field_id=="_sfm_shipping_cost_to_canada") && $field_id!="_sfm_international_shipping" && $field_id!="_sfm_ships_to_canada")
+                {
+                    $returnvar .= "</div>"; //panel-body
+                    $returnvar .= "</div>"; //panel-collapse
                 }
                 
-                $returnvar .= "</div>";
+                if($field_id!="_sfm_ships_to_canada" && $field_id!="_sfm_international_shipping"){
+                //if($field_data["meta_key"]!='shipping_cost_to_canada' && $field_data["meta_key"]!='ships_to_canada'){
+                    $returnvar .= "</div>"; //acc-panel panel-default
+                }
+                
+                
                 
 		return $returnvar;
 	}

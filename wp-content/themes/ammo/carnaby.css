@@ -602,6 +602,31 @@ Carnaby Homepage Styles
 .wpbdp-listing .author-review-store-info{
     display: none;
 }
+
+/********** Index Page *********************/
+.section.index-listings{
+    background-color: #ebebeb;
+    position: relative;
+}
+
+
+.wpbdp-pagination .current{
+    background-color: #66cccc;
+    color: #fff;
+}
+
+.btn.filters{
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    margin-top: 10px;
+    
+}
+
+.listing-thumbnail img{
+    max-width: 100%;
+    height: auto;
+}
+
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){
     .homepage .main-panel{

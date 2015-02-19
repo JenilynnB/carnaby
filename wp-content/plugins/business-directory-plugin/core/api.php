@@ -1598,6 +1598,9 @@ function get_listing_outbound_link($id){
     }else{
        $no_dub_url = substr($link_text,$dubdub+4); 
     }
+    if(strlen($no_dub_url)>17){
+        $no_dub_url = substr($no_dub_url, 0, 17)."...";
+    }
     
     if((get_shopstyle_retailer_id($id))!=''){
         $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';

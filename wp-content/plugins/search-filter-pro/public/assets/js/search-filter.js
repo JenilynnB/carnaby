@@ -273,7 +273,7 @@ var $fieldConditions = [];
 			var template_is_loaded = $thisform.attr("data-template-loaded");
 			var use_ajax = $thisform.attr("data-ajax");
 			var use_ajax_shortcode = $thisform.attr("data-ajax-shortcode");
-			
+			var $ajax_target_object = jQuery($thisform.attr("data-ajax-target"));
 			
 			if(use_ajax_shortcode!="1")
 			{
@@ -281,8 +281,8 @@ var $fieldConditions = [];
 				
 				//if(template_is_loaded==1)
 				//{//if a template is loaded then use ajax
-					
-					if(use_ajax==1)
+					//If the form can't find the html object to update with the ajax results, the form is submitted the usual way
+					if(use_ajax==1 && $ajax_target_object.length >0)
 					{
 						e.preventDefault();
 						
@@ -480,10 +480,11 @@ var $fieldConditions = [];
 			
 			var auto_update = $thisform.attr("data-auto-update");
 			var use_ajax_shortcode = $thisform.attr("data-ajax-shortcode");
-			
+			var $ajax_target_object = jQuery($thisform.attr("data-ajax-target"));
+                        
 			if(use_ajax_shortcode!="1")
 			{
-				if(auto_update==1)
+				if(auto_update==1&&$ajax_target_object.length>0)
 				{
 					$thisform.submit();
 				}

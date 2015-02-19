@@ -1071,6 +1071,9 @@ function redirect_to_specific_page() {
     
 }
 
+
+/** Filters the results returned on the category page, based on the original
+ * category selected ***/
 function filter_results( $query )
 {
     global $sf_form_data;
@@ -1079,7 +1082,6 @@ function filter_results( $query )
     {
         $taxquery = $query->get('tax_query');
         //If the search & filter form is for Women
-
         if($sf_form_data->form_id()=="268"){    
             //Figure out how to filter by wpbdp_category
             //$query->set('_sft_wpbdp_cat', '1'); //you can use any query modifications from here - http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts

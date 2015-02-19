@@ -68,12 +68,15 @@ jQuery(document).ready(function($) {
 		================================================== */
 		if( $('.header-transparent').length>0 ){
 			$('#header_spacing').height(0);
-			
+			/// Commenting this section out because it's fucking with the height of the page
+                         // title for mobile pages
 			if( $('#tt-slider').length<1 ){
-				$('section.section').eq(0).css({
+				
+                                $('section.section').eq(0).css({
 					'padding-top': +parseInt($('section.section').eq(0).css('padding-top'))+$('#header').height()+'px'
 				});
 			}
+                        
 
 			/** It will works when enabled sticky menu. */
 			if( $('.header-transparent').hasClass('navbar-fixed-top') ){
@@ -1139,6 +1142,12 @@ $(function(){
     
 });
 
+/*****************************************************************************
+ * 
+ * Showing overlays for product images
+ * 
+ ****************************************************************************/
+
 
 $(function(){
    try{
@@ -1155,3 +1164,64 @@ $(function(){
             $( '#' + this.id.replace('product-image', 'product-overlay') ).hide();
         });
 });
+
+/*****************************************************************************
+ * 
+ * Adding all url parameters for the return button on the filters page for mobile.
+ * When Search & Filter filters results, it appends URL parameters, which
+ * are annoying to pull on the category template, so we grab them in the js.
+ * 
+ ****************************************************************************/
+
+$(function(){
+    try{
+        var $return_link = $('#results-return-link');
+        var $search_form = $('.searchandfilter');
+        var this_url = $search_form.attr('data-ajax-url');
+    }catch(e){
+        return;
+    }
+    var module = this_url.search('module');
+    var back_url = '';
+    
+    if(module>0){
+        back_url = this_url.replace('module=filters','');
+    }
+    
+    $return_link.attr('href', back_url);
+
+});
+
+/*****************************************************************************
+ * 
+ * Adding all url parameters for the filter button on the filters page for mobile.
+ * When Search & Filter filters results, it appends URL parameters, which
+ * are annoying to pull on the category template, so we grab them in the js.
+ * 
+ ****************************************************************************/
+
+$(function(){
+    try{
+        var $filters_button = $('#filters-button');
+        var $search_form = $('.searchandfilter');
+        var this_url = $search_form.attr('data-ajax-url');
+    }catch(e){
+        return;
+    }
+    var params = this_url.indexOf('/?');
+    var filters_url = '';
+
+    //there are already parameters on the current url
+    if(params>0){
+        filters_url = this_url.concat('&module=filters');
+    }else{
+        filters_url = this_url.concat('?module=filters');
+    }
+    
+    
+    $filters_button.attr('href', filters_url);
+
+});
+
+
+    
