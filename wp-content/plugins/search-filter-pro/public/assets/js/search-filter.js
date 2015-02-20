@@ -360,7 +360,17 @@ var $fieldConditions = [];
 			var $ajaxed_search_form_post = $data_obj.find('*[data-sf-form-id='+form_id+']');
                         var this_url = $ajaxed_search_form_post.attr('data-ajax-url');
                         var $new = $data_obj.find(ajax_target_attr);
-			
+			var $filters_button = $('#filters-button');
+                        
+                        var params = this_url.indexOf('/?');
+                        var filters_url = '';
+
+                        //there are already parameters on the current url
+                        if(params>0){
+                            filters_url = this_url.concat('&module=filters');
+                        }else{
+                            filters_url = this_url.concat('?module=filters');
+                        }
                         
                         $ajax_target_object.html($new.html());
                       
@@ -372,7 +382,9 @@ var $fieldConditions = [];
 				//now check if the browser supports history state push :)
 				if (window.history && window.history.pushState)
 				{
-					history.pushState(null, null, this_url);
+                                    $filters_button.attr('href', filters_url);
+                                    history.pushState(null, null, this_url);
+                                        
 				}
 			}
                         

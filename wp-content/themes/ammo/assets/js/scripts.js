@@ -70,7 +70,7 @@ jQuery(document).ready(function($) {
 			$('#header_spacing').height(0);
 			/// Commenting this section out because it's fucking with the height of the page
                          // title for mobile pages
-			if( $('#tt-slider').length<1 ){
+			if( $('#tt-slider').length<1 && $('#header').eq(0).css('position') ==='fixed'){
 				
                                 $('section.section').eq(0).css({
 					'padding-top': +parseInt($('section.section').eq(0).css('padding-top'))+$('#header').height()+'px'
@@ -1181,7 +1181,11 @@ $(function(){
     }catch(e){
         return;
     }
-    var module = this_url.search('module');
+    
+    if($return_link.length===0){
+        return;
+    }
+    var module = this_url.indexOf('module');
     var back_url = '';
     
     if(module>0){
@@ -1208,6 +1212,10 @@ $(function(){
     }catch(e){
         return;
     }
+    if($filters_button.length===0){
+        return;
+    }
+    
     var params = this_url.indexOf('/?');
     var filters_url = '';
 

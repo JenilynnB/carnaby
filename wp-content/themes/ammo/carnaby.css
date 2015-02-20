@@ -514,7 +514,7 @@ Carnaby Homepage Styles
     background-color: #fff;
 }
 
-.wpbdp-listing .breadcrumb{
+.wpbdp-listing .breadcrumb, .index-listings .breadcrumb{
     padding-left: 0px;
     position: relative;
     top: -15px;
@@ -619,13 +619,13 @@ Carnaby Homepage Styles
     width: 100%;
     padding: 10px 0px 10px 0px;
     margin-top: 10px;
+    margin-bottom: 20px;
     
 }
-
-.listing-thumbnail img{
-    max-width: 100%;
-    height: auto;
+.searchandfilter input[type=submit]{
+    width:100%;
 }
+
 
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){

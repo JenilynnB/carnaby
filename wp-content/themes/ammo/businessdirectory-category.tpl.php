@@ -92,6 +92,7 @@ $class = "";
 ================================================== -->
 <section class="section index-listings primary">
     <div class="container">
+        <div class="content">
         <div class="row">
             <div class="col-md-12">                    
                 <div class="row">
@@ -102,9 +103,7 @@ $class = "";
                     </div>
                 </div>
                 <div class="row">
-                    <?php if($module=='filters'): ?>
-                        <a href="?" id="results-return-link" class="breadcrumb">< Back to Results</a>
-                    <?php endif; ?>
+                    
                     
                     <?php if($module!='filters'): ?>
                         <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
@@ -117,7 +116,9 @@ $class = "";
                                 
                     <?php endif; ?>
                         <div class='<?php echo $class;?>'>    
-                            
+                                <?php if($module=='filters'): ?>
+                                <a href="?" id="results-return-link" class="breadcrumb">< Back to Results</a>
+                                <?php endif; ?>
                                 <?php 
                                 if(strcasecmp($term, "women")==0){
                                     echo do_shortcode( '[searchandfilter id="268"]' ); 
@@ -138,17 +139,20 @@ $class = "";
                         </div>
                     
                         <?php if($module != "filters"):?>
-                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
                                 <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                 <div id="listings-results">
-
-                                    <?php while (have_posts()): the_post(); ?>
-                                        <?php 
+                                    
+                                    <?php 
+                                    if(have_posts()):
+                                        while (have_posts()): the_post(); 
                                             echo wpbdp_render_listing(null, 'excerpt'); 
-                                            //echo do_shortcode('[searchandfilter id="268" show="results"]');
-                                        ?>
-                                    <?php endwhile; ?>
+                                        endwhile;
+                                    else:
+                                        echo wpautop('Sorry, no sites match your search.');
+                                    endif;
+                                    ?>
 
                                     <div class="wpbdp-pagination">
 
@@ -169,6 +173,7 @@ $class = "";
                                     </div>
                                 </div>
 
+                            </div>
                         </div>
                         <?php endif; ?>
 
