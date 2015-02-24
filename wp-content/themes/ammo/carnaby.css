@@ -38,15 +38,6 @@ Carnaby Dashboard Styles
     height: 70px;
     position: relative;
 }
-/*
-.menu-item-user-name{
-    display: flex;
-    align-items: center;
-}
-*/
-.menu-item-user-name-link{
-    flex-grow: 6;
-}
 
 
 .dashboard .box-section h2, 
@@ -609,6 +600,11 @@ Carnaby Homepage Styles
     position: relative;
 }
 
+.index-listings .filters{
+    background-color: #66cccc;
+    padding: 15px 15px 5px 15px;
+    margin: 5px 15px 5px 0px;
+}
 
 .wpbdp-pagination .current{
     background-color: #66cccc;

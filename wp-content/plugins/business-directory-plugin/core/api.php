@@ -1678,3 +1678,178 @@ function carnaby_display_listing_excerpt($title, $posts){
 function support_email_address(){
     return "support@carnabywest.com";
 }
+
+/* Takes an array of key-value pairs from URL parameters and returns an array of
+ * key-value pairs with the user-readable labels  */
+
+function get_field_labels($url_parameters){
+    $readable = array();
+    
+    if (!empty($url_parameters)){
+        
+        foreach($url_parameters as $key => $values_string){
+            
+            if (strpos($key, SF_TAX_PRE) === 0){
+                //$field_object = get_field_object(substr($key, strlen(SF_TAX_PRE)));
+                //$field = get_field(substr($key, strlen(SF_TAX_PRE)));
+                $key = substr($key, strlen(SF_TAX_PRE));
+            }else if(strpos($key, SF_META_PRE) === 0){
+                $key = substr($key, strlen(SF_META_PRE));
+                //$field_object = get_field_object(substr($key, strlen(SF_META_PRE)));
+                //$field = get_field(substr($key, strlen(SF_META_PRE)));
+            }else{
+                //not a filter field
+            }
+            
+            $values_array = (preg_split("/[,\+\- ]+/", esc_attr(($values_string)))); //explode with 2 delims
+            
+            $readable_values = array();
+            if($key=="price"){
+                
+                foreach($values_array as $value){
+                    if($value=="1$"){
+                        $readable_values[] = "$"; 
+                    }elseif($value=="2$"){
+                        $readable_values[] = "$$";
+                    }elseif($value=="3$"){
+                        $readable_values[] = "$$$";
+                    }elseif($value=="4$"){
+                        $readable_values[] = "$$$$";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Price'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="shipping"){
+                foreach($values_array as $value){
+                    if($value=="ship_free"){
+                        $readable_values[] = "Free Shipping"; 
+                    }elseif($value=="ship_flat"){
+                        $readable_values[] = "Flat Rate Shipping";
+                    }elseif($value=="ship_min"){
+                        $readable_values[] = "Free Shipping with Min. Order";
+                    }elseif($value=="ship_increase"){
+                        $readable_values[] = "Shipping Increases with Order";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Shipping'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="good_for"){
+                foreach($values_array as $value){
+                    if($value=="bags_and_handbags"){
+                        $readable_values[] = "Bags & Handbags";
+                    }elseif($value=="basics"){
+                        $readable_values[] = "Basics"; 
+                    }elseif($value=="beach_vacation"){
+                        $readable_values[] = "Beach Vacation";
+                    }elseif($value=="city_outerwear"){
+                        $readable_values[] = "City Outerwear";
+                    }elseif($value=="casual_weekend"){
+                        $readable_values[] = "Casual Weekend";
+                    }elseif($value=="denim"){
+                        $readable_values[] = "Denim";
+                    }elseif($value=="discount_shopping"){
+                        $readable_values[] = "Discount Shopping";
+                    }elseif($value=="everyday_dressing"){
+                        $readable_values[] = "Everyday Dressing";
+                    }elseif($value=="fancy_fetes"){
+                        $readable_values[] = "Fancy Fetes";
+                    }elseif($value=="fast_fashion"){
+                        $readable_values[] = "Fast Fashion";
+                    }elseif($value=="lingerie"){
+                        $readable_values[] = "Lingerie";
+                    }elseif($value=="maternity"){
+                        $readable_values[] = "Maternity";
+                    }elseif($value=="outdoor_adventures"){
+                        $readable_values[] = "Outdoor Adventures";
+                    }elseif($value=="shoes"){
+                        $readable_values[] = "Shoes";
+                    }elseif($value=="socks_and_hosiery"){
+                        $readable_values[] = "Socks & Hosiery";
+                    }elseif($value=="style_inspiration"){
+                        $readable_values[] = "Style Inspiration";
+                    }elseif($value=="wear_to_work"){
+                        $readable_values[] = "Wear to Work";
+                    }elseif($value=="weddings"){
+                        $readable_values[] = "Weddings";
+                    }elseif($value=="workout_wear"){
+                        $readable_values[] = "Workout Wear";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Store Features'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="return_shipping"){
+                foreach($values_array as $value){
+                    if($value=="return_free"){
+                        $readable_values[] = "Free Returns"; 
+                    }elseif($value=="return_flat"){
+                        $readable_values[] = "Flat Rate Returns";
+                    }elseif($value=="return_customer"){
+                        $readable_values[] = "Customer Handles Return";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Return Shipping'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="international_shipping"){
+                foreach($values_array as $value){
+                    if($value==true){
+                        $readable_values[] = "Ships Overseas"; 
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['International Shipping'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="ships_to_canada"){
+                foreach($values_array as $value){
+                    if($value==true){
+                        $readable_values[] = "Ships To Canada"; 
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Canada Shipping'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="shipping_cost_to_canada"){
+                foreach ($values_array as &$value){
+                    $value = '$'.$value;
+                }
+                if(!empty($values_array)){
+                    $readable['Canada Shipping Cost'] .= implode(" - ", $values_array);
+                }
+                
+            }elseif($key=="womens_extended_sizes"){
+                foreach($values_array as $value){
+                    if($value=="plus_size"){
+                        $readable_values[] = "Plus Size"; 
+                    }elseif($value=="petites"){
+                        $readable_values[] = "Petites";
+                    }elseif($value=="tall"){
+                        $readable_values[] = "Tall";
+                    }elseif($value=="maternity"){
+                        $readable_values[] = "Maternity";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Women\'s Extended Sizes'] .= implode(", ", $readable_values);
+                }
+            }elseif($key=="mens_extended_sizes"){
+                foreach($values_array as $value){
+                    if($value=="slim"){
+                        $readable_values[] = "Slim"; 
+                    }elseif($value=="tall"){
+                        $readable_values[] = "Tall";
+                    }elseif($value=="big_and_tall"){
+                        $readable_values[] = "Big & Tall";
+                    }
+                }
+                if(!empty($readable_values)){
+                    $readable['Men\'s Extended Sizes'] .= implode(", ", $readable_values);
+                }
+            }
+     
+        }
+    }
+    return $readable;
+}

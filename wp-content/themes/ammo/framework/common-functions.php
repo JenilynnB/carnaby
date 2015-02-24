@@ -986,8 +986,11 @@ function add_user_menu($items, $args)
             $unread_messages_count = $xoouserultra->mymessage->get_unread_messages_amount($user->ID);
             
             $items .= '<li class="menu-item has-children" id="menu-item-user-name">';
+            
+            $items .=    '<a class="menu-item-user-name-link">';
             $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
-            $items .=    '<a class="menu-item-user-name-link"><span class="menu-text" id="user-name-menu">'.$name.'</span></a>';
+            $items .=    '<span class="menu-text" id="user-name-menu">';
+            $items .=    $name.'</span></a>';
             $items .=       '<ul class="dropdown-menu" style="display:none;">';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_dashboard_url.'"><span class="menu-text">Dashboard</span></a>';
@@ -997,7 +1000,9 @@ function add_user_menu($items, $args)
             $items .=           '</li>';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_messages_url.'"><span class="menu-text">My Messages</span>';
+            if($unread_messages_count>0){
             $items .=               '<div class="uultra-noti-bubble" title="'.__('Unread Messages', 'xoousers').'">'.$unread_messages_count.'</div></a>';
+            }
             $items .=           '</li>';
             $items .=           '<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1140">';
             $items .=               '<a href="'.$user_friends_url.'"><span class="menu-text">My Friends</span></a>';

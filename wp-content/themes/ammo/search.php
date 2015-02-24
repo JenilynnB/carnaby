@@ -1,127 +1,194 @@
 <?php
-	get_header();
-	
-global $smof_data, $layout_sidebar;
-
-$prefix = 'search';
 
 
-$content_class = 'col-md-9';
-$layout_sidebar = 'right';
-if ( isset($smof_data[$prefix.'_sidebar_type']) && $smof_data[$prefix.'_sidebar_type'] == 'left') {
-    $layout_sidebar = 'left';
-    $content_class .= ' pull-right';
-} elseif ( isset($smof_data[$prefix.'_sidebar_type']) && $smof_data[$prefix.'_sidebar_type'] == 'full') {
-    $layout_sidebar = 'full';
-    $content_class = 'col-md-12 col-sm-12';
-}
+get_header();
+        
+$module = "";
+if(isset($_GET["module"])){	$module = $_GET["module"];	}
+//echo print_r($_GET);
 
-$loop_layout = (isset($smof_data[$prefix.'_layout']) && $smof_data[$prefix.'_layout'] != '') ? $smof_data[$prefix.'_layout'] : 'regular';
+get_field_labels($_GET);
+
+$class = "";
 
 ?>
 
+<?php
+    //after submitting search & filter form once
+    $query_tax = get_query_var("tax_query");
+    $term = '';
+    if(!empty($query_tax)){
+        foreach($query_tax as $qt){
+            if(isset($qt['taxonomy'])){
+                if($qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                    $queryterms = array();
+                    if(!is_array($qt['terms'])){
+                        $queryterms[] = $qt['terms'];
+                    }else{
+                        $queryterms = $qt['terms'];
+                    }
+                    foreach($queryterms as $qtt){
+                        if(strcasecmp($qtt,'women')==0||
+                        strcasecmp($qtt,'men')==0||
+                        strcasecmp($qtt,'kids-baby')==0||
+                        strcasecmp($qtt,'girls')==0||
+                        strcasecmp($qtt,'boys')==0||
+                        strcasecmp($qtt,'baby')==0){
+                            $term = $qtt;
+                            $field = $qt['field'];
+                        }
+                    }
+                }
+            }
+        }
+    }else{
+        $term_object = get_queried_object();
+    } 
+    
+    
+    if($term!=''){
+        $term_object = get_term_by($field, $term, WPBDP_CATEGORY_TAX);
+        if($term_object->parent!=0){
+            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+        }
+    }else if($main_query){
+        if($term_object->parent!=0){
+            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+        }
+    }
+    
+    $breadcrumbs = '';
+    //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
+    
+    if($parent_term->term_id!=""){
+        $parent_base_url = site_url("site_categories");
+        $parent_url = $parent_base_url."/".$parent_term->slug;
+        
+        $breadcrumbs .= "<a href='".$parent_url."'>".$parent_term->name."</a>";
+        $breadcrumbs .= " > "; 
+        
+    }
+    
+    $breadcrumbs .= $term_object->name;
+    
+    if($parent_term->term_id!=""){
+        $term = $parent_term->name;
+    }else{
+        $term = $term_object->name;
+    }
+?>
+                            
 
-
-<!-- Start Title Section
-================================================== -->
-<section class="page-title section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="" data-animate="fadeInUp">
-					<h1>
-					<?php // Title text
-                    	printf( __( 'Search Results for: %s', 'themeton' ), get_search_query() );
-                    ?>
-                    </h1>
-				</div>
-			</div>
-		</div>
-	</div>
+<section class="page-title section " style="text-align:left;padding-top:20px; padding-bottom:20px;"  >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h1><?php echo $breadcrumbs ?></h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- ================================================== 
-End Title -->
 
 <!-- Start Content
 ================================================== -->
-<section class="primary section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="<?php echo $content_class; ?>">
-						<div class="content">
-							<div class="row">
-								<div class="col-md-12">
-									<?php
-		                            if (have_posts()) :
-		                            	$columns = 4;
-		                            	$tmp = str_replace('grid', '', $loop_layout);
-		                            	$tmp = str_replace('masonry', '', $tmp);
+<section class="section index-listings primary">
+    <div class="container">
+        <div class="content">
+        <div class="row">
+            <div class="col-md-12">                    
+                <div class="row">
+                    <div class="col-lg-12">
+                        <?php if($module!="filters"): ?>
+                        <?php wpbdp_the_listing_sort_options(); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    
+                    <?php if($module!='filters'): ?>
+                        <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
+                            <a href="?module=filters" id="filters-button" class="btn btn-secondary filters"><i class="fa fa-filter"></i> Filters</a>
+                        </div>
+                        <?php $class='col-lg-3 col-md-3 hidden-sm hidden-xs'; ?>
+                            
+                    <?php else: ?>
+                        <?php $class='col-lg-12'; ?>
+                                
+                    <?php endif; ?>
+                        <div class='<?php echo $class;?>'>    
+                                <?php if($module=='filters'): ?>
+                                <a href="?" id="results-return-link" class="breadcrumb">< Back to Results</a>
+                                <?php endif; ?>
+                                <?php 
+                                if(strcasecmp($term, "women")==0){
+                                    echo do_shortcode( '[searchandfilter id="268"]' ); 
+                                }else if (strcasecmp($term, "men")==0){
+                                    echo do_shortcode( '[searchandfilter id="1065"]' );
+                                }else if (strcasecmp($term,"girls")==0){
+                                    echo do_shortcode( '[searchandfilter id="1147"]' );
+                                }else if (strcasecmp($term, "boys")==0){
+                                    echo do_shortcode( '[searchandfilter id="1148"]' );
+                                }else if (strcasecmp($term,"baby")==0){
+                                    echo do_shortcode( '[searchandfilter id="1149"]' );
+                                }else{
+                                    echo do_shortcode( '[searchandfilter id="3158"]' );
+                                }
 
-		                            	if( $tmp != 'regular') :
-		                            		$columns = $tmp;
-		                            	endif;
-		                            	$loop_args = array(
-							                            'overlay' => 'none',
-							                            'excerpt' => 'excerpt',
-							                            'readmore' => __('Read more', 'themeton'),
-							                            'grid' => $columns,
-							                            'element_style' => 'default'
-						                            );
-		                            	$result = '';
-		                            	$function = 'blox_loop_regular';
-        			                  	if(function_exists('blox_loop_'.$loop_layout))
-	                                		$function = 'blox_loop_'.$loop_layout;
+                                ?>  
+                            
+                        </div>
+                    
+                        <?php if($module != "filters"):?>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
-		                                while (have_posts()) : the_post();
-		                                	ob_start();
-		                                	call_user_func($function, $loop_args);
-		                                    $result .= ob_get_contents();
-		                                    ob_end_clean();
-		                                endwhile;
+                                <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
+                                <div id="listings-results">
+                                    
+                                    <?php 
+                                    if(have_posts()):
+                                        while (have_posts()): the_post(); 
+                                            echo wpbdp_render_listing(null, 'excerpt'); 
+                                        endwhile;
+                                    else:
+                                        echo wpautop('Sorry, no sites match your search.');
+                                    endif;
+                                    ?>
 
-		                                $pager_html = '';
-		                                ob_start();
-							            themeton_pager();
-							            $pager_html .= ob_get_contents();
-							            ob_end_clean();
+                                    <div class="wpbdp-pagination">
 
-		                                echo '<div class="blox-element blog medium-loop">
-						                        <div class="row">
-						                            <div class="col-md-12">'.$result.'</div>
-						                        </div>
-						                        '. $pager_html .'
-						                      </div>';
-						            else : ?>
-						            	<h3><?php _e('Your search term cannot be found', 'themeton'); ?></h3>
-						            	<p><?php _e('Sorry, the post you are looking for is not available. Maybe you want to perform a search?', 'themeton'); ?></p>
-										<?php get_search_form();?>
-										<br>
-										<p><?php _e('For best search results, mind the following suggestions:', 'themeton'); ?></p>
-										<ul class="borderlist-not">
-									        <li><?php _e('Always double check your spelling.', 'themeton'); ?></li>
-									        <li><?php _e('Try similar keywords, for example: tablet instead of laptop.', 'themeton'); ?></li>
-									        <li><?php _e('Try using more than one keyword.', 'themeton'); ?></li>
-									    </ul> <?php
-		                            endif;
-		                            ?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<?php
-					if( $layout_sidebar != 'full' ) :
-						get_sidebar('archive');
-					endif;
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
+                                        <?php 
+                                        $args = array(
+                                            'type' => 'array'
+                                        );
+                                        $paginate =  paginate_links($args);
+                                        $pagination_links = "<nav><ul class='pagination'>";
+                                        if(isset($paginate)&&sizeof($paginate)>0){
+                                            foreach($paginate as $page){
+                                                $pagination_links .= "<li>".$page."</li>";
+                                            }
+                                        }
+                                        $pagination_links .= "</ul></nav>";
+                                        echo $pagination_links;
+                                        ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- End Content
 ================================================== -->
 
 
-<?php get_footer(); ?>
+<?php
+	get_footer();
+?>

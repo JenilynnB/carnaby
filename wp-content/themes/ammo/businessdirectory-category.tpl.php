@@ -6,6 +6,8 @@ get_header();
 $module = "";
 if(isset($_GET["module"])){	$module = $_GET["module"];	}
 
+$filters = get_field_labels($_GET);
+
 $class = "";
 
 ?>
@@ -143,6 +145,14 @@ $class = "";
 
                                 <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                 <div id="listings-results">
+                                <?php if (!empty($filters) && sizeof($filters)>0): ?>
+                                    <div class='filters'>
+                                    <?php 
+                                        echo implode('  |  ', array_map(function ($v, $k) { return '<label>'.$k.'</label>: ' . $v; }, $filters, array_keys($filters)));
+                                        
+                                    ?>
+                                    </div>
+                                <?php endif; ?>
                                     
                                     <?php 
                                     if(have_posts()):
