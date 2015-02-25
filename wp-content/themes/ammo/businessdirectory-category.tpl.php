@@ -147,13 +147,14 @@ $class = "";
                                 <div id="listings-results">
                                 <?php if (!empty($filters) && sizeof($filters)>0): ?>
                                     <div class='filters'>
+                                        <h4>Filters</h4>
                                     <?php 
                                         echo implode('  |  ', array_map(function ($v, $k) { return '<label>'.$k.'</label>: ' . $v; }, $filters, array_keys($filters)));
                                         
                                     ?>
                                     </div>
                                 <?php endif; ?>
-                                    
+                                    <div class='listings-excerpts'>
                                     <?php 
                                     if(have_posts()):
                                         while (have_posts()): the_post(); 
@@ -163,12 +164,13 @@ $class = "";
                                         echo wpautop('Sorry, no sites match your search.');
                                     endif;
                                     ?>
-
+                                    </div>
                                     <div class="wpbdp-pagination">
 
                                         <?php 
                                         $args = array(
-                                            'type' => 'array'
+                                            'type' => 'array',
+                                            'add_args' => $_GET
                                         );
                                         $paginate =  paginate_links($args);
                                         $pagination_links = "<nav><ul class='pagination'>";

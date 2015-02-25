@@ -1177,7 +1177,7 @@ function get_user_profile_thumb_circle($size, $user_id){
     //$user_photo = get_avatar($user->ID, 40);
     $user_photo = $xoouserultra->userpanel->get_user_pic_url( $user_id, $size, "avatar");
 
-    $items .= '<div class="user-thumb-photo" style="width:'.$size.'px; height:'.$size.'px; background-image: url('.$user_photo.'); "></div>';
+    $items .= '<div class="user-thumb-photo user-avatar-rounded" style="width:'.$size.'px; height:'.$size.'px; background-image: url('.$user_photo.'); "></div>';
 
     return $items;
 }

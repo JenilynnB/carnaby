@@ -21,10 +21,14 @@
     font-size: 16px;
 }
 
+.dashboard .wpbdp-ratings-reviews{
+    padding: 25px 15px 25px 20px;
+}
+
 .wpbdp-ratings-reviews{
     margin-bottom: 10px;
     background-color: #ffffff;
-    padding: 25px 15px 25px 20px;
+    
     
 }
 

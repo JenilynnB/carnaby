@@ -601,9 +601,13 @@ Carnaby Homepage Styles
 }
 
 .index-listings .filters{
-    background-color: #66cccc;
+    //background-color: #66cccc;
     padding: 15px 15px 5px 15px;
     margin: 5px 15px 5px 0px;
+    text-align: center;
+}
+.index-listings .filters h4{
+    margin-bottom:0px;
 }
 
 .wpbdp-pagination .current{
