@@ -1583,3 +1583,93 @@ function get_current_filters_by_field($field_name){
 
         return $meta_data;
 }
+
+if( !defined( 'ABSPATH' ) )
+	exit;
+	
+function modify_wp_search_where( $where ) {
+	if( is_search() ) {
+		
+		global $wpdb, $wp;
+
+		$search_var = $wp->query_vars['s'];
+		$search_bool = stripos($search_var, " ");
+
+		if($search_bool == false){
+
+			$where = preg_replace(
+			"/($wpdb->posts.post_title (LIKE '%{$wp->query_vars['s']}%'))/i",
+                        //"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' )",
+			"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' ) OR (t.name LIKE '%{$wp->query_vars['s']}%') ",
+			$where
+			);
+
+		}else{
+
+			$search_var = explode(" ", $search_var);
+			for($i=0; $i<count($search_var); $i++){
+				$where = preg_replace(
+					"/($wpdb->posts.post_title (LIKE '%{$search_var[$i]}%'))/i",
+                                        //"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' )",
+					"$0) OR ( $wpdb->postmeta.meta_value LIKE '%{$search_var[$i]}%' ) OR (t.name LIKE '%{$search_var[$i]}%' ",
+					$where
+					);
+			}
+                        /*
+                        $where .= " OR ("
+                                . " ($wpdb->posts.post_title LIKE '%{$wp->query_vars['s']}%' ) "
+                                . " OR ($wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' )"
+                                . " OR (t.name LIKE '%{$wp->query_vars['s']}%' ) "
+                                . " OR ($wpdb->post_content LIKE %{$wp->query_vars['s']}%' )"
+                                . ")"; 
+			*/
+
+                }
+                
+		add_filter( 'posts_join_request', 'modify_wp_search_join' );
+                add_filter( 'posts_groupby', 'modify_wp_search_groupby');
+		add_filter( 'posts_distinct_request', 'modify_wp_search_distinct' );
+	}
+	
+	return $where;
+	
+}
+add_action( 'posts_where_request', 'modify_wp_search_where' );
+
+function modify_wp_search_join( $join ) {
+
+	global $wpdb;
+	
+	$join .= " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ";
+	$join .= " LEFT JOIN $wpdb->term_relationships tr ON ($wpdb->posts.ID = tr.object_id)";
+        $join .= " LEFT JOIN $wpdb->term_taxonomy tt ON (tt.term_taxonomy_id=tr.term_taxonomy_id)";
+        $join .= " LEFT JOIN $wpdb->terms t ON (t.term_id = tt.term_id)";
+        /*$join .= " LEFT JOIN ($wpdb->term_relationships tr, $wpdb->term_taxonomy tt, $wpdb->terms t) "
+                . "ON ($wpdb->posts.ID = tr.object_id, "
+                . "tt.term_taxonomy_id = tr.term_taxonomy_id, "
+                . "t.term_id = tt.term_id)";
+        */
+        return $join;
+        
+}
+
+function modify_wp_search_groupby($groupby){
+  global $wpdb;
+
+  // we need to group on post ID
+  $groupby_id = "{$wpdb->posts}.ID";
+  if(!is_search() || strpos($groupby, $groupby_id) !== false) return $groupby;
+
+  // groupby was empty, use ours
+  if(!strlen(trim($groupby))) return $groupby_id;
+
+  // wasn't empty, append ours
+  return $groupby.", ".$groupby_id;
+}
+
+
+function modify_wp_search_distinct( $distinct ) {
+
+	return 'DISTINCT';
+	
+}
