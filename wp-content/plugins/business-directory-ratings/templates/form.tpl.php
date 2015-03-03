@@ -29,8 +29,9 @@
         $modal_class = "";
         $modal_style = '';
         $modal_hidden = 'false';
-        $reg_modal = "active";
-        $login_modal = "";
+        $display_form = 'reg';
+        //$reg_modal = "active";
+        //$login_modal = "";
         
         if (isset($_POST['xoouserultra-register-form'])) : 
             $modal_class = "in";
@@ -40,12 +41,15 @@
             $modal_class = "in";
             $modal_style = "style=display:block;";
             $modal_hidden = "true";
-            $login_modal = "active";
-            $reg_modal = "";
+            $display_form = 'login';
+            //$login_modal = "active";
+            //$reg_modal = "";
         endif; 
         
+        $modal_message = 'Please create an account or log in to write a review or save stores';
+        echo get_registration_modal($modal_message, $modal_class, $modal_hidden, $modal_style, $display_form);
         ?>
-    
+    <!--
         <div class="modal fade <?php echo $modal_class;?>"  <?php echo $modal_style;?> id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="<?php echo $modal_hidden; ?>">
             <div class="modal-dialog" id="reg-modal-dialog">
                 <div class="modal-content">
@@ -75,7 +79,7 @@
                 </div>
             </div> 
         </div>
-    
+    -->
        <!--
         <div class="flip-form registration-form registration-form-embed review-action">
             <div class="registration-form-wrapper">

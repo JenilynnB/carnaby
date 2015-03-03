@@ -1,6 +1,6 @@
 <?php
     $wpfp_before = "";
-    echo "<div class='wpfp-span'>";
+    echo "<div class='favorite-posts slick-slider-posts'>";
     if (!empty($user)) {
         if (wpfp_is_user_favlist_public($user)) {
             $wpfp_before = "$user's Favorite Posts.";
@@ -31,14 +31,6 @@
             echo wpbdp_render_listing($post_id, 'excerpt');
             
         }
- 
-        /*while ( have_posts() ) : the_post();
-            echo "farts";
-            echo "<li><a href='".get_permalink()."' title='". get_the_title() ."'>" . get_the_title() . "</a> ";
-            wpfp_remove_favorite_link(get_the_ID());
-            echo "</li>";
-        endwhile;
-        */
             
             
         echo '<div class="navigation">';
@@ -52,14 +44,8 @@
     } else {
         $wpfp_options = wpfp_get_options();
         echo "No favorite stores here yet!";
-        /*
-        echo "<li>";
-        echo $wpfp_options['favorites_empty'];
-        echo "</li>";
-         * 
-         */
+
     }
-    //echo "</ul>";
 
     //echo '<p>'.wpfp_clear_list_link().'</p>';
     echo "</div>";

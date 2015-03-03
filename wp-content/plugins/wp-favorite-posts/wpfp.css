@@ -1,4 +1,4 @@
-.wpfp-hide { display: none; }
+.wpfp-hide { display: none !important; }
 .wpfp-img { border: 0; vertical-align: middle; margin-right: 2px; }
 
 .wpfp-link {

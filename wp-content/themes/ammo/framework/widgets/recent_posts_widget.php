@@ -140,33 +140,50 @@ class Carnaby_RecentPostsWidget extends WP_Widget {
 
         echo '<div class="slick-slider-posts">';
         while (have_posts()) : the_post();
-            echo '<div class="widget widget-posts">';
+            //echo '<div class="widget widget-posts">';
             $comments = wp_count_comments($post->ID);
+            $post_permalink = $post->guid;
+            $post_title = $post->post_title;
+            /*
+            if(strlen($post_title)>22){
+                $post_title = substr($post_title, 0, 22)."...";
+            }*/
+            
             if($thumb == 'date') {
                 echo '<span class="widget-thumb post-date">
                     <span class="day">'.get_the_date('d').'</span>
                     <span class="month">'.date_i18n( 'M',  strtotime( get_the_date( "Y-m-d" ) ) ).'</span>
                 </span>';
             } else {
-                echo '<div class="widget-thumb-large">';
+                
+                echo '<div class="posts-content col-sm-12 col-xs-12 col-md-4">';
+                echo '  <div class="post-thumb-container">';
+                echo '      <a href="'.$post_permalink.'">';
+                //echo '<div class="widget-thumb-large">';
                 if(has_post_thumbnail()) {
                     $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'medium');
                     $thumbnail_url = $thumbnail_url[0];
-                    echo '<img src="'.$thumbnail_url.'" width="300" height="200">';
+                    echo '      <img src="'.$thumbnail_url.'" class="post-thumb-img">';
+                    //echo '<img src="'.$thumbnail_url.'" width="300" height="200">';
                     //the_post_thumbnail(array(300,200));
                 } else {
-                    echo '<span class="entry-format"></span>';
+                    echo '      <span class="entry-format"></span>';
                 }
-                echo '</div>';
+                echo '      </a>';
+                echo '  </div>';
             }
+            echo '      <div class="post-title">';
+            echo '          <a href="'.$post_permalink.'">'.$post_title.'</a>';
+            echo '          <span class="link-icon"><i class="fa fa-arrow-right"></i></span>';
+            echo '      </div>';
+            echo '  </div>';
+            /*
             echo '<div class="widget-posts-title">';
             echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
-            /*echo '<ul class="list-inline">
-                    <li><a href="#" title=""><i class="fa fa-comments"></i> '.$comments->total_comments.'</a></li>
-                    <li>'. get_post_like(get_the_ID()) .'</li>
-                  </ul>';*/
             echo '<span class="link-icon"><i class="fa fa-arrow-right"></i></span>';
             echo '</div></div>';
+             * 
+             */
         endwhile;
         echo '</div>';
         

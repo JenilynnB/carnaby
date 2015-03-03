@@ -89,7 +89,7 @@
                                             echo  $first_name . ' ' . $last_initial;
                                             ?>
                                         </h4>
-                                        <a class='btn btn-secondary btn-md'>VIEW PROFILE</a>
+                                        <a href="<?php echo site_url('/profile');?>" class='btn btn-secondary btn-md'>VIEW PROFILE</a>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,10 @@
                                     ?>
                                 </div>
                             </div>
-                        </div>  
+                        </div> 
+                        <div class='box-section box-section-outline'>
+                            <?php echo $xoouserultra->userpanel->get_user_backend_menu('dashboard');?>
+                        </div>
                         <div class='box-section box-section-outline'>
                             <?php echo $xoouserultra->userpanel->get_user_backend_menu('messages');?>
                         </div>
@@ -134,7 +137,7 @@
                     <div class="col-md-8">
                         
                         <?php 
-                        if($module==''){
+                        if($module=='' || $module=='dashboard'){
                             
                             ?>
                             <div class='box-section'>
@@ -158,14 +161,6 @@
                                 <?php echo do_shortcode('[do_widget "Carnaby Recent Posts"]'); ?>
                             </div>
                             
-                            <div class='box-section'>
-                                <h3>Other Stores You Might Like</h3>
-                                <?php echo do_shortcode('[do_widget "Other Stores You Might Like"]'); ?>
-                            </div>    
-                            
-                            
-
-                        
                             <div class='box-section'>
                                 <h3>Recent Reviews</h3>
                                 <?php
@@ -195,6 +190,16 @@
                                 ?>
                             </div>
                         
+                            
+                            <div class='box-section'>
+                                <h3>Other Stores You Might Like</h3>
+                                <?php echo do_shortcode('[do_widget "Other Stores You Might Like"]'); ?>
+                            </div>    
+                            
+                            
+
+                        
+                            
                             <div class='box-section'>
                                 <h3>Popular Stores</h3>
                                 <?php echo do_shortcode('[do_widget "Popular Stores"]'); ?>

@@ -442,9 +442,11 @@ class XooUserUser {
 	
 	
 	
-	public function get_user_meta ($meta)
+	public function get_user_meta ($meta, $user_id=0)
 	{
-		$user_id = get_current_user_id();		
+		if($user_id==0){
+                    $user_id = get_current_user_id();		
+                }
 		return get_user_meta( $user_id, $meta, true);
 		
 	}

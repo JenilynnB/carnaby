@@ -25,6 +25,10 @@ Carnaby Dashboard Styles
     padding-top: 60px;
     padding-bottom: 60px;
 }
+
+.no-border{
+    border: none !important;
+}
 .box-section{
     margin: 10px;
 }
@@ -43,8 +47,43 @@ Carnaby Dashboard Styles
 .dashboard .box-section h2, 
 .dashboard .box-section h3,  
 .dashboard .box-section h4,
-.dashboard .box-section h5 {
+.dashboard .box-section h5,
+.profile h2,
+.profile h3,
+.profile h4{
     text-transform: uppercase;
+}
+
+.dashboard .post-thumb-container{
+    width: 225px;
+    height: 150px;
+    overflow: hidden;
+    
+}   
+
+.dashboard .posts-content{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    width: 225px;
+    margin: 10px;   
+    padding: 0px;
+    position: relative;
+    
+}
+.dashboard .widget {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+}
+
+.dashboard .wpbdp-listing-excerpt, .profile .favorite-posts .wpbdp-listing-excerpt{
+    width: 225px;
+    flex-basis: initial;
 }
 
 .box-section i{
@@ -368,7 +407,7 @@ Carnaby Homepage Styles
 }
 
 
-.homepage .post-title{
+.homepage .post-title, .dashboard .post-title{
     padding: 15px;
     background-color: #ffffff;
     text-align: left;
@@ -379,7 +418,7 @@ Carnaby Homepage Styles
     
 }
 
-.homepage .post-title i{
+.homepage .post-title i, .dashboard .post-title i{
     font-size: 14px;
     color: #cdcdcd;
     float: right;

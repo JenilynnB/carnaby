@@ -834,7 +834,7 @@ function render_category_info(){
             if(!empty($baby_sizes)){
                 $html.='<tr class="listing-category-row">';
                 $html .= '<td class="listing-category-label">Baby Sizes: </td>';
-                $html .= '<td class="listing-category-values">'. min($baby_sizes) . " - " . max($baby_sizes).'</td>';
+                $html .= '<td class="listing-category-values">'. min($baby_sizes) . " - " . max($baby_sizes).' months</td>';
                 $html .= '</tr>';
             }
         }
@@ -1852,4 +1852,63 @@ function get_field_labels($url_parameters){
         }
     }
     return $readable;
+}
+
+
+/*
+ * Displays the registration modal with additional specifications
+ * 
+ * @param string $message: message to display to user about why they need register
+ * @param string $modal_class: additional classes to add the the containing modal
+ * @param string $modal_hidden: whether to hide the modal initially
+ * @param string $modal_style: additional styles to add to modal
+ * @param string $display_form: takes values of "reg" or "login" depending on which form to display 
+ * 
+ */
+
+function get_registration_modal($message = '', $modal_class='', $modal_hidden='false', $modal_style='', $display_form='reg'){
+    
+    if($display_form=='login'){
+        $reg_modal = '';
+        $login_modal = 'active';
+    }else{
+        $reg_modal = 'active';
+        $login_modal = '';
+    }
+    
+
+    $html .= '<div class="modal fade '.$modal_class.'" '.$modal_style.' id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="'.$modal_hidden.'">
+                <div class="modal-dialog" id="reg-modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="reg_form_wrapper" id="reg_form_wrapper">
+                            <div class="flip-form registration-form registration-form-embed review-action  '.$reg_modal.'">';
+    if($message!=''){
+    $html .= '                   <div class="alert alert-warning text-center" id="reg-alert-warning">'.
+                                    $message.
+                                '</div>';
+    }
+    
+    $html .= do_shortcode("[usersultra_registration]");
+    $html .= '              </div>
+                            <div class="flip-form login-form login-form-embed'.$login_modal.'" id="login-alert-warning">';
+
+    if($message!=''){
+        $html .= '              <div class="alert alert-warning text-center" id="reg-alert-warning">'.
+                                    $message.
+                                '</div>';
+    }
+    $html .= do_shortcode("[usersultra_login]"); 
+    $html .= '              </div>
+                        </div>            
+                    </div>
+                </div> 
+            </div>';
+    
+    return $html;
 }

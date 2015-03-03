@@ -73,8 +73,22 @@ if(typeof $ == 'undefined'){
 			var uu_subject =   $('#uu_subject').val();
 			var uu_message =   $('#uu_message').val();
 			
-			if(uu_subject==""){alert(uu_subject_empty); $('#uu_subject').focus(); return;}
-			if(uu_message==""){alert(uu_message_empty);  $('#uu_message').focus(); return;}
+                        var $uu_error = $('#msg-error-alert-text');
+                        
+			if(uu_subject==""){
+                            //$uu_error.removeClass("hidden");
+                            $uu_error.slideDown();
+                            $uu_error.html(uu_subject_empty);
+                            $('#uu_subject').focus(); 
+                            return;}
+			if(uu_message==""){
+                            //$uu_error.removeClass("hidden");
+                            $uu_error.slideDown();
+                            $uu_error.html(uu_message_empty);
+                            //alert(uu_message_empty);  
+                            $('#uu_message').focus(); 
+                            return;
+                        }
 
 			jQuery.ajax({
 				type: 'POST',
@@ -83,14 +97,21 @@ if(typeof $ == 'undefined'){
 				
 				success: function(data){
 					
-					 $('#uu_subject').val("");
-					 $('#uu_message').val("");
-					
-					$("#uu-message-noti-id").html(data);
-					jQuery("#uu-message-noti-id").slideDown();
-					setTimeout("hidde_noti('uu-message-noti-id')", 3000)	;
-					
-					
+					$('#uu_subject').val("");
+					$('#uu_message').val("");
+                                        $('#uu_msg_form').addClass("hidden");
+                                        $uu_error.addClass("hidden");
+                                        
+                                        jQuery("#msg-success-alert-text").slideDown();
+                                        $('#msg-success-alert-text').html("Your message has been sent");
+                                        
+					//$("#uu-message-noti-id").html(data);
+                                        //setTimeout("hidde_noti('uu-message-noti-id')", 3000)	;
+					//jQuery("#uu-message-noti-id").slideDown();
+                                        setTimeout(function(){
+                                                $('#sendMessageModal').modal('hide');
+                                            }, 5000);
+                                        
 					}
 			});
 			

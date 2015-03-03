@@ -198,8 +198,7 @@ class XooUserMyMessage {
 	}
 	
 	
-	public function get_send_form($receiver_user_id)
-	{
+	public function get_send_form($receiver_user_id, $in_modal=false){
 		
 		global $wpdb,  $xoouserultra;
 		
@@ -217,33 +216,59 @@ class XooUserMyMessage {
 			
 			
 			}else{
-				
-				$html .= ' <p>Subject:</p>          
-				  <p><input name="uu_subject"  id="uu_subject" type="text" /></p>
-				  
-				  <p>Message:</p>          
-				  <p><textarea name="uu_message" id="uu_message" cols="" rows=""></textarea></p>          
-				  <p><a class="uultra-btn-email" href="#" id="uu-close-private-message-box" data-id="'.$receiver_user_id.'"><span><i class="fa fa-times"></i></span>'. __("Close", 'xoousers').'</a> <a class="uultra-btn-email" href="#" id="uu-send-private-message-confirm" data-id="'.$receiver_user_id.'"><span><i class="fa fa-check"></i></span>'. __("Send", 'xoousers').'</a></p>
-				  ';
-				  
-				  $html .='';
+                                  
+                            $html .= '<div class="modal fade" id="sendMessageModal" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header no-border">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="alert alert-danger fade-in" style="display:none" role="alert" id="msg-error-alert-text"></div>
+                                                    <div class="alert alert-success fade-in" style="display:none" role="alert" id="msg-success-alert-text"></div>
+                                                    <div id="uu_msg_form">
+                                                        <p>Subject:</p>          
+                                                        <p><input name="uu_subject"  id="uu_subject" type="text" /></p>
+
+                                                        <p>Message:</p>          
+                                                        <p><textarea name="uu_message" id="uu_message" cols="" rows=""></textarea></p>          
+                                                        <p>
+                                                     
+                                                        <div class="modal-footer no-border">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                <i class="fa fa-times"></i>
+                                                                Cancel
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary" id="uu-send-private-message-confirm" data-id="'.$receiver_user_id.'">
+                                                                <i class="fa fa-check"></i>
+                                                                Send 
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
+                            
+                            $html .='';
 				  
 				  $html .='<script type="text/javascript">
 				  
 				  var uu_subject_empty = "'.__("Please input a subject", 'xoousers').'";
-				   var uu_message_empty = "'.__("Please write a message", 'xoousers').'";
+				  var uu_message_empty = "'.__("Please write a message", 'xoousers').'";
 								
 				
                     
-                 </script>';
+                                    </script>';
 				
 			
-			}
-			
-		  
+                        }
 		}else{
-			
-			$html .= "<p>".__("You have to be logged in to send private messages", 'xoousers'. "</p>");
+                    
+                    //Show login/register modal
+                    $html .= get_registration_modal("Please create an account or login to send a message");
+                    
+                    //$html .= "<p>".__("You have to be logged in to send private messages", 'xoousers'. "</p>");
 			
 		
 		}
