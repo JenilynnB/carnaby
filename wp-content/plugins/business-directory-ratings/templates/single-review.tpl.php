@@ -26,7 +26,7 @@ $listing_url = get_permalink($rating->listing_id);
      itemprop="review" itemscope itemtype="http://schema.org/Review">
 
 
-    <div class="row">
+    <div class="row review">
         <div class="col-md-2">
 
 

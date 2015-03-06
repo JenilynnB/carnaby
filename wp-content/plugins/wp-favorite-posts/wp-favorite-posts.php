@@ -203,10 +203,17 @@ function wpfp_get_users_favorites($user = "") {
     return $favorite_post_ids;
 }
 
-function wpfp_list_favorite_posts( $args = array() ) {
-    $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : "";
-    extract($args);
+function wpfp_list_favorite_posts( $user_id ) {
+    
+    //extract($args);
+    //$user = isset($_REQUEST['user']) ? $_REQUEST['user'] : "";
+    if($user_id==""||$user_id<0){
+        $user_id = get_current_user_id();
+    }
+    
     global $favorite_post_ids;
+    $favorite_post_ids = wpfp_get_users_favorites($user_id);
+    /*
     if ( !empty($user) ) {
         if ( wpfp_is_user_favlist_public($user) )
             $favorite_post_ids = wpfp_get_users_favorites($user);
@@ -214,6 +221,8 @@ function wpfp_list_favorite_posts( $args = array() ) {
     } else {
         $favorite_post_ids = wpfp_get_users_favorites();
     }
+     * *
+     */
 
     if ( @file_exists(TEMPLATEPATH.'/wpfp-page-template.php') || @file_exists(STYLESHEETPATH.'/wpfp-page-template.php') ):
         if(@file_exists(TEMPLATEPATH.'/wpfp-page-template.php')) :
@@ -350,8 +359,11 @@ function wpfp_content_filter($content) {
 }
 add_filter('the_content','wpfp_content_filter');
 
-function wpfp_shortcode_func() {
-    wpfp_list_favorite_posts();
+function wpfp_shortcode_func($atts) {
+    extract(shortcode_atts(array(  
+        "user_id" => 'user_id'  
+    ), $atts));
+    wpfp_list_favorite_posts($user_id);
 }
 add_shortcode('wp-favorite-posts', 'wpfp_shortcode_func');
 
@@ -438,9 +450,9 @@ function wpfp_get_user_id() {
 
 function wpfp_get_user_meta($user = "") {
     if (!empty($user)):
-        $userdata = get_user_by( 'login', $user );
-        $user_id = $userdata->ID;
-        return get_user_meta($user_id, WPFP_META_KEY, true);
+        //$userdata = get_user_by( 'login', $user );
+        //$user_id = $userdata->ID;
+        return get_user_meta($user, WPFP_META_KEY, true);
     else:
         return get_user_meta(wpfp_get_user_id(), WPFP_META_KEY, true);
     endif;

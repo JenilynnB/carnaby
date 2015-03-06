@@ -6,7 +6,6 @@ global $xoouserultra;
 <?php
 
     
-
     $first_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id);
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name', $user_id);
     $headline = $xoouserultra->userpanel->get_user_meta('headline', $user_id);
@@ -24,7 +23,7 @@ global $xoouserultra;
     $num_reviews = sizeof($user_reviews);
     
     $user_favorites = wpfp_get_users_favorites($user_id);
-    $num_favorites = sizeof($user_favorites);
+    $num_favorites = is_array($user_favorites)? sizeof($user_favorites):0;
     
     $current_user = wp_get_current_user();
 ?>
@@ -32,46 +31,92 @@ global $xoouserultra;
 
 <div class="profile">
     
-    <div class="col-md-8">
-        <div class="profile-top-info box-section">
+    <div class="col-md-12">
+        <section class="profile-top-info box-section section listing-header">
             <div class="row">
-                <div class="col-md-8 col-sm-12">
-                    <div class="user-avatar">
-                        <?php 
-                            $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic')
-                        ?>
-                        <div class="user-avatar-rounded" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
+                <div class="col-md-8 user-profile-info flex">
+                    <div class="">
+                    
+                            <div class="user-avatar">
+                                <?php 
+                                    $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic')
+                                ?>
+                                <div class="user-avatar-rounded" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
 
-                        </div>
+                                </div>
+                            </div>
                     </div>
-                    <h2><?php    
-                        echo  $first_name . ' ' . $last_name;
-                        ?>
-                    </h2>
-                    <div class="user_stats">
+                    <div class="">
+                            <h2><?php    
+                                echo  $first_name . ' ' . $last_name;
+                                ?>
+                            </h2>
+                            <div class="user_stats">
 
-                        <div class="user_stats_reviews">
-                            <?php echo $num_reviews. " Reviews"; ?>
-                        </div>
-                        <div class="user_stats_favorites">
-                            <?php echo $num_favorites. " Favorites"; ?>
-                        </div>
+                                <div class="user_stats_reviews">
+                                    <span>
+                                        <i class='fa fa-fw fa-star star-on'></i>
+                                    </span>
+                                    <?php 
+                                    if($num_reviews==1){
+                                        echo $num_reviews. " Review";
+                                    }else{
+                                        echo $num_reviews. " Reviews";
+                                    }
+                                    ?>
+                                </div>
+                                <div class="user_stats_favorites">
+                                    <span>
+                                        <i class='fa fa-fw fa-heart heart-on'></i>
+                                    </span>
+                                    <?php 
+                                    if($num_favorites==1){
+                                        echo $num_favorites. " Favorite"; 
+                                    }else{
+                                        echo $num_favorites. " Favorites"; 
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-4 pull-right profile-actions">
+                    
                     <?php if($current_user->id != $user_id&&  is_user_logged_in()): ?>
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#sendMessageModal" ><span><i class="fa fa-envelope-o"></i></span><?php echo _e("Send Message", 'xoousers')?></button>
-                        
+                        <div class="profile-action">
+                            <a class="" data-toggle="modal" data-target="#sendMessageModal" ><span><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;</span><?php echo _e("Send Message", 'xoousers')?></a>
+                        </div>
                     <?php elseif(!is_user_logged_in()): ?>
-                        <button data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa-envelope-o"></i></span><?php echo _e("Send Message", 'xoousers')?></button>
-                        
-            <?php endif; ?>
-            <?php echo $xoouserultra->mymessage->get_send_form( $user_id);?>
-            
-            <?php echo $xoouserultra->social->get_friends($user_id); ?>
-                </div>
+                        <div class="profile-action">
+                            <a class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;</span><?php echo _e("Send Message", 'xoousers')?></a>  
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php echo $xoouserultra->mymessage->get_send_form( $user_id);?>
+                    
+                    
+                        <?php if($current_user->id != $user_id&&  is_user_logged_in()): ?>
+                            <div class="profile-action">
+                                <a class="" id="uu-send-friend-request" href="#" data-user-id="<?php echo $user_id; ?>" title="Send Friend Request"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Be a Friend</span> </a>
+                            </div>
+                        <?php elseif(!is_user_logged_in()): ?>
+                            <div class="profile-action">
+                                <a class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Be a Friend</span></a>  
+                            </div>
+                        <?php endif; ?>
                 
+                </div>
             </div>
+            <?php if($headline!=''){ ?>
+                <div class="row">
+                    <div class="col-md-12 profile-headline">
+                        "<?php echo $headline ?>"
+                    </div>
+                </div>
+            <?php } ?>
+                
+        </section>
+    </div>
             
             
             <!--
@@ -106,14 +151,11 @@ global $xoouserultra;
               <?php }?>
             -->
 
-            <div class="profile-headline">
-                <?php if($headline!=''){ ?>
-                    <h5>"<?php echo $headline ?>"</h5>
-                <?php } ?>
-            </div>
-        </div>    
+            
+    <div class="col-md-8">       
         <div class="box-section profile-user-reviews">
-            <h3><?php echo $first_name."'s Reviews" ?></h3>
+            
+            <h3><?php echo $first_name."'s Reviews"." (".$num_reviews.")" ?></h3>
 
             <?php 
 
@@ -124,203 +166,195 @@ global $xoouserultra;
                     $template_path = WPBDP_RATINGS_TEMPLATES_PATH . '/single-review.tpl.php';
                     echo wpbdp_render_page($template_path, $vars);
                 }
-                /*
-                foreach($user_reviews as $ur){
-                    $review_html = '';                
-                    //get the listing with $ur->listing_id;
-
-                    $post = get_post($ur->listing_id);
-                    if(!empty($post)){
-            ?>
-                <div class="profile-review-business-img">
-
-                </div>
-                <div class="profile-review-business-name">
-                    <?php 
-                    echo get_the_title($ur->listing_id);
-                    echo get_listing_image($ur->listing_id);
-                    ?>
-                </div>
-    <!--
-                <div class="profile-review-business-categories">
-                    <?php
-                        $top_listing_categories = get_top_apparel_categories($ur->listing_id);
-                        $top_listing_categories_names = array();
-                        foreach($top_listing_categories as $tc){
-                            $top_listing_categories_names[] = $tc->name;
-                        }
-                        echo implode (", ", $top_listing_categories_names);
-                    ?>
-
-                </div>
-    -->
-                <span class="date" itemprop="datePublished" content="<?php echo $ur->created_on ?>">
-                    <?php echo date_i18n(get_option('date_format'), strtotime($ur->created_on)) ?>
-                </span>
-
-                <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-                <meta itemprop="worstRating" content="0" />
-                <meta itemprop="ratingValue" content="<?php echo $ur->rating; ?>" />
-                <meta itemprop="bestRating" content="5" />
-                <span class="wpbdp-ratings-stars" data-readonly="readonly" data-value="<?php echo $ur->rating; ?>" itemprop="ratingValue"></span>
-                </span>   
-
-                <div class="rating-comment" itemprop="description">
-                    <?php echo $ur->comment ?>
-                </div>
-            <?php
-                    }
-                } 
-                 * 
-                 */
+                if(sizeof($user_reviews)==0){
+                    echo "No reviews here yet!";
+                }
+                
             ?> 
         </div>
         <div class="box-section profile-favorite-listings">
-            <h3>Favorite Stores</h3>
-            <?php echo do_shortcode("[wp-favorite-posts]"); ?>
+            <h3><?php echo $first_name;?>'s Favorite Stores (<?php echo $num_favorites;?>)</h3>
+            <?php echo do_shortcode("[wp-favorite-posts user_id='".$user_id."']"); ?>
         </div>
     </div>
     <div class="col-md-4">
 
         <div class="profile-sidebar-info">
+            <?php if($description != "" || $location !="" || $website != "" || $hometown !="" || $loves !="" || $facebook != "" ||$instagram != "" || $pinterest !="" || $google != "" || $twitter!=""){ ?>
+            
+            <h3>About Me</h3>
+            <?php }?>
+            <table class="listing-cat-info">
+                <tbody>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                
+                                if($current_user->id==$user_id || $description != "" ){?>
+                                    <td>
+                                    <label>My Style</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($description != ""){
+                                    echo "<td>".$description."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $location != "" ){?>
+                                    <td>
+                                        <label>My Location</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($location != ""){
+                                    echo "<td>".$location."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
+                        
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $hometown != "" ){?>
+                                    <td>
+                                    <label>My Hometown</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($hometown != ""){
+                                    echo "<td>".$hometown."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
+                       
+                    </tr>
+                    <tr class="listing-category-row">
 
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $description != "" ){?>
-                        <label>My Style</label>
-                <?php    
-                    }
-                    if($description != ""){
-                        echo $description;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $location != "" ){?>
-                        <label>My Location</label>
-                <?php    
-                    }
-                    if($location != ""){
-                        echo $location;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $hometown != "" ){?>
-                        <label>My Hometown</label>
-                <?php    
-                    }
-                    if($hometown != ""){
-                        echo $hometown;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-            </div>
+                        
+                            <?php
+                                if($current_user->id==$user_id || $website != "" ){?>
+                                    <td>
+                                    <label>My Favorite Website</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($website != ""){
+                                    echo "<td>".$website."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
 
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $website != "" ){?>
-                        <label>My Favorite Website</label>
-                <?php    
-                    }
-                    if($website != ""){
-                        echo $website;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $loves != "" ){?>
+                                    <td>
+                                    <label>Things I Love</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($loves != ""){
+                                    echo "<td>".$loves."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
 
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $loves != "" ){?>
-                        <label>Things I Love</label>
-                <?php    
-                    }
-                    if($loves != ""){
-                        echo $loves;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $facebook != "" ){?>
+                                    <td>
+                                    <label>Facebook Profile</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($facebook != ""){
+                                    echo "<td>".$facebook."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
+                       
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $instagram != "" ){?>
+                                    <td>
+                                    <label>Instagram</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($instagram != ""){
+                                    echo "<td>".$instagram."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
 
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $facebook != "" ){?>
-                        <label>Facebook Profile</label>
-                <?php    
-                    }
-                    if($facebook != ""){
-                        echo $facebook;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $instagram != "" ){?>
-                        <label>Instagram</label>
-                <?php    
-                    }
-                    if($instagram != ""){
-                        echo $instagram;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $pinterest != "" ){?>
+                                    <td>
+                                    <label>Pinterest</label>
+                                    </td>
+                            <?php    
+                                }
+                                if($pinterest != ""){
+                                    echo "<td>".$pinterest."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
 
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $pinterest != "" ){?>
-                        <label>Pinterest</label>
-                <?php    
-                    }
-                    if($pinterest != ""){
-                        echo $pinterest;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
+                    </tr>
+                    <tr class="listing-category-row">
+                        
+                            <?php
+                                if($current_user->id==$user_id || $twitter != "" ){?>
+                                    <td><label>Twitter</label></td>
+                            <?php    
+                                }
+                                if($twitter != ""){
+                                    echo "<td>".$twitter."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
 
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $twitter != "" ){?>
-                        <label>Twitter</label>
-                <?php    
-                    }
-                    if($twitter != ""){
-                        echo $twitter;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-
-            </div>
-            <div class="profile-text-element">
-                <?php
-                    if($current_user->id==$user_id || $google != "" ){?>
-                        <label>Google+</label>
-                <?php    
-                    }
-                    if($google != ""){
-                        echo $google;
-                    }elseif($current_user->id==$user_id ){
-                        echo "<a href='".site_url('/myaccount/?module=profile')."'>Add this</a>";
-                    }
-                ?>
-
-            </div>
+                    </tr>
+                    <tr class="listing-category-row">
+                            
+                            <?php
+                                if($current_user->id==$user_id || $google != "" ){?>
+                                    <td><label>Google+</label></td>
+                            <?php    
+                                }
+                                if($google != ""){
+                                    echo "<td>".$google."</td>";
+                                }elseif($current_user->id==$user_id ){
+                                    echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                }
+                            ?>
+                    </tr>
+                
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -537,8 +571,4 @@ global $xoouserultra;
              
    --> 
     
-        </div>
         
- </div>   
-
-</div>

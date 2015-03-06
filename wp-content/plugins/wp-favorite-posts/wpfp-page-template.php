@@ -49,4 +49,4 @@
 
     //echo '<p>'.wpfp_clear_list_link().'</p>';
     echo "</div>";
-    wpfp_cookie_warning();
+    //wpfp_cookie_warning();

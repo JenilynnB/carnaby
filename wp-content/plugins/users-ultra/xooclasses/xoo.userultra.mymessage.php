@@ -212,8 +212,8 @@ class XooUserMyMessage {
 			//is logged in.
 			if($logged_user_id==$receiver_user_id)
 			{
-				$html .= "<p>".__("You cannot send a private message to yourself", 'xoousers')."</p>";
-			
+				//$html .= "<p>".__("You cannot send a private message to yourself", 'xoousers')."</p>";
+                                $html .= "";
 			
 			}else{
                                   
