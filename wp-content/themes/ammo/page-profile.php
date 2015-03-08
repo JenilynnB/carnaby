@@ -23,8 +23,16 @@ get_header();
     $facebook = $xoouserultra->userpanel->get_user_meta('facebook', $user_id);
     $instagram = $xoouserultra->userpanel->get_user_meta('instagram', $user_id);
     $pinterest = $xoouserultra->userpanel->get_user_meta('pinterest', $user_id);
-    $google = $xoouserultra->userpanel->get_user_meta('google', $user_id);
+    //$google = $xoouserultra->userpanel->get_user_meta('google', $user_id);
     $twitter = $xoouserultra->userpanel->get_user_meta('twitter', $user_id);
+    
+    
+    
+    $facebook_link = "<a href='http://www.facebook.com/".$facebook."' target=_blank>".$facebook."</a>";
+    $instagram_link = "<a href='http://www.instagram.com/".$instagram."' target=_blank>".$instagram."</a>";
+    $pinterest_link = "<a href='http://www.pinterest.com/".$pinterest."' target=_blank>".$pinterest."</a>";
+    $twitter_link = "<a href='http://www.twitter.com/".$twitter."' target=_blank>".$twitter."</a>";
+    
     
     $user_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($user_id);
     $num_reviews = sizeof($user_reviews);
@@ -35,7 +43,7 @@ get_header();
     $current_user = wp_get_current_user();
 ?>
 
-<div class="wpbdp-listing wpbdp-listing-single single normal">
+<div class="single normal">
 
 <section class="listing-header section profile">
     <div class="container">
@@ -127,17 +135,17 @@ get_header();
         </div>
     </div>      
 </section>
-<section class="primary section ">
+<section class="primary section profile">
     <div class="container">
 	<div class="content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-8">       
-                            <div class="box-section profile-user-reviews">
+                            <div class="box-section profile-user-reviews listing-ratings">
 
                                 <h3><?php echo $first_name."'s Reviews"." (".$num_reviews.")" ?></h3>
-
+                                
                                 <?php 
 
                                     foreach($user_reviews as $review){
@@ -152,11 +160,25 @@ get_header();
                                     }
 
                                 ?> 
+                                <div class="modal fade modal-small" id="confirm-review-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete this review?</p>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Woah, no way!</button>
+                                                <button type="button" class="btn btn-primary confirm-delete" data-dismiss="modal">Yep, trash it</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            
                             </div>
+                            
                             <div class="box-section profile-favorite-listings">
                                 <h3><?php echo $first_name;?>'s Favorite Stores (<?php echo $num_favorites;?>)</h3>
                                 <?php echo do_shortcode("[wp-favorite-posts user_id='".$user_id."']"); ?>
                             </div>
+                            
                         </div>
                         <div class="col-md-4">
 
@@ -180,7 +202,7 @@ get_header();
                                                     if($description != ""){
                                                         echo "<td>".$description."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
                                         </tr>
@@ -196,7 +218,7 @@ get_header();
                                                     if($location != ""){
                                                         echo "<td>".$location."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -213,7 +235,7 @@ get_header();
                                                     if($hometown != ""){
                                                         echo "<td>".$hometown."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -231,7 +253,7 @@ get_header();
                                                     if($website != ""){
                                                         echo "<td>".$website."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -248,7 +270,7 @@ get_header();
                                                     if($loves != ""){
                                                         echo "<td>".$loves."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -263,9 +285,9 @@ get_header();
                                                 <?php    
                                                     }
                                                     if($facebook != ""){
-                                                        echo "<td>".$facebook."</td>";
+                                                        echo "<td>".$facebook_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -280,9 +302,9 @@ get_header();
                                                 <?php    
                                                     }
                                                     if($instagram != ""){
-                                                        echo "<td>".$instagram."</td>";
+                                                        echo "<td>".$instagram_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -297,9 +319,9 @@ get_header();
                                                 <?php    
                                                     }
                                                     if($pinterest != ""){
-                                                        echo "<td>".$pinterest."</td>";
+                                                        echo "<td>".$pinterest_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -312,28 +334,14 @@ get_header();
                                                 <?php    
                                                     }
                                                     if($twitter != ""){
-                                                        echo "<td>".$twitter."</td>";
+                                                        echo "<td>".$twitter_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
                                         </tr>
-                                        <tr class="listing-category-row">
-
-                                                <?php
-                                                    if($current_user->id==$user_id || $google != "" ){?>
-                                                        <td><label>Google+</label></td>
-                                                <?php    
-                                                    }
-                                                    if($google != ""){
-                                                        echo "<td>".$google."</td>";
-                                                    }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
-                                                    }
-                                                ?>
-                                        </tr>
-
+                                        
                                     </tbody>
                                 </table>
                             </div>

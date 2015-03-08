@@ -100,7 +100,8 @@ if(typeof $ == 'undefined'){
 					$('#uu_subject').val("");
 					$('#uu_message').val("");
                                         $('#uu_msg_form').addClass("hidden");
-                                        $uu_error.addClass("hidden");
+                                        $uu_error.css("display", "none");
+                                        //$uu_error.addClass("hidden");
                                         
                                         jQuery("#msg-success-alert-text").slideDown();
                                         $('#msg-success-alert-text').html("Your message has been sent");
@@ -110,6 +111,9 @@ if(typeof $ == 'undefined'){
 					//jQuery("#uu-message-noti-id").slideDown();
                                         setTimeout(function(){
                                                 $('#sendMessageModal').modal('hide');
+                                                $('#uu_msg_form').removeClass("hidden");
+                                                $('#msg-success-alert-text').css("display", "none");
+                                                $('#msg-error-alert-text').css("display", "none");
                                             }, 5000);
                                         
 					}

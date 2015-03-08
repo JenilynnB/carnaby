@@ -37,6 +37,7 @@ Carnaby Dashboard Styles
     padding: 10px;
     border: 1px solid #efefef;
     background-color: #fff;
+    margin: 10px;
 }
 
 .menu-btn-container{
@@ -135,6 +136,11 @@ Carnaby Profile Styles
     font-weight: bold;
     color: #788991;
     text-transform: capitalize
+}
+
+.profile .rating-listing-photo{
+    margin-top: 10px;
+    padding-left: 5px;
 }
 /*********************
 Carnaby Avatar Styles

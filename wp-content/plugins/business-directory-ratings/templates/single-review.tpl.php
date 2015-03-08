@@ -30,17 +30,22 @@ $listing_url = get_permalink($rating->listing_id);
         <div class="col-md-2">
 
 
-            <div class="rating-authoring-info">
-                <?php echo get_user_profile_thumb_circle(100, $rating->user_id);?>
-                <!--
-                <div class="author" itemprop="author">
-                    <?php if ($rating->user_id == 0): ?>
-                        <?php echo esc_attr($rating->user_name); ?>
-                    <?php else: ?>
-                    <?php endif; ?>
-                </div>
-                -->
-            </div>  
+            
+                <?php 
+                $this_url = $_SERVER['REQUEST_URI'];
+                if(strpos($this_url, 'profile')){
+                    //this is the profile page, show the business photo instead of the user photo on the review
+                    echo '<div class="rating-listing-photo">';
+                    echo wpbdp_listing_main_image( $rating->listing_id, 'link=picture&class=wpbdp-single-thumbnail', 'thumb' );
+                    echo '</div>';
+                }else{
+                    echo '<div class="rating-authoring-photo">';
+                    echo get_user_profile_thumb_circle(100, $rating->user_id);
+                    echo '</div>';
+                }
+                ?>
+                
+              
         </div>
 
         <div class="col-md-10">
