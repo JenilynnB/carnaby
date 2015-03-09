@@ -341,21 +341,42 @@ if(typeof $ == 'undefined'){
 		$(document).on("click", "#uu-send-friend-request", function(e) {
 			
 			
-			var user_id =  jQuery(this).attr("user-id");		
-			
-			jQuery.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: {"action": "send_friend_request", "user_id": user_id },
-				
-				success: function(data){					
-										
-					alert(data);
-					
-					
-					
-					}
-			});
+                    var user_id =  jQuery(this).attr("data-user-id");		
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: ajaxurl,
+                        data: {"action": "send_friend_request", "user_id": user_id },
+
+                        success: function(data){					
+
+                            //  Show the alert modal, but time it to disappear after 5 seconds
+                            $('#friend-request-confirm').modal('show');
+                            if(data=="success"){
+                                //if success, show the success alert in the modal
+                                $('#msg-success-friend-request').slideDown();
+
+                            }else if(data=="already_sent"){
+                                //if already sent, show the already sent alert in the modal
+                                $('#msg-error-friend-request').slideDown();
+                            }
+                                
+                            setTimeout(function(){
+                                    $('#friend-request-confirm').modal('hide');
+                                    $('#msg-success-friend-request').css("display", "none");
+                                    $('#msg-error-friend-request').css("display", "none");
+                            }, 5000);
+
+                            if(data=="success"){
+                            //  Then change the text in the button to "Friend requested" and grey it out
+                                $('#uu-send-friend-request').html('<span class="disabled"><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Friend Requested</span>');
+                            }
+
+                            //alert(data);
+
+
+                            }
+                    });
 			
 			 // Cancel the default action
 			 return false;

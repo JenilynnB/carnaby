@@ -26,9 +26,17 @@ Carnaby Dashboard Styles
     padding-bottom: 60px;
 }
 
+.disabled{
+    color: #788991;
+}
+
 .no-border{
     border: none !important;
 }
+.overflow{
+    overflow: hidden;
+}
+
 .box-section{
     margin: 10px;
     margin-bottom: 40px;

@@ -1,4 +1,10 @@
+
+
 <?php
+/************************************************
+ * This template is not used anymore. It is overloaded by page-profile in the
+ * main theme folder.
+ */
 global $xoouserultra;
 
 ?>

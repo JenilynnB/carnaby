@@ -3,6 +3,7 @@
 get_header();
 
     global $xoouserultra;
+    //echo var_dump($xoouserultra);
 
     $user_id = $_GET['uu_username'];
     
@@ -41,8 +42,12 @@ get_header();
     $num_favorites = is_array($user_favorites)? sizeof($user_favorites):0;
     
     $current_user = wp_get_current_user();
-?>
+    
+    
+    $friend_request_sent = $xoouserultra->social->check_if_sent($user_id);
+    $friends_with_user = $xoouserultra->social->check_if_friends($user_id);
 
+    ?>
 <div class="single normal">
 
 <section class="listing-header section profile">
@@ -110,18 +115,36 @@ get_header();
                         <?php endif; ?>
 
                         <?php echo $xoouserultra->mymessage->get_send_form( $user_id);?>
-
-
-                            <?php if($current_user->id != $user_id&&  is_user_logged_in()): ?>
+                            
+                            <?php if($current_user->id != $user_id &&  is_user_logged_in() && !$friend_request_sent && !$friends_with_user): ?>
                                 <div class="profile-action">
                                     <a class="" id="uu-send-friend-request" href="#" data-user-id="<?php echo $user_id; ?>" title="Send Friend Request"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span> </a>
+                                </div>
+                            <?php elseif($friends_with_user): ?>
+                                <div class="profile-action">
+                                    <span class="disabled"><i class="fa fa-check"></i>&nbsp;&nbsp;Friends</span>
+                                </div>
+                            <?php elseif($friend_request_sent): ?>
+                                <div class="profile-action">
+                                    <span class="disabled"><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Friend Requested</span>
                                 </div>
                             <?php elseif(!is_user_logged_in()): ?>
                                 <div class="profile-action">
                                     <a href= "" class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span></a>  
                                 </div>
                             <?php endif; ?>
-
+                            <div class="modal fade modal-small" id="friend-request-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body overflow">
+                                                <div class="alert alert-warning" style="display:none" id="msg-error-friend-request">Friend already requested</div>
+                                                <div class="alert alert-success" style="display:none" id="msg-success-friend-request">Friend request sent!</div>
+                                                <button type="button" class="btn btn-default pull-right clearfix" data-dismiss="modal" >Close</button>
+                                                
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                     </div>
                 </div>
             </div>

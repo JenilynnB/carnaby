@@ -92,15 +92,15 @@ class XooSocial
 		
 		$logged_user_id = get_current_user_id();
 		
-		$receiver_id = $_POST["user_id"];		
-		$sender = get_user_by('id',$logged_user_id);
+		$receiver_id = $_POST["user_id"];
+                $sender = get_user_by('id',$logged_user_id);
 		
 		$sender_id = $sender->ID;		
 		$receiver = get_user_by('id',$receiver_id);		
 		
 		//store in the db
 		
-		if($this->check_if_sent($receiver_id )) {
+		if(!($this->check_if_sent($receiver_id ))) {
 		
 			if(isset($logged_user_id) && $logged_user_id >0 )
 			{
@@ -121,7 +121,8 @@ class XooSocial
 				$xoouserultra->messaging->send_friend_request($receiver ,$sender);
 				
 				
-				echo __(" Friend Request Sent ", 'xoousers');
+				//echo __(" Friend Request Sent ", 'xoousers');
+                                echo "success";
 				
 			}else{
 				
@@ -132,8 +133,8 @@ class XooSocial
 		
 		}else{
 			
-			echo __("Request Already Sent", 'xoousers');
-			
+			//echo __("Request Already Sent", 'xoousers');
+			echo "already_sent";
 		
 		}
 		
@@ -156,16 +157,36 @@ class XooSocial
 		 
 		 if(empty($res))
 		 {
-			 return true; //first time
+			 return false; //first time
 			
 		 }else{
-			 return false;
+			 return true;
 		
 		}
-		
-		
 	
 	}
+        public function check_if_friends($friend_id) 
+	{
+		global $wpdb,  $xoouserultra;		
+		require_once(ABSPATH . 'wp-includes/formatting.php');
+		
+		$logged_user_id = get_current_user_id();
+		
+		$sql = "SELECT friend_id FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$friend_id' AND  friend_sender_user_id = '$logged_user_id'	AND friend_status = 1 ";	 
+		 
+		 $res = $wpdb->get_results( $sql );
+		 
+		 if(empty($res))
+		 {
+			 return false; //first time
+			
+		 }else{
+			 return true;
+		
+		}
+	
+	}
+        
 	
 	public function like_item()
 	{
