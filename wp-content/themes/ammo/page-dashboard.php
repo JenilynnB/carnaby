@@ -62,7 +62,7 @@
 
 ?>
 
-<section class="primary section">
+<section class="section">
     <div class="content dashboard">
         <div class="container">
             <div class="row">
@@ -76,9 +76,9 @@
                                     
                                     <div class="user-avatar">
                                         <?php 
-                                            $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic')
+                                            $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic');
                                         ?>
-                                        <div class="user-avatar-rounded" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
+                                        <div class="user-avatar-rounded user-avatar-medium" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
 
                                         </div>
                                     </div>
@@ -210,62 +210,42 @@
 
                         }else if($module=='messages'){
                         ?>     
-                            <div class="commons-panel xoousersultra-shadow-borers" >
+                            
+                            <div class="box-section">
+                                <h2>My Messages</h2>
+                                <?php  
 
-                                <div class="commons-panel-heading">
-                                    <h2> <?php  _e('Received Messages','xoousers');?> </h2>
-                                </div>
+                                if(!$view && !$reply) 
+                                {
+                                        $xoouserultra->mymessage->show_usersultra_my_messages();
 
-                                <div class="commons-panel-content">
+                                }
 
-                                    <div class="uultra-myprivate-messages">       
-
-                                        <?php  
-
-                                        if(!$view && !$reply) 
-                                        {
-                                                $xoouserultra->mymessage->show_usersultra_my_messages();
-
-                                        }
-
-                                        if(isset($view) && $view>0) 
-                                        {
-                                                //display view box
-                                                $xoouserultra->mymessage->show_view_my_message_form($view);
+                                if(isset($view) && $view>0) 
+                                {
+                                        //display view box
+                                        $xoouserultra->mymessage->show_view_my_message_form($view);
 
 
-                                        }
+                                }
 
-                                        ?>
-
-                                    </div>
-
-                                </div>
-
+                                ?>
                             </div>
+
+                             
 
                        <?php
                         }else if($module=='messages_sent'){
 
                             ?>
-                            <div class="commons-panel xoousersultra-shadow-borers" >
-
-                                <div class="commons-panel-heading">
-                                    <h2> <?php  _e('Sent Messages','xoousers');?> </h2>
-                                </div>
-
-                                <div class="commons-panel-content">
-
-                                    <div class="uultra-myprivate-messages">       
-
-                                        <?php  
-                                            $xoouserultra->mymessage->show_usersultra_my_messages_sent();
-                                        ?>
-
-                                    </div>
-
-                                </div>	 
+                            <div class="box-section">
+                                <h2>My Messages</h2>
+                                <?php  
+                                    $xoouserultra->mymessage->show_usersultra_my_messages_sent();
+                                ?>
                             </div>
+                                
+                            
                         <?php
                         }else if($module=='friends'){
                                

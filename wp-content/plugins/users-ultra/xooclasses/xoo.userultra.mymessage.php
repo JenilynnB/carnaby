@@ -144,7 +144,7 @@ class XooUserMyMessage {
 		
 		$message = $this->get_one($message_id, $logged_user_id);
 		
-		$uu_subject =   __("Reply: ", 'xoousers')." ".$message->subject;
+		$uu_subject =   __("Re: ", 'xoousers')." ".$message->subject;
 		
 		//check if reply equal to sender
 		$receiver_id = $message->sender;
@@ -317,7 +317,7 @@ class XooUserMyMessage {
 		
 	
 	}
-	
+        
 	public function message_delete()
 	{
 		
@@ -391,8 +391,111 @@ class XooUserMyMessage {
 		$logged_user_id = get_current_user_id();
 		
 		//chech if this is one of my messages		
-		$message = $this->get_one($message_id, $logged_user_id);
+		$messages = array();
+                $messages[0] = $this->get_one($message_id, $logged_user_id);
+                $replies = $this->get_parent_messages($message_id);
+                foreach($replies as $reply){
+                    array_push($messages, $reply);
+                }
+                ?>
+
+                
+                <div class="nav-links">
+                    <a href="?module=messages" ><span><i class="fa fa-chevron-left"></i></span>Back to Inbox</a>
+                </div>
+                <!-- Back to Inbox Link  -->
+                <!-- Subject display -->
+                <div class="inbox-message-thread">
+                        <div class="col-md-12 inbox-message-subject">
+                            <span><?php echo $messages[0]->subject; ?></span>
+                        </div>
+                    
+                <?php
+                
+                foreach($messages as $msg){
+                    $message_sender_id = $msg->sender;
+                    $msg_sender_name = $xoouserultra->userpanel->get_user_meta('first_name', $message_sender_id);
+                    $orig_msg_date = date("F j, Y, g:i a", strtotime($msg->date));
+                    
+                    $my_message_class = "";
+                    if($message_sender_id==$logged_user_id){
+                        $my_message_class = "viewers-message";
+                    }
+                    $content = stripcslashes($msg->content);
+                    
+                    ?>
+
+                        <div class="inbox-message <?php echo $my_message_class?>">
+                                <div class="row">
+                                    
+                                </div>
+                                <div class="row">
+                                    <?php if($message_sender_id!=$logged_user_id){?>
+                                        <div class="col-md-3 text-right">
+                                            <div class="text-center">
+                                                <?php 
+                                                $user_image_url = $xoouserultra->userpanel->get_user_pic_url( $message_sender_id, "", 'avatar', 'rounded', 'dynamic');
+                                                ?>
+                                                <div style="background-image: url('<?php echo $user_image_url;?>')" class="user-avatar-rounded user-avatar-small"></div>
+                                                <a href=""><?php echo $msg_sender_name; ?></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div>                                            
+                                                <span><?php echo $content?></span>
+                                            </div>
+                                            <div class="pull-right">
+                                                <span class="message-date pull-right"><?php echo $orig_msg_date; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="md-3">
+
+                                        </div>
+                                    
+                                    <?php }else{ ?>
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div>                                            
+                                                <span><?php echo $content?></span>
+                                            </div>
+                                            <div class="pull-right">
+                                                <span class="message-date pull-right"><?php echo $orig_msg_date; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-left">
+                                            <div class="text-center">
+                                                <?php 
+                                                $user_image_url = $xoouserultra->userpanel->get_user_pic_url( $message_sender_id, "", 'avatar', 'rounded', 'dynamic');
+                                                ?>
+                                                <div style="background-image: url('<?php echo $user_image_url;?>')" class="user-avatar-rounded user-avatar-small"></div>
+                                                <a href=""><?php echo $msg_sender_name; ?></a>
+                                            </div>
+                                        </div>
+
+                                        
+                                    <?php }?>
+                                    <!--
+                                    <div class="col-md-3 text-center push-down-20">
+                                        <a class="uultra-btn-deletemessage  uu-private-message-delete" href="#" id="" message-id="<?php echo $message_id?>" ><span><i class="icon-trash"></i></span>
+                                    </a>
+                                    -->
+                                    </div>
+                                </div>
+                <?php
+                }
+                ?>
+                </div>
+                <div class="uultra-reply-box"><textarea name="uu_message" class="uultra-reply-box-st" id="uu_message" cols="" rows="7" placeholder="Type your reply here..." ></textarea></div>
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="#" id="uu-reply-private-message-confirm" message-id="'<?php echo $message->id;?>'"><span><i class="fa fa-reply"></i></span>&nbsp;&nbsp;Send Reply</a>
+                </div>
+                <?php
+                /*
+                $message = $this->get_one($message_id, $logged_user_id);
 		
+                
 		$message_sender_id = $message->sender;
 		
 		 $pic_boder_type = "";
@@ -419,12 +522,15 @@ class XooUserMyMessage {
 			//mark as read
 		
 			$this->update_read_status($message_id);
-		
+                        
+                        $orig_msg_date = date("F j, Y, g:i a", strtotime($message->date));
+			
+                        $content = stripslashes($message->content);
 			
 			//date
-			$orig_msg_date = date("F j, Y, g:i a", strtotime($message->date));
+			//$orig_msg_date = date("F j, Y, g:i a", strtotime($message->date));
 						
-			$content = stripslashes($message->content);
+			//$content = stripslashes($message->content);
 			$html  = ' <div class="uu-private-messaging-backend rounded" >';
 			
 						
@@ -448,7 +554,7 @@ class XooUserMyMessage {
 			//replies
 			
 			$replies = $this->get_parent_messages($message->id);
-			//print_r($replies);
+			//echo print_r($replies);
 			
 			foreach ( $replies as $reply )
 			{
@@ -510,7 +616,7 @@ class XooUserMyMessage {
 		
 		 echo $html;
 		
-		
+		*/
 	}
 	
 	function get_parent_messages($message_id)
@@ -532,149 +638,155 @@ class XooUserMyMessage {
 	 */
 	function show_usersultra_my_messages()
 	{
-		global $wpdb, $current_user, $xoouserultra;
-		
-		$user_id = get_current_user_id();
-		
-	
-		// show all messages which have not been deleted by this user (deleted status != 2)
-		$msgs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'users_ultra_pm WHERE `recipient` = "' . $user_id. '"  AND `deleted` != "2"   ORDER BY `date` DESC' );
-		
-		
-		?>
-	<div class="tablenav">
-                
-               <span style="float:left"><a href="?module=messages">Inbox</a> | <a href="?module=messages_sent">Sent</a></span>
-					                    
-                   
-		<?php
-		if ( !empty( $status ) )
-		{
-			echo '<div id="message" class="updated fade"><p>', $status, '</p></div>';
-		}
-		if ( empty( $msgs ) )
-		{
-			echo '<p>', __( 'You have no items in inbox.', 'xoousers' ), '</p>';
-		}
-		else
-		{
-			$n = count( $msgs );
-			$num_unread = 0;
-			foreach ( $msgs as $msg )
-			{
-				if ( !( $msg->readed ) )
-				{
-					$num_unread++;
-				}
-			}
-			
-			
-			echo '<span style="float:right">', sprintf( _n( 'You have %d private message (%d unread).', 'You have %d private messages (%d unread)', $n, 'xoousers' ), $n, $num_unread ), '</span>'     ;    
-				
-				?>
-				</div>
-		
-						
-			<form action="" method="get">
-				<?php wp_nonce_field( 'usersultra-bulk-action_inbox' ); ?>
-				<input type="hidden" name="page" value="usersultra_inbox" />
-	
-				
-	
-				<table class="widefat fixed" id="table-3" cellspacing="0">
-					<thead>
-					<tr>
-						<th class="manage-column "><input type="checkbox" /></th>
-                        <th class="manage-column check-column"><?php _e( 'Pic', 'xoousers' ); ?></th>
-						<th class="manage-column" ><?php _e( 'Sender', 'xoousers' ); ?></th>
-						<th class="manage-column"><?php _e( 'Subject', 'xoousers' ); ?></th>
-						<th class="manage-column" ><?php _e( 'Date', 'xoousers' ); ?></th>
-                        <th class="manage-column" ><?php _e( 'Action', 'xoousers' ); ?></th>
-					</tr>
-					</thead>
-					<tbody>
-						<?php
-						foreach ( $msgs as $msg )
-						{
-							$user_id = $msg->sender;
-							
-							$msg->sender = $wpdb->get_var( "SELECT display_name FROM $wpdb->users WHERE ID = '$msg->sender'" );
-							//main conversation id		
-							
-							$message_id =		$msg->id;			
-							if($msg->parent=='-1')
-							{
-								$conversa_id = $msg->id;
-							
-							
-							}else{
-								
-								$conversa_id = $msg->parent;
-								
-								
-							}
-							
-							$message_status = "";
-			
-							if($msg->readed==1)
-							{
-								$message_status ='fa-eye';	
-								$message_status_text = __('Mark as Unread', 'xoousers');	
-								$new_status = 0;		
-							
-							}else{
-								
-								$message_status ='fa-eye-slash';
-								$message_status_text = __('Mark as Read', 'xoousers');		
-								$new_status = 1;
-							
-							
-							}
-							
-							$read_class="";
-							if($msg->readed==0)
-							{
-								
-								$read_class="class='uultra-unread-message'";
-								
-							}
-						
-							
-							?>
-						<tr <?php echo $read_class?>>
-							<td ><input type="checkbox" name="message_id[]" value="<?php echo $msg->id; ?>" />							<span></span></td>
-                            
-                            <td><span class="uultra-u-avatar"><?php echo $xoouserultra->userpanel->get_user_pic( $user_id, 50, 'avatar', null, null) ?></span></td>
-							<td><?php echo $msg->sender; ?></td>
-							<td>
-								<?php
+            global $wpdb, $current_user, $xoouserultra;
 
-								?>
-                                
-                                <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><b><?php  echo stripcslashes( $msg->subject ) ?></b></a>
-								<div class="row-actions">
-								<span>
-									<a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><?php _e( 'View', 'xoousers' ); ?></a>
-								</span>
-																		
-								<span class="reply">
-									| <a class="reply"
-									href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><?php _e( 'Reply', 'xoousers' ); ?></a>
-								</span>
-								</div>
-							</td>
-							<td><?php echo $msg->date; ?></td>
+            $user_id = get_current_user_id();
+
+
+            // show all messages which have not been deleted by this user (deleted status != 2)
+            $msgs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'users_ultra_pm WHERE `recipient` = "' . $user_id. '"  AND `deleted` != "2"   ORDER BY `date` DESC' );
+
+
+            ?>
+                
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active">
+                    <a href="?module=messages">Inbox</a>
+                </li>
+                <li role="presentation">
+                    <a href="?module=messages_sent">Sent Messages</a>
+                </li>
+            </ul>
+
+                 
+            <?php
+            if ( !empty( $status ) )
+            {
+                    echo '<div id="message" class="updated fade"><p>', $status, '</p></div>';
+            }
+            if ( empty( $msgs ) )
+            {
+                    echo '<p>', __( 'You have no items in inbox.', 'xoousers' ), '</p>';
+            }
+            else
+            {
+                $n = count( $msgs );
+                $num_unread = 0;
+                foreach ( $msgs as $msg )
+                {
+                    if ( !( $msg->readed ) )
+                    {
+                            $num_unread++;
+                    }
+                }
+
+
+                //echo '<span style="float:right">', sprintf( _n( 'You have %d private message (%d unread).', 'You have %d private messages (%d unread)', $n, 'xoousers' ), $n, $num_unread ), '</span>'     ;    
+
+            ?>
+            
+            
+		
+						
+            <form action="" method="get">
+                <?php wp_nonce_field( 'usersultra-bulk-action_inbox' ); ?>
+                <input type="hidden" name="page" value="usersultra_inbox" />
+
+                <div class="inbox-messages-list">
+                        <?php
+                        foreach ( $msgs as $msg )
+                        {
                             
-                            <td> <a class="uultra-btn-deletemessage  uu-private-message-change-status" href="#" id="" title="<?php echo $message_status_text?>" message-id="<?php echo $message_id?>" message-status="<?php echo $new_status?>" ><span><i class="fa <?php echo $message_status?>"></i></span></a><a class="uultra-btn-deletemessage  uu-private-message-delete" href="#" id="" message-id="<?php echo $message_id?>" ><span><i class="fa fa-times"></i></span></a></td>
-						</tr>
-							<?php
-	
-						}
-						?>
-					</tbody>
-					
-				</table>
-			</form>
+                            $user_id = $msg->sender;
+
+                            //$msg_sender_name = $wpdb->get_var( "SELECT display_name FROM $wpdb->users WHERE ID = '$msg->sender'" );
+                            $msg_sender_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id)." ".substr($xoouserultra->userpanel->get_user_meta('last_name', $user_id),0,1).".";
+                            //main conversation id		
+
+                            $message_id =		$msg->id;			
+                            if($msg->parent=='-1')
+                            {
+                                $conversa_id = $msg->id;
+
+                            }else{
+                                $conversa_id = $msg->parent;
+                            }
+
+                            $message_status = "";
+/*
+                            if($msg->readed==1)
+                            {
+                                $message_status ='fa-eye';	
+                                $message_status_text = __('Mark as Unread', 'xoousers');	
+                                $new_status = 0;		
+
+                            }else{
+
+                                $message_status ='fa-eye-slash';
+                                $message_status_text = __('Mark as Read', 'xoousers');		
+                                $new_status = 1;
+                            }
+*/
+                            $read_class="";
+                            if($msg->readed==0)
+                            {
+                                    $read_class="uultra-unread-message";
+                            }
+
+
+                            ?>
+                            <div class="inbox-message <?php echo $read_class?>">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php $msg_date = date_i18n('F j, Y', strtotime($msg->date));?>
+                                        
+                                        <span class="message-date pull-right"><?php echo $msg_date; ?></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 text-center">
+                                        <?php 
+                                        $user_image_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic');
+                                        ?>
+                                        <div style="background-image: url('<?php echo $user_image_url;?>')" class="user-avatar-rounded user-avatar-small"></div>
+                                        <a href=""><?php echo $msg_sender_name; ?></a>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>">
+                                                <b><?php  echo stripcslashes( $msg->subject ) ?></b>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <?php 
+                                            $newline_break = strpos(wordwrap($msg->content, 100), "\n");
+                                            if($newline_break>0){
+                                                $msg_truncated = substr(stripslashes($msg->content), 0, $newline_break)."...";
+                                            }else{
+                                                $msg_truncated = stripslashes($msg->content);
+                                            }
+                                            ?>
+                                            <span><?php echo $msg_truncated?></span>
+                                        </div>
+                                        <div class="row-actions pull-right">
+                                            <span>
+                                                <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><?php _e( 'More...', 'xoousers' ); ?></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center push-down-20">
+                                        <a class="uultra-btn-deletemessage  uu-private-message-delete" href="#" id="" message-id="<?php echo $message_id?>" ><span><i class="icon-trash"></i></span>
+                                    </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        <?php
+                        }
+                        ?>
+                </div>
+            </form>
 			<?php
 	
 		}
@@ -688,116 +800,152 @@ class XooUserMyMessage {
 	 */
 	function show_usersultra_my_messages_sent()
 	{
-		global $wpdb, $current_user, $xoouserultra;
-		
-		$user_id = get_current_user_id();
-		
-	
-		// show all messages which have not been deleted by this user (deleted status != 2)
-		$msgs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'users_ultra_pm WHERE `sender` = "' . $user_id. '"  AND `deleted` != "2"   ORDER BY `date` DESC' );
-		
-		?>
-	
-  <div class="tablenav">
-                
-               <span style="float:left"><a href="?module=messages">Inbox</a> | <a href="?module=messages_sent">Outbox</a></span>
-					                    
-                   
-		<?php
-		if ( !empty( $status ) )
-		{
-			echo '<div id="message" class="updated fade"><p>', $status, '</p></div>';
-		}
-		if ( empty( $msgs ) )
-		{
-			echo '<p>', __( 'You have no items in sent box.', 'xoousers' ), '</p>';
-		}
-		else
-		{
-			$n = count( $msgs );
-			$num_unread = 0;
-			foreach ( $msgs as $msg )
-			{
-				if ( !( $msg->readed ) )
-				{
-					$num_unread++;
-				}
-			}
-			
-			
-			echo '<span style="float:right">', sprintf( _n( 'You have sent %d private message(s) ', 'You have sent %d private messages ', $n, 'xoousers' ), $n, $num_unread ), '</span>'     ;    
-				
-				?>
-				</div>
-			<form action="" method="get">
-				<?php wp_nonce_field( 'usersultra-bulk-action_inbox' ); ?>
-				<input type="hidden" name="page" value="usersultra_inbox" />
-	
-				
-	
-				<table class="widefat fixed" id="table-3" cellspacing="0">
-					<thead>
-					<tr>
-						
-                        <th class="manage-column check-column"><?php _e( 'Pic', 'xoousers' ); ?></th>
-						<th class="manage-column" ><?php _e( 'Receiver', 'xoousers' ); ?></th>
-						<th class="manage-column"><?php _e( 'Subject', 'xoousers' ); ?></th>
-						<th class="manage-column" ><?php _e( 'Date', 'xoousers' ); ?></th>
-					</tr>
-					</thead>
-					<tbody>
-						<?php
-						foreach ( $msgs as $msg )
-						{
-							$user_id = $msg->recipient;
-							
-							$msg->sender = $wpdb->get_var( "SELECT display_name FROM $wpdb->users WHERE ID = '$msg->recipient'" );
-							
-							//main conversation id							
-							if($msg->parent=='-1')
-							{
-								$conversa_id = $msg->id;
-							
-							
-							}else{
-								
-								$conversa_id = $msg->parent;
-								
-								
-							}
-							
-							?>
-						<tr>
-							                            
-                            <td><span class="uultra-u-avatar"><?php echo $xoouserultra->userpanel->get_user_pic( $user_id, 50, 'avatar', null, null) ?></span></td>
-							<td><?php echo $msg->sender; ?></td>
-							<td>
-								<?php
+            global $wpdb, $current_user, $xoouserultra;
 
-								?>
-                                
-                                <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><b><?php  echo stripcslashes( $msg->subject ) ?></b></a>
-								<div class="row-actions">
-								<span>
-									<a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><?php _e( 'View', 'xoousers' ); ?></a>
-								</span>
-																	
-								
-								</div>
-							</td>
-							<td><?php echo $msg->date; ?></td>
-						</tr>
-							<?php
+            $user_id = get_current_user_id();
+
+
+            // show all messages which have not been deleted by this user (deleted status != 2)
+            $msgs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'users_ultra_pm WHERE `sender` = "' . $user_id. '"  AND `deleted` != "2"   ORDER BY `date` DESC' );
+
+            ?>
+                
+            <ul class="nav nav-pills">
+                <li role="presentation">
+                    <a href="?module=messages">Inbox</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="?module=messages_sent">Sent Messages</a>
+                </li>
+            </ul>
 	
-						}
-						?>
-					</tbody>
-					
-				</table>
-			</form>
-			<?php
+                   
+            <?php
+            if ( !empty( $status ) )
+            {
+                    echo '<div id="message" class="updated fade"><p>', $status, '</p></div>';
+            }
+            if ( empty( $msgs ) )
+            {
+                    echo '<p>', __( 'You have no items in sent box.', 'xoousers' ), '</p>';
+            }
+            else
+            {
+                    $n = count( $msgs );
+                    $num_unread = 0;
+                    foreach ( $msgs as $msg )
+                    {
+                            if ( !( $msg->readed ) )
+                            {
+                                    $num_unread++;
+                            }
+                    }
+
+
+                ?>
+
+                <form action="" method="get">
+                    <?php wp_nonce_field( 'usersultra-bulk-action_inbox' ); ?>
+                    <input type="hidden" name="page" value="usersultra_inbox" />
+
+                    <div class="inbox-messages-list">
+                        <?php
+                        foreach ( $msgs as $msg )
+                        {
+                            $user_id = $msg->sender;
+                            //$msg_sender_name = $wpdb->get_var( "SELECT display_name FROM $wpdb->users WHERE ID = '$msg->sender'" );
+                            $msg_sender_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id)." ".substr($xoouserultra->userpanel->get_user_meta('last_name', $user_id),0,1).".";
+                            
+
+                            //main conversation id		
+
+                            $message_id =		$msg->id;			
+                            if($msg->parent=='-1')
+                            {
+                                $conversa_id = $msg->id;
+
+                            }else{
+                                $conversa_id = $msg->parent;
+                            }
+/*
+                            $message_status = "";
+
+                            if($msg->readed==1)
+                            {
+                                $message_status ='fa-eye';	
+                                $message_status_text = __('Mark as Unread', 'xoousers');	
+                                $new_status = 0;		
+
+                            }else{
+
+                                $message_status ='fa-eye-slash';
+                                $message_status_text = __('Mark as Read', 'xoousers');		
+                                $new_status = 1;
+                            }
+
+                            $read_class="";
+                            if($msg->readed==0)
+                            {
+                                    $read_class="uultra-unread-message";
+                            }
+*/
+
+                            ?>
+                            <div class="inbox-message">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php $msg_date = date_i18n('F j, Y', strtotime($msg->date));?>
+
+                                        <span class="message-date pull-right"><?php echo $msg_date; ?></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 text-center">
+                                        <?php 
+                                        $user_image_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "", 'avatar', 'rounded', 'dynamic');
+                                        ?>
+                                        <div style="background-image: url('<?php echo $user_image_url;?>')" class="user-avatar-rounded user-avatar-small"></div>
+                                        <a href=""><?php echo $msg_sender_name; ?></a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>">
+                                                <b><?php  echo stripcslashes( $msg->subject ) ?></b>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <?php 
+                                            $newline_break = strpos(wordwrap($msg->content, 100), "\n");
+                                            if($newline_break>0){
+                                                $msg_truncated = substr(stripslashes($msg->content), 0, $newline_break)."...";
+                                            }else{
+                                                $msg_truncated = stripslashes($msg->content);
+                                            }
+                                            ?>
+                                            <span><?php echo $msg_truncated?></span>
+                                        </div>
+                                        <div class="row-actions pull-right">
+                                            <span>
+                                                <a href="<?php echo $xoouserultra->userpanel->get_internal_pmb_links('messages','view',$conversa_id) ?>"><?php _e( 'More...', 'xoousers' ); ?></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center push-down-20">
+                                        <a class="uultra-btn-deletemessage  uu-private-message-delete" href="#" id="" message-id="<?php echo $message_id?>" ><span><i class="icon-trash"></i></span>
+                                    </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </form>
+                <?php
 	
-		}
+            }
 		
 
 	
@@ -806,6 +954,7 @@ class XooUserMyMessage {
 	/**
 	 * Inbox page
 	 */
+        /*
 	function show_usersultra_latest_messages($howmany)
 		
 	{
@@ -930,6 +1079,7 @@ class XooUserMyMessage {
 	/**
 	 * Inbox page
 	 */
+        /*
 	function show_usersultra_inbox()
 	{
 		global $wpdb, $current_user;
@@ -1183,7 +1333,7 @@ class XooUserMyMessage {
 	</div>
 	<?php
 	}
-	
+	*/
 
 }
 $key = "mymessage";

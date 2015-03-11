@@ -57,18 +57,18 @@ get_header();
                 <div class="col-md-12">
                 
                     <div class="col-md-8 user-profile-info flex">
-                        <div class="">
+                        <div class="box-section">
 
                                 <div class="user-avatar">
                                     <?php 
                                         $avatar_url = $xoouserultra->userpanel->get_user_pic_url( $user_id, "150", 'avatar', 'rounded', 'dynamic')
                                     ?>
-                                    <div class="user-avatar-rounded" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
+                                    <div class="user-avatar-rounded user-avatar-large" id="uu-backend-avatar-section" style= 'background-image:url(<?php echo $avatar_url;?>)'>
 
                                     </div>
                                 </div>
                         </div>
-                        <div class="">
+                        <div class="box-section">
                                 <h2><?php    
                                     echo  $first_name . ' ' . $last_name;
                                     ?>
@@ -113,38 +113,44 @@ get_header();
                                 <a href= "" class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;</span><?php echo _e("Send Message", 'xoousers')?></a>  
                             </div>
                         <?php endif; ?>
-
+                        
+                        <?php if($current_user->id == $user_id&&  is_user_logged_in()): ?>
+                            <div class="profile-action">
+                                <a href="<?php echo site_url('/myaccount/?module=profile'); ?>"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit My Profile</a>
+                            </div>
+                        <?php endif; ?>
+                        
                         <?php echo $xoouserultra->mymessage->get_send_form( $user_id);?>
-                            
-                            <?php if($current_user->id != $user_id &&  is_user_logged_in() && !$friend_request_sent && !$friends_with_user): ?>
-                                <div class="profile-action">
-                                    <a class="" id="uu-send-friend-request" href="#" data-user-id="<?php echo $user_id; ?>" title="Send Friend Request"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span> </a>
-                                </div>
-                            <?php elseif($friends_with_user): ?>
-                                <div class="profile-action">
-                                    <span class="disabled"><i class="fa fa-check"></i>&nbsp;&nbsp;Friends</span>
-                                </div>
-                            <?php elseif($friend_request_sent): ?>
-                                <div class="profile-action">
-                                    <span class="disabled"><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Friend Requested</span>
-                                </div>
-                            <?php elseif(!is_user_logged_in()): ?>
-                                <div class="profile-action">
-                                    <a href= "" class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span></a>  
-                                </div>
-                            <?php endif; ?>
-                            <div class="modal fade modal-small" id="friend-request-confirm" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-body overflow">
-                                                <div class="alert alert-warning" style="display:none" id="msg-error-friend-request">Friend already requested</div>
-                                                <div class="alert alert-success" style="display:none" id="msg-success-friend-request">Friend request sent!</div>
-                                                <button type="button" class="btn btn-default pull-right clearfix" data-dismiss="modal" >Close</button>
-                                                
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
+
+                        <?php if($current_user->id != $user_id &&  is_user_logged_in() && !$friend_request_sent && !$friends_with_user): ?>
+                            <div class="profile-action">
+                                <a class="" id="uu-send-friend-request" href="#" data-user-id="<?php echo $user_id; ?>" title="Send Friend Request"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span> </a>
+                            </div>
+                        <?php elseif($friends_with_user): ?>
+                            <div class="profile-action">
+                                <span class="disabled"><i class="fa fa-check"></i>&nbsp;&nbsp;Friends</span>
+                            </div>
+                        <?php elseif($friend_request_sent): ?>
+                            <div class="profile-action">
+                                <span class="disabled"><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Friend Requested</span>
+                            </div>
+                        <?php elseif(!is_user_logged_in()): ?>
+                            <div class="profile-action">
+                                <a href= "" class="" data-toggle="modal" data-target="#registrationModal"><span><i class="fa fa fa-users fa-lg"></i>&nbsp;&nbsp;Add Friend</span></a>  
+                            </div>
+                        <?php endif; ?>
+                        <div class="modal fade modal-small" id="friend-request-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-body overflow">
+                                        <div class="alert alert-warning" style="display:none" id="msg-error-friend-request">Friend already requested</div>
+                                        <div class="alert alert-success" style="display:none" id="msg-success-friend-request">Friend request sent!</div>
+                                        <button type="button" class="btn btn-default pull-right clearfix" data-dismiss="modal" >Close</button>
+
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
                     </div>
                 </div>
             </div>

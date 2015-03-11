@@ -977,8 +977,8 @@ function add_user_menu($items, $args)
             $user_dashboard_url = site_url("/dashboard");
             $user_profile_url = site_url("/profile");
             $user_account_url = site_url("/myaccount");
-            $user_friends_url = site_url("myaccount/?module=friends");
-            $user_messages_url = site_url("myaccount/?module=messages");
+            $user_friends_url = site_url("dashboard/?module=friends");
+            $user_messages_url = site_url("dashboard/?module=messages");
             $logout_url = site_url("/logout");
 
             //$user_photo = get_avatar($user->ID, 40);
@@ -988,7 +988,7 @@ function add_user_menu($items, $args)
             $items .= '<li class="menu-item has-children" id="menu-item-user-name">';
             
             $items .=    '<a class="menu-item-user-name-link">';
-            $items .=    '<div class="menu-user-photo"><img src="'.$user_photo.'"></div>';
+            $items .=    '<div class="menu-user-photo"><img class="user-avatar-rounded user-avatar-mini" src="'.$user_photo.'"></div>';
             $items .=    '<span class="menu-text" id="user-name-menu">';
             $items .=    $name.'</span></a>';
             $items .=       '<ul class="dropdown-menu" style="display:none;">';

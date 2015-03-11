@@ -468,68 +468,10 @@ a.uultra-btn-email:hover{
 
 }
 /*--------- Users Private Messaging Options*/
-a.uultra-btn-deletemessage span{
-	
-	margin:0px 10px 0px 5px;
-	text-align:left;		
-}
 
-a.uultra-btn-deletemessage  i{
-	
-	margin:0px 0px 0px 5px;
-			
-}
 
-a.uultra-btn-deletemessage { 
-		display:inline-block; 
-		height:20px;
-		width:30px;
-		padding-top:5px;
-		text-align:left;
-		font-size:12px;
-		margin-right:2%;
-		
-			
-		
-		border:solid 1px #E8E8E8;
-		 background: #F0F0F0; 
-		-moz-border-radius: 5px; 
-	     border-radius:5px;
-		 color:#333;
-		 text-decoration:none;
-
-}
-
-a.uultra-btn-deletemessage:hover{ 
-				
-		
-		 background: #E2E2E2; 
-		-moz-border-radius: 5px; 
-	     border-radius:5px;
-		 color: #333 !important;
-
-}
 /*--------- Users Private Messaging*/
-.uultra-noti-bubble {
-    //position:absolute;
-    //top: -1px;
-    //right:-2px;
-    //padding:2px ;
-    display: inline-block;
-    background-color: #d2322d;
-    text-align: center;
-    color:white;
-    line-height:15px;
-    //font-weight:bold;
-    font-size:0.8em;
-    width:21px;
-    height:21px;
-    padding-top: 3px;
-    margin-left: 10px;
-    border-radius: 50%;
-    -moz-border-radius:50%;
-   
-}
+
 .uu-private-messaging-backend{
 	width:97% !important;
 	
@@ -557,13 +499,6 @@ display: inline-block; width:85%; vertical-align:top
 	margin:10px auto 10px auto; width:100%; text-align:center;
 	 
 	
-	
-	
-	
-}
-
-.uultra-reply-box-st{
-	width:98%;
 	
 	
 	

@@ -11,7 +11,7 @@ and open the template in the editor.
 
 
 /*********************
-Carnaby Dashboard Styles
+Useful Style Classes to Add
 **********************/
 .centered {
      position: fixed;
@@ -37,6 +37,10 @@ Carnaby Dashboard Styles
     overflow: hidden;
 }
 
+.push-down-20{
+   margin-top: 20px;
+}
+
 .box-section{
     margin: 10px;
     margin-bottom: 40px;
@@ -48,11 +52,15 @@ Carnaby Dashboard Styles
     margin: 10px;
 }
 
+
 .menu-btn-container{
     height: 70px;
     position: relative;
 }
 
+/*********************
+Carnaby Dashboard Styles
+**********************/
 
 .dashboard .box-section h2, 
 .dashboard .box-section h3,  
@@ -154,6 +162,9 @@ Carnaby Profile Styles
 Carnaby Avatar Styles
 *********************/
 
+.user-avatar{
+    margin-top: 10px;
+}
 .user-avatar-rounded{
     background-repeat: no-repeat;
     background-position: 50%;
@@ -161,9 +172,26 @@ Carnaby Avatar Styles
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+    //margin: 0px 10px 0px 10px;
+    margin: auto;
+}
+
+.user-avatar-large{
+    width: 140px;
+    height: 140px;
+}
+.user-avatar-medium{
     width: 96px;
     height: 96px;
-    margin: 0px 10px 0px 10px;
+}
+.user-avatar-small{
+    width: 60px;
+    height: 60px;
+}
+
+.user-avatar-mini{
+    width: 45px;
+    height: 45px;
 }
 
 .dash-user-info{
@@ -710,7 +738,87 @@ Carnaby Homepage Styles
 .searchandfilter input[type=submit]{
     width:100%;
 }
+/****************************************************************
+* Carnaby Inbox Styles
+****************************************************************/
 
+
+
+
+.inbox-message{
+    padding: 20px;
+    border-top: 1px solid #efefef;
+    background-color: #ffffff;
+    
+}
+.inbox-messages-list{
+    margin-top: 20px;
+    border: 1px solid #efefef;
+}
+.inbox-messages-list:first-child{
+    border-top:none;
+}
+
+.inbox-message-thread{
+    margin-top: 30px;
+}
+
+
+.inbox-message-subject{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #cdcdcd;
+    border: solid 1px #dedede;
+    float: none;
+}
+.inbox-message-subject span{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.uultra-reply-box{
+    padding: 15px 0px 15px 0px;
+}
+.uultra-reply-box textarea{
+    border: 1px solid #cdcdcd;
+}
+
+.message-date{
+    color: #788991;
+    padding-top:10px;
+}
+
+a.uultra-btn-deletemessage {
+  padding: 10px 5px 10px 5px;
+  text-align: center;
+  font-size: 12px;
+  background: #F0F0F0;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #333;
+}
+
+a.uultra-btn-deletemessage:hover{ 
+    background: #E2E2E2; 
+    -moz-border-radius: 5px; 
+    border-radius:5px;
+    color: #333 !important;
+}
+
+.uultra-noti-bubble {
+    display: inline-block;
+    background-color: #d2322d;
+    text-align: center;
+    color:white;
+    line-height:15px;
+    font-size:0.8em;
+    width:21px;
+    height:21px;
+    padding-top: 3px;
+    margin-left: 10px;
+    border-radius: 50%;
+    -moz-border-radius:50%;
+}
 
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){
