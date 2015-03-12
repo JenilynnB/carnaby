@@ -397,7 +397,9 @@ class XooUserMyMessage {
                 foreach($replies as $reply){
                     array_push($messages, $reply);
                 }
+                
                 ?>
+
 
                 
                 <div class="nav-links">
@@ -422,6 +424,18 @@ class XooUserMyMessage {
                         $my_message_class = "viewers-message";
                     }
                     $content = stripcslashes($msg->content);
+                    
+                    if($msg->readed==1)
+			{
+				$message_status = __('Mark as Unread', 'xoousers');	
+				$new_status = 0;		
+			}else{
+				
+				$message_status = __('Mark as Read', 'xoousers');	
+				$new_status = 1;
+			}
+			//mark as read
+                        $this->update_read_status($msg->id);
                     
                     ?>
 
