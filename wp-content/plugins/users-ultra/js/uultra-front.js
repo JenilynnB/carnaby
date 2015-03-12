@@ -127,14 +127,18 @@ if(typeof $ == 'undefined'){
 				
         });
 		
-		$('#uu-reply-private-message-confirm').click(function() {
-			
+		$('#uu-reply-private-message-confirm').click(function(e) {
+			e.preventDefault();
 			
 			var message_id =  jQuery(this).attr("message-id");			
 			
 			var uu_message =   $('#uu_message').val();
 			
-			if(uu_message==""){alert(uu_message_empty);  $('#uu_message').focus(); return;}
+			if(uu_message==""){
+                            $('#inbox-msg-error').slideDown();  
+                            $('#uu_message').focus(); 
+                            return;
+                        }
 
 			jQuery.ajax({
 				type: 'POST',

@@ -785,7 +785,12 @@ Carnaby Homepage Styles
 
 .message-date{
     color: #788991;
-    padding-top:10px;
+    //padding-top:10px;
+}
+
+.inbox-message-thread .alert{
+    margin-bottom: 0px;
+    margin-top: 20px;
 }
 
 a.uultra-btn-deletemessage {

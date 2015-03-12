@@ -486,10 +486,12 @@ class XooUserMyMessage {
                 <?php
                 }
                 ?>
-                </div>
+                
+                <div class="alert alert-danger" id="inbox-msg-error" style="display:none;"><span>Please enter message text</span></div>
                 <div class="uultra-reply-box"><textarea name="uu_message" class="uultra-reply-box-st" id="uu_message" cols="" rows="7" placeholder="Type your reply here..." ></textarea></div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="#" id="uu-reply-private-message-confirm" message-id="'<?php echo $message->id;?>'"><span><i class="fa fa-reply"></i></span>&nbsp;&nbsp;Send Reply</a>
+                    <a class="btn btn-primary" href="#" id="uu-reply-private-message-confirm" message-id="<?php echo $messages[0]->id;?>"><span><i class="fa fa-reply"></i></span>&nbsp;&nbsp;Send Reply</a>
+                </div>
                 </div>
                 <?php
                 /*
@@ -666,7 +668,7 @@ class XooUserMyMessage {
             }
             if ( empty( $msgs ) )
             {
-                    echo '<p>', __( 'You have no items in inbox.', 'xoousers' ), '</p>';
+                    echo '<div class="inbox-message push-down-20">', __( 'You have no messages.', 'xoousers' ), '</div>';
             }
             else
             {
@@ -827,7 +829,7 @@ class XooUserMyMessage {
             }
             if ( empty( $msgs ) )
             {
-                    echo '<p>', __( 'You have no items in sent box.', 'xoousers' ), '</p>';
+                    echo '<div class="inbox-message push-down-20">', __( 'You have no sent messages.', 'xoousers' ), '</p>';
             }
             else
             {

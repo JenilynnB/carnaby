@@ -1673,3 +1673,17 @@ function modify_wp_search_distinct( $distinct ) {
 	return 'DISTINCT';
 	
 }
+
+function edit_page_title(){
+        if(isset($_GET["module"])){	$module = $_GET["module"];	}
+            
+        if($module=='messages' || $module=='messages_sent'){
+            $title = "My Messages | Carnaby West";
+        }elseif($module=='friends'){
+            $title = "Friends | Carnaby West";
+        }
+        //fix for profile as well
+        return $title;
+    }
+    
+add_filter('wp_title', 'edit_page_title', 10, 2);

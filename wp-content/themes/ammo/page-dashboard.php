@@ -1,24 +1,25 @@
 <?php
-	get_header();
 
-	global $post, $wp_query;
+    get_header();
 
-	/* include header
-	============================*/
-	if( isset($blank_page) && $blank_page ){  }
-	else{
-		get_template_part('template', 'header');
-	}
 
-	$content_class = 'col-md-12 col-sm-12';
-	$layout = tt_getmeta('page_layout');
-
-	if( in_array($layout, array('left', 'right' )) ){
-		$content_class = 'col-md-9';
-		$content_class .= $layout=='left' ? ' pull-right' : '';
-	}
-
+    global $post, $wp_query;
     global $xoouserultra;
+    
+    /* include header
+    ============================*/
+    if( isset($blank_page) && $blank_page ){  }
+    else{
+            get_template_part('template', 'header');
+    }
+
+    $content_class = 'col-md-12 col-sm-12';
+    $layout = tt_getmeta('page_layout');
+
+    if( in_array($layout, array('left', 'right' )) ){
+            $content_class = 'col-md-9';
+            $content_class .= $layout=='left' ? ' pull-right' : '';
+    }
 
     $module = "";
     $act= "";
