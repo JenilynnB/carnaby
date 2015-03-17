@@ -301,6 +301,75 @@ class XooSocial
             
             return $friends;
         }
+        
+        public function get_friends_list_html($user_id=0){
+            global $wpdb,  $xoouserultra;	
+            
+            if($user_id==0){$user_id = get_current_user_id();}
+            
+            require_once(ABSPATH . 'wp-includes/formatting.php');
+
+            $sql = "SELECT friend_sender_user_id FROM " . $wpdb->prefix . "usersultra_friends  WHERE friend_receiver_id  = '$user_id' AND 	friend_status = 1 ";	 
+
+            $res = $wpdb->get_results( $sql );
+            $html = '';
+            if(!empty($res)){
+                    $html .= '<h2>My Friends</h2>';
+                }
+            foreach($res as $r){
+                $friend_id = $r->friend_sender_user_id;
+                //get photo link
+                $friend_avatar_url = $xoouserultra->userpanel->get_user_pic_url( $friend_id, "150", 'avatar', 'rounded', 'dynamic');
+                //get link to profile
+                $friend_profile_url = site_url('/profile?uu_username='.$friend_id);
+                //get first name and last initial
+                $friend_first_name = $xoouserultra->userpanel->get_user_meta("first_name", $friend_id);
+                $friend_last_name = $xoouserultra->userpanel->get_user_meta("last_name", $friend_id);;
+                $friend_display_name = $friend_first_name." ".substr($friend_last_name,0,1).".";
+                //get number of reviews
+                $friend_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($friend_id);
+                if(sizeof($friend_reviews)==1){
+                    $friend_num_reviews = sizeof($friend_reviews)." Review";
+                }else{
+                    $friend_num_reviews = sizeof($friend_reviews)." Reviews";
+                }
+                
+                //get number of favorites
+                $friend_favorites = wpfp_get_users_favorites($r);
+                if(is_array($friend_favorites) && sizeof($friend_favorites)==1){
+                    $friend_num_favorites = sizeof($friend_favorites)." Favorite";
+                }else{
+                    $friend_num_favorites = is_array($friend_favorites)? sizeof($friend_favorites)." Favorites":"0 Favorites";
+                }
+                
+                //display all these things
+                
+                $html .= "<div class='friend-display'>
+                            <a href='".$friend_profile_url."'>    
+                                <div style='background-image:url(".$friend_avatar_url.");' class='user-avatar-rounded user-avatar-small'></div>
+                                ".$friend_display_name."
+                            </a>
+                            <div class='user-stats'>
+                                <div class='user-stats-reviews'>
+                                    <span>
+                                        <i class='fa fa-fw fa-star star-on'></i>
+                                        ".$friend_num_reviews."
+                                    </span>
+                                </div>
+                                <div class='user-stats-favorites'>
+                                    <span>
+                                        <i class='fa fa-fw fa-heart heart-on'></i>
+                                        ".$friend_num_favorites."
+                                    </span>
+                                </div>
+                            </div>";
+                $html .= "</div>";
+    
+                
+            }
+            
+            return $html;
+        }
 	
 	public function get_friend_count($user_id){
             global $wpdb,  $xoouserultra;		
@@ -550,6 +619,11 @@ class XooSocial
 	function show_friend_request()
 		
 	{
+            global $xoouserultra;
+            echo $xoouserultra->social->get_friend_request_list_html();
+            die();
+            
+            /*
 		global $wpdb, $current_user, $xoouserultra;
 		
 		$user_id = get_current_user_id();		
@@ -564,7 +638,6 @@ class XooSocial
 		//echo $sql;
 			
 		$rows = $wpdb->get_results($sql);
-		
 		$html = " ";
 		$html .='<div class="tablenav">	';	
 		
@@ -617,12 +690,115 @@ class XooSocial
 				
 				echo $html;
 				die();
+                                */
 			
 	
+	}
+        
+        function get_friend_request_list_html()
+		
+	{
+		global $wpdb, $current_user, $xoouserultra;
+		
+		$user_id = get_current_user_id();		
+	
+		$sql = ' SELECT friend.*, u.ID FROM ' . $wpdb->prefix . 'usersultra_friends friend  ' ;		
+		$sql .= " RIGHT JOIN ".$wpdb->prefix ."users u ON ( u.ID = friend.friend_receiver_id)";
+		$sql .= " WHERE u.ID = friend.friend_receiver_id  AND  friend.friend_status = 0 AND friend.friend_receiver_id = '".$user_id."'  ORDER BY friend.friend_id DESC ";	
+			
+		$rows = $wpdb->get_results($sql);
+		
+                $html = '';
+                if(!empty($rows)){
+                    $html .= '<h2>Friend Requests</h2>';
+                }				
+                foreach ( $rows as $request )
+                {
+                    
+                    $friend_id = $request->friend_sender_user_id;
+                    $request_id = $request->friend_id;	
+
+                    //$request->sender = $wpdb->get_var( "SELECT display_name FROM $wpdb->users WHERE ID = '$request->friend_sender_user_id'" );
+
+                    //$friend_id = $request->friend_sender_user_id;
+                    
+                    //get photo link
+                    $friend_avatar_url = $xoouserultra->userpanel->get_user_pic_url( $friend_id, "150", 'avatar', 'rounded', 'dynamic');
+                    //get link to profile
+                    $friend_profile_url = site_url('/profile?uu_username='.$friend_id);
+                    //get first name and last initial
+                    $friend_first_name = $xoouserultra->userpanel->get_user_meta("first_name", $friend_id);
+                    $friend_last_name = $xoouserultra->userpanel->get_user_meta("last_name", $friend_id);;
+                    $friend_display_name = $friend_first_name." ".substr($friend_last_name,0,1).".";
+                    //get number of reviews
+                    $friend_reviews = BusinessDirectory_RatingsModule::get_reviews_by_user($friend_id);
+                    $friend_num_reviews = sizeof($friend_reviews)==1? sizeof($friend_reviews)." Review": sizeof($friend_reviews)." Reviews";
+                    
+                    
+                    $friend_friend_count = $this->get_friend_count($friend_id);
+                    $friend_num_friends = $friend_friend_count.($friend_friend_count==1 ? " Friend": " Friends");
+                    
+                    
+                    //get number of favorites
+                    $friend_favorites = wpfp_get_users_favorites($r);
+                    if(is_array($friend_favorites) && sizeof($friend_favorites)==1){
+                        $friend_num_favorites = sizeof($friend_favorites)." Favorite";
+                    }else{
+                        $friend_num_favorites = is_array($friend_favorites)? sizeof($friend_favorites)." Favorites":"0 Favorites";
+                    }
+                    
+                    
+                    $html .= "
+                                <div class='friend-request clearfix' id='request-container-".$request_id."'>
+                                    <div class='col-md-3'>
+                                    <a href='".$friend_profile_url."'>    
+                                        <div style='background-image:url(".$friend_avatar_url.");' class='user-avatar-rounded user-avatar-small'></div>
+                                    </a>
+                                    </div>
+                                    <div class='col-md-4 user-stats'>
+                                        <a href='".$friend_profile_url."'>    
+                                            ".$friend_display_name."
+                                        </a>
+                                        <div class='user-stats-reviews'>
+                                            <span>
+                                                <i class='fa fa-fw fa-star star-on'></i>
+                                                ".$friend_num_reviews."
+                                            </span>
+                                        </div>
+                                        <div class='user-stats-favorites'>
+                                            <span>
+                                                <i class='fa fa-fw fa-heart heart-on'></i>
+                                                ".$friend_num_favorites."
+                                            </span>
+                                        </div>
+                                        <div class='user-stats-friends'>
+                                            <span>
+                                                <i class='fa fa-fw icon-users'></i>
+                                                ".$friend_num_friends."
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class='col-md-4 friend-request-actions'>
+                                            <button class='btn btn-primary' id='uu-approvedeny-friend' href='#' item-id='".$request_id."' action-id='approve' title='".__('Approve','xoousers')."'>
+                                            <span><i class='fa fa fa-thumbs-o-up fa-lg'></i></span> Accept 
+                                            </button> 
+                                            <button class='btn btn-default' id='uu-approvedeny-friend' href='' title='".__('Deny','xoousers')."' item-id='".$request_id."' action-id='deny'>
+                                            <span><i class='fa fa fa-thumbs-o-down fa-lg'></i></span> Deny 
+                                            </button>
+                                    </div>";
+                    $html .= "</div>";
+
+                }
+						
+		return $html;
 	}
 	
 	function show_all_my_friends()		
 	{
+                global $xoouserultra;
+                echo $xoouserultra->social->get_friends_list_html();
+                die();
+                /*
 		global $wpdb, $current_user, $xoouserultra;
 		
 		$user_id = get_current_user_id();		
@@ -691,7 +867,7 @@ class XooSocial
 				echo  $html;
 				
 				die();
-			
+		*/	
 	
 	}
 

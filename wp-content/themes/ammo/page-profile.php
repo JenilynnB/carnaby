@@ -57,7 +57,7 @@ get_header();
                 <div class="col-md-12">
                 
                     <div class="col-md-8 user-profile-info flex">
-                        <div class="box-section">
+                        <div class="box-section-inner">
 
                                 <div class="user-avatar">
                                     <?php 
@@ -68,7 +68,7 @@ get_header();
                                     </div>
                                 </div>
                         </div>
-                        <div class="box-section">
+                        <div class="box-section-inner">
                                 <h2><?php    
                                     echo  $first_name . ' ' . $last_name;
                                     ?>
@@ -116,7 +116,7 @@ get_header();
                         
                         <?php if($current_user->id == $user_id&&  is_user_logged_in()): ?>
                             <div class="profile-action">
-                                <a href="<?php echo site_url('/myaccount/?module=profile'); ?>"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit My Profile</a>
+                                <a href="<?php echo site_url('/edit-profile'); ?>"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit My Profile</a>
                             </div>
                         <?php endif; ?>
                         

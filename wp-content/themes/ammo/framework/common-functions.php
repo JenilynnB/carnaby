@@ -1681,6 +1681,8 @@ function edit_page_title(){
             $title = "My Messages | Carnaby West";
         }elseif($module=='friends'){
             $title = "Friends | Carnaby West";
+        }elseif($module=='profile'){
+            $title = "Edit My Profile | Carnaby West";
         }
         //fix for profile as well
         return $title;

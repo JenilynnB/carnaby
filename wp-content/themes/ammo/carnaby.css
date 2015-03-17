@@ -45,6 +45,10 @@ Useful Style Classes to Add
     margin: 10px;
     margin-bottom: 40px;
 }
+
+.box-section-inner{
+    margin:10px;
+}
 .box-section-outline{
     padding: 10px;
     border: 1px solid #efefef;
@@ -158,6 +162,70 @@ Carnaby Profile Styles
     margin-top: 10px;
     padding-left: 5px;
 }
+
+.friend-list{
+    padding: 25px;
+}
+.friend-display{
+    width: 150px;
+    text-align: center;
+    display: inline-block;
+}
+
+.friend-requests{
+    padding: 25px;
+}
+
+.friend-request:last-child{
+    border-bottom: none;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.friend-request{
+    margin: 15px 0px 15px 0px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.friend-request a{
+    font-weight: bold;
+}
+
+.friend-request-actions{
+    margin-top: 15px;
+}
+
+/*********************
+Carnaby Edit Profile Styles
+*********************/
+
+.edit-form{   
+    background-color: #ffffff;
+    padding: 30px;
+    border: 1px solid #e6e6e6;
+    margin: 5px;
+}
+
+.edit-form-content { 
+    padding:5px 15px 0 15px;
+   
+}
+.edit-form-content p {
+    padding:4px 0 6px 0;
+	text-align:left !important;
+	margin-top:2px !important;
+	margin-bottom:2px !important;
+}
+.edit-form-content p:first-child  {
+	padding-top:10px;
+}
+.edit-form-content p:last-child {
+	padding-bottom:15px;	
+}
+
+
+
 /*********************
 Carnaby Avatar Styles
 *********************/
@@ -507,7 +575,8 @@ Carnaby Homepage Styles
     font-size: 20px;
     
 }
-.listing-header .content, .listing-products .content, .full-category-info .content, .reviews .content{
+.listing-header .content, .listing-products .content, .full-category-info .content,
+.reviews .content, .profile .content, .dashboard .content{
     padding-top: 40px;
     padding-bottom: 40px;
 }

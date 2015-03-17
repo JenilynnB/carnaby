@@ -63,8 +63,8 @@
 
 ?>
 
-<section class="section">
-    <div class="content dashboard">
+<section class="section dashboard">
+    <div class="content">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -252,6 +252,23 @@
                                
                            ?>
        
+                            
+                            
+                            <?php $friend_request_list = $xoouserultra->social->get_friend_request_list_html($user_id);
+                            if($friend_request_list!=""){ ?>
+                            <div class="box-section-outline friend-requests" id="friend-request-list">
+                                <?php echo $friend_request_list; ?>
+                            </div>
+                            <?php } ?>
+                            
+                            <?php $friends_list = $xoouserultra->social->get_friends_list_html($user_id);
+                            if($friends_list!=""){ ?>
+                            <div class="box-section-outline friend-list" id="friends-list">
+                                <?php echo $friends_list; ?>
+                            </div>
+                            <?php } ?>
+                             
+                            <!--
                             <div class="commons-panel xoousersultra-shadow-borers" >
                                 
                                 <div class="commons-panel-heading">
@@ -299,7 +316,7 @@
                                 </script>
                         
                             </div>
-              
+              -->
                         <?php }?>
        
                     </div>

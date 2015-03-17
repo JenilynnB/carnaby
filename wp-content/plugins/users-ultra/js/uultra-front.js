@@ -547,7 +547,7 @@ function reload_my_friends ()
 				
 				success: function(data){					
 										
-								$("#uultra-my-friends-list").html(data);
+								$("#friends-list").html(data);
 					
 					}
 			});
@@ -564,7 +564,18 @@ function reload_friend_request ()
 				
 				success: function(data){					
 										
-								$("#uultra-my-friends-request").html(data);
+                                    //$("#uultra-my-friends-request").html(data);
+                                    var $friendRequestList = $("#friend-request-list");
+                                    
+                                    if(data===""){
+                                        $friendRequestList.fadeOut();
+                                    }else{
+                                        $friendRequestList.fadeOut(500, function(){
+                                            $friendRequestList.html(data);
+                                            $friendRequestList.fadeIn(500);
+                                        });
+                                    }
+                                    
 					
 					}
 			});
