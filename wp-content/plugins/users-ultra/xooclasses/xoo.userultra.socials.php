@@ -302,7 +302,7 @@ class XooSocial
             return $friends;
         }
         
-        public function get_friends_list_html($user_id=0){
+        public function get_friends_list_html($user_id=0, $context=''){
             global $wpdb,  $xoouserultra;	
             
             if($user_id==0){$user_id = get_current_user_id();}
@@ -313,10 +313,22 @@ class XooSocial
 
             $res = $wpdb->get_results( $sql );
             $html = '';
-            $html .= '<h2>My Friends</h2>';
+            
+            if($context=="profile"){
+                $user_first_name = $xoouserultra->userpanel->get_user_meta("first_name", $user_id);
+                $html .= '<h3>'.$user_first_name.'\'s Friends ('.sizeof($res).')</h3>';
+            }else{
+                $html .= '<h2>My Friends ('.sizeof($res).')</h2>';
+            }
+            
             if(empty($res)){
                     $html .= 'Oh shoot, no friends yet!';
-                }
+            }
+            
+            if($context=="profile"){
+                $html .= '<div class="slick-slider-friends">';
+            }
+            
             foreach($res as $r){
                 $friend_id = $r->friend_sender_user_id;
                 //get photo link
@@ -368,7 +380,9 @@ class XooSocial
     
                 
             }
-            
+            if($context=='profile'){
+                $html .= '</div>';
+            }
             return $html;
         }
 	

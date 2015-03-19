@@ -163,6 +163,16 @@ Carnaby Profile Styles
     padding-left: 5px;
 }
 
+.profile .profile-friends{
+    margin: -10px;
+    padding: 15px;
+    background-color: #ffffff;
+}
+.profile .slick-slider-friends{
+    margin: 25px;
+}
+
+/*Friends page*/
 .friend-list{
     padding: 25px;
 }

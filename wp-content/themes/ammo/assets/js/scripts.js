@@ -944,6 +944,14 @@ $(document).ready(function(){
             }
           ]
     });
+    
+    $('.slick-slider-friends').slick({
+        slidesToShow: 1,
+        slidesToScroll: 2,
+        variableWidth: true,
+        dots: true,
+        infinite: false
+    });
        
 });
 

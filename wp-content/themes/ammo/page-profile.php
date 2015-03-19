@@ -375,6 +375,11 @@ get_header();
                                 </table>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="profile-friends">
+                                <?php echo $xoouserultra->social->get_friends_list_html($user_id, "profile"); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
