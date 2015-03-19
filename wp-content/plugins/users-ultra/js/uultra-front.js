@@ -466,12 +466,21 @@ if(typeof $ == 'undefined'){
 				data: {"action": "confirm_reset_password_user", "p1": p1 , "p2": p2 },
 				
 				success: function(data){					
-										
-					$("#uultra-p-reset-msg").html(data);
 					
-					
-					
-					}
+                                    
+                                    if(data=="success"){
+                                        $("#password_reset_error").slideUp();
+                                        $("#password_reset_success").html("Success! Your password has been changed");
+                                        $("#password_reset_success").slideDown();
+                                    }else if(data==="not_same"){
+                                        $("#password_reset_error").html("Error! Passwords must be identical");
+                                        $("#password_reset_error").slideDown();
+                                    }else if(data==="not_valid"){
+                                        $("#password_reset_error").html("Error! Password should contain at least 7 alphanumeric characters");
+                                        $("#password_reset_error").slideDown();
+                                    }
+                                    	
+				}
 			});
 			
 			 // Cancel the default action
@@ -492,12 +501,29 @@ if(typeof $ == 'undefined'){
 				data: {"action": "confirm_update_email_user", "email": email },
 				
 				success: function(data){					
-										
-					$("#uultra-p-changeemail-msg").html(data);
 					
-					
-					
-					}
+                                    var error = $('#email_reset_error');
+                                    var success = $('#email_reset_success');
+                                    
+                                    if(data==="success"){
+                                        error.slideUp();
+                                        success.slideDown();
+                                        success.html("Success! Your email address has been changed")
+                                    }else if(data==="not_entered"){
+                                        error.slideDown();
+                                        error.html("Error! Please type a new email adress");
+                                    }else if(data==="not_new"){
+                                        error.slideDown();
+                                        error.html("Error! You haven't changed your email address");
+                                    }else if(data==="not_valid"){
+                                        error.slideDown();
+                                        error.html("Error! Please type a valid email address");
+                                    }else if(data==="in_use"){
+                                        error.slideDown();
+                                        error.html("Error! That email is already in use");
+                                    }
+                                    	
+				}
 			});
 			
 			 // Cancel the default action

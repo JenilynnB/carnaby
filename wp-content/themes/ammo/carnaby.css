@@ -132,6 +132,20 @@ Carnaby Dashboard Styles
 
 .box-listing-excerpt{}
 
+
+/*******************************
+Carnaby Account Settings Styles
+********************************/
+
+.account-settings-container{
+	background-color:#FFF;
+	padding:15px;
+}
+
+.account-settings h3{
+    text-transform: uppercase;
+}
+
 /*********************
 Carnaby Profile Styles
 *********************/

@@ -994,13 +994,13 @@ class XooUserUser {
 		
 		if($email=="")
 		{
-			$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Please type your new email ", 'xoousers')."</div>";
+			//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Please type your new email ", 'xoousers')."</div>";
+                        $validation .= "not_entered";
 			$html = $validation;			
-		}
-		
-		if(!$ret_validate_email)
+		}else if(!$ret_validate_email)
 		{
-			$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Please type a valid email address ", 'xoousers')."</div>";
+			//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Please type a valid email address ", 'xoousers')."</div>";
+                        $validation .= "not_valid";
 			$html = $validation;			
 		}
 		
@@ -1019,7 +1019,8 @@ class XooUserUser {
 		
 			if($user_check_id==$user_id) //this is the same user then change email
 			{
-				$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! You haven't changed your email. ", 'xoousers')."</div>";
+				//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! You haven't changed your email. ", 'xoousers')."</div>";
+                                $validation = "not_new";
 				$html = $validation;
 				
 			
@@ -1028,7 +1029,8 @@ class XooUserUser {
 				if($user_check_email!="")
 				{
 			
-					$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! The email is in use already ", 'xoousers')."</div>";
+					//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! The email is in use already ", 'xoousers')."</div>";
+                                        $validation = "in_use";
 					$html = $validation;
 				
 				}else{
@@ -1056,7 +1058,8 @@ class XooUserUser {
 					
 					$user_id = wp_update_user( array( 'ID' => $user_id, 'user_email' => $email ) );											
 										
-					$html = "<div class='uupublic-ultra-success'>".__(" Success!! Your email account has been changed to : ".$email."  ", 'xoousers')."</div>";
+					//$html = "<div class='uupublic-ultra-success'>".__(" Success!! Your email account has been changed to : ".$email."  ", 'xoousers')."</div>";
+                                        $html = "success";
 					
 																			
 				}else{
@@ -1103,13 +1106,13 @@ class XooUserUser {
 		
 		if($password1!=$password2)
 		{
-			$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Password must be identical ", 'xoousers')."</div>";
+			//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Password must be identical ", 'xoousers')."</div>";
+                        $validation .= "not_same";
 			$html = $validation;			
-		}
-		
-		if(strlen($password1)<$PASSWORD_LENGHT)
+		}else if(strlen($password1)<$PASSWORD_LENGHT)
 		{
-			$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Password should contain at least 7 alphanumeric characters ", 'xoousers')."</div>";
+			//$validation .= "<div class='uupublic-ultra-error'>".__(" ERROR! Password should contain at least 7 alphanumeric characters ", 'xoousers')."</div>";
+                        $validation .= "not_valid";
 			$html = $validation;		
 		}
 		
@@ -1131,8 +1134,9 @@ class XooUserUser {
 					//notify user					
 					$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
 					
-					$html = "<div class='uupublic-ultra-success'>".__(" Success!! The new password has been sent to ".$user_email."  ", 'xoousers')."</div>";
-					
+					//$html = "<div class='uupublic-ultra-success'>".__(" Success!! The new password has been sent to ".$user_email."  ", 'xoousers')."</div>";
+					$html = "success";
+                                        
 					// Here is the magic:
 					wp_cache_delete($user_id, 'users');
 					wp_cache_delete($username, 'userlogins'); // This might be an issue for how you are doing it. Presumably you'd need to run this for the ORIGINAL user login name, not the new one.

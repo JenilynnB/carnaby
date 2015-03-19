@@ -478,17 +478,6 @@ input.btnuultra {
 
 /**/
 
-.usersultra-dahsboard-cont{
-	float: none;
-	display:inline-block;	
-	position:relative;
-	width: 100%;
-	
-	margin-left: auto !important;
-	margin-right: auto !important;
-	background-color:#FFF;
-	padding-top:10px;
-}
 
 .uusersultra-dahsboard-cont .rounded {-moz-border-radius: 5px; border-radius:5px;}
 
