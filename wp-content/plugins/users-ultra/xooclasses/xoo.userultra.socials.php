@@ -313,8 +313,9 @@ class XooSocial
 
             $res = $wpdb->get_results( $sql );
             $html = '';
-            if(!empty($res)){
-                    $html .= '<h2>My Friends</h2>';
+            $html .= '<h2>My Friends</h2>';
+            if(empty($res)){
+                    $html .= 'Oh shoot, no friends yet!';
                 }
             foreach($res as $r){
                 $friend_id = $r->friend_sender_user_id;
