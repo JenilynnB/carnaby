@@ -462,7 +462,7 @@ Carnaby Homepage Styles
     color: #66cccc;
 }
 
-.homepage .categories-panel{
+.homepage .categories-panel, .homepage .listings-panel{
     text-align: center;
 }
 

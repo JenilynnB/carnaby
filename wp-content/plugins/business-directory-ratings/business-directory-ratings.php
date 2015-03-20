@@ -389,6 +389,23 @@ class BusinessDirectory_RatingsModule {
         return $count;
     }
     
+    public function get_highest_rated_listings($count = 5){
+        global $wpdb;
+        
+        //$query = $wpdb->prepare("SELECT AVG(rating) FROM {$wpdb->prefix}wpbdp_ratings INNER JOIN {$wpdb->posts} WHERE listing_id = {$wpdb->posts}.ID and {$wpdb->posts}.post_status = publish LIMIT %d", $count);
+        $query = $wpdb->prepare("SELECT listing_id FROM {$wpdb->posts} as posts INNER JOIN {$wpdb->prefix}wpbdp_ratings WHERE listing_id = posts.ID and posts.post_status = 'publish' GROUP BY posts.ID ORDER BY AVG(rating) DESC LIMIT %d", $count);
+            
+        $listings = $wpdb->get_results($query);
+        $results = array(); 
+        if(sizeof($listings)>0 && isset($listings)){
+            foreach($listings as $listing){
+                $results[] = $listing->listing_id;
+            }
+        }
+        
+        return $results;
+    }
+    
     public function get_reviews_by_user($user_id, $only_approved=true){
         global $wpdb;
 

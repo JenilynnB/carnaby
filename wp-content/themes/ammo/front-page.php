@@ -80,6 +80,30 @@ get_header();
         </div>
     </div>
     
+    <div class='section-normal listings-panel'>
+        <div class="container">
+            <div class="row">
+                <div class="column-md-12">
+                    <div class="row">
+                        <div class="content">
+                            <h2 class='heading-title'>Top Rated Stores</h2>
+                            <span class='heading-line'></span>
+                            <div class='categories-panel-content text-center'>
+                                <?php 
+                                $top_posts = BusinessDirectory_RatingsModule::get_highest_rated_listings("4");
+                                foreach ($top_posts as $post) {
+                                    wpbdp_render_listing($post, 'excerpt', true);
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <div class='section-normal categories-panel'>
         <div class="container">
             <div class="row">
