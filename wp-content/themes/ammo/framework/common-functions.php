@@ -1640,7 +1640,13 @@ function modify_wp_search_join( $join ) {
 
 	global $wpdb;
 	
-	$join .= " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ";
+	if(strpos($join, "JOIN $wpdb->post_meta")){
+            $join = preg_replace("/[LEFT |INNER ] JOIN $wpdb->postmeta ON ([a-z0-9_-])/i", 
+                " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ", $join);
+        }else{
+            $join .= " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ";
+        }
+        
 	$join .= " LEFT JOIN $wpdb->term_relationships tr ON ($wpdb->posts.ID = tr.object_id)";
         $join .= " LEFT JOIN $wpdb->term_taxonomy tt ON (tt.term_taxonomy_id=tr.term_taxonomy_id)";
         $join .= " LEFT JOIN $wpdb->terms t ON (t.term_id = tt.term_id)";
