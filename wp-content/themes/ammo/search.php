@@ -71,7 +71,7 @@ $class = "";
                         <?php if($module != "filters"):?>
                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
-                                <?php echo $GLOBALS['wp_query']->request; ?>
+                                <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                 <div id="listings-results">
                                     
                                 <?php if (!empty($filters) && sizeof($filters)>0): ?>
