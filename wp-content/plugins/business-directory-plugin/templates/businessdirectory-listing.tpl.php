@@ -25,7 +25,7 @@
         elseif ( get_field('flat_rate_shipping') ):
 		$shipping_info = 'Standard shipping: $' . get_field('shipping_cost') ;
 	else:
-		$shipping_info = 'Shipping costs increase with order size';
+		$shipping_info = 'Shipping increases with order size';
         endif;
 	echo '<li itemprop="shipping_info" class="meta-tag">' . $shipping_info . '</li>';	
 ?>

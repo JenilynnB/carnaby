@@ -1239,7 +1239,7 @@ function get_shipping_info($post_id='', $context=''){
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
     else:
-            $shipping_info = 'Shipping costs increase with order size';
+            $shipping_info = 'Shipping increases with order size';
     endif; 
     
     if($context!='highlight'){

@@ -200,7 +200,7 @@ get_header();
                                 <div class='row quick-search-panel-content '>
                                     
                                     <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
-                                        <a href='<?php echo site_url("/men/?_sfm_good_for=wear_to_work&_sfm_mens_extended_sizes=big_and_tall");?>'>
+                                        <a href='<?php echo site_url("/men/?_sfm_good_for=wear_to_work");?>'>
                                             <div class='quick-search-overlay'>Office Attire for Guys</div>
                                         </a>
                                     </div>
