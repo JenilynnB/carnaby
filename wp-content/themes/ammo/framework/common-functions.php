@@ -1680,7 +1680,7 @@ function modify_wp_search_distinct( $distinct ) {
 	
 }
 
-function edit_page_title(){
+function edit_page_title($title, $sep){
         if(isset($_GET["module"])){	$module = $_GET["module"];	}
             
         if($module=='messages' || $module=='messages_sent'){
