@@ -567,7 +567,8 @@ function render_category_info(){
         
         $women_style = get_field('womens_style');
         
-        $womens_extended_sizes = get_field("womens_extended_sizes");
+        $womens_extended_sizes_values = get_field("womens_extended_sizes");
+        $womens_extended_sizes = get_field_labels(array('womens_extended_sizes' => $womens_extended_sizes_values));
         $womens_sizes = get_field('womens_sizes');
         
         
@@ -662,7 +663,9 @@ function render_category_info(){
         $mens_extended_sizes = array();
         
         $men_style = get_field('mens_style');
-        $mens_extended_sizes = get_field("mens_extended_sizes");
+        $mens_extended_sizes_values = get_field("mens_extended_sizes");
+        $mens_extended_sizes = get_field_labels(array('mens_extended_sizes' =>$mens_extended_sizes_values));
+        
         $mens_sizes = get_field("mens_sizes");
         //if(!empty($mens_style)) $html .= implode(', ', $men_style);
         
@@ -681,13 +684,7 @@ function render_category_info(){
             $html .= '<td class="listing-category-values">'.implode( ', ', $mens_category_links ).'</td>';
             $html .= '</tr>';
         }
-        //display all the style categories for this store
-        if(!empty($men_style)) {
-            $html.='<tr class="listing-category-row">';
-            $html .= '<td class="listing-category-label">Style: </td>';
-            $html .= '<td class="listing-category-values">'.implode(', ', $men_style).'</td>';
-            $html .= '</tr>';
-        }
+        
         //Display standard womens sizes carried
         if($mens_sizes){
             $mens_sizes_range = get_largest_and_smallest_sizes($mens_sizes);
@@ -801,13 +798,6 @@ function render_category_info(){
             $html .= '</tr>';
         }
         
-        //display all the style categories for this store
-        if(!empty($kids_style)) {
-            $html.='<tr class="listing-category-row">';
-            $html .= '<td class="listing-category-label">Style: </td>';
-            $html .= '<td class="listing-category-values">'.implode(', ', $kids_style).'</td>';
-            $html .= '</tr>';
-        }
         
         if(get_field('have_girls_sizes')){
             $girls_sizes = get_field('girls_sizes');
@@ -1700,8 +1690,11 @@ function get_field_labels($url_parameters){
             }else{
                 //not a filter field
             }
-            
-            $values_array = (preg_split("/[,\+\- ]+/", esc_attr(($values_string)))); //explode with 2 delims
+            if(is_array($values_string)){
+                $values_array = $values_string;
+            }else{
+                $values_array = (preg_split("/[,\+\- ]+/", esc_attr(($values_string)))); //explode with 2 delims
+            }
             
             $readable_values = array();
             if($key=="price"){
