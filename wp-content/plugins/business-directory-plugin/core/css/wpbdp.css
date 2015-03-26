@@ -336,13 +336,6 @@ form#wpbdmsearchform a.advanced-search-link {
 
 
 
-.flex{
-    display: -ms-flexbox;    
-    display: -webkit-box;    
-    display: -webkit-flexbox; 
-    display: -webkit-flex;
-    display: flex;
-    }
 
 
 .listing-category-label{

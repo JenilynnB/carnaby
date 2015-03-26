@@ -27,7 +27,7 @@ $listing_url = get_permalink($rating->listing_id);
 
 
     <div class="row review">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-3">
 
 
             
@@ -48,7 +48,7 @@ $listing_url = get_permalink($rating->listing_id);
               
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-9">
             <div id='form_wrapper_edit' class='form-wrapper'>
                 <div class='flip-form review-details active' style='width:100%'>
                     <div class="author">

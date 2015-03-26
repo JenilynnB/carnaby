@@ -26,6 +26,16 @@ Useful Style Classes to Add
     padding-bottom: 60px;
 }
 
+.flex{
+    display: -ms-flexbox;    
+    display: -webkit-box;    
+    display: -webkit-flexbox; 
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
 .disabled{
     color: #788991;
 }
