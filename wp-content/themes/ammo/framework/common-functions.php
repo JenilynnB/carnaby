@@ -1695,3 +1695,19 @@ function edit_page_title($title, $sep){
     }
     
 add_filter('wp_title', 'edit_page_title', 10, 2);
+
+function edit_the_title($title, $sep){
+        if(isset($_GET["module"])){	$module = $_GET["module"];	}
+            
+        if($module=='messages' || $module=='messages_sent'){
+            $title = "My Messages";
+        }elseif($module=='friends'){
+            $title = "My Friends";
+        }elseif($module=='profile'){
+            $title = "Edit My Profile";
+        }
+        //fix for profile as well
+        return $title;
+    }
+    
+add_filter('the_title', 'edit_the_title', 10, 2);
