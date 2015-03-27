@@ -318,7 +318,7 @@ class XooSocial
                 $user_first_name = $xoouserultra->userpanel->get_user_meta("first_name", $user_id);
                 $html .= '<h3>'.$user_first_name.'\'s Friends ('.sizeof($res).')</h3>';
             }else{
-                $html .= '<h2>My Friends ('.sizeof($res).')</h2>';
+                $html .= '<h2>Friends ('.sizeof($res).')</h2>';
             }
             
             if(empty($res)){

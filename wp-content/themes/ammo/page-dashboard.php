@@ -213,7 +213,6 @@
                         ?>     
                             
                             <div class="box-section">
-                                <h2>My Messages</h2>
                                 <?php  
 
                                 if(!$view && !$reply) 
@@ -240,7 +239,6 @@
 
                             ?>
                             <div class="box-section">
-                                <h2>My Messages</h2>
                                 <?php  
                                     $xoouserultra->mymessage->show_usersultra_my_messages_sent();
                                 ?>
