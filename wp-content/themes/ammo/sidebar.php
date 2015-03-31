@@ -39,8 +39,8 @@
                                         dynamic_sidebar('businessdirectory-sidebar');
                                 }
                                 else{
-                                        dynamic_sidebar('businessdirectory-sidebar');
-					//dynamic_sidebar('blog-sidebar');
+                                        //dynamic_sidebar('businessdirectory-sidebar');
+					dynamic_sidebar('blog-sidebar');
 				}
 			}
 			

@@ -473,6 +473,7 @@ function blox_loop_grid_hook( $options ) {
                     </h2>
                 </div>
                 <?php blox_post_content( array('excerpt'=>$options['excerpt'], 'button'=>'small', 'readmore'=>$options['readmore']) ); ?>
+                <!--
                 <ul class="entry-meta list-inline">
                     <li itemprop="datePublished" class="meta-date"><?php echo date_i18n(get_option('date_format'), strtotime(get_the_date())); ?></li>
                     <li itemprop="author" class="meta-author">By <a href="#" title="Author">Admin</a></li>
@@ -480,6 +481,7 @@ function blox_loop_grid_hook( $options ) {
                     <li itemprop="comment" class="meta-comment pull-right"><?php echo comment_count(); ?></li>
                     <li class="meta-like pull-right"><?php echo get_post_like(get_the_ID()); ?></li>
                 </ul>
+                -->
             </div>
         </article>
     </div>
