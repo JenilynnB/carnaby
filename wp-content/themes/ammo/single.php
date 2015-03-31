@@ -42,14 +42,30 @@ End Title -->
 										}
 									endif; //post format ?>
 									<div class="entry-title"><h1><?php the_title(); ?></h1></div>
-									<ul class="entry-meta list-inline">
-									    <!--Don't need to display all this info...
+
+									<?php
+									the_content();
+
+									// WP pages
+                                    wp_link_pages(array(
+                                        'before' => '<div class="page-link"><span>' . __('Pages:', 'themeton') . '</span>',
+                                        'after' => '</div>',
+                                        'link_before' => '<span>',
+                                        'link_after' => '</span>'
+                                    ));
+
+                                    if (isset($smof_data['share_visibility']['share_posts']) && $smof_data['share_visibility']['share_posts'] == 1)
+                                        social_share();
+                                    ?>
+                                                                        
+                                                                        									<ul class="entry-meta list-inline">
+									    
 									    <li itemprop="datePublished" class="meta-date"><?php echo date_i18n(get_option('date_format'), strtotime(get_the_date())); ?></li>
-									    <li itemprop="author" class="meta-author"><?php echo __("By ", "themeton") . get_author_posts_link(); ?></li>
+									    <!--<li itemprop="author" class="meta-author"><?php echo __("By ", "themeton") . get_author_posts_link(); ?></li>-->
 									    <li itemprop="keywords" class="meta-category"><?php echo __('In', 'themeton').' '.get_the_category_list(', '); ?></li>
 									    <li itemprop="comment" class="meta-comment"><?php echo comment_count_text(); ?></li>
 									    <li class="meta-like pulse"><?php echo get_post_like(get_the_ID()); ?></li>
-									    -->
+									    
 									    <?php
 									    	$tags_list = get_the_tag_list('', ' '); 
 									    	if ($tags_list) {
@@ -66,20 +82,6 @@ End Title -->
 
 
 									</ul>
-									<?php
-									the_content();
-
-									// WP pages
-                                    wp_link_pages(array(
-                                        'before' => '<div class="page-link"><span>' . __('Pages:', 'themeton') . '</span>',
-                                        'after' => '</div>',
-                                        'link_before' => '<span>',
-                                        'link_after' => '</span>'
-                                    ));
-
-                                    if (isset($smof_data['share_visibility']['share_posts']) && $smof_data['share_visibility']['share_posts'] == 1)
-                                        social_share();
-                                    ?>
 								</div>
 							</div>
 

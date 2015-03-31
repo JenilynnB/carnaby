@@ -964,6 +964,14 @@ function add_user_menu($items, $args)
 {
     
     if($args->theme_location == 'primary'){
+        $items  = '';
+        
+        $blog_url = site_url('/the-latest-greatest');
+        $items .= '<li class="menu-item">';
+        $items .= '<a href="'.$blog_url.'" class="highlight"><span class="menu-text" >Shopping Guide</span></a>';
+        $items .= '</li>';
+            
+        
         if(is_user_logged_in())
         {
             global $xoouserultra;   
