@@ -140,6 +140,8 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-excerpt .listing-thumbnail {
     margin-bottom: 10px;
+    height: 187px;
+    width: 250px;
 }
 
 .wpbdp-listing-excerpt .listing-thumbnail img {
