@@ -223,11 +223,12 @@ function save_image($url, $listing_id){
                          */
                     }
                 }
+            }else{
+                wp_delete_attachment($attachment_id);
             }
-            
             return $attachment_id;
     }
-    
+    unlink($upload);
     
 }
 
