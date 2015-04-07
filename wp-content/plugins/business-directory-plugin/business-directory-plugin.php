@@ -139,7 +139,7 @@ class WPBDP_Plugin {
 
         add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
         add_action('posts_fields', array( &$this, '_posts_fields'), 10, 2);
-        add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+        //add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
 
         add_filter('comments_template', array( &$this, '_comments_template'));
         add_filter('taxonomy_template', array( &$this, '_category_template'));

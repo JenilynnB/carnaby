@@ -561,11 +561,9 @@ function render_category_info(){
         $html.= "<h3>Women</h3>
                 <table class='listing-cat-info'>";
                     
-        $womens_style = array();
         $womens_category_links = array();
         $womens_extended_sizes = array();
         
-        $women_style = get_field('womens_style');
         
         $womens_extended_sizes_values = get_field("womens_extended_sizes");
         $womens_extended_sizes = get_field_labels(array('womens_extended_sizes' => $womens_extended_sizes_values));
@@ -583,15 +581,6 @@ function render_category_info(){
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Categories: </td>';
             $html .= '<td class="listing-category-values">'.implode( ', ', $womens_category_links ).'</td>';
-            $html .= '</tr>';
-        }
-
-         
-        //display all the style categories for this store
-        if(!empty($women_style)) {
-            $html.='<tr class="listing-category-row">';
-            $html .= '<td class="listing-category-label">Style: </td>';
-            $html .= '<td class="listing-category-values">'.implode(', ', $women_style).'</td>';
             $html .= '</tr>';
         }
 
@@ -658,16 +647,13 @@ function render_category_info(){
         $html.= "<h3>Men</h3>
                 <table class='listing-cat-info'>";
     
-        $mens_style = array();
         $mens_category_links = array();
         $mens_extended_sizes = array();
         
-        $men_style = get_field('mens_style');
         $mens_extended_sizes_values = get_field("mens_extended_sizes");
         $mens_extended_sizes = get_field_labels(array('mens_extended_sizes' =>$mens_extended_sizes_values));
         
         $mens_sizes = get_field("mens_sizes");
-        //if(!empty($mens_style)) $html .= implode(', ', $men_style);
         
         
         foreach($mens_categories as $mc){
@@ -752,9 +738,7 @@ function render_category_info(){
                 <table class='listing-cat-info'>";
         
         //Need to make label disappear if there are no values
-        $kids_style = array();
         $kids_category_links = array();
-        $kids_style = get_field('kids-baby_style');
         
         
         foreach($girls_categories as $gc){
