@@ -1003,7 +1003,7 @@ function render_products_slick_slider($listing_id=null){
     $retailer_id = 'r'.get_field('shopstyle_retailer_id', $listing_id);
     
     if($retailer_id=='r'){
-        return;
+        return "";
     }
     
     $product_params = array(
@@ -1013,10 +1013,11 @@ function render_products_slick_slider($listing_id=null){
     $shopstyle = new ShopStyle();
     
     $products_response = $shopstyle->getProducts(12, 0, $product_params);
-
+    
     $products = $products_response["products"];
-    
-    
+    if(sizeof($products)==0){
+        return "";
+    }    
     /*Put the slick slider initial code here*/
     $response .= '<div class="products-slider-container">';
     $response .= '<div class="slick-slider-products listing-products">';

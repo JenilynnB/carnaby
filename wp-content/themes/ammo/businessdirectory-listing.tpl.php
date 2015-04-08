@@ -92,10 +92,11 @@ if($module != "more_info" && $module != "reviews"):
                             
                          <?php 
                          $retailer_id = get_field("shopstyle_retailer_id");
-                         if ($retailer_id>0){
+                         $products = render_products_slick_slider(); 
+                         if ($retailer_id>0 && $products != ""){
                             echo "<h2>Popular ".$title." Products</h2>";
-                             
-                            echo render_products_slick_slider(); 
+                            
+                            echo $products;
                          }else{
                         ?> 
 
