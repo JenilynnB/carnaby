@@ -827,7 +827,7 @@ function wp_set_auth_cookie($user_id, $remember = false, $secure = '') {
 		 * @param int  $user_id  User ID.
 		 * @param bool $remember Whether to remember the user login. Default false.
 		 */
-		$expiration = time() + apply_filters( 'auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user_id, $remember );
+		$expiration = time() + apply_filters( 'auth_cookie_expiration', 60 * DAY_IN_SECONDS, $user_id, $remember );
 
 		/*
 		 * Ensure the browser will continue to send the cookie after the expiration time is reached.
@@ -836,7 +836,7 @@ function wp_set_auth_cookie($user_id, $remember = false, $secure = '') {
 		$expire = $expiration + ( 12 * HOUR_IN_SECONDS );
 	} else {
 		/** This filter is documented in wp-includes/pluggable.php */
-		$expiration = time() + apply_filters( 'auth_cookie_expiration', 2 * DAY_IN_SECONDS, $user_id, $remember );
+		$expiration = time() + apply_filters( 'auth_cookie_expiration', 60 * DAY_IN_SECONDS, $user_id, $remember );
 		$expire = 0;
 	}
 
