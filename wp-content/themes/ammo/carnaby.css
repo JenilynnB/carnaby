@@ -568,11 +568,24 @@ Carnaby Homepage Styles
   
     flex-direction: column;
     -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    
     -ms-flex-wrap: wrap;
+    -moz-flex-direction: wrap;
+    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    align-items: flex-start;
+    
     column-count: 2;
     -webkit-column-count: 2;
+    -ms-column-count: 2;
+    -moz-column-count: 2;
+    
+    align-items: flex-start;
+    -webkit-align-items: flex-start;
+    -ms-column-count: flex-start;
+    -moz-column-count: flex-start;
+    
     height: 550px;
     overflow-x: hidden;
 }
