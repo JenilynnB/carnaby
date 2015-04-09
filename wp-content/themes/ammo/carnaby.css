@@ -567,7 +567,7 @@ Carnaby Homepage Styles
     display: flex;
   
     flex-direction: column;
-    -webkit-flex-durection: column;
+    -webkit-flex-direction: column;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     align-items: flex-start;
