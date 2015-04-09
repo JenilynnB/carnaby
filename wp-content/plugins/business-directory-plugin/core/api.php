@@ -1713,16 +1713,18 @@ function get_field_labels($url_parameters){
                 if(!empty($readable_values)){
                     $readable['Shipping'] .= implode(", ", $readable_values);
                 }
-            }elseif($key=="good_for"){
+            }elseif($key=="good_for_women" || $key=="good_for_men" || $key=="good_for_kids"){
                 foreach($values_array as $value){
-                    if($value=="bags_and_handbags"){
+                    if($value=="jewelry_and_accessories"){
+                        $readable_values[] = "Accessories & Jewelry";
+                    }elseif($value=="bags_and_handbags"){
                         $readable_values[] = "Bags & Handbags";
+                    }elseif($value=="bags"){
+                        $readable_values[] = "Bags";     
                     }elseif($value=="basics"){
                         $readable_values[] = "Basics"; 
                     }elseif($value=="beach_vacation"){
-                        $readable_values[] = "Beach Vacation";
-                    }elseif($value=="city_outerwear"){
-                        $readable_values[] = "City Outerwear";
+                        $readable_values[] = "Swim";
                     }elseif($value=="casual_weekend"){
                         $readable_values[] = "Casual Weekend";
                     }elseif($value=="denim"){
@@ -1731,8 +1733,8 @@ function get_field_labels($url_parameters){
                         $readable_values[] = "Discount Shopping";
                     }elseif($value=="everyday_dressing"){
                         $readable_values[] = "Everyday Dressing";
-                    }elseif($value=="fancy_fetes"){
-                        $readable_values[] = "Fancy Fetes";
+                    }elseif($value=="formal_and_semiformal_wear"){
+                        $readable_values[] = "Formal & Semiformal Wear";
                     }elseif($value=="fast_fashion"){
                         $readable_values[] = "Fast Fashion";
                     }elseif($value=="lingerie"){
@@ -1741,12 +1743,18 @@ function get_field_labels($url_parameters){
                         $readable_values[] = "Maternity";
                     }elseif($value=="outdoor_adventures"){
                         $readable_values[] = "Outdoor Adventures";
+                    }elseif($value=="outerwear"){
+                        $readable_values[] = "Outerwear";
                     }elseif($value=="shoes"){
                         $readable_values[] = "Shoes";
                     }elseif($value=="socks_and_hosiery"){
                         $readable_values[] = "Socks & Hosiery";
-                    }elseif($value=="style_inspiration"){
-                        $readable_values[] = "Style Inspiration";
+                    }elseif($value=="socks"){
+                        $readable_values[] = "Socks";    
+                    }elseif($value=="swim"){
+                        $readable_values[] = "Swim";
+                    }elseif($value=="underwear"){
+                        $readable_values[] = "Underwear";    
                     }elseif($value=="wear_to_work"){
                         $readable_values[] = "Wear to Work";
                     }elseif($value=="weddings"){
