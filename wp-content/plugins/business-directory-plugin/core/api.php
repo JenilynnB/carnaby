@@ -1219,7 +1219,14 @@ function get_shipping_info($post_id='', $context=''){
     
     if($context!='highlight'){
         if(get_field('have_standard_delivery_time')){
-            $shipping_info .=  '<br/>Arrives in '.min($shipping_time) . " - " . max($shipping_time)." business days";
+            $shipping_min = min($shipping_time);
+            $shipping_max = max($shipping_time);
+            if($shipping_min != $shipping_max){
+                $shipping_info .= '<br/>Arrives in '.$shipping_min . " - " . $shipping_max." business days";
+            }else{
+                $shipping_info .= '<br/>Arrives in '.$shipping_min. " business days";
+            }
+                
         }
         $shipping_notes = get_field('shipping_notes');
         if($shipping_notes!=''){
@@ -1732,7 +1739,7 @@ function get_field_labels($url_parameters){
                     }elseif($value=="discount_shopping"){
                         $readable_values[] = "Discount Shopping";
                     }elseif($value=="everyday_dressing"){
-                        $readable_values[] = "Everyday Dressing";
+                        $readable_values[] = "Everyday Apparel";
                     }elseif($value=="formal_and_semiformal_wear"){
                         $readable_values[] = "Formal & Semiformal Wear";
                     }elseif($value=="fast_fashion"){
