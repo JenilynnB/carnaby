@@ -43,7 +43,7 @@ if($module != "more_info" && $module != "reviews"):
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="listing-actions edit-trigger">
                         
-                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action link"><?php echo get_listing_outbound_link($listing_id); ?></div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 listing-action link"><?php echo get_listing_outbound_link($listing_id, 50); ?></div>
                         <div class="col-md-12 col-sm-4 col-xs-4 listing-action favorite"><?php if (function_exists('wpfp_link')) { wpfp_link(0,"",0); }?></div>
                         <div class="col-md-12 col-sm-4 col-xs-4 listing-action review">
                             <?php if(has_written_review()): ?>

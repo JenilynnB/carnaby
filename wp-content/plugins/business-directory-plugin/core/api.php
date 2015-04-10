@@ -1567,7 +1567,7 @@ function wpbdp_has_module( $module ) {
     return $wpbdp->has_module( $module );
 }
 
-function get_listing_outbound_link($id){
+function get_listing_outbound_link($id, $max_length = 0){
     $base_url = wpbdp_render_listing_field('URL', $id);
     $link_text = $base_url[1];
     $base_url = $base_url[0];
@@ -1580,10 +1580,15 @@ function get_listing_outbound_link($id){
     }else{
        $no_dub_url = substr($link_text,$dubdub+4); 
     }
-    if(strlen($no_dub_url)>17){
-        $no_dub_url = substr($no_dub_url, 0, 17)."...";
+    if($max_length == 0){
+        if(strlen($no_dub_url)>17){
+            $no_dub_url = substr($no_dub_url, 0, 17)."...";
+        }
+    }else{
+        if(strlen($no_dub_url)>50){
+            $no_dub_url = substr($no_dub_url, 0, $max_length)."...";
+        }
     }
-    
     if((get_shopstyle_retailer_id($id))!=''){
         $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
     }else{
