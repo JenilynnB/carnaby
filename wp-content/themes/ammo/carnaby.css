@@ -1037,6 +1037,19 @@ a.uultra-btn-deletemessage:hover{
     -moz-border-radius:50%;
 }
 
+
+/****************************************************************
+* Widget Styles
+****************************************************************/
+
+.widget ul .children{
+    margin-top: 15px;
+    
+}
+.widget .children li{
+    padding-left: 15px;
+}
+
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){
     .homepage .main-panel{

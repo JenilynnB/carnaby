@@ -1688,34 +1688,38 @@ function modify_wp_search_distinct( $distinct ) {
 	
 }
 
+/* Changs the title in the browser */
 function edit_page_title($title, $sep){
-        if(isset($_GET["module"])){	$module = $_GET["module"];	}
-            
-        if($module=='messages' || $module=='messages_sent'){
-            $title = "My Messages | Carnaby West";
-        }elseif($module=='friends'){
-            $title = "Friends | Carnaby West";
-        }elseif($module=='profile'){
-            $title = "Edit My Profile | Carnaby West";
-        }
-        //fix for profile as well
-        return $title;
+    if(isset($_GET["module"])){	$module = $_GET["module"];	}
+
+    if($module=='messages' || $module=='messages_sent'){
+        $title = "My Messages | ";
+    }elseif($module=='friends'){
+        $title = "Friends | ";
+    }elseif($module=='profile'){
+        $title = "Edit My Profile | ";
     }
+    
+    
+    //fix for profile as well
+    return $title;
+}
     
 add_filter('wp_title', 'edit_page_title', 10, 2);
 
+/* Changes the page title that appears inline in the page */
 function edit_the_title($title, $sep){
-        if(isset($_GET["module"])){	$module = $_GET["module"];	}
-            
-        if($module=='messages' || $module=='messages_sent'){
-            $title = "My Messages";
-        }elseif($module=='friends'){
-            $title = "My Friends";
-        }elseif($module=='profile'){
-            $title = "Edit My Profile";
-        }
-        //fix for profile as well
-        return $title;
+    if(isset($_GET["module"])){	$module = $_GET["module"];	}
+
+    if($module=='messages' || $module=='messages_sent'){
+        $title = "My Messages";
+    }elseif($module=='friends'){
+        $title = "My Friends";
+    }elseif($module=='profile'){
+        $title = "Edit My Profile";
     }
+    //fix for profile as well
+    return $title;
+}
     
 add_filter('the_title', 'edit_the_title', 10, 2);
