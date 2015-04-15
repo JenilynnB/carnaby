@@ -1690,6 +1690,8 @@ function modify_wp_search_distinct( $distinct ) {
 
 /* Changs the title in the browser */
 function edit_page_title($title, $sep){
+    global $post;
+    
     if(isset($_GET["module"])){	$module = $_GET["module"];	}
 
     if($module=='messages' || $module=='messages_sent'){
@@ -1700,6 +1702,10 @@ function edit_page_title($title, $sep){
         $title = "Edit My Profile | ";
     }
     
+    if(is_single() && get_post_type()==WPBDP_POST_TYPE){
+        $sep = strpos($title, "|");        
+        $title = substr($title, 0, $sep). "Reviews | ";
+    }
     
     //fix for profile as well
     return $title;
