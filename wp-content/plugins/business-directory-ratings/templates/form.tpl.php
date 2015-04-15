@@ -105,7 +105,6 @@
                 <div class="review-form-header">
 
                     <h5><?php _e(has_written_review()?'Edit My Review':'Write a review', 'wpbdp-ratings'); ?></h5>
-
                 </div>
 
                 <div class="form">
@@ -156,7 +155,7 @@
                                 <?php if ($edit_review){?>
                                     <textarea name="comment" cols="50" rows="3" ><?php  echo esc_textarea($review_to_edit->comment ); ?></textarea>
                                 <?php } else { ?>
-                                    <textarea name="comment" cols="50" rows="3" placeholder="<?php _e('Your review.', 'wpbdp-ratings'); ?>"><?php echo esc_textarea(wpbdp_getv($_POST, 'comment', '')); ?></textarea>
+                                    <textarea name="comment" cols="50" rows="3" placeholder="<?php _e('Others love to hear about things like customer service, shipping & packaging and merchandise quality & sizing. Be sure to include any details you can!', 'wpbdp-ratings'); ?>"><?php echo esc_textarea(wpbdp_getv($_POST, 'comment', '')); ?></textarea>
                                 <?php } ?>   
 
                             </div>
