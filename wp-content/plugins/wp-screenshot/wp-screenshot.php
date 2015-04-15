@@ -72,7 +72,7 @@ function updateScreenshot($post){
         //cycle through all attached media and look for a screenshot match
         foreach($media as $m){
             //Looks for the naming convention of previous programmatically uploaded screenshots 
-            if(!(strpos($m->title, "screenshot"))){
+            if(strpos($m->post_title, "screenshot")){
                 
                 //If the screenshot exists, check if it was taken more than a week ago
                 $date_diff = date_diff(new DateTime(date("Y-m-d")), new DateTime($m->post_date));
@@ -80,7 +80,8 @@ function updateScreenshot($post){
                 if($date_diff->d < 7){
                     //If it was taken less than a week ago, return
                     
-                    $screenshot_url = get_screenshot_url($url, $width);
+                    /*These lines here for testing purposes. Should be commented out on prod*/
+                    //$screenshot_url = get_screenshot_url($url, $width);
                     //save_image($screenshot_url, $listing_id);
                     
                     return;
