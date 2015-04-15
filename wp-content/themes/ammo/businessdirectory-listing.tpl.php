@@ -26,7 +26,6 @@ if($module != "more_info" && $module != "reviews"):
                                 <div class="listing-element"><?php echo render_price_field(); ?></div>
                             </div>
                             
-                            <div class='listing-element tags'><?php echo render_good_for(); ?></div>
                             
                         </div>
                         <div class="listing-element"><?php echo the_content();?></div>

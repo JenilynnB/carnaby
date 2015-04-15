@@ -560,7 +560,8 @@ function render_category_info(){
          
         $html.= "<h3>Women</h3>
                 <table class='listing-cat-info'>";
-                    
+        
+        $html .= render_good_for("women");        
         $womens_category_links = array();
         $womens_extended_sizes = array();
         
@@ -646,7 +647,7 @@ function render_category_info(){
         
         $html.= "<h3>Men</h3>
                 <table class='listing-cat-info'>";
-    
+        $html .= render_good_for("women");
         $mens_category_links = array();
         $mens_extended_sizes = array();
         
@@ -736,7 +737,7 @@ function render_category_info(){
     if(!empty($kids_categories)):
         $html.= "<h3>Kids & Baby</h3>
                 <table class='listing-cat-info'>";
-        
+        $html .= render_good_for("kids");
         //Need to make label disappear if there are no values
         $kids_category_links = array();
         
@@ -1331,8 +1332,12 @@ function render_international_shipping(){
     return $int_shipping;
 }
 
-function render_good_for(){
-    $good_for_object = get_field_object('good_for');
+/*
+ * @param string $type accepts values of "men", "women" or "kids" to specify which
+ * version of the "good for" tag to return;
+ */
+function render_good_for($type){
+    $good_for_object = get_field_object('good_for_'.$type);
     $good_for_values = $good_for_object['value'];
     
     if(!empty($good_for_values)){
