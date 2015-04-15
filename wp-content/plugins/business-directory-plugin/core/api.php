@@ -1344,7 +1344,7 @@ function render_good_for($type){
         foreach($good_for_values as $g){
             $values[] = $good_for_object['choices'][$g];
         }
-        $return = '<i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $values);
+        $return = '<tr class="listing-tag-row"><td colspan="2"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $values)."</td></tr>";
     }
 
     return $return;

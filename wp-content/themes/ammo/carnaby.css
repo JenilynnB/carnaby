@@ -917,6 +917,10 @@ Carnaby Listing Styles
     display: none;
 }
 
+.listing-tag-row{
+    font-style: italic;
+}
+
 .review{
     padding:15px;
 }
