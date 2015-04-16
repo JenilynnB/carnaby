@@ -21,11 +21,28 @@ class BusinessDirectory_RatingsReviewTable extends WP_List_Table {
     }
 
     public function prepare_items() {
+        
+        global $wpdb;
+        
+        $per_page = 20;
+        $current_page = $this->get_pagenum();
+        $offset = ($current_page-1)*$per_page;
+        
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
 
-        global $wpdb;
-        $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d ORDER BY id DESC", 0);
+        //Commenting this line out to show all ratings (not only those needing to be approved
+        //$query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE approved = %d ORDER BY id DESC", 0);
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset);
         $this->items = $wpdb->get_results($query);
+        
+        $total_items = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_ratings");
+        
+        $this->set_pagination_args(array(
+           'total_items' => $total_items,
+           'per_page' => $per_page
+        ));
+        
+        
     }
 
     /* Rows */
@@ -108,15 +125,28 @@ class BusinessDirectory_RatingsModuleAdmin {
      */
 
     public function _admin_menu($menu) {
+        /* Commenting this section out so that this link always appears
         if (!wpbdp_get_option('ratings-require-approval'))
             return;
-
+        */
+        /*
         add_submenu_page($menu,
                          __('Listing ratings pending review', 'wpbdp-ratings'),
                          __('Ratings for review', 'wpbdp-ratings'),
                          'activate_plugins',
                          'wpbdp-ratings-pending-review',
                          array($this, '_admin_ratings_review'));
+         * 
+         */
+        add_submenu_page($menu,
+                         __('All Reviews', 'wpbdp-ratings'),
+                         __('All Reviews', 'wpbdp-ratings'),
+                         'activate_plugins',
+                         'wpbdp-ratings-pending-review',
+                         array($this, '_admin_ratings_review'));
+        
+        
+        
     }
 
     public function _admin_ratings_review() {
