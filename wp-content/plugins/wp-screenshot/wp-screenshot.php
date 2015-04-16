@@ -200,7 +200,7 @@ function save_image($url, $listing_id){
             /*Checks to see if the filesize is less than 10kb, which means that the file is most likely 
              * the wordpress loading image. We do not want to set this as the thumbnail for the listing.
              */
-            if($filesize>10000){
+            if($filesize>40000){
                 //Save the new image media id to the listing
                 wp_update_post(array('ID' => $attachment_id, 'post_parent' => $listing_id));
                 set_thumbnail_id($listing_id, $attachment_id);
