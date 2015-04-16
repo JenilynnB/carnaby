@@ -175,58 +175,6 @@ get_header();
         </div>
     </div>
     
-    <div class='section-normal categories-panel'>
-        <div class="container">
-            <div class="row">
-                <div class="column-md-12">
-                    <div class="row">
-                        <div class="content">
-                            <h2 class='heading-title'>Find the best stores for...</h2>
-                            <span class='heading-line'></span>
-                            <div class='text-center'>
-                                <div class='row quick-search-panel-content '>
-                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
-                                            <div class='quick-search-overlay-lg'>Womens Apparel, Free Shipping & Free Returns</div>
-                                        </a>
-                                        
-                                    </div>
-                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
-                                        <a href='<?php echo site_url("/men/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
-                                            <div class='quick-search-overlay-lg'>Mens Apparel, Free Shipping & Free Returns</div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class='row quick-search-panel-content '>
-                                    
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
-                                        <a href='<?php echo site_url("/men/?_sfm_good_for_men=wear_to_work");?>'>
-                                            <div class='quick-search-overlay'>Mens Office Attire</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bump.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=maternity");?>'>
-                                            <div class='quick-search-overlay'>Maternity</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bridal.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=weddings");?>'>
-                                            <div class='quick-search-overlay'>Bridal</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img ' style='background-image:url("<?php echo site_url("/wp-content/uploads/swim.jpg");?>")'>
-                                       <a href='<?php echo site_url("/women/?_sfm_good_for_women=beach_vacation");?>'>
-                                           <div class='quick-search-overlay'>Womens Swimwear</div>
-                                       </a> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <div class='section-normal'>
         <div class="container">
@@ -319,6 +267,60 @@ get_header();
             </div>
         </div>
     </div>
+        
+    <div class='section-normal categories-panel'>
+        <div class="container">
+            <div class="row">
+                <div class="column-md-12">
+                    <div class="row">
+                        <div class="content">
+                            <h2 class='heading-title'>Find the best stores for...</h2>
+                            <span class='heading-line'></span>
+                            <div class='text-center'>
+                                <div class='row quick-search-panel-content '>
+                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
+                                        <a href='<?php echo site_url("/women/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                            <div class='quick-search-overlay-lg'>Womens Apparel, Free Shipping & Free Returns</div>
+                                        </a>
+                                        
+                                    </div>
+                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
+                                        <a href='<?php echo site_url("/men/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                            <div class='quick-search-overlay-lg'>Mens Apparel, Free Shipping & Free Returns</div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class='row quick-search-panel-content '>
+                                    
+                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
+                                        <a href='<?php echo site_url("/men/?_sfm_good_for_men=wear_to_work");?>'>
+                                            <div class='quick-search-overlay'>Mens Office Attire</div>
+                                        </a>
+                                    </div>
+                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bump.jpg");?>")'>
+                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=maternity");?>'>
+                                            <div class='quick-search-overlay'>Maternity</div>
+                                        </a>
+                                    </div>
+                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bridal.jpg");?>")'>
+                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=weddings");?>'>
+                                            <div class='quick-search-overlay'>Bridal</div>
+                                        </a>
+                                    </div>
+                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img ' style='background-image:url("<?php echo site_url("/wp-content/uploads/swim.jpg");?>")'>
+                                       <a href='<?php echo site_url("/women/?_sfm_good_for_women=beach_vacation");?>'>
+                                           <div class='quick-search-overlay'>Womens Swimwear</div>
+                                       </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
 </section>
 
