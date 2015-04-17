@@ -1109,8 +1109,8 @@ $(document).on("show.bs.modal", ".modal", function() {
  ******************************************************************************/
 
 
-
-$('.linkform').live('click', function(e){
+/*
+$('.linkform-review').live('click', function(e){
    try{
         var $form_wrapper = $('#form_wrapper'), 
             $currentForm = $form_wrapper.children('.active');
@@ -1125,7 +1125,7 @@ $('.linkform').live('click', function(e){
         $currentForm.removeClass('active');
         $currentForm = $form_wrapper.children("."+target);
     
-    /*Can this be cleaned up since the size should not change? Simply a fade in of the new form?*/
+    //Can this be cleaned up since the size should not change? Simply a fade in of the new form?
     $form_wrapper.stop()
             .animate({
                 //width: $currentForm.data('width') + 'px',
@@ -1137,7 +1137,7 @@ $('.linkform').live('click', function(e){
     });
    
 });
-
+*/
 /* Initializing the review forms to flip*/
 
 $(function(){
@@ -1145,11 +1145,11 @@ $(function(){
     try{
         var $form_wrapper = $('#form_wrapper'), 
             $currentForm = $form_wrapper.children('.active'), 
-            $linkform = $form_wrapper.find('.linkform');
+            $linkformReview = $form_wrapper.find('.linkform-review');
         if ($form_wrapper.length==0){
             var $form_wrapper = $('#form_wrapper_edit'), 
             $currentForm = $form_wrapper.children('.active'), 
-            $linkform = $form_wrapper.find('.linkform');
+            $linkformReview = $form_wrapper.find('.linkform-review');
         }
     }catch(e){
         return;

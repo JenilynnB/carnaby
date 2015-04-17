@@ -8,7 +8,7 @@
                 <div class="listing-action review">
                     <?php if(is_user_logged_in()):?>
 
-                        <a href="javascript:void(0)" rel="write-review-form" class="linkform write-review-btn-trigger">
+                        <a href="javascript:void(0)" rel="write-review-form" class="linkform-review write-review-btn-trigger">
                             <i class="fa fa-plus-square-o"></i>  Write a Review
                         </a>
                     <?php else:?>
@@ -16,7 +16,7 @@
                         <a href="javascript:void(0)" data-toggle="modal" data-target="#registrationModal">
                             <i class="fa fa-plus-square-o"></i>  Write a Review
                         </a>
-                        <!--<a href="<?php $registration_url?>" rel="registration-form" class="linkform write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>-->
+                        <!--<a href="<?php $registration_url?>" rel="registration-form" class="linkform-review write-review-btn-trigger"><i class="fa fa-plus-square-o"></i>  Write a Review</a>-->
                     <?php endif;?>
                 </div>
             </div>
@@ -163,11 +163,11 @@
 
                             <div class="submit">
 
-                                <a href="" class="btn btn-link linkform cancel_rate_listing" id="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
+                                <a href="" class="btn btn-link linkform-review cancel_rate_listing" id="cancel_rate_listing" rel=<?php echo $edit_review?"edit-actions":"write-review-btn";?> >Cancel</a>
                                 <?php if(has_written_review()){ ?>
-                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-edit-rate-listing" rel="edit-actions">Save My Review</a>
+                                    <a href="" class="submit btn btn-primary btn-md linkform-review" id="save-edit-rate-listing" rel="edit-actions">Save My Review</a>
                                 <?php }else{ ?>
-                                    <a href="" class="submit btn btn-primary btn-md linkform" id="save-new-rate-listing" rel="edit-actions">Post My Review</a>
+                                    <a href="" class="submit btn btn-primary btn-md linkform-review" id="save-new-rate-listing" rel="edit-actions">Post My Review</a>
                                 <?php } ?>
                             </div>
                         <!--</form>-->

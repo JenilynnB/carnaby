@@ -79,7 +79,7 @@ $listing_url = get_permalink($rating->listing_id);
 
                     <?php if ( ($rating->user_id > 0 && $rating->user_id == get_current_user_id() )): ?>
                         <div class="edit-actions">
-                            <a href="" class="edit linkform" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="" class="edit linkform-review" rel="review-edit"><i class="icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="" data-toggle="modal" data-target="#confirm-review-delete" data-id="<?php echo $rating->id?>">
                                     <i class="icon-trash"></i>
                             </a>
@@ -112,8 +112,8 @@ $listing_url = get_permalink($rating->listing_id);
 
                     </div>
                     <textarea><?php echo esc_textarea($rating->comment); ?></textarea>
-                    <a href="" class="btn btn-link linkform cancel-edit" rel="review-details"><?php _e('Cancel', 'wpbdp-ratings'); ?></a>
-                    <a href="" class="submit btn btn-primary btn-md linkform save-edit" rel="review-details"><?php _e('Save', 'wpbdp-ratings'); ?></a>
+                    <a href="" class="btn btn-link linkform-review cancel-edit" rel="review-details"><?php _e('Cancel', 'wpbdp-ratings'); ?></a>
+                    <a href="" class="submit btn btn-primary btn-md linkform-review save-edit" rel="review-details"><?php _e('Save', 'wpbdp-ratings'); ?></a>
                 </div>
                 <?php endif; ?>
             </div>

@@ -259,10 +259,7 @@ WPBDP.ratings.validate = function(comment, score){
         $rating_error.removeClass("hidden");
         return_val =  "error";
         
-        $form_wrapper.stop().animate({
-                        width: $currentForm.data('width') + 'px',
-                        height: $currentForm.data('height') + 'px'
-                    }, 500);
+        
     }
     if(comment.length<1){
         $validationErrors.removeClass("hidden");
@@ -337,7 +334,7 @@ WPBDP.ratings.init = function() {
     jQuery(".listing-ratings .review-edit .save-edit").click(WPBDP.ratings.saveEdit);
     jQuery("#save-new-rate-listing").click(WPBDP.ratings.saveNew);
     jQuery(".flip-form .write-review-btn-trigger").click(WPBDP.ratings.switchView);
-    //jQuery(".flip-form .cancel_rate_listing").click(WPBDP.ratings.switchView);
+    jQuery(".flip-form .cancel_rate_listing").click(WPBDP.ratings.switchView);
     jQuery('.more-reviews').click(WPBDP.ratings.getRatings);
 };
 
