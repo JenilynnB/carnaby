@@ -263,6 +263,10 @@ class BusinessDirectory_RatingsModule {
         if (!$sort)
             return $fields;
 
+        $rating_query = "(SELECT ROUND(AVG(rating)) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating, (SELECT COUNT(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating_count";
+        return $fields . ', ' . $rating_query;
+        
+        /*
         if ($sort->option == 'rating') {
             $rating_query = "(SELECT AVG(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating";
             return $fields . ', ' . $rating_query;
@@ -270,7 +274,7 @@ class BusinessDirectory_RatingsModule {
             $rating_query = "(SELECT COUNT(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating_count";
             return $fields . ', ' . $rating_query;
         }
-
+        */
         return $fields;
     }
 
@@ -282,15 +286,15 @@ class BusinessDirectory_RatingsModule {
 
         if($orderby==''){
             if ($sort->option == 'rating') {
-                return 'wpbdp_rating ' . $sort->order;
+                return 'wpbdp_rating ' . $sort->order. ', wpbdp_rating_count '. $sort->order." ";
             } elseif ($sort->option == 'rating_count') {
-                return 'wpbdp_rating_count ' . $sort->order;
+                return 'wpbdp_rating_count ' . $sort->order . ', wpbdp_rating '. $sort->order." ";
             }
         }else{
             if ($sort->option == 'rating') {
-                //return $orderby . ', wpbdp_rating ' . $sort->order;
+                return $orderby . ', wpbdp_rating ' . $sort->order;
             } elseif ($sort->option == 'rating_count') {
-                //return $orderby . ', wpbdp_rating_count ' . $sort->order;
+                return $orderby . ', wpbdp_rating_count ' . $sort->order;
             }
         }
 
