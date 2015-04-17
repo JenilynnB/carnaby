@@ -280,10 +280,18 @@ class BusinessDirectory_RatingsModule {
         if (!$sort)
             return $orderby;
 
-        if ($sort->option == 'rating') {
-            return $orderby . ', wpbdp_rating ' . $sort->order;
-        } elseif ($sort->option == 'rating_count') {
-            return $orderby . ', wpbdp_rating_count ' . $sort->order;
+        if($orderby==''){
+            if ($sort->option == 'rating') {
+                return 'wpbdp_rating ' . $sort->order;
+            } elseif ($sort->option == 'rating_count') {
+                return 'wpbdp_rating_count ' . $sort->order;
+            }
+        }else{
+            if ($sort->option == 'rating') {
+                //return $orderby . ', wpbdp_rating ' . $sort->order;
+            } elseif ($sort->option == 'rating_count') {
+                //return $orderby . ', wpbdp_rating_count ' . $sort->order;
+            }
         }
 
         return $orderby;

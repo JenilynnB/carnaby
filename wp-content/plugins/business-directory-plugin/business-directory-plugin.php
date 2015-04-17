@@ -139,7 +139,7 @@ class WPBDP_Plugin {
 
         add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
         add_action('posts_fields', array( &$this, '_posts_fields'), 10, 2);
-        //add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+        add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
 
         add_filter('comments_template', array( &$this, '_comments_template'));
         add_filter('taxonomy_template', array( &$this, '_category_template'));
@@ -273,9 +273,10 @@ class WPBDP_Plugin {
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
 
             if ( 'paid' == wpbdp_get_option( 'listings-order-by' ) ) {
-                $orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
-            } else {
-                $orderby = 'wpbdp_is_sticky DESC' . $wpbdp_orderby . ', ' . $orderby;
+                //$orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
+                $orderby = 'wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
+            } else if ($wpbdp_orderby!='') {
+                $orderby = $wpbdp_orderby . ', ' . $orderby;
             }
 
         }
