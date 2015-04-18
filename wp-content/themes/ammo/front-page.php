@@ -278,40 +278,40 @@ get_header();
                             <span class='heading-line'></span>
                             <div class='text-center'>
                                 <div class='row quick-search-panel-content '>
-                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                    
+                                    <a href='<?php echo site_url("/women/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                        <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
                                             <div class='quick-search-overlay-lg'>Womens Apparel, Free Shipping & Free Returns</div>
-                                        </a>
+                                        </div>
+                                    </a>
                                         
-                                    </div>
-                                    <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
-                                        <a href='<?php echo site_url("/men/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                    <a href='<?php echo site_url("/men/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
+                                        <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
                                             <div class='quick-search-overlay-lg'>Mens Apparel, Free Shipping & Free Returns</div>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class='row quick-search-panel-content '>
-                                    
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
-                                        <a href='<?php echo site_url("/men/?_sfm_good_for_men=wear_to_work");?>'>
+                                    <a href='<?php echo site_url("/men/?_sfm_good_for_men=wear_to_work");?>'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
                                             <div class='quick-search-overlay'>Mens Office Attire</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bump.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=maternity");?>'>
+                                        </div>
+                                    </a>
+                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=maternity");?>'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bump.jpg");?>")'>
                                             <div class='quick-search-overlay'>Maternity</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bridal.jpg");?>")'>
-                                        <a href='<?php echo site_url("/women/?_sfm_good_for_women=weddings");?>'>
-                                            <div class='quick-search-overlay'>Bridal</div>
-                                        </a>
-                                    </div>
-                                    <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img ' style='background-image:url("<?php echo site_url("/wp-content/uploads/swim.jpg");?>")'>
-                                       <a href='<?php echo site_url("/women/?_sfm_good_for_women=beach_vacation");?>'>
-                                           <div class='quick-search-overlay'>Womens Swimwear</div>
-                                       </a> 
-                                    </div>
+                                        </div>
+                                    </a>
+                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=weddings");?>'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bridal.jpg");?>")'>
+                                            <div class='quick-search-overlay'>Bridal</div>    
+                                        </div>
+                                    </a>
+                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=beach_vacation");?>'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img ' style='background-image:url("<?php echo site_url("/wp-content/uploads/swim.jpg");?>")'>                                       
+                                           <div class='quick-search-overlay'>Womens Swimwear</div> 
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
