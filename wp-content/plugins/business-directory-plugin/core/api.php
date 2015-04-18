@@ -1285,20 +1285,27 @@ function render_canada_shipping(){
     $can_shipping .= '<div class="shipping_info" >';
     
     $can_shipping_cost = get_field('shipping_cost_to_canada');
-    if(get_field('ships_to_canada') && strlen($can_shipping_cost) !=0){
+    if(get_field('ships_to_canada')){
         $can_taxes_duties = get_field('taxes_and_duties');
-        if($can_shipping_cost==0){
-            $can_shipping .= 'Free Shipping';
+        
+        if(strlen($can_shipping_cost) !=0){
+            if($can_shipping_cost==0){
+                $can_shipping .= 'Free Shipping';
+            }else{
+                $can_shipping .= '$';
+                $can_shipping .= number_format($can_shipping_cost, 2);
+                $can_shipping .= ' shipping fee';
+            }
+            if($can_taxes_duties){
+                $can_shipping .= '. Customs & import duties extra.';
+            }else{
+                $can_shipping .= '. Customs & import duties included.';
+            }
         }else{
-            $can_shipping .= '$';
-            $can_shipping .= number_format($can_shipping_cost, 2);
-            $can_shipping .= ' shipping fee';
+            //We know that they ship to canada, but don't have costs
+            $can_shipping .= 'Ships to Canada.';
         }
-        if($can_taxes_duties){
-            $can_shipping .= '. Customs & import duties extra.';
-        }else{
-            $can_shipping .= '. Customs & import duties included.';
-        }
+        
         $can_shipping_notes = get_field('canada_shipping_notes');
         if($can_shipping_notes!=''){
             $can_shipping .= "<br/>".$can_shipping_notes;
