@@ -168,9 +168,34 @@ $class = "";
                                     <div class="wpbdp-pagination">
 
                                         <?php 
+                                        //PHP is stripping out '+' signs from the URL, so we need to manually parse out args
+                                        $parameter_query_string = $_SERVER['QUERY_STRING'];
+                                        $arg_array = array();
+                                        while($parameter_query_string !=''){
+                                            //Find '=' sign
+                                            $fp = strpos($parameter_query_string, '=');
+                                            if($fp!=FALSE){
+                                                $parameter = substr($parameter_query_string, 0, $fp);
+                                                $parameter_query_string = substr($parameter_query_string, $fp+1);
+                                            }else{
+                                                $parameter_query_string = '';
+                                            }
+                                            
+                                            $sp = strpos($parameter_query_string, '&');
+                                            if($sp != FALSE){
+                                                $value = substr($parameter_query_string, 0, $sp);
+                                                $parameter_query_string = substr($parameter_query_string, $sp+1);
+                                            }else{
+                                                $value = substr($parameter_query_string, 0);
+                                                $parameter_query_string = '';
+                                            }    
+                                            $arg_array[$parameter] = $value;
+
+                                        }
+                                        
                                         $args = array(
                                             'type' => 'array',
-                                            'add_args' => $_GET
+                                            'add_args' => $arg_array
                                         );
                                         $paginate =  paginate_links($args);
                                         $pagination_links = "<nav><ul class='pagination'>";
