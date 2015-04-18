@@ -9,7 +9,7 @@
 
 get_header();
 ?>
-<section class="primary homepage">
+<section class="primary homepage section">
     
     <div class="section-fullwidth main-panel" style="background-image: 
          url(<?php echo site_url('/wp-content/uploads/Carnaby-Homepage1.jpg');?>);">
