@@ -406,7 +406,9 @@ class XooMessaging extends XooUserUltraCommon
 		$admin_email =get_option('admin_email'); 
 		
 		$u_email = $receiver->user_email;
-		
+		$receiver_name = $receiver->first_name;
+                $sender_name = $sender->first_name;
+                
 		$template_client =stripslashes($this->get_option('message_friend_request'));		
 		$blogname  = $this->get_option('messaging_send_from_name');
 		
@@ -416,7 +418,9 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$template_client = str_replace("{{user_ultra_blog_name}}", $blogname,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);			
-		
+		$template_client = str_replace("{{userultra_user_name}}", $receiver_name, $template_client);
+                $template_client = str_replace("{{userultra_sender_name}}", $sender_name, $template_client);
+                
 		$this->send($u_email, $subject, $template_client);
 					
 		
@@ -431,7 +435,8 @@ class XooMessaging extends XooUserUltraCommon
 		$admin_email =get_option('admin_email'); 
 		
 		$u_email = $receiver->user_email;
-		
+		$user_name = $receiver->first_name;
+                
 		$template_client =stripslashes($this->get_option('reset_lik_message_body'));
 		
 		$blogname  = $this->get_option('messaging_send_from_name');
@@ -439,6 +444,7 @@ class XooMessaging extends XooUserUltraCommon
 		
 		$subject = __('Reset Your Password','xoousers');
 		
+                $template_client = str_replace("{{userultra_user_name}}", $user_name,  $template_client);
 		$template_client = str_replace("{{userultra_reset_link}}", $link,  $template_client);
 		$template_client = str_replace("{{userultra_admin_email}}", $admin_email,  $template_client);		
 		
