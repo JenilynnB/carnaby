@@ -372,8 +372,30 @@ class WPBDP_Admin {
                     }                    
                 }
 
-                if ( isset( $_POST['thumbnail_id'] ) )
-                    $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+                
+                if ( isset( $_POST['thumbnail_id'] ) ){
+                    //$listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+                    set_thumbnail_id ($listing->get_id (), $_POST['thumbnail_id']);
+                }
+                if ( isset( $_POST['womens_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['womens_thumb_id'], "women");
+                }
+                if ( isset( $_POST['mens_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['mens_thumb_id'], "men");
+                }
+                if ( isset( $_POST['kids_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['kids_thumb_id'], "kids");
+                }
+                if ( isset( $_POST['boys_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['boys_thumb_id'], "boys");
+                }
+                if ( isset( $_POST['girls_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['girls_thumb_id'], "girls");
+                }
+                if ( isset( $_POST['baby_thumb_id'] ) ){
+                    set_thumbnail_id ($listing->get_id (), $_POST['baby_thumb_id'], "baby");
+                }
+                    
             }
 
         }

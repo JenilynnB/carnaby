@@ -35,6 +35,13 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 
         $images = $this->listing->get_images( 'ids' );
         $thumbnail_id = $this->listing->get_thumbnail_id();
+        $womens_thumb_id = $this->listing->get_thumbnail_id("women");
+        $mens_thumb_id = $this->listing->get_thumbnail_id("men");
+        $kids_thumb_id = $this->listing->get_thumbnail_id("kids");
+        $girls_thumb_id = $this->listing->get_thumbnail_id("girls");
+        $boys_thumb_id = $this->listing->get_thumbnail_id("boys");
+        $baby_thumb_id = $this->listing->get_thumbnail_id("baby");
+        
 
         // Current images.
         echo '<h4>' . _x( 'Current Images', 'templates', 'WPBDM' ) . '</h4>';
@@ -42,9 +49,40 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '<div id="no-images-message" style="' . ( $images ? 'display: none;' : '' ) . '">' . _x( 'There are no images currently attached to the listing.', 'templates', 'WPBDM' ) . '</div>';
         echo '<div id="wpbdp-uploaded-images" class="cf">';
         
+        //echo "women:".$womens_thumb_id." men: ".$mens_thumb_id." kids: ".$kids_thumb_id." girls: ".$girls_thumb_id." boys: ".$boys_thumb_id." baby: ".$baby_thumb_id;
+        $has_women = false;
+        $has_men = false;
+        $has_kids = false;
+        $has_girls = false;
+        $has_boys = false;
+        $has_baby = false;
+        
+        $categories = get_the_terms($this->listing->get_id(), WPBDP_CATEGORY_TAX);
+        foreach($categories as $c){
+            if($c->name=="Women"){$has_women = true;}
+            if($c->name=="Men"){$has_men = true;}
+            if($c->name=="Kids & Baby"){$has_kids = true;}
+            if($c->name=="Girls"){$has_girls = true;}
+            if($c->name=="Boys"){$has_boys = true;}
+            if($c->name=="Baby"){$has_baby = true;}
+        }
+
+        
         foreach ( $images as $image_id ):
             echo wpbdp_render( 'submit-listing/images-single',
                            array( 'image_id' => $image_id,
+                                  'has_women' => $has_women,
+                                  'has_men' => $has_men,
+                                  'has_kids' => $has_kids,
+                                  'has_girls' => $has_girls,
+                                  'has_boys' => $has_boys,
+                                  'has_baby' => $has_baby,
+                                  'is_womens_thumb' => ($womens_thumb_id == $image_id),
+                                  'is_mens_thumb' => ($mens_thumb_id == $image_id),
+                                  'is_kids_thumb' => ($kids_thumb_id == $image_id),
+                                  'is_girls_thumb' => ($girls_thumb_id == $image_id),
+                                  'is_boys_thumb' => ($boys_thumb_id == $image_id),
+                                  'is_baby_thumb' => ($baby_thumb_id == $image_id),
                                   'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ) ),
                            false );
         endforeach;

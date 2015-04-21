@@ -84,14 +84,53 @@ class WPBDP_Listing {
             wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
     }
 
+    /*
     public function set_thumbnail_id( $image_id ) {
         if ( ! $image_id )
             return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
         
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
     }
-
-    public function get_thumbnail_id() {
+*/
+    public function get_thumbnail_id($thumb_type = "") {
+        
+        $listing_id = $this->id;
+        
+        if($thumb_type =="women"){
+            //echo "women";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[womens_thumb_id]', true );
+        }else if ($thumb_type == "men"){
+            //echo "men";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[mens_thumb_id]', true );
+        }else if ($thumb_type == "kids"){
+            //echo "kids";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[kids_thumb_id]', true );
+        }else if ($thumb_type == "girls"){
+            //echo "girls";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[girls_thumb_id]', true );
+        }else if ($thumb_type == "boys"){
+            //echo "boys";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[boys_thumb_id]', true );
+        }else if ($thumb_type == "baby"){
+            //echo "baby";
+            $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[baby_thumb_id]', true );
+        }else{
+            //echo "else";
+            $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true ); 
+        
+            if($thumbnail_id){
+               return intval( $thumbnail_id );
+            } else {
+                if ( $images = $this->get_images( 'ids' ) ) {
+                    update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $images[0] );
+                    return $images[0];
+                }
+            }
+        }
+        
+        
+        return $thumbnail_id;
+        /*
         if ( $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true ) ) {
             return intval( $thumbnail_id );
         } else {
@@ -102,6 +141,8 @@ class WPBDP_Listing {
         }
         
         return 0;
+         * 
+         */
     }
 
     public function set_title( $title ) {
