@@ -158,7 +158,8 @@ $class = "";
                                     <?php 
                                     if(have_posts()):
                                         while (have_posts()): the_post(); 
-                                            echo wpbdp_render_listing(null, 'excerpt'); 
+                                            echo wpbdp_render_listing(null, 'excerpt', FALSE, $term); 
+                                            //echo wpbdp_render_listing(null, 'excerpt'); 
                                         endwhile;
                                     else:
                                         echo wpautop('Sorry, no sites match your search.');

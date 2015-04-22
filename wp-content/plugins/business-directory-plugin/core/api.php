@@ -270,7 +270,7 @@ function wpbdp_render_msg($msg, $type='status') {
  * @param string $view 'single' for single view or 'excerpt' for summary view.
  * @return string HTML output.
  */
-function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
+function wpbdp_render_listing($listing_id=null, $view='single', $echo=false, $category = "") {
     if (is_object($listing_id)) $listing_id = $listing_id->ID;
 
     global $post;
@@ -292,7 +292,7 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
     }
 
     if ($view == 'excerpt')
-        $html = _wpbdp_render_excerpt();
+        $html = _wpbdp_render_excerpt($category);
     else
         $html = _wpbdp_render_single();
 
@@ -405,7 +405,7 @@ function _wpbdp_render_single() {
     return $html;
 }
 
-function _wpbdp_render_excerpt() {
+function _wpbdp_render_excerpt($category = "") {
     global $post;
     static $counter = 0;
 
@@ -426,18 +426,24 @@ function _wpbdp_render_excerpt() {
     //$listing_url = wpbdp_render_listing_field('URL');
             
     
+   $thumbnail = wpbdp_listing_thumbnail( null, array(
+           'link' => 'listing',
+           'class' => 'wpbdmthumbs wpbdp-excerpt-thumbnail',
+           'thumb_type' => $category));
    
+           //'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail'
    
     //$g = WPDP_ListingFieldDisplayItem::
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
         //'thumbnail' => listing_thumbnail_screenshot($listing_url),
-        'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
+        'thumbnail' => $thumbnail,
         'title' => get_the_title(),
         'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID),
         'fields' => $d->fields,
-        'listing_id' => $post->ID
+        'listing_id' => $post->ID,
+        'category' => $category
     );
     $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
     $vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
@@ -1403,15 +1409,23 @@ function render_shipping_notes(){
     
 }
 
-function get_shopstyle_retailer_url($listing_id){
+/*
+ * Returns the URL for the listing specified, with the Shopstyle tracking attached.
+ * If you need to add tracking to a specific category URL, it can be passed in as a parameter.
+ */
+
+function get_shopstyle_retailer_url($listing_id, $category_url = ""){
     
     $shopstyle = new ShopStyle();
     $host = $shopstyle->getHost();
     $API_key = $shopstyle->getApiKey();
     
-    $listing_url = wpbdp_render_listing_field('URL', $listing_id);
-    $listing_url = esc_url($listing_url[0]);
-    
+    if($category_url==""){
+        $listing_url = wpbdp_render_listing_field('URL', $listing_id);
+        $listing_url = esc_url($listing_url[0]);
+    }else{
+        $listing_url = $category_url;
+    }
     $return = esc_url("http://".$host."/action/apiVisitRetailer?url=".$listing_url."&pid=".$API_key);
     
     return $return;
@@ -1596,10 +1610,32 @@ function wpbdp_has_module( $module ) {
     return $wpbdp->has_module( $module );
 }
 
-function get_listing_outbound_link($id, $max_length = 0){
+/*
+ * Get the URL to the store, attaching any tracking if necessary and limiting
+ * the length of the URL, if necessary (given context).
+*/
+
+function get_listing_outbound_link($id, $max_length = 0, $category = ""){
+    if($category == "Women"){
+        $cat_url = get_field('womens_url', $id);
+    }else if($category == "Men"){
+        $cat_url = get_field('mens_url', $id);
+    }else if($category == "Kids & Baby"){
+        $cat_url = get_field('kids_url', $id);
+    }else if($category == "Girls"){
+        $cat_url = get_field('girls_url', $id);
+    }else if($category == "Boys"){
+        $cat_url = get_field('boys_url', $id);
+    }else if($category == "baby"){
+        $cat_url = get_field('Baby_url', $id);
+    }
+    
     $base_url = wpbdp_render_listing_field('URL', $id);
-    $link_text = $base_url[1];
-    $base_url = $base_url[0];
+    
+    if(is_array($base_url)){
+        $link_text = $base_url[1];
+        $base_url = $base_url[0];
+    }
     
     $dubdub = strpos($link_text, "www.");
     
@@ -1619,13 +1655,24 @@ function get_listing_outbound_link($id, $max_length = 0){
         }
     }
     if((get_shopstyle_retailer_id($id))!=''){
-        $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
-    }else{
-        
-        if (strcmp(substr($base_url, 0, 7), "http://") !=0){
-            $url = "http://" . $base_url;
+        if($cat_url!=""){
+            $listing_url = '<a href="'.get_shopstyle_retailer_url($id, $cat_url).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
         }else{
-            $url = $base_url;
+            $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
+        }
+    }else{
+        if($cat_url!=""){
+            if (strcmp(substr($cat_url, 0, 7), "http://") !=0){
+                $url = "http://" . $cat_url;
+            }else{
+                $url = $cat_url;
+            }
+        }else{
+            if (strcmp(substr($base_url, 0, 7), "http://") !=0){
+                $url = "http://" . $base_url;
+            }else{
+                $url = $base_url;
+            }
         }
         $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
     }

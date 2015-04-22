@@ -5,11 +5,19 @@
         <div class="favorite-icon">
             <?php if (function_exists('wpfp_link')) { wpfp_link(); } ?> 
         </div>
-        <?php echo wpbdp_render_listing_field_html('Business Name'); ?>
+        <?php 
+        $listing_name = wpbdp_render_listing_field_html('Business Name');
+        if($category!=""){
+            $listing_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
+                    '$0?cat='.$category, $listing_name);
+        }
+        echo $listing_link;
+        ?>
+        
     </div>
     <div class="listing-url">
         <?php
-            $url = get_listing_outbound_link($listing_id);
+            $url = get_listing_outbound_link($listing_id,0, $category);
           ?>
         <div class="listing-element"><?php echo $url;?></div>
     </div>
