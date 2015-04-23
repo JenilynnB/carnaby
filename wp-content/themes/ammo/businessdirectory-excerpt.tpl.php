@@ -9,7 +9,7 @@
         $listing_name = wpbdp_render_listing_field_html('Business Name');
         if($category!=""){
             $listing_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
-                    '$0?cat='.$category, $listing_name);
+                    '$0?cat='.strtolower($category), $listing_name);
         }
         echo $listing_link;
         ?>

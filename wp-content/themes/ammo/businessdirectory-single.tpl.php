@@ -1,21 +1,17 @@
 <?php
-	get_header();
+    get_header();
 
-	global $smof_data;
+    global $smof_data;
+    
+    if(isset($_GET["cat"])){	$category = $_GET["cat"];	}
 ?>
 
 <?php the_post(); ?>
 
-		<!--<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-				     -->                               
-                                    <?php // Customize the output of this function using the template "businessdirectory-listing.tpl.php"; ?>
-                                    <?php echo wpbdp_render_listing(null, 'single'); ?>
+		                
+        <?php // Customize the output of this function using the template "businessdirectory-listing.tpl.php"; ?>
+        <?php echo wpbdp_render_listing(null, 'single', false, $category); ?>
                               
-                        <!--    </div>
-                        </div>
-                </div>-->
-
+                        
 
 <?php get_footer(); ?>

@@ -378,8 +378,12 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
 
     }
 
-    if ( !$image_link && $args['link'] == 'listing' )
-        $image_link = get_permalink( $listing_id );
+    if ( !$image_link && $args['link'] == 'listing' ){
+        $std_image_link = get_permalink( $listing_id );
+        $image_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
+                    '$0?cat='.strtolower($args["thumb_type"]), $std_image_link);
+    }
+        
 
     if ( $image_img ) {
         if ( !$image_link ) {
@@ -415,7 +419,7 @@ function wpbdp_listing_main_image( $listing_id=null, $args=array(), $size='full'
 
     $images = wpbdp_listings_api()->get_images($listing_id);
     
-    if ( $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id ) ) {
+    if ( $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id, $args["thumb_type"] ) ) {
         $main_image = get_post( $thumbnail_id );
     } else {
         $images = wpbdp_listings_api()->get_images( $listing_id );

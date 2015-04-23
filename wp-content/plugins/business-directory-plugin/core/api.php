@@ -294,7 +294,7 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false, $ca
     if ($view == 'excerpt')
         $html = _wpbdp_render_excerpt($category);
     else
-        $html = _wpbdp_render_single();
+        $html = _wpbdp_render_single($category);
 
     if ($listing_id)
         wp_reset_query();
@@ -305,7 +305,7 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false, $ca
     return $html;
 }
 
-function _wpbdp_render_single() {
+function _wpbdp_render_single($category = "") {
     global $post;
 
     $html = '';
@@ -357,14 +357,21 @@ function _wpbdp_render_single() {
                                         ) ));
         }
     }
-
+    
+    //$main_image = wpbdp_listing_main_image( null, 'link=picture&class=wpbdp-single-thumbnail', 'large' );
+    
+    $main_image = wpbdp_listing_main_image( null, array(
+            'link' => 'picture',
+            'class' => 'wpbdp-single-thumbnail',
+            'thumb_type' => $category), 'large' );
+    
     $vars = array(
 //        'actions' => wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'single'), false),
         'is_sticky' => $sticky_status == 'sticky',
         'sticky_tag' => $sticky_tag,
         'title' => get_the_title(),
         //'main_image' => wpbdp_get_option( 'allow-images' ) ? wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' ) : '',
-        'main_image' => wpbdp_get_option( 'allow-images' ) ? wpbdp_listing_main_image( null, 'link=picture&class=wpbdp-single-thumbnail', 'large' ) : '',
+        'main_image' => $main_image,
         'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID),
         'fields' => $d->fields,
         'listing_id' => $post->ID,
