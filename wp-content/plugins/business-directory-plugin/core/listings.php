@@ -410,7 +410,7 @@ class WPBDP_ListingsAPI {
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[womens_thumb_id]', true );
         }else if ($thumb_type == "men"){
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[mens_thumb_id]', true );
-        }else if ($thumb_type == "kids"){
+        }else if ($thumb_type == "kids-baby"){
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[kids_thumb_id]', true );
         }else if ($thumb_type == "girls"){
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[girls_thumb_id]', true );
@@ -418,9 +418,12 @@ class WPBDP_ListingsAPI {
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[boys_thumb_id]', true );
         }else if ($thumb_type == "baby"){
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[baby_thumb_id]', true );
-        }else{
+        }
+        
+        if($thumbnail_id==""){
             $thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true );
         }
+        
         if ( $thumbnail_id ) {
             if ( false !== get_post_status( $thumbnail_id ) )
                 return intval( $thumbnail_id );

@@ -16,6 +16,7 @@ $class = "";
     //after submitting search & filter form once
     $query_tax = get_query_var("tax_query");
     $term = '';
+    $term_raw = '';
     if(!empty($query_tax)){
         foreach($query_tax as $qt){
             if(isset($qt['taxonomy'])){
@@ -34,6 +35,7 @@ $class = "";
                         strcasecmp($qtt,'boys')==0||
                         strcasecmp($qtt,'baby')==0){
                             $term = $qtt;
+                            $term_raw = $qtt;
                             $field = $qt['field'];
                         }
                     }
@@ -43,7 +45,6 @@ $class = "";
     }else{
         $term_object = get_queried_object();
     } 
-    
     
     if($term!=''){
         $term_object = get_term_by($field, $term, WPBDP_CATEGORY_TAX);
@@ -67,13 +68,14 @@ $class = "";
         $breadcrumbs .= " > "; 
         
     }
-    
+
     $breadcrumbs .= $term_object->name;
-    
     if($parent_term->term_id!=""){
         $term = $parent_term->name;
+        $term_raw = $parent_term->slug;
     }else{
         $term = $term_object->name;
+        $term_raw = $term_object->slug;
     }
 ?>
                             
@@ -158,7 +160,7 @@ $class = "";
                                     <?php 
                                     if(have_posts()):
                                         while (have_posts()): the_post(); 
-                                            echo wpbdp_render_listing(null, 'excerpt', FALSE, $term); 
+                                            echo wpbdp_render_listing(null, 'excerpt', FALSE, $term_raw); 
                                             //echo wpbdp_render_listing(null, 'excerpt'); 
                                         endwhile;
                                     else:

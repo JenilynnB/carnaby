@@ -340,7 +340,13 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     $image_classes = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
     
-    if ( $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id, strtolower($args['thumb_type']) ) ) {
+    if($args['thumb_type']==''){
+        $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id) ;
+    }else{
+        $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id, strtolower($args['thumb_type']) );
+    }
+    
+    if ( $thumbnail_id) {
         $main_image = get_post( $thumbnail_id );
     } else {
         $images = wpbdp_listings_api()->get_images( $listing_id );
