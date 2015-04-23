@@ -1008,7 +1008,7 @@ function get_shopstyle_retailer_id($listing_id=0)
     return $retailer_id;
 }
 
-function render_products_slick_slider($listing_id=null){
+function render_products_slick_slider($listing_id=null, $category = ""){
     global $post;
     if ($listing_id=null){
         $listing_id = $post->id;
@@ -1020,10 +1020,34 @@ function render_products_slick_slider($listing_id=null){
         return "";
     }
     
-    $product_params = array(
-            'fl' => $retailer_id,
-            'sort'  => 'popular'
-        );
+    if($category!=""){
+        
+        if($category == "men"){
+            $shopstyle_category = "mens-clothes";
+        }else if ($category=="women"){
+            $shopstyle_category = "womens-clothes";
+        }else if ($category=="kids-baby"){
+            $shopstyle_category = "kids-and-baby-clothes";
+        }else if ($category == "girls"){
+            $shopstyle_category = "girls";
+        }else if ($category == "boys"){
+            $shopstyle_category = "boys";
+        }else if ($category == "baby"){
+            $shopstyle_category = "kids-and-baby-clothes";
+        }
+        
+        $product_params = array(
+                'fl' => $retailer_id,
+                'sort'  => 'popular',
+                'cat'   => $shopstyle_category
+            );
+    }else{
+        $product_params = array(
+                'fl' => $retailer_id,
+                'sort'  => 'popular'
+            );
+    }
+        
     $shopstyle = new ShopStyle();
     
     $products_response = $shopstyle->getProducts(12, 0, $product_params);

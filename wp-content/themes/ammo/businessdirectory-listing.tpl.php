@@ -3,6 +3,7 @@
 $module = "";
 
 if(isset($_GET["module"])){	$module = $_GET["module"];	}
+if(isset($_GET["cat"])){	$category = $_GET["cat"];	}
 
 
 if($module != "more_info" && $module != "reviews"):
@@ -91,7 +92,7 @@ if($module != "more_info" && $module != "reviews"):
                             
                          <?php 
                          $retailer_id = get_field("shopstyle_retailer_id");
-                         $products = render_products_slick_slider(); 
+                         $products = render_products_slick_slider($listing_id, $category); 
                          if ($retailer_id>0 && $products != ""){
                             echo "<h2>Popular ".$title." Products</h2>";
                             
