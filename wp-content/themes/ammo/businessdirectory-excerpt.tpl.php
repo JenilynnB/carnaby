@@ -10,6 +10,8 @@
         if($category!=""){
             $listing_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
                     '$0?cat='.strtolower($category), $listing_name);
+        }else{
+            $listing_link = $listing_name;
         }
         echo $listing_link;
         ?>

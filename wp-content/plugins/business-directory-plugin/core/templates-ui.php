@@ -339,7 +339,6 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     $image_link = '';
     $image_classes = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
-    
     if($args['thumb_type']==''){
         $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id) ;
     }else{
@@ -386,8 +385,12 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
 
     if ( !$image_link && $args['link'] == 'listing' ){
         $std_image_link = get_permalink( $listing_id );
-        $image_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
+        if($args['thumb_type']!=''){
+            $image_link = preg_replace('/http:\/\/[^"]*?\/sites\/[^"]*?\//', 
                     '$0?cat='.strtolower($args["thumb_type"]), $std_image_link);
+        }else{
+            $image_link = $std_image_link;
+        }
     }
         
 
