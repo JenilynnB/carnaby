@@ -334,7 +334,8 @@ function _wpbdp_render_single($category = "") {
    
     
     // images
-    $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id($post->ID);
+    //$thumbnail_id = wpbdp_listings_api()->get_thumbnail_id($post->ID);
+    $thumbnail_id = get_thumbnail_id($post->ID);
     $images = wpbdp_listings_api()->get_images($post->ID);
     $extra_images = array();
 
@@ -357,8 +358,6 @@ function _wpbdp_render_single($category = "") {
                                         ) ));
         }
     }
-    
-    //$main_image = wpbdp_listing_main_image( null, 'link=picture&class=wpbdp-single-thumbnail', 'large' );
     
     $main_image = wpbdp_listing_main_image( null, array(
             'link' => 'picture',
@@ -886,7 +885,7 @@ function get_listing_image($listing_id, $size='thumbnail'){
 
 /*
  * Gets the top apparel categories for a given listing. Returns as WPBDP categories.
- * If the listing includes Kids & Baby, only the relevant sub-categories will be returned
+ * If the listing includes Kids & Baby, subcategories will NOT be returned
  */
 
 function get_top_apparel_categories($listing_id){
@@ -909,6 +908,34 @@ function get_top_apparel_categories($listing_id){
     }
     
     
+    return $top_categories;
+}
+
+/*
+ * Gets the top apparel categories for a given listing. Returns as WPBDP categories.
+ * If the listing includes Kids & Baby, the next level (Boys, Girls, Baby) WILL be returned
+ */
+
+function get_top_apparel_categories_with_kids($listing_id){
+    
+    $listing = WPBDP_Listing::get( $listing_id );
+    if(empty($listing)){
+        return;
+    }
+    $wpbdp_categories = $listing->get_categories( 'all' );
+    $top_categories = array();
+    $i = 0;
+    
+    foreach($wpbdp_categories as $wpbdp_c){
+        $wp_cats = get_term($wpbdp_c->id, WPBDP_CATEGORY_TAX);
+        
+        //includes top-level and any categories with "Kids & Baby" as the parent
+        if($wp_cats->parent == 0 || $wp_cats->parent == 4){
+            $top_categories[$i] = $wp_cats;
+            $i++;
+        }
+    }
+    
     /*
     foreach($wpbdp_categories as $cat){
         if($cat->name=="Women" || $cat->name =="Men" || $cat->name == "Girls" || $cat->name == "Boys" || $cat->name=="Baby"):
@@ -918,9 +945,9 @@ function get_top_apparel_categories($listing_id){
      * 
      */
     
-    
     return $top_categories;
 }
+
 
 /*
  * 
@@ -1467,7 +1494,7 @@ function set_thumbnail_id( $listing_id, $image_id, $thumb_type = FALSE) {
     if(!$listing_id){
         return;
     }
-    
+    //echo $thumb_type."farts";
     if ( ! $image_id )
         return delete_post_meta( $listing_id, '_wpbdp[thumbnail_id]' );
     
@@ -1477,7 +1504,7 @@ function set_thumbnail_id( $listing_id, $image_id, $thumb_type = FALSE) {
         return update_post_meta( $listing_id, '_wpbdp[womens_thumb_id]', $image_id );
     }else if($thumb_type == "men"){
         return update_post_meta( $listing_id, '_wpbdp[mens_thumb_id]', $image_id );
-    }else if($thumb_type == "kids"){
+    }else if($thumb_type == "kids"||$thumb_type == "kids-baby"){
         return update_post_meta( $listing_id, '_wpbdp[kids_thumb_id]', $image_id );
     }else if($thumb_type == "girls"){
         return update_post_meta( $listing_id, '_wpbdp[girls_thumb_id]', $image_id );
@@ -1490,6 +1517,39 @@ function set_thumbnail_id( $listing_id, $image_id, $thumb_type = FALSE) {
     }
     
 }
+
+function get_thumbnail_id($listing_id, $thumb_type = "") {
+    if($thumb_type =="women"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[womens_thumb_id]', true );
+    }else if ($thumb_type == "men"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[mens_thumb_id]', true );
+    }else if ($thumb_type == "kids-baby"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[kids_thumb_id]', true );
+    }else if ($thumb_type == "girls"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[girls_thumb_id]', true );
+    }else if ($thumb_type == "boys"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[boys_thumb_id]', true );
+    }else if ($thumb_type == "baby"){
+        $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[baby_thumb_id]', true );
+    }else if($thumb_type == ""){
+        $thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true );
+    }
+
+    if ( $thumbnail_id ) {
+        if ( false !== get_post_status( $thumbnail_id ) )
+            return intval( $thumbnail_id );
+    }
+
+    if ( $thumb_type=="" && $images = get_attached_media('image/jpeg', $listing_id) ) {
+        update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $images[0]->ID );
+        $num_images = sizeof($images);
+        return $images[num_images-1]->ID;
+    }
+ 
+
+    return 0;
+}
+
 
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
     $n = max(intval($n), 0);

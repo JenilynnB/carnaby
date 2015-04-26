@@ -404,7 +404,7 @@ class WPBDP_ListingsAPI {
         $email->send();
     }
 
-
+/*
     public function get_thumbnail_id($listing_id, $thumb_type = "") {
         if($thumb_type =="women"){
             $thumbnail_id = get_post_meta( $listing_id, '_wpbdp[womens_thumb_id]', true );
@@ -438,6 +438,7 @@ class WPBDP_ListingsAPI {
         return 0;
     }
 
+    */
     /**
      * @since 3.4.1
      */

@@ -57,14 +57,15 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         $has_boys = false;
         $has_baby = false;
         
-        $categories = get_the_terms($this->listing->get_id(), WPBDP_CATEGORY_TAX);
+        //$categories = get_the_terms($this->listing->get_id(), WPBDP_CATEGORY_TAX);
+        $categories = get_top_apparel_categories_with_kids($this->listing->get_id());
         foreach($categories as $c){
-            if($c->name=="Women"){$has_women = true;}
-            if($c->name=="Men"){$has_men = true;}
-            if($c->name=="Kids & Baby"){$has_kids = true;}
-            if($c->name=="Girls"){$has_girls = true;}
-            if($c->name=="Boys"){$has_boys = true;}
-            if($c->name=="Baby"){$has_baby = true;}
+            if($c->slug=="women"){$has_women = true;}
+            if($c->slug=="men"){$has_men = true;}
+            if($c->slug=="kids-baby"){$has_kids = true;}
+            if($c->slug=="girls"){$has_girls = true;}
+            if($c->slug=="boys"){$has_boys = true;}
+            if($c->slug=="baby"){$has_baby = true;}
         }
 
         
