@@ -59,7 +59,7 @@ function updateScreenshot($post){
             $date_diff = date_diff(new DateTime(date("Y-m-d")), new DateTime($image->post_date));
             if($date_diff->d >= 7){
                 //upload a new screenshot
-                echo "Regular thumbnail needs updating";
+                //echo "Regular thumbnail needs updating";
                 $screenshot_url = get_screenshot_url($url, $width);
                 save_image($screenshot_url, $listing_id);
             }
@@ -89,7 +89,7 @@ function updateScreenshot($post){
                 }
             }
 
-            echo "category thumb id: ".$category_thumb_id;
+            //echo "category thumb id: ".$category_thumb_id;
             //Get the URL for that thumbnail type
             if($lc->slug=="women"){
                 $cat_url = get_field('womens_url');
@@ -109,18 +109,18 @@ function updateScreenshot($post){
             //if it doesn't exist, set the category thumbnail as the standard thumbnail
             if(!$cat_url||$cat_url==""){
 
-                echo "Setting thumb id, no url ".$std_thumb_id.$lc->slug;
+                //echo "Setting thumb id, no url ".$std_thumb_id.$lc->slug;
                 set_thumbnail_id($listing_id, $std_thumb_id, $lc->slug);
             }else{
                 //get the screenshot URL and upload a new image
-                echo "Adding category thumbnail ". $lc->slug;
+                //echo "Adding category thumbnail ". $lc->slug;
                 $screenshot_url = get_screenshot_url($cat_url, $width);
                 save_image($screenshot_url, $listing_id, $lc->slug);
             }
         }
     
     }else{
-        echo "Regular thumbnail is missing ";
+        //echo "Regular thumbnail is missing ";
         $screenshot_url = get_screenshot_url($url, $width);
         save_image($screenshot_url, $listing_id);
     }
@@ -178,7 +178,7 @@ add_action('the_post', 'updateScreenshot');
 function save_image($url, $listing_id, $category=""){
     //Get the image from the URL and save it in a temporary location
     //$response = wp_remote_get($url);
-    echo "listing id: ".$listing_id." category: ".$category." url: ".$url;
+    //echo "listing id: ".$listing_id." category: ".$category." url: ".$url;
     $tmp = download_url($url);
     
     $post_title = get_the_title($listing_id);
@@ -315,7 +315,7 @@ function get_screenshot_url($content, $width){
         }
         
         $screenshot_url = $screenshot_base_url.$content;
-        echo $screenshot_url;
+        //echo $screenshot_url;
     }else{
         return false;
     }
