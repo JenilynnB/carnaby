@@ -74,21 +74,6 @@ function updateScreenshot($post){
              * If no thumbnail id is returned, it is added
              */
 
-            if($category_thumb_id){
-                $image = get_post($category_thumb_id);
-
-                //Looks for the naming convention of previous programmatically uploaded screenshots 
-                if(strpos($image->post_title, "screenshot")){
-                    //If the screenshot exists, check if it was taken more than a week ago
-                    $date_diff = date_diff(new DateTime(date("Y-m-d")), new DateTime($image->post_date));
-                    if($date_diff->d < 7){
-                        continue;
-                    }
-                }else{
-                    continue;
-                }
-            }
-
             //echo "category thumb id: ".$category_thumb_id;
             //Get the URL for that thumbnail type
             if($lc->slug=="women"){
@@ -103,6 +88,25 @@ function updateScreenshot($post){
                 $cat_url = get_field("boys_url");
             }else if($lc->slug=="baby"){
                 $cat_url = get_field("baby_url");
+            }
+            
+            if($category_thumb_id){
+                $image = get_post($category_thumb_id);
+
+                //Looks for the naming convention of previous programmatically uploaded screenshots 
+                if(strpos($image->post_title, "screenshot")){
+                    //If the screenshot exists, check if it was taken more than a week ago
+                    $date_diff = date_diff(new DateTime(date("Y-m-d")), new DateTime($image->post_date));
+                    // If screenshot was taken more than a week ago OR the category
+                    // has the same thumbnail as the standard AND the url is set (which means the URL has
+                    // been added recently), proceed to updating the screenshot
+
+                    if($date_diff->d < 7 && !($category_thumb_id == $std_thumb_id && ($cat_url || $cat_url!=""))){
+                        continue;
+                    }
+                }else{
+                    continue;
+                }
             }
 
 
