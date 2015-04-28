@@ -1690,8 +1690,9 @@ function modify_wp_search_distinct( $distinct ) {
 
 /* Changs the title in the browser */
 function edit_page_title($title, $sep){
-    global $post;
+    global $xoouserultra;
     
+    //These are various modules as a part of profile pages
     if(isset($_GET["module"])){	$module = $_GET["module"];	}
 
     if($module=='messages' || $module=='messages_sent'){
@@ -1702,10 +1703,22 @@ function edit_page_title($title, $sep){
         $title = "Edit My Profile | ";
     }
     
+    //This is a business listing
     if(is_single() && get_post_type()==WPBDP_POST_TYPE){
         $sep = strpos($title, "|");        
         $title = substr($title, 0, $sep). "Reviews | ";
     }
+    
+    //This is the profile page
+    if(strpos($_SERVER['REQUEST_URI'], 'profile')){
+        
+        $first_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id);
+        $last_name = $xoouserultra->userpanel->get_user_meta('last_name', $user_id);
+        $last_initial = $last_name!='' ? substr($last_name, 0, 1).".": '';
+        
+        $title = $first_name." ".$last_initial."'s Revuews ";
+    }
+    
     
     //fix for profile as well
     return $title;
@@ -1724,6 +1737,9 @@ function edit_the_title($title, $sep){
     }elseif($module=='profile'){
         $title = "Edit My Profile";
     }
+    
+    
+    
     //fix for profile as well
     return $title;
 }

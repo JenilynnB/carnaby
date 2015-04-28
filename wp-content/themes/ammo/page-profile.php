@@ -16,6 +16,7 @@ get_header();
     
     $first_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id);
     $last_name = $xoouserultra->userpanel->get_user_meta('last_name', $user_id);
+    $last_initial = $last_name!='' ? substr($last_name, 0, 1).".": '';
     $headline = $xoouserultra->userpanel->get_user_meta('headline', $user_id);
     $location = $xoouserultra->userpanel->get_user_meta('location', $user_id);
     $description = $xoouserultra->userpanel->get_user_meta('description', $user_id);
@@ -70,7 +71,7 @@ get_header();
                             </div>
                             <div class="box-section-inner">
                                     <h2><?php    
-                                        echo  $first_name . ' ' . $last_name;
+                                        echo  $first_name . ' ' . $last_initial;
                                         ?>
                                     </h2>
                                     <div class="user_stats">
@@ -233,7 +234,7 @@ get_header();
                                                     if($description != ""){
                                                         echo "<td>".$description."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
                                         </tr>
@@ -249,7 +250,7 @@ get_header();
                                                     if($location != ""){
                                                         echo "<td>".$location."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -266,7 +267,7 @@ get_header();
                                                     if($hometown != ""){
                                                         echo "<td>".$hometown."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -284,7 +285,7 @@ get_header();
                                                     if($website != ""){
                                                         echo "<td>".$website."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -301,7 +302,7 @@ get_header();
                                                     if($loves != ""){
                                                         echo "<td>".$loves."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -318,7 +319,7 @@ get_header();
                                                     if($facebook != ""){
                                                         echo "<td>".$facebook_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -335,7 +336,7 @@ get_header();
                                                     if($instagram != ""){
                                                         echo "<td>".$instagram_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -352,7 +353,7 @@ get_header();
                                                     if($pinterest != ""){
                                                         echo "<td>".$pinterest_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
@@ -367,7 +368,7 @@ get_header();
                                                     if($twitter != ""){
                                                         echo "<td>".$twitter_link."</td>";
                                                     }elseif($current_user->id==$user_id ){
-                                                        echo "<td><a class='btn btn-default' href='".site_url('/myaccount/?module=profile')."'>Add this</a></td>";
+                                                        echo "<td><a class='btn btn-default' href='".site_url('/edit-profile')."'>Add this</a></td>";
                                                     }
                                                 ?>
 
