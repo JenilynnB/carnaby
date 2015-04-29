@@ -149,10 +149,13 @@ if($module != "more_info" && $module != "reviews"):
                     
                         <div class="col-md-4 hidden-sm hidden-xs ">
                             <div class='row'>
-                                <div class="carnaby-info">
-                                    <p>With Carnaby West, you can find the best places to shop online. This listing lets you know what you'll find at this shop, details on how your purchased items will be shipped to you and reviews from other Carnaby West Members.
-                                    If you have shopped at this site, we'd love you to leave a review about your experience!</p>
-                                </div>
+                                <?php if(!(stristr($_SERVER["HTTP_REFERER"], $_SERVER["HTTP_HOST"]))){ ?>
+                                    <div class="carnaby-info">
+                                        
+                                        <p>With Carnaby West, you can find the best places to shop online. This listing lets you know what you'll find at this shop, details on how your purchased items will be shipped to you and reviews from other Carnaby West Members.
+                                        If you have shopped at this site, we'd love you to leave a review about your experience!</p>
+                                    </div>
+                                <?php } ?>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 category-info">
