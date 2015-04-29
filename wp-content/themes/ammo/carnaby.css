@@ -674,6 +674,7 @@ Carnaby Homepage Styles
 }
 .homepage .quick-search-img-lg{
     width: 593px;
+    max-width: 100%;
     height: 175px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1090,6 +1091,17 @@ a.uultra-btn-deletemessage:hover{
     .wpbdp-listing .listing-header{
         //padding-top: 130px;
     }
+    
+    .homepage .review-panel-content{
+        column-count: 1;
+        -webkit-column-count: 1;
+        -ms-column-count: 1;
+        -moz-column-count: 1;
+
+        height: 850px;
+        overflow-x: hidden;
+    }
+    
 }
 
 @media only screen and (min-width: 767px){

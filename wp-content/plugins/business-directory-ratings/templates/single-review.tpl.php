@@ -71,7 +71,21 @@ $listing_url = get_permalink($rating->listing_id);
                         </span>
                     </div>
                     <div class="rating-comment" itemprop="description">
-                        <?php echo esc_attr($rating->comment); ?>
+                        <?php 
+                        $comment = esc_attr($rating->comment);
+                        if($context=="excerpt"){
+                            if(strlen($comment)>230){
+                                $pos=strpos($comment, ' ', 230);
+                                echo substr($comment, 0, $pos)."<a href='".$listing_url."'> ... read more</a>";
+                            }else{
+                                echo $comment;
+                            }
+                        }else{
+                            echo $comment;
+                        }
+                        
+                        
+                        ?>
 
                     </div>
                     

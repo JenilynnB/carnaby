@@ -190,10 +190,11 @@ get_header();
                                     foreach($reviews as $review){
                                         $vars = array();
                                         $vars['rating'] = $review;
+                                        $vars['context'] = "excerpt";
 
                                         $template_path = WPBDP_RATINGS_TEMPLATES_PATH . '/single-review.tpl.php';
                                         ?>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
                                         <?php
                                         echo wpbdp_render_page($template_path, $vars);
                                         ?>
@@ -280,13 +281,13 @@ get_header();
                                 <div class='row quick-search-panel-content '>
                                     
                                     <a href='<?php echo site_url("/women/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
-                                        <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
+                                        <div class='col-sm-12 col-md-6 col-xs-12 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/women.jpg");?>")'>
                                             <div class='quick-search-overlay-lg'>Womens Apparel, Free Shipping & Free Returns</div>
                                         </div>
                                     </a>
                                         
                                     <a href='<?php echo site_url("/men/?_sfm_shipping=ship_free&_sfm_return_shipping=return_free");?>'>
-                                        <div class='col-sm-12 col-md-6 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
+                                        <div class='col-sm-12 col-md-6 col-xs-12 quick-search-img-lg' style='background-image:url("<?php echo site_url("/wp-content/uploads/men.jpg");?>")'>
                                             <div class='quick-search-overlay-lg'>Mens Apparel, Free Shipping & Free Returns</div>
                                         </div>
                                     </a>
