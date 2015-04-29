@@ -474,6 +474,7 @@ Carnaby Homepage Styles
   
   -webkit-flex-flow: row wrap;
   justify-content: center;
+  -webkit-justify-content: center;
   align-items: flex-start;
   text-align: center;
 }
@@ -507,6 +508,7 @@ Carnaby Homepage Styles
   
     -webkit-flex-flow: row wrap;
     justify-content: center;
+    -webkit-justify-content: center;
     align-items: flex-start;
     text-align: center;
 }
@@ -655,8 +657,13 @@ Carnaby Homepage Styles
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    
     justify-content: center;
+    -webkit-justify-content: center;
     flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -moz-flex-direction: wrap;
+    -webkit-flex-wrap: wrap;
     
 }
 
