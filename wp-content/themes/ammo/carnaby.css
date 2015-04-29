@@ -566,10 +566,10 @@ Carnaby Homepage Styles
     display: -webkit-flex;
     display: flex;
   
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
     
     -ms-flex-wrap: wrap;
     -moz-flex-direction: wrap;
@@ -586,8 +586,8 @@ Carnaby Homepage Styles
     -ms-column-count: flex-start;
     -moz-column-count: flex-start;
     
-    height: 550px;
-    overflow-x: hidden;
+    //height: 550px;
+    //overflow-x: hidden;
 }
 
 #women-category-title{left:95px;}
@@ -1098,8 +1098,8 @@ a.uultra-btn-deletemessage:hover{
         -ms-column-count: 1;
         -moz-column-count: 1;
 
-        height: 850px;
-        overflow-x: hidden;
+        //height: 1000px;
+        //overflow-y: hidden;
     }
     
 }
