@@ -1690,7 +1690,7 @@ function modify_wp_search_distinct( $distinct ) {
 
 /* Changs the title in the browser */
 function edit_page_title($title, $sep){
-    global $xoouserultra;
+        global $xoouserultra;
     
     //These are various modules as a part of profile pages
     if(isset($_GET["module"])){	$module = $_GET["module"];	}
@@ -1711,12 +1711,15 @@ function edit_page_title($title, $sep){
     
     //This is the profile page
     if(strpos($_SERVER['REQUEST_URI'], 'profile')){
-        
-        $first_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id);
-        $last_name = $xoouserultra->userpanel->get_user_meta('last_name', $user_id);
-        $last_initial = $last_name!='' ? substr($last_name, 0, 1).".": '';
-        
-        $title = $first_name." ".$last_initial."'s Revuews ";
+        if(isset($_GET['uu_username'])){
+            $user_id = $_GET['uu_username'];
+
+            $first_name = $xoouserultra->userpanel->get_user_meta('first_name', $user_id);
+            $last_name = $xoouserultra->userpanel->get_user_meta('last_name', $user_id);
+            $last_initial = $last_name!='' ? substr($last_name, 0, 1).".": '';
+
+            $title = $first_name." ".$last_initial."'s Reviews ";
+        }
     }
     
     
