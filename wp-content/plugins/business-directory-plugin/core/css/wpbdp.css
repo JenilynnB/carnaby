@@ -142,6 +142,7 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-bottom: 10px;
     height: 187px;
     width: 250px;
+    max-width: 100%;
 }
 
 .wpbdp-listing-excerpt .listing-thumbnail img {
