@@ -1438,13 +1438,14 @@ function render_customer_support_email(){
                . "  <i class='icon-envelope-open'></i> Support Email: "
                . "</div>";
     
-        if(filter_var($support_email, FILTER_VALIDATE_EMAIL)){
+        
+        if(stristr($support_email, "http://") || stristr($support_email, "https://")){
+            $html.= "<div class='listing-category-values'>"
+    . "<a href='".$support_email."' target=_blank>Contact Form</a></div>";
+        }else{
             $html.= "<div class='listing-category-values'>"
                    . "<a href='mailto:".$support_email."'>".$support_email."</a></div>";
 
-        }else{
-            $html.= "<div class='listing-category-values'>"
-    . "<a href='".$support_email."' target=_blank>Contact Form</a></div>";
         }
     }
     return $html;
