@@ -315,7 +315,7 @@ function get_screenshot_url($content, $width){
             $content = substr($content, 8);
             $screenshot_base_url = "http://s.wordpress.com/mshots/v1/https%3A%2F%2F";
         }else{
-            $screenshot_base_url = "http://s.wordpress.com/mshots/v1/https%3A%2F%2F";
+            $screenshot_base_url = "http://s.wordpress.com/mshots/v1/http%3A%2F%2F";
         }
         
         $screenshot_url = $screenshot_base_url.$content;
