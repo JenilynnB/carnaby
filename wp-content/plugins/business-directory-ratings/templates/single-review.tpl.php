@@ -78,10 +78,10 @@ $listing_url = get_permalink($rating->listing_id);
                                 $pos=strpos($comment, ' ', 230);
                                 echo substr($comment, 0, $pos)."<a href='".$listing_url."'> ... read more</a>";
                             }else{
-                                echo $comment;
+                                echo nl2br($comment);
                             }
                         }else{
-                            echo $comment;
+                            echo nl2br($comment);
                         }
                         
                         
