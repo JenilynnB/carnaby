@@ -630,7 +630,7 @@ class BusinessDirectory_RatingsModule {
                 $res['success'] = true;                
                 break;
             case 'new':
-                $res = array('success' => false, 'msg' => __("I got to new", 'wpbdp-ratings'));
+                $res = array('success' => false, 'msg' => __("An unknown error occurred", 'wpbdp-ratings'));
                  
                 
                 $review = stripslashes_deep( array(
@@ -748,7 +748,7 @@ class BusinessDirectory_RatingsModule {
                 
             case 'edit':
                 //$review['id'] = intval($_POST['id']);
-                $res = array('success' => false, 'msg' => __('I got to edit', 'wpbdp-ratings'));
+                $res = array('success' => false, 'msg' => __('An unknown error occurred', 'wpbdp-ratings'));
                 
                 if ($review = $wpdb->get_row( $wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_ratings WHERE id = %d", $_POST['id']) )) {
                     if ( ( $review->user_id && $review->user_id == get_current_user_id() ) || current_user_can('administrator')) {
@@ -777,7 +777,7 @@ class BusinessDirectory_RatingsModule {
             case 'get_reviews':
                 
                 
-                $res = array('success' => false, 'msg' => __("I got to get reviews", 'wpbdp-ratings'));
+                $res = array('success' => false, 'msg' => __("An unknown error occurred", 'wpbdp-ratings'));
                  
                 $listing_id = $_POST['listing_id'];
                 $page_num = $_POST['page'] + 1;    //get the next page
