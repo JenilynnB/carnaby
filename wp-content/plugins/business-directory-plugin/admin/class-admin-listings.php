@@ -305,7 +305,7 @@ class WPBDP_Admin_Listings {
                 $taxquery[] = 
                     array(
                         'taxonomy' => WPBDP_CATEGORY_TAX,
-                        'field' => 'name',
+                        'field' => 'slug',
                         'terms' => $term->slug,
                         'operator' => 'IN'
                     );
