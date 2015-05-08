@@ -1572,6 +1572,28 @@ function get_standard_fields(){
 }
 
 /*
+ * This function returns the specified field and its rules, unrelated to any post
+ *  
+ */
+
+function get_standard_field($field_name){
+    $acfs = apply_filters('acf/get_field_groups', array());
+    if( $acfs )
+    {
+        foreach( $acfs as $acf )
+        {
+            $standard_fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+            foreach($standard_fields as $sf){
+                if(strcasecmp($sf['name'], $field_name)==0){
+                    return $sf;
+                }
+            }
+        }
+    }
+}
+
+
+/*
  * Need the field key for any field? This is a reliable way to return it.
  */
 
