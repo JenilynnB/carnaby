@@ -6,7 +6,9 @@ class WPBDP_Admin_Listings {
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'add_columns' ) );
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
         add_action( 'restrict_manage_posts', array(&$this, 'my_restrict_manage_posts_category'));
+        add_action( 'restrict_manage_posts', array(&$this, 'my_restrict_manage_posts_meta'));
         add_action( 'parse_query', array(&$this, 'convert_directory_id_to_taxonomy_term'));
+        add_action( 'parse_query', array(&$this, 'add_meta_id_to_query'));
         
         add_filter( 'views_edit-' . WPBDP_POST_TYPE, array( &$this, 'listing_views' ) );
         add_filter( 'posts_clauses', array( &$this, 'listings_admin_filters' ) );
@@ -16,28 +18,66 @@ class WPBDP_Admin_Listings {
 
     
     function my_restrict_manage_posts_category() {
-            global $typenow;
+        global $typenow;
+        
+        
+        if ($typenow==WPBDP_POST_TYPE){
+            $selected = $_REQUEST[WPBDP_CATEGORY_TAX];
+            
+            $args = array(
+                'show_option_all' => "Show All Categories",
+                'taxonomy'        => WPBDP_CATEGORY_TAX,
+                'name'               => WPBDP_CATEGORY_TAX, 
+                'hierarchical'      => true,
+                'selected'          => $selected
 
-            if ($typenow==WPBDP_POST_TYPE){
-                $args = array(
-                    'show_option_all' => "Show All Categories",
-                    'taxonomy'        => WPBDP_CATEGORY_TAX,
-                    'name'               => WPBDP_CATEGORY_TAX, 
-                    'hierarchical'      => true
-
-                );
-                return wp_dropdown_categories($args);
-            }
+            );
+            wp_dropdown_categories($args);
+        }
     }
     
+    function my_restrict_manage_posts_meta(){
+        global $typenow;
+        $meta_key_list = array(
+                "good_for_women",
+                "good_for_men",
+                "good_for_kids");
+        
+        
+        foreach($meta_key_list as $meta_key){
+            if ($typenow==WPBDP_POST_TYPE){
+                $field = get_standard_field($meta_key);
+                $meta_value = $_REQUEST[$meta_key];
+                $field_options = $field['choices'];
+                $dropdown = '<select name="'.$field["name"].'" id = "'.$field["name"].'" class="postform" >';
+                $dropdown .= '<option value="none" selected="selected">Show all '.$meta_key.'</option> ';
+                foreach($field_options as $option => $display_name){
+                    if($option==$meta_value){
+                        $selected = "selected";
+                    }else{
+                        $selected = "";
+                    }
+                    $dropdown .= '<option value="'.$option.'"  '.$selected.'>'.$display_name.'</option>';
+                }
+
+                $dropdown .= '</select>';
+
+                echo $dropdown;
+            }
+        }
+        
+    }
     
 
     
     function add_columns( $columns_ ) {
         $custom_columns = array();
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['payment_status'] = __( 'Payment Status', 'WPBDM' );
-        $custom_columns['sticky_status'] = __( 'Featured (Sticky) Status', 'WPBDM' );
+        $custom_columns['good_for_women'] = _x( 'Good For - Women', 'admin', 'WPBDM' );
+        $custom_columns['good_for_men'] = _x( 'Good For - Men', 'admin', 'WPBDM' );
+        $custom_columns['good_for_kids'] = _x( 'Good For - Kids', 'admin', 'WPBDM' );
+        //$custom_columns['payment_status'] = __( 'Payment Status', 'WPBDM' );
+        //$custom_columns['sticky_status'] = __( 'Featured (Sticky) Status', 'WPBDM' );
 
         $columns = array();
 
@@ -76,6 +116,38 @@ class WPBDP_Admin_Listings {
             $i++;
         }
     }
+    
+    function listing_column_good_for_women( $post_id ) {
+        $listing = WPBDP_Listing::get( $post_id );
+        $meta_values = get_field('good_for_women', $post_id);
+        
+        if($meta_values!=null){
+            print(implode(", ", $meta_values));
+            
+        }
+    }
+    
+    function listing_column_good_for_men( $post_id ) {
+        $listing = WPBDP_Listing::get( $post_id );
+        $meta_values = get_field('good_for_men', $post_id);
+        
+        if($meta_values!=null){
+            print(implode(", ", $meta_values));
+            
+        }
+    }
+    
+    function listing_column_good_for_kids( $post_id ) {
+        $listing = WPBDP_Listing::get( $post_id );
+        $meta_values = get_field('good_for_kids', $post_id);
+        
+        if($meta_values!=null){
+            print(implode(", ", $meta_values));
+            
+        }
+    }
+    
+    
 
     function listing_column_payment_status( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
@@ -227,6 +299,7 @@ class WPBDP_Admin_Listings {
             if ($pagenow=='edit.php' &&
                 isset($qv['post_type']) && $qv['post_type']==WPBDP_POST_TYPE &&
                 isset($qv[WPBDP_CATEGORY_TAX]) && is_numeric($qv[WPBDP_CATEGORY_TAX]) && $qv[WPBDP_CATEGORY_TAX]!=0) {
+ 
                     $term = get_term_by('id',$qv[WPBDP_CATEGORY_TAX],WPBDP_CATEGORY_TAX);
                     $taxquery[] = 
                         array(
@@ -243,10 +316,40 @@ class WPBDP_Admin_Listings {
                     $query->set(WPBDP_CATEGORY_TAX, '');
                     
                 }
-                
+    }
+    
+    function add_meta_id_to_query($query){
+        //echo $GLOBALS['wp_query']->request;
+        global $pagenow;
+        $meta_key_list = array(
+                "good_for_men",
+                "good_for_women",
+                "good_for_kids");
+        $qv = &$query->query_vars;
+        
+        foreach($meta_key_list as $meta_key){
+            $meta_value = $_REQUEST[$meta_key];
+            if ($pagenow=='edit.php' &&
+                    isset($qv['post_type']) && $qv['post_type']==WPBDP_POST_TYPE &&
+                    isset($meta_value) && $meta_value!="none") {
+
+                //$query->set($meta_key, $meta_value);
+                //$qv[$meta_key] = $meta_value;
+
+                $query->set('meta_query', array(
+
+                        array(
+                                'key'     => $meta_key,
+                                'value'   => $meta_value,
+                                'compare' => 'LIKE'
+                        )
+                ));
+
+
+            }
+        }
         
     }
-        
         
         
     // }}}
