@@ -29,7 +29,8 @@ class WPBDP_Admin_Listings {
                 'taxonomy'        => WPBDP_CATEGORY_TAX,
                 'name'               => WPBDP_CATEGORY_TAX, 
                 'hierarchical'      => true,
-                'selected'          => $selected
+                'selected'          => $selected,
+                'orderby'           => 'NAME'
 
             );
             wp_dropdown_categories($args);
@@ -293,29 +294,30 @@ class WPBDP_Admin_Listings {
 
     function convert_directory_id_to_taxonomy_term($query) {
         
-            global $pagenow;
-            $qv = &$query->query_vars;
-            $taxquery = $query->get('tax_query');
-            if ($pagenow=='edit.php' &&
-                isset($qv['post_type']) && $qv['post_type']==WPBDP_POST_TYPE &&
-                isset($qv[WPBDP_CATEGORY_TAX]) && is_numeric($qv[WPBDP_CATEGORY_TAX]) && $qv[WPBDP_CATEGORY_TAX]!=0) {
- 
-                    $term = get_term_by('id',$qv[WPBDP_CATEGORY_TAX],WPBDP_CATEGORY_TAX);
-                    $taxquery[] = 
-                        array(
-                            'taxonomy' => WPBDP_CATEGORY_TAX,
-                            'field' => 'name',
-                            'terms' => $term->slug,
-                            'operator' => 'IN'
-                        );
-                    
-                    $query->set( 'tax_query', $taxquery );
-                    
-                    //At some point this gets set in the main wordpress query and it is not
-                    //a valid query var. It needs to be reset to work properly.
-                    $query->set(WPBDP_CATEGORY_TAX, '');
-                    
-                }
+        global $pagenow;
+        $qv = &$query->query_vars;
+        $taxquery = $query->get('tax_query');
+        if ($pagenow=='edit.php' &&
+            isset($qv['post_type']) && $qv['post_type']==WPBDP_POST_TYPE &&
+            isset($qv[WPBDP_CATEGORY_TAX]) && is_numeric($qv[WPBDP_CATEGORY_TAX]) && $qv[WPBDP_CATEGORY_TAX]!=0) {
+
+                $term = get_term_by('id',$qv[WPBDP_CATEGORY_TAX],WPBDP_CATEGORY_TAX);
+                $taxquery[] = 
+                    array(
+                        'taxonomy' => WPBDP_CATEGORY_TAX,
+                        'field' => 'name',
+                        'terms' => $term->slug,
+                        'operator' => 'IN'
+                    );
+
+                $query->set( 'tax_query', $taxquery );
+
+                //At some point this gets set in the main wordpress query and it is not
+                //a valid query var. It needs to be reset to work properly.
+                $query->set(WPBDP_CATEGORY_TAX, '');
+                //echo print_r($query);
+
+        }
     }
     
     function add_meta_id_to_query($query){
