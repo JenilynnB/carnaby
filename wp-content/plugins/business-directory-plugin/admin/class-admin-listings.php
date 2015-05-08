@@ -5,13 +5,34 @@ class WPBDP_Admin_Listings {
     function __construct() {
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'add_columns' ) );
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
-
+        add_action( 'restrict_manage_posts', array(&$this, 'my_restrict_manage_posts_category'));
+        add_action( 'parse_query', array(&$this, 'convert_directory_id_to_taxonomy_term'));
+        
         add_filter( 'views_edit-' . WPBDP_POST_TYPE, array( &$this, 'listing_views' ) );
         add_filter( 'posts_clauses', array( &$this, 'listings_admin_filters' ) );
     }
 
     // {{{ Custom columns.
 
+    
+    function my_restrict_manage_posts_category() {
+            global $typenow;
+
+            if ($typenow==WPBDP_POST_TYPE){
+                $args = array(
+                    'show_option_all' => "Show All Categories",
+                    'taxonomy'        => WPBDP_CATEGORY_TAX,
+                    'name'               => WPBDP_CATEGORY_TAX, 
+                    'hierarchical'      => true
+
+                );
+                return wp_dropdown_categories($args);
+            }
+    }
+    
+    
+
+    
     function add_columns( $columns_ ) {
         $custom_columns = array();
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
@@ -193,10 +214,41 @@ class WPBDP_Admin_Listings {
             default:
                 break;
         }
-
+        
+        
         return $pieces;
     }
 
+    function convert_directory_id_to_taxonomy_term($query) {
+        
+            global $pagenow;
+            $qv = &$query->query_vars;
+            $taxquery = $query->get('tax_query');
+            if ($pagenow=='edit.php' &&
+                isset($qv['post_type']) && $qv['post_type']==WPBDP_POST_TYPE &&
+                isset($qv[WPBDP_CATEGORY_TAX]) && is_numeric($qv[WPBDP_CATEGORY_TAX]) && $qv[WPBDP_CATEGORY_TAX]!=0) {
+                    $term = get_term_by('id',$qv[WPBDP_CATEGORY_TAX],WPBDP_CATEGORY_TAX);
+                    $taxquery[] = 
+                        array(
+                            'taxonomy' => WPBDP_CATEGORY_TAX,
+                            'field' => 'name',
+                            'terms' => $term->slug,
+                            'operator' => 'IN'
+                        );
+                    
+                    $query->set( 'tax_query', $taxquery );
+                    
+                    //At some point this gets set in the main wordpress query and it is not
+                    //a valid query var. It needs to be reset to work properly.
+                    $query->set(WPBDP_CATEGORY_TAX, '');
+                    
+                }
+                
+        
+    }
+        
+        
+        
     // }}}
-
+    
 }
