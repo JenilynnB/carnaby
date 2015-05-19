@@ -8,6 +8,16 @@
 
 
 get_header();
+
+$womens_cat_id = get_term_by('slug', 'women', WPBDP_CATEGORY_TAX);
+$womens_term_link = get_term_link( $womens_cat_id, WPBDP_CATEGORY_TAX );
+
+$mens_cat_id = get_term_by('slug', 'men', WPBDP_CATEGORY_TAX);
+$mens_term_link = get_term_link( $mens_cat_id, WPBDP_CATEGORY_TAX );
+
+$kids_cat_id = get_term_by('slug', 'kids-baby', WPBDP_CATEGORY_TAX);
+$kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
+
 ?>
 <section class="primary homepage section">
     
@@ -147,25 +157,25 @@ get_header();
                                      url(<?php echo site_url('/wp-content/uploads/Carnaby-Women.png');?> );">
 
                                     <div class="category-overlay" id="overlay-women">
-                                        <div class="btn btn-secondary category-btn"><a href="<?php echo site_url().'/site_categories/Women';?>">VIEW</a></div>
+                                        <div class="btn btn-secondary category-btn"><a href="<?php echo $womens_term_link;?>">VIEW</a></div>
                                     </div>
-                                    <div class="category-label" id="women-category-title"><a href="<?php echo site_url().'/site_categories/Women';?>">Women</a></div>
+                                    <div class="category-label" id="women-category-title"><a href="<?php echo $womens_term_link;?>">Women</a></div>
                                 </div>
                                 <div class="category-content col-sm-12 col-xs-12 col-md-4" id="category-men" style="background-image: 
                                      url(<?php echo site_url('/wp-content/uploads/Carnaby-Men.png');?> );">
 
                                     <div class="category-overlay" id="overlay-men">
-                                        <div class="btn btn-secondary category-btn"><a href="<?php echo site_url().'/site_categories/Men';?>">VIEW</a></div>
+                                        <div class="btn btn-secondary category-btn"><a href="<?php echo $mens_term_link;?>">VIEW</a></div>
                                     </div>
-                                    <div class="category-label" id="men-category-title"><a href="<?php echo site_url().'/site_categories/Men';?>">Men</a></div>
+                                    <div class="category-label" id="men-category-title"><a href="<?php echo $mens_term_link;?>">Men</a></div>
                                 </div>
                                 <div class="category-content col-sm-12 col-xs-12 col-md-4" id="category-kids" style="background-image: 
                                      url(<?php echo site_url('/wp-content/uploads/Carnaby-Kids.png');?> );">
 
                                     <div class="category-overlay" id="overlay-kids">
-                                        <div class="btn btn-secondary category-btn"><a href="<?php echo site_url().'/site_categories/kids-baby';?>">VIEW</a></div>
+                                        <div class="btn btn-secondary category-btn"><a href="<?php echo $kids_term_link;?>">VIEW</a></div>
                                     </div>
-                                    <div class="category-label" id="kids-category-title"><a href="<?php echo site_url().'/site_categories/kids-baby';?>">Kids & Babies</a></div>
+                                    <div class="category-label" id="kids-category-title"><a href="<?php echo $kids_term_link;?>">Kids & Babies</a></div>
                                 </div>
                             </div>
                         </div>
