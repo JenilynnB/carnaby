@@ -584,7 +584,7 @@ function render_category_info(){
         
         
         foreach($womens_categories as $wc){
-            $url = site_url().'/business-directory/site_categories/' . $wc->slug . '/';
+            $url = get_term_link( $wc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $wc->name . "</a>";
             $womens_category_links[] = $link;
         }
@@ -670,7 +670,7 @@ function render_category_info(){
         
         
         foreach($mens_categories as $mc){
-            $url = site_url().'/business-directory/site_categories/' . $mc->slug . '/';
+            $url = get_term_link( $mc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $mc->name . "</a>";
             $mens_category_links[] = $link;
         }
@@ -755,7 +755,7 @@ function render_category_info(){
         
         
         foreach($girls_categories as $gc){
-            $url = site_url().'/business-directory/site_categories/' . $gc->slug . '/';
+            $url = get_term_link( $gc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $gc->name . "</a>";
             $girls_category_links[] = $link;
         }
@@ -768,7 +768,7 @@ function render_category_info(){
         }
         
         foreach($boys_categories as $bc){
-            $url = site_url().'/business-directory/site_categories/' . $bc->slug . '/';
+            $url = get_term_link( $bc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $bc->name . "</a>";
             $boys_category_links[] = $link;
         }
@@ -782,7 +782,7 @@ function render_category_info(){
         }
         
         foreach($baby_categories as $bbc){
-            $url = site_url().'/business-directory/site_categories/' . $bbc->slug . '/';
+            $url = get_term_link( $bbc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $bbc->name . "</a>";
             $baby_category_links[] = $link;
         }

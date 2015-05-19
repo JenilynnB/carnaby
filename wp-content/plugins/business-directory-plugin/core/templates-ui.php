@@ -614,7 +614,8 @@ class WPBDP_ListingFieldDisplayItem {
     
     public static function prepare_categories($category_list){
         foreach($category_list as $category){
-            $link = '/business-directory/site_categories/' . $category->slug . '/';  
+            $link = get_term_link( $category->id, WPBDP_CATEGORY_TAX );
+            //$link = '/business-directory/site_categories/' . $category->slug . '/';  
             $html_array[] = $category;
         }
     }

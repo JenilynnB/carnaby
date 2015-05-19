@@ -61,8 +61,9 @@ $class = "";
     //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
     
     if($parent_term->term_id!=""){
-        $parent_base_url = site_url("site_categories");
-        $parent_url = $parent_base_url."/".$parent_term->slug;
+        //$parent_base_url = site_url("site_categories");
+        //$parent_url = $parent_base_url."/".$parent_term->slug;
+        $parent_url = get_term_link( $parent_term->id, WPBDP_CATEGORY_TAX );
         
         $breadcrumbs .= "<a href='".$parent_url."'>".$parent_term->name."</a>";
         $breadcrumbs .= " > "; 
