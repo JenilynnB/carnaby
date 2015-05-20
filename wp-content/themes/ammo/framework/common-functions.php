@@ -1694,33 +1694,28 @@ function edit_page_title($title, $sep){
     
     //These are various modules as a part of profile pages
     if(isset($_GET["module"])){	$module = $_GET["module"];	}
-
-    if($module=='messages' || $module=='messages_sent'){
-        $title = "My Messages | ";
-    }elseif($module=='friends'){
-        $title = "Friends | ";
-    }elseif($module=='profile'){
-        $title = "Edit My Profile | ";
-    }else if(is_home()){
-        //This is the results page after filters have been applied
-        $query_tax = get_query_var("tax_query");
-        $qt = $query_tax[0];
-        if(isset($qt['taxonomy']) && $qt['taxonomy']==WPBDP_CATEGORY_TAX){
-            $term_names = $qt["terms"];
-            $term = get_term_by("slug", $term_names[0], WPBDP_CATEGORY_TAX);
-            
-            $title = $term->name. " | ";
-        }
-    }
     
     //This is a business listing
     if(is_single() && get_post_type()==WPBDP_POST_TYPE){
         $sep = strpos($title, "|");        
         $title = substr($title, 0, $sep). "Reviews | ";
-    }
-    
-    //This is the profile page
-    if(strpos($_SERVER['REQUEST_URI'], 'profile')){
+    }else if(is_home()){
+        //This is the results page after filters have been applied
+        $query_tax = get_query_var("tax_query");
+        $qt = $query_tax[0];
+        
+        if(isset($qt['taxonomy']) && $qt['taxonomy']==WPBDP_CATEGORY_TAX){
+            $term_names = $qt["terms"];
+            if(is_array($term_names)){
+                $term = get_term_by("slug", $term_names[0], WPBDP_CATEGORY_TAX);
+            }else{
+                $term = get_term_by("slug", $term_names, WPBDP_CATEGORY_TAX);
+            }
+
+            $title = $term->name. " | ";
+        }
+    }else if(strpos($_SERVER['REQUEST_URI'], 'profile')){
+        //This is the profile page
         if(isset($_GET['uu_username'])){
             $user_id = $_GET['uu_username'];
 
@@ -1730,7 +1725,17 @@ function edit_page_title($title, $sep){
 
             $title = $first_name." ".$last_initial."'s Reviews ";
         }
+    }else if($module=='messages' || $module=='messages_sent'){
+        $title = "My Messages | ";
+    }elseif($module=='friends'){
+        $title = "My Friends | ";
+    }elseif($module=='profile'){
+        $title = "Edit My Profile | ";
     }
+    
+    
+    
+    
     
     
     //fix for profile as well
