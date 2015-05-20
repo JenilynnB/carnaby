@@ -78,7 +78,14 @@
                 if(isset($qt['taxonomy']) && $qt['taxonomy']==WPBDP_CATEGORY_TAX){
                     $term_names = $qt["terms"];
                     $term = get_term_by("slug", $term_names[0], WPBDP_CATEGORY_TAX);
-                    echo term_description($term->term_id, WPBDP_CATEGORY_TAX);
+                    $term_description = term_description($term->term_id, WPBDP_CATEGORY_TAX);
+                    if(isset($term_description) && $term_description != ""){
+                        echo $term_description;
+                    }else{
+                        bloginfo('description');
+                    }
+                } else {
+                    bloginfo('description');
                 }
                 
             } else {
