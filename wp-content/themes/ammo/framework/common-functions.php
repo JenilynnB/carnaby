@@ -1701,6 +1701,16 @@ function edit_page_title($title, $sep){
         $title = "Friends | ";
     }elseif($module=='profile'){
         $title = "Edit My Profile | ";
+    }else if(is_home()){
+        //This is the results page after filters have been applied
+        $query_tax = get_query_var("tax_query");
+        $qt = $query_tax[0];
+        if(isset($qt['taxonomy']) && $qt['taxonomy']==WPBDP_CATEGORY_TAX){
+            $term_names = $qt["terms"];
+            $term = get_term_by("slug", $term_names[0], WPBDP_CATEGORY_TAX);
+            
+            $title = $term->name. " | ";
+        }
     }
     
     //This is a business listing
