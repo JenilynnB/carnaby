@@ -35,8 +35,59 @@
    		$header_opacity = isset($smof_data['header_opacity']) && $header_transparent!='' ? (int)$smof_data['header_opacity'] : 0;
    		$header_opacity = $header_opacity/100;
    		$body_classes .= 'slidemenu-push';
-
+                
    	?>
+        
+        <meta name="description" content="<?php if ( is_single() && get_post_type(get_the_id()) == WPBDP_POST_TYPE) {
+                /**********************TO DO***********************/
+                /* Show latest review. If no reviews, show standard description */
+                
+                $latest_review = BusinessDirectory_RatingsModule::get_reviews_paginated(get_the_id(), 1, 1);
+                $num_reviews = BusinessDirectory_RatingsModule::get_total_reviews(get_the_id());
+                        
+                if(isset($latest_review) && sizeof($latest_review)!=0){
+                    $review_text = $latest_review[0]->comment;
+                    if(strlen($review_text)>200){
+                        $review_text = substr($review_text, 0, 300). "...";
+                    }
+                    $total_review_string = $num_reviews. ($num_reviews==1? " review": " reviews");
+                    echo $total_review_string. " for ". single_post_title("",FALSE)." on Carnaby West: ". $review_text;
+                    
+                }else{
+                    bloginfo('description');
+                }
+                
+               
+            } else if (is_archive() || is_category()){
+                /* This is the directory categories index page (i.e. "Womens Accessories") */
+                
+                $term = $wp_query->get_queried_object();
+                $term_description = term_description($term->id, WPBDP_CATEGORY_TAX);
+                if(isset($term_description) && $term_description != ""){
+                    echo $term_description;
+                } else {
+                    bloginfo('description');
+                }
+                
+            }else if (is_home()){
+                
+                //This is the results page after filters have been applied
+                
+                $query_tax = get_query_var("tax_query");
+                $qt = $query_tax[0];
+                if(isset($qt['taxonomy']) && $qt['taxonomy']==WPBDP_CATEGORY_TAX){
+                    $term_names = $qt["terms"];
+                    $term = get_term_by("slug", $term_names[0], WPBDP_CATEGORY_TAX);
+                    echo term_description($term->term_id, WPBDP_CATEGORY_TAX);
+                }
+                
+            } else {
+                
+                bloginfo('description');
+            }
+            ?>" 
+        />
+        
    	<?php wp_head(); ?>
 
 </head>

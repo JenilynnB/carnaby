@@ -42,18 +42,19 @@ $class = "";
                 }
             }
         }
-    }else{
-        $term_object = get_queried_object();
-    } 
+    }
+    
+    $term_object = get_queried_object();
+     
     
     if($term!=''){
         $term_object = get_term_by($field, $term, WPBDP_CATEGORY_TAX);
         if($term_object->parent!=0){
             $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
         }
-    }else if($main_query){
+    }else{
         if($term_object->parent!=0){
-            $parent_term = get_term($term->parent, WPBDP_CATEGORY_TAX);
+            $parent_term = get_term($term_object->parent, WPBDP_CATEGORY_TAX);
         }
     }
     
@@ -63,10 +64,12 @@ $class = "";
     if($parent_term->term_id!=""){
         //$parent_base_url = site_url("site_categories");
         //$parent_url = $parent_base_url."/".$parent_term->slug;
-        $parent_url = get_term_link( $parent_term->id, WPBDP_CATEGORY_TAX );
-        
+        $parent_url = get_term_link( $parent_term->term_id, WPBDP_CATEGORY_TAX );
+        /*
         $breadcrumbs .= "<a href='".$parent_url."'>".$parent_term->name."</a>";
         $breadcrumbs .= " > "; 
+         * 
+         */
         
     }
 

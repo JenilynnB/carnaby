@@ -1748,3 +1748,9 @@ function edit_the_title($title, $sep){
 }
     
 add_filter('the_title', 'edit_the_title', 10, 2);
+
+/* Wordpress automatically inserts <p> tags when returning a term description.
+ * This function is used to generate meta descriptions for pages and is not 
+ * needed, so it's being turned off here.
+ */
+remove_filter('term_description','wpautop');
