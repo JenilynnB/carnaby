@@ -250,6 +250,7 @@ class BusinessDirectory_RatingsModule {
      */
 
     public function _sort_options($options) {
+        $options['alpha'] = array( __('Alphabetically', 'wpbdp-ratings'), '', 'ASC');
         $options['rating'] = array( __( 'Rating', 'wpbdp-ratings' ), '', 'DESC' );
         $options['rating_count'] = array( __( 'Rating Count', 'wpbdp-ratings' ), '', 'DESC' );
         return $options;
@@ -263,8 +264,12 @@ class BusinessDirectory_RatingsModule {
         if (!$sort)
             return $fields;
 
-        $rating_query = "(SELECT ROUND(AVG(rating)) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating, (SELECT COUNT(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating_count";
-        return $fields . ', ' . $rating_query;
+        if($sort->option == 'rating' || $sort->option == 'rating_count'){
+            $rating_query = "(SELECT ROUND(AVG(rating)) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating, (SELECT COUNT(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating_count";
+            return $fields . ', ' . $rating_query;
+        }else{
+            return $fields;
+        }
         
         /*
         if ($sort->option == 'rating') {
@@ -289,12 +294,16 @@ class BusinessDirectory_RatingsModule {
                 return 'wpbdp_rating ' . $sort->order. ', wpbdp_rating_count '. $sort->order." ";
             } elseif ($sort->option == 'rating_count') {
                 return 'wpbdp_rating_count ' . $sort->order . ', wpbdp_rating '. $sort->order." ";
+            } elseif ($sort->option == 'alpha'){
+                return 'wp_opba_posts.post_title ' . $sort->order . ', wp_opba_posts.post_title '. $sort->order." ";
             }
         }else{
             if ($sort->option == 'rating') {
                 return $orderby . ', wpbdp_rating ' . $sort->order;
             } elseif ($sort->option == 'rating_count') {
                 return $orderby . ', wpbdp_rating_count ' . $sort->order;
+            }else if ($sort->option == 'alpha') {
+                return $orderby . ', wpbdp_alpha ' . $sort->order;
             }
         }
 
