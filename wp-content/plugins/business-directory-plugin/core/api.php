@@ -1652,14 +1652,22 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
 }
 
 function wpbdp_get_current_sort_option() {
+    $obj = new StdClass();
     if ($sort = trim(wpbdp_getv($_GET, 'wpbdp_sort', null))) {
         $order = substr($sort, 0, 1) == '-' ? 'DESC' : 'ASC';
         $sort = ltrim($sort, '-');
 
-        $obj = new StdClass();
+        
         $obj->option = $sort;
         $obj->order = $order;
 
+        return $obj;
+    }else{
+        $sort = 'rating';
+        $order = 'DESC';
+        
+        $obj->option = $sort;
+        $obj->order = $order;
         return $obj;
     }
 

@@ -250,9 +250,9 @@ class BusinessDirectory_RatingsModule {
      */
 
     public function _sort_options($options) {
-        $options['alpha'] = array( __('Alphabetically', 'wpbdp-ratings'), '', 'ASC');
-        $options['rating'] = array( __( 'Rating', 'wpbdp-ratings' ), '', 'DESC' );
-        $options['rating_count'] = array( __( 'Rating Count', 'wpbdp-ratings' ), '', 'DESC' );
+        $options['rating'] = array( __( 'Highest Rated', 'wpbdp-ratings' ), '', 'DESC' );
+        $options['rating_count'] = array( __( 'Most Reviewed', 'wpbdp-ratings' ), '', 'DESC' );
+        $options['alpha'] = array( __('A - Z', 'wpbdp-ratings'), '', 'ASC');
         return $options;
     }
 

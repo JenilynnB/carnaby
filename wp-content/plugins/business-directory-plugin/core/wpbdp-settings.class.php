@@ -196,6 +196,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
                           array('choices' => array(
                             array( 'title', _x( 'Title', 'admin settings', 'WPBDM' ) ),
+                            array( 'rating', _x( 'Rating', 'admin settings', 'WPBDM' ) ),
                             array( 'author', _x( 'Author', 'admin settings', 'WPBDM' ) ),
                             array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),

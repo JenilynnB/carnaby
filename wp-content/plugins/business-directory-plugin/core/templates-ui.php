@@ -258,7 +258,23 @@ function wpbdp_listing_sort_options() {
 
     foreach ($sort_options as $id => $option) {
         $default_order = isset( $option[2] ) && !empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
-        if($option[0]=='Alphabetically'){
+        if($current_sort->option == $id){
+                $html .= '<span class="'.$id.' current">'.$option[0].'</span>';
+            }else{
+                $html .= sprintf('<span class="%s %s"><a href="%s" title="%s">%s</a></span>',
+                        $id,
+                        ($current_sort && $current_sort->option == $id) ? 'current': '',
+                        ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ),
+                        isset( $option[1] ) && !empty( $option[1] ) ? esc_attr( $option[1] ) : esc_attr( $option[0] ),
+                        $option[0]
+                        );
+            }
+        /*
+         * This code allows the user to click on the sort labels and switch 
+         * back and forth between sorting from highest to lowest and lowest to 
+         * highest on rating and rating count
+         * 
+        if($option[0]=='A - Z'){
             if($current_sort->option == $id || $current_sort == ''){
                 $html .= '<span class="'.$id.' current">'.$option[0].'</span>';
             }else{
@@ -281,6 +297,7 @@ function wpbdp_listing_sort_options() {
                         ($current_sort && $current_sort->option == $id) ? ($current_sort->order == 'ASC' ? '↑' : '↓') : ( $default_order == 'DESC' ? '↓' : '↑' )
                         );
         }
+        */
         
         $html .= ' | ';
     }
