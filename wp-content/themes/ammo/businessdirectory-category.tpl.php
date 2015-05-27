@@ -158,8 +158,8 @@ $class = "";
 
                                 <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
                                 <?php if(!(stristr($_SERVER["HTTP_REFERER"], $_SERVER["HTTP_HOST"]))){ ?>
-                                    <div class="carnaby-info">
-                                        
+                                    <div class="carnaby-info alert alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <?php 
                                         $cat_term = $term_object->name;
                                         $term_description = term_description($cat_term->id, WPBDP_CATEGORY_TAX);
@@ -168,6 +168,7 @@ $class = "";
                                         } else {
                                             bloginfo('description');
                                         }?>
+                                        
                                     </div>
                                 <?php } ?>
                                 <div id="listings-results">
