@@ -303,6 +303,7 @@ function wpbdp_listing_sort_options() {
     }
     $html = substr($html, 0, -3);
     $html .= '<br />';
+    $html .= '</div>';
     
     /*
     if ($current_sort)

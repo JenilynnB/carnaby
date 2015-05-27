@@ -106,7 +106,14 @@ $class = "";
                 <div class="row">
                     <div class="col-lg-12">
                         <?php if($module!="filters"): ?>
-                        <?php wpbdp_the_listing_sort_options(); ?>
+                            <div class='row'>
+                                <div class='col-lg-3 col-md-3 col-sm-12 col-xs-12'>
+                                    <h4>Filter Results</h4>
+                                </div>
+                                <div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+                                    <?php wpbdp_the_listing_sort_options(); ?>
+                                </div>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -123,26 +130,26 @@ $class = "";
                         <?php $class='col-lg-12'; ?>
                                 
                     <?php endif; ?>
-                        <div class='<?php echo $class;?>'>    
-                                <?php if($module=='filters'): ?>
-                                <a href="?" id="results-return-link" class="breadcrumb">< Back to Results</a>
-                                <?php endif; ?>
-                                <?php 
-                                if(strcasecmp($term, "women")==0){
-                                    echo do_shortcode( '[searchandfilter id="268"]' ); 
-                                }else if (strcasecmp($term, "men")==0){
-                                    echo do_shortcode( '[searchandfilter id="1065"]' );
-                                }else if (strcasecmp($term,"girls")==0){
-                                    echo do_shortcode( '[searchandfilter id="1147"]' );
-                                }else if (strcasecmp($term, "boys")==0){
-                                    echo do_shortcode( '[searchandfilter id="1148"]' );
-                                }else if (strcasecmp($term,"baby")==0){
-                                    echo do_shortcode( '[searchandfilter id="1149"]' );
-                                }else{
-                                    echo do_shortcode( '[searchandfilter id="1143"]' );
-                                }
+                        <div class='<?php echo $class;?>'> 
+                            <?php if($module=='filters'): ?>
+                            <a href="?" id="results-return-link" class="breadcrumb">< Back to Results</a>
+                            <?php endif; ?>
+                            <?php 
+                            if(strcasecmp($term, "women")==0){
+                                echo do_shortcode( '[searchandfilter id="268"]' ); 
+                            }else if (strcasecmp($term, "men")==0){
+                                echo do_shortcode( '[searchandfilter id="1065"]' );
+                            }else if (strcasecmp($term,"girls")==0){
+                                echo do_shortcode( '[searchandfilter id="1147"]' );
+                            }else if (strcasecmp($term, "boys")==0){
+                                echo do_shortcode( '[searchandfilter id="1148"]' );
+                            }else if (strcasecmp($term,"baby")==0){
+                                echo do_shortcode( '[searchandfilter id="1149"]' );
+                            }else{
+                                echo do_shortcode( '[searchandfilter id="1143"]' );
+                            }
 
-                                ?>  
+                            ?>  
                             
                         </div>
                     
@@ -150,6 +157,19 @@ $class = "";
                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
                                 <!--<?php echo $GLOBALS['wp_query']->request; ?>-->
+                                <?php if(!(stristr($_SERVER["HTTP_REFERER"], $_SERVER["HTTP_HOST"]))){ ?>
+                                    <div class="carnaby-info">
+                                        
+                                        <?php 
+                                        $cat_term = $term_object->name;
+                                        $term_description = term_description($cat_term->id, WPBDP_CATEGORY_TAX);
+                                        if(isset($term_description) && $term_description != ""){
+                                            echo $term_description;
+                                        } else {
+                                            bloginfo('description');
+                                        }?>
+                                    </div>
+                                <?php } ?>
                                 <div id="listings-results">
                                 <?php if (!empty($filters) && sizeof($filters)>0): ?>
                                     <div class='filters'>

@@ -843,12 +843,13 @@ Carnaby Listing Styles
     background-color: transparent;
 }
 
-.wpbdp-listing .carnaby-info{
+.carnaby-info{
     background-color: #f6f6f6;
     border: solid 1px #dedede;
     padding: 15px;
     margin-bottom: 25px;
-    margin-left: 15px;
+    margin-right: 15px;
+    //margin-left: 15px;
 }
 
 
