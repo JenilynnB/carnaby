@@ -94,6 +94,7 @@
             }
             ?>" 
         />
+        <meta name='keywords' content='Carnaby, West, review, rating, clothes, apparel, online, shopping, shipping, returns, sizes, men’s, women’s, girls, boys, orders, shoes, formal, accessories, sleepwear, bags'>
         
    	<?php wp_head(); ?>
 
