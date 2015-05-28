@@ -573,7 +573,7 @@ function render_category_info(){
         $html.= "<h3>Women</h3>
                 <table class='listing-cat-info'>";
         
-        $html .= render_good_for("women");        
+        //$html .= render_good_for("women");        
         $womens_category_links = array();
         $womens_extended_sizes = array();
         
@@ -588,15 +588,18 @@ function render_category_info(){
             $link = "<a href='" . $url . "'>" . $wc->name . "</a>";
             $womens_category_links[] = $link;
         }
-        
+        if(isset($womens_category_links) && sizeof($womens_category_links)>0){
+            $html .= '<tr class="listing-tag-row"><td colspan="2"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $womens_category_links)."</td></tr>";
+        }
         //display all the womens categories for this store
+        /*
         if(!empty($womens_category_links)) {
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Categories: </td>';
             $html .= '<td class="listing-category-values">'.implode( ', ', $womens_category_links ).'</td>';
             $html .= '</tr>';
         }
-
+        */
          
         //Display standard womens sizes carried
         if($womens_sizes){
@@ -659,7 +662,7 @@ function render_category_info(){
         
         $html.= "<h3>Men</h3>
                 <table class='listing-cat-info'>";
-        $html .= render_good_for("women");
+        //$html .= render_good_for("men");
         $mens_category_links = array();
         $mens_extended_sizes = array();
         
@@ -674,15 +677,19 @@ function render_category_info(){
             $link = "<a href='" . $url . "'>" . $mc->name . "</a>";
             $mens_category_links[] = $link;
         }
-        
-        
+        if(isset($mens_category_links) && sizeof($mens_category_links)>0){
+            $html .= '<tr class="listing-tag-row"><td colspan="2"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $mens_category_links)."</td></tr>";
+        }
         //display all the womens categories for this store
+        /*
         if(!empty($mens_category_links)) {
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Categories: </td>';
             $html .= '<td class="listing-category-values">'.implode( ', ', $mens_category_links ).'</td>';
             $html .= '</tr>';
         }
+         * *
+         */
         
         //Display standard womens sizes carried
         if($mens_sizes){
@@ -749,7 +756,7 @@ function render_category_info(){
     if(!empty($kids_categories)):
         $html.= "<h3>Kids & Baby</h3>
                 <table class='listing-cat-info'>";
-        $html .= render_good_for("kids");
+        //$html .= render_good_for("kids");
         //Need to make label disappear if there are no values
         $kids_category_links = array();
         
@@ -759,11 +766,13 @@ function render_category_info(){
             $link = "<a href='" . $url . "'>" . $gc->name . "</a>";
             $girls_category_links[] = $link;
         }
+        
         //display all the womens categories for this store
+        
         if(!empty($girls_category_links)) {
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Girls: </td>';
-            $html .= '<td class="listing-category-values">'.implode( ', ', $girls_category_links ).'</td>';
+            $html .= '<td class="listing-tag-row"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $girls_category_links).'</td>';
             $html .= '</tr>';
         }
         
@@ -774,13 +783,14 @@ function render_category_info(){
         }
         
         //display all the womens categories for this store
+        
         if(!empty($boys_category_links)) {
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Boys: </td>';
-            $html .= '<td class="listing-category-values">'.implode( ', ', $boys_category_links ).'</td>';
+            $html .= '<td class="listing-tag-row"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $boys_category_links).'</td>';
             $html .= '</tr>';
         }
-        
+
         foreach($baby_categories as $bbc){
             $url = get_term_link( $bbc->id, WPBDP_CATEGORY_TAX );
             $link = "<a href='" . $url . "'>" . $bbc->name . "</a>";
@@ -791,9 +801,10 @@ function render_category_info(){
         if(!empty($baby_category_links)) {
             $html.='<tr class="listing-category-row">';
             $html .= '<td class="listing-category-label">Baby: </td>';
-            $html .= '<td class="listing-category-values">'.implode( ', ', $baby_category_links ).'</td>';
+            $html .= '<td class="listing-tag-row"><i class="icon-tag"></i>&nbsp;&nbsp;&nbsp; '.implode(", ", $baby_category_links).'</td>';
             $html .= '</tr>';
         }
+
         
         
         if(get_field('have_girls_sizes')){
