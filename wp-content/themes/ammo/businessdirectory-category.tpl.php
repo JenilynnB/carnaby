@@ -151,8 +151,22 @@ $class = "";
 
                             ?>  
                             
+                            <div class="category_sideadslot">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- Category Page Sidebar -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-8149612001508185"
+                                 data-ad-slot="9833473751"
+                                 data-ad-format="auto"></ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                            </div>
                         </div>
-                    
+                                                    
+
+
                         <?php if($module != "filters"):?>
                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
@@ -184,9 +198,27 @@ $class = "";
                                     <div class='listings-excerpts'>
                                     <?php 
                                     if(have_posts()):
+                                        //$i=0;
                                         while (have_posts()): the_post(); 
+                                            //$i++;
                                             echo wpbdp_render_listing(null, 'excerpt', FALSE, $term_raw); 
-                                            //echo wpbdp_render_listing(null, 'excerpt'); 
+                                            /*if($i==12){
+                                            echo '
+                                                <div class="wpbdp-listing excerpt wpbdp-listing-excerpt normal cf">
+                                                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                                    <!-- Test Ad Campaign -->
+                                                    <ins class="adsbygoogle cat_adslot"
+                                                         style="display:block"
+                                                         data-ad-client="ca-pub-8149612001508185"
+                                                         data-ad-slot="3899422150"
+                                                         data-ad-format="auto"></ins>
+                                                    <script>
+                                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                                    </script>
+                                                </div>'; 
+                                             }
+                                             * 
+                                             */   
                                         endwhile;
                                     else:
                                         echo wpautop('Sorry, no sites match your search.');

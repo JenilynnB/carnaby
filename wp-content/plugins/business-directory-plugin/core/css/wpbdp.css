@@ -115,14 +115,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 /* listing view > excerpt */
 
-.wpbdp-listing-excerpt{
-    width: 270px;
-    display: inline-block;
-    margin: 0px 10px 10px 0px;
-    padding: 10px;
-    background-color: #ffffff;
-    text-align: center;
-}
+
 
 //.wpbdp-listing-excerpt.odd {  }
 //.wpbdp-listing-excerpt.sticky { background: #fff0cf; border-bottom: solid 1px #b37800; }

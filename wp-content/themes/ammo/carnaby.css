@@ -843,6 +843,16 @@ Carnaby Listing Styles
     background-color: transparent;
 }
 
+.wpbdp-listing-excerpt{
+    width: 270px;
+    display: inline-block;
+    margin: 0px 10px 10px 0px;
+    padding: 10px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* */
 .carnaby-info{
     background-color: #f6f6f6;
     border: solid 1px #dedede;
@@ -984,6 +994,17 @@ Carnaby Listing Styles
 .searchandfilter input[type=submit]{
     width:100%;
 }
+
+
+.category_sideadslot{
+    width: 260px;
+    display: inline-block;
+    margin: 30px 10px 10px 2px;
+    padding: 10px;
+    //background-color: #ffffff;
+    text-align: center;
+}
+
 /****************************************************************
 * Carnaby Inbox Styles
 ****************************************************************/
@@ -1080,6 +1101,18 @@ a.uultra-btn-deletemessage:hover{
 .widget .children li{
     padding-left: 15px;
 }
+
+
+/****************************************************************
+* Ad display styles
+****************************************************************/
+
+
+.cat_adslot {
+    height: 180px;
+}
+
+
 
 /**** Media Queries ****/
 @media only screen and (max-width: 991px){
