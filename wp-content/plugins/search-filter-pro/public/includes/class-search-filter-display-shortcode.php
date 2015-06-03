@@ -514,7 +514,7 @@ class Search_Filter_Display_Shortcode {
 		//$returnvar .= "<li class=\"$field_class\" data-sf-field-name=\"$field_name\">";
 		//$returnvar .= "<input id='".$field_name."' class='accordion-check' name='".$field_name."' type='checkbox' />";
                 if($field_data["meta_key"]!='shipping_cost_to_canada' && $field_data["meta_key"]!='ships_to_canada'){
-                    $returnvar .= "<div class='acc-panel panel-default'>";
+                    $returnvar .= "<div class='acc-panel panel-filter'>";
                     
                 }
                 $field_key = get_standard_field_key($field_data['meta_key']);
@@ -593,6 +593,8 @@ class Search_Filter_Display_Shortcode {
                 }
                 
                 $field_data['hide_field'] = $hidden;
+                //The accordion won't work if the field ID isn't set, sp default it open
+                $collapse = $field_id ? "collapse": "";
                 
                 //display a heading? (available to all field types)
 		if(isset($field_data['heading']))
@@ -600,14 +602,14 @@ class Search_Filter_Display_Shortcode {
 			if($field_data['heading']!="")
 			{
 				$returnvar .= "<div class='panel-heading'>";
-                                $returnvar .= "<h4 class='panel-title'>";
+                                $returnvar .= "<label class='panel-title'>";
                                 $returnvar .= "<a data-toggle='collapse' href='#".$field_id."' data-parent='sf-".$base_form_id."'>".$field_data['heading']."</a>";
-                                $returnvar .= "</h4>";
+                                $returnvar .= "</label>";
                                 $returnvar .= "</div>";
                                 //$returnvar .= "<label for='".$field_name."'>".esc_html($field_data['heading'])."</label>";
-                                $returnvar .= '<div class="panel-collapse collapse" id="'.$field_id.'">';
+                                $returnvar .= '<div class="panel-collapse '.$collapse.'" id="'.$field_id.'">';
                                 
-                                $returnvar .= '<div class="panel-body">';
+                                $returnvar .= '<div class="panel-body-carnaby">';
 			
                                 
                         }

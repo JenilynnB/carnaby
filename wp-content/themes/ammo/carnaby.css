@@ -305,7 +305,7 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    background-color: #000;
+    background-color: #999999;
     color: #ffffff;
 }
 .btn-secondary:hover,
@@ -318,7 +318,7 @@ button:focus,
 html input[type="button"]:focus,
 input[type="reset"]:focus,
 input[type="submit"]:focus {
-    background-color: #000000;
+    background-color: #999999;
     //border-color: #40bfbf;
     color: #d3d3d3;
 }
@@ -995,6 +995,30 @@ Carnaby Listing Styles
     width:100%;
 }
 
+.searchandfilter label
+{
+    display:block;
+    margin:0;
+    padding:0;
+    font-weight: bold;
+    color: #fff;
+    //opacity: 0.75;
+    font-size: 14px;
+}
+
+.searchandfilter a:hover, a:focus{
+    color: #fff;
+    opacity: 0.75;
+}
+
+.panel-filter{
+    background-color: #66cccc;
+}
+
+.panel-body-carnaby{
+    background-color: #ffffff;
+    padding: 15px 20px;
+}
 
 .category_sideadslot{
     width: 260px;
