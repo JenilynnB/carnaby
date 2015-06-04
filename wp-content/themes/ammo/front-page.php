@@ -142,6 +142,63 @@ $kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
         </div>
     </div>
 
+     
+    
+    
+    <?php
+        
+        $args = array(
+            'posts_per_page' => 3,
+            'orderby' => 'post_date',
+            'order' => 'DESC',
+            'post_type' => 'post',
+            'post_status' => 'publish'
+        );
+        $posts = get_posts($args);
+        
+    
+    ?>
+    
+    <div class='section-normal posts-panel'>
+        <div class="container">
+            <div class="row">
+                <div class="column-md-12">
+                    <div class="row">
+                        <div class="content">
+                            <h2 class='heading-title'>Recent Trends & Tips</h2>
+                            <span class='heading-line'></span>
+                            
+                            <div class='posts-panel-content text-center'>
+                                <?php
+                                foreach($posts as $post){
+                                    $post_thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
+                                    $post_thumbnail_url = $post_thumbnail_url[0];
+                                    $post_title = $post->post_title;
+                                    $post_permalink = $post->guid;
+                                    
+                                ?>
+                                    <div class="posts-content col-sm-12 col-xs-12 col-md-4">
+                                        <div class="post-thumb-container">
+                                            <a href="<?php echo $post_permalink;?>">
+                                            <img src="<?php echo $post_thumbnail_url;?>" class="post-thumb-img">
+                                            </a>
+                                        </div>
+                                        <div class="post-title">
+                                            <a href="<?php echo $post_permalink;?>"><?php echo $post_title;?></a>
+                                            <span class="link-icon"><i class="fa fa-arrow-right"></i></span>
+                                        </div>
+                                    </div>
+                                
+                                <?php
+                                }?>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div class='section-normal categories-panel'>
         <div class="container">
@@ -222,62 +279,7 @@ $kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
         </div>
     </div>
     
-    
-    
-    
-    <?php
-        
-        $args = array(
-            'posts_per_page' => 3,
-            'orderby' => 'post_date',
-            'order' => 'DESC',
-            'post_type' => 'post',
-            'post_status' => 'publish'
-        );
-        $posts = get_posts($args);
-        
-    
-    ?>
-    
-    <div class='section-normal posts-panel'>
-        <div class="container">
-            <div class="row">
-                <div class="column-md-12">
-                    <div class="row">
-                        <div class="content">
-                            <h2 class='heading-title'>Recent Trends & Tips</h2>
-                            <span class='heading-line'></span>
-                            
-                            <div class='posts-panel-content text-center'>
-                                <?php
-                                foreach($posts as $post){
-                                    $post_thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
-                                    $post_thumbnail_url = $post_thumbnail_url[0];
-                                    $post_title = $post->post_title;
-                                    $post_permalink = $post->guid;
-                                    
-                                ?>
-                                    <div class="posts-content col-sm-12 col-xs-12 col-md-4">
-                                        <div class="post-thumb-container">
-                                            <a href="<?php echo $post_permalink;?>">
-                                            <img src="<?php echo $post_thumbnail_url;?>" class="post-thumb-img">
-                                            </a>
-                                        </div>
-                                        <div class="post-title">
-                                            <a href="<?php echo $post_permalink;?>"><?php echo $post_title;?></a>
-                                            <span class="link-icon"><i class="fa fa-arrow-right"></i></span>
-                                        </div>
-                                    </div>
-                                
-                                <?php
-                                }?>
-                                
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
         
     <div class='section-normal categories-panel'>
         <div class="container">
