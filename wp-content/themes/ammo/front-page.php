@@ -200,7 +200,44 @@ $kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
         </div>
     </div>
     
-    <div class='section-normal categories-panel'>
+     
+    <div class='section-normal'>
+        <div class="container">
+            <div class="row">
+                <div class="column-md-12">
+                    <div class="row">
+                        <div class="text-center">
+                            <h2 class='heading-title'>Recent Reviews</h2>
+                            <span class='heading-line'></span>
+                            <div class='review-panel-content text-left'>
+                                <?php 
+                                    $reviews = BusinessDirectory_RatingsModule::get_recent_reviews(0, 6);
+                                    foreach($reviews as $review){
+                                        $vars = array();
+                                        $vars['rating'] = $review;
+                                        $vars['context'] = "excerpt";
+
+                                        $template_path = WPBDP_RATINGS_TEMPLATES_PATH . '/single-review.tpl.php';
+                                        ?>
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <?php
+                                        echo wpbdp_render_page($template_path, $vars);
+                                        ?>
+                                        </div>
+                                        <?php
+                                    }
+                                
+                                ?>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      <div class='section-normal categories-panel'>
         <div class="container">
             <div class="row">
                 <div class="column-md-12">
@@ -242,44 +279,7 @@ $kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
         </div>
     </div>
     
-    
-    <div class='section-normal'>
-        <div class="container">
-            <div class="row">
-                <div class="column-md-12">
-                    <div class="row">
-                        <div class="text-center">
-                            <h2 class='heading-title'>Recent Reviews</h2>
-                            <span class='heading-line'></span>
-                            <div class='review-panel-content text-left'>
-                                <?php 
-                                    $reviews = BusinessDirectory_RatingsModule::get_recent_reviews(0, 6);
-                                    foreach($reviews as $review){
-                                        $vars = array();
-                                        $vars['rating'] = $review;
-                                        $vars['context'] = "excerpt";
 
-                                        $template_path = WPBDP_RATINGS_TEMPLATES_PATH . '/single-review.tpl.php';
-                                        ?>
-                                        <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <?php
-                                        echo wpbdp_render_page($template_path, $vars);
-                                        ?>
-                                        </div>
-                                        <?php
-                                    }
-                                
-                                ?>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-   
         
     <div class='section-normal categories-panel'>
         <div class="container">
