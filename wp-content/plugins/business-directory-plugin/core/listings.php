@@ -1,6 +1,7 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-listing.php' );
 require_once( WPBDP_PATH . 'vendors/shopstyle-api.php' );
+require_once( WPBDP_PATH . 'vendors/rakuten-api.php' );
 
 if (!class_exists('WPBDP_ListingsAPI')) {
 

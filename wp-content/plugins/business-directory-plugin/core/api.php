@@ -1142,6 +1142,122 @@ function render_products_slick_slider($listing_id=null, $category = ""){
     return $response;
 }
 
+function render_popshop_products($listing_id=null, $category = ""){
+    global $post;
+    $popshops = new PopShops();
+    
+    if ($listing_id=null){
+        $listing_id = $post->id;
+    }
+    
+    $merchant = $popshops->getMerchants($post->post_title);
+
+    if(!empty($merchant['results'])){
+        $merchant_results = $merchant['results']['merchants']['merchant'];
+        
+        foreach($merchant_results as $m){
+            
+            $url = wpbdp_render_listing_field('URL', $post->ID);
+            $url = $url[1];
+            //strip urls of http:// and/or www
+            
+            $base_url = preg_replace('/(http:\/\/)?(www\.)?+/i', '', $url);
+            
+            //compare the urls of the listing and the returned merchant
+            if (strstr($m['site_url'], $base_url)){
+                $merchant_id = $m['id'];
+            }
+        }
+    }
+
+    if($merchant_id==''){
+        return;
+    }
+ 
+    if($category!=""){
+        //Category list: http://popshops.com/v3/categories.xml?account=73q0rijkutz169vyq4w39zbas&catalog=8u5tah1dl5lf35d4kbmid46wj
+        if($category == "men"){
+            $popshop_category = "3001";
+        }else if ($category=="women"){
+            $popshop_category = "3300";
+        }else if ($category=="kids-baby"){
+            $popshop_category = "3800";
+        }else if ($category == "girls"){
+            $popshop_category = "3950";
+        }else if ($category == "boys"){
+            $popshop_category = "3801";
+        }else if ($category == "baby"){
+            $popshop_category = "32217";
+        }
+        
+        $product_params = array(
+            'merchant' => $merchant_id,
+            'category'   => $popshop_category
+        );
+    
+    }else{
+      $product_params = array(
+            'merchant' => $merchant_id
+        );  
+    }
+    
+    $products_response = $popshops->getProducts(12, 0, $product_params);
+
+    $products = $products_response["results"]["products"];
+    
+    if(empty($products) && sizeof($products)==0){
+        return;
+    }
+    
+    
+    /*Put the slick slider initial code here*/
+    $response .= '<div class="products-slider-container">';
+    $response .= '<div class="slick-slider-products listing-products">';
+    
+    foreach($products['product'] as $p){
+        //echo print_r($p);   
+        $product_name = $p["name"];
+        if(strlen($product_name)>40){
+            $product_name = substr($product_name, 0, 40)."...";
+        }
+        $product_price = $p["price_min"];
+        $product_id = $p["id"];
+        $product_url = $p["offers"]['offer'][0]["url"];
+        
+        $image_url = $p["image_url_large"];
+        list($large_image_width, $large_image_height) = getimagesize($image_url);
+        $image_height = 205;
+        $image_width = (205/$large_image_height)*$large_image_width;
+        
+        
+        //Format more swiper code for each product here
+        $response .= '<div class="slick-slider-product">';
+        $response .=    '<a href="'.$product_url.'" target="_blank">';
+        $response .=        '<div class="product-image" id="product-image-'.$product_id.'" rel="product-overlay-'.$product_id.'" style="background-image:url('.$image_url.');'
+                            . 'height:'.$image_height.'px; '
+                            . 'width: '.$image_width.'px;">';
+        
+        $response .=            '<div class="product-overlay" id="product-overlay-'.$product_id.'" >';
+        $response .=            '<div class="title">'.$product_name.'</div>';
+        $response .=            '<div class="price">$'.number_format($product_price, 2).'</div>';
+        $response .=            '<div class="link">View</div>';
+        $response .=            '</div>';
+        
+        $response .= '      </div>';
+        $response .=    '</a>';
+        $response .= '</div>';
+    }
+    
+    
+    //closing swiper code
+    $response .= '</div></div>';
+    
+    return $response;
+   
+}
+
+
+
 function render_products(){
     global $post;
     
@@ -1290,7 +1406,7 @@ function get_shipping_info($post_id='', $context=''){
     elseif ( $shipping == "ship_flat" ):
             $shipping_info = 'Standard shipping: $' . $shipping_cost ;
     else:
-            $shipping_info = 'Shipping increases with order size';
+            $shipping_info = 'Shipping cost increases with order size';
     endif; 
     
     if($context!='highlight'){

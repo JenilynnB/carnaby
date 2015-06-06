@@ -90,10 +90,15 @@ if($module != "more_info" && $module != "reviews"):
 
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             
-                         <?php 
+                         <?php
                          $retailer_id = get_field("shopstyle_retailer_id");
                          $products = render_products_slick_slider($listing_id, $category); 
-                         if ($retailer_id>0 && $products != ""){
+                         if($products == ""){
+                             $products = render_popshop_products($listing_id, $category); 
+                         }
+                         
+                         //if ($retailer_id>0 && $products != ""){
+                         if ($products != ""){
                             echo "<h2>Popular ".$title." Products</h2>";
                             
                             echo $products;
