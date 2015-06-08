@@ -1202,8 +1202,17 @@ function render_popshop_products($listing_id=null, $category = ""){
     }
     
     $products_response = $popshops->getProducts(12, 0, $product_params);
-
     $products = $products_response["results"]["products"];
+    
+    // If products response came back with no results and there was a category 
+    // applied, remove the category and tr again
+    if(empty($products) && sizeof($products)==0 && $popshop_category != ""){
+        $product_params = array(
+            'merchant' => $merchant_id
+        );
+        $products_response = $popshops->getProducts(12, 0, $product_params);
+        $products = $products_response["results"]["products"];
+    }
     
     if(empty($products) && sizeof($products)==0){
         return;
@@ -1213,6 +1222,8 @@ function render_popshop_products($listing_id=null, $category = ""){
     /*Put the slick slider initial code here*/
     $response .= '<div class="products-slider-container">';
     $response .= '<div class="slick-slider-products listing-products">';
+    
+    $num_products = 0;
     
     foreach($products['product'] as $p){
         //echo print_r($p);   
@@ -1226,8 +1237,18 @@ function render_popshop_products($listing_id=null, $category = ""){
         
         $image_url = $p["image_url_large"];
         list($large_image_width, $large_image_height) = getimagesize($image_url);
-        $image_height = 205;
-        $image_width = (205/$large_image_height)*$large_image_width;
+        
+        if($large_image_height >0 && $large_image_width>0){
+            $image_height = 205;
+            $image_width = (205/$large_image_height)*$large_image_width;
+            if($image_width<150){
+                $image_width = 150;
+            }
+            $num_products++;
+        }else{
+            continue;
+        }
+            
         
         
         //Format more swiper code for each product here
@@ -1252,7 +1273,13 @@ function render_popshop_products($listing_id=null, $category = ""){
     //closing swiper code
     $response .= '</div></div>';
     
-    return $response;
+    //Product images could all be corrupt and no products should be returned
+    if($num_products > 5){
+        return $response;
+    }else{
+        return;
+    }
+    
    
 }
 
