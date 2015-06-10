@@ -960,6 +960,8 @@ Carnaby Listing Styles
     color: #788991;
     font-style: italic;
 }
+
+
     
 /*****************************************
  Index Page
@@ -1020,14 +1022,10 @@ Carnaby Listing Styles
     padding: 15px 20px;
 }
 
-.category_sideadslot{
-    width: 260px;
-    display: inline-block;
-    margin: 30px 10px 10px 2px;
-    padding: 10px;
-    //background-color: #ffffff;
+.listings-results, .listings-excerpts{
     text-align: center;
 }
+
 
 /****************************************************************
 * Carnaby Inbox Styles
@@ -1132,9 +1130,35 @@ a.uultra-btn-deletemessage:hover{
 ****************************************************************/
 
 
-.cat_adslot {
-    height: 180px;
+.listing-right-adslot{
+    width: 300px;
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
 }
+
+
+.category-side-adslot{
+    width: 260px;
+    display: inline-block;
+    margin: 30px 10px 10px 2px;
+    padding: 10px;
+    //background-color: #ffffff;
+    text-align: center;
+}
+
+.category-main-mid-adslot, .category-main-bottom-adslot{
+    width: 730px;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
 
 
 
@@ -1175,7 +1199,8 @@ a.uultra-btn-deletemessage:hover{
     }
     .listing-actions{
         display: inline-block;
-    }  
+    } 
+    
 }
 
 @media only screen and (max-width: 767px){
@@ -1194,6 +1219,10 @@ a.uultra-btn-deletemessage:hover{
     }
     .listing-actions{
         display: none;
+    }
+    
+    .category-main-mid-adslot, .category-main-bottom-adslot{
+        width: 300px;
     }
 }
 @media only screen and (max-width: 400px) {

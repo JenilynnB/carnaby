@@ -90,29 +90,29 @@ if($module != "more_info" && $module != "reviews"):
 
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             
-                         <?php
-                         $retailer_id = get_field("shopstyle_retailer_id");
-                         $products = render_products_slick_slider($listing_id, $category); 
-                         if($products == ""){
-                             $products = render_popshop_products($listing_id, $category); 
-                         }
-                         
-                         //if ($retailer_id>0 && $products != ""){
-                         if ($products != ""){
-                            echo "<h2>Popular ".$title." Products</h2>";
-                            
-                            echo $products;
-                         }else{
-                        ?> 
+                            <?php
+                            $retailer_id = get_field("shopstyle_retailer_id");
+                            $products = render_products_slick_slider($listing_id, $category); 
+                            if($products == ""){
+                                $products = render_popshop_products($listing_id, $category); 
+                            }
 
-                            <div class='wpbdp-listing-screenshot'>
-                            <?php if ($main_image): ?>
-                                    <div class="main-image"><?php echo $main_image; ?></div>
-                            <?php endif; ?>
-                            </div>    
-                        <?php 
-                         }    
-                         ?> 
+                            //if ($retailer_id>0 && $products != ""){
+                            if ($products != ""){
+                               echo "<h2>Popular ".$title." Products</h2>";
+
+                               echo $products;
+                            }else{
+                            ?> 
+
+                                <div class='wpbdp-listing-screenshot'>
+                                <?php if ($main_image): ?>
+                                        <div class="main-image"><?php echo $main_image; ?></div>
+                                <?php endif; ?>
+                                </div>    
+                            <?php 
+                             }    
+                             ?> 
                     
                             <h2>Site Info</h2>
                             <div class="listing-site-info">
@@ -167,13 +167,26 @@ if($module != "more_info" && $module != "reviews"):
                                 <div class="col-md-12 category-info">
                                     <?php echo render_category_info(); ?>
                                 </div>       
-                            </div>              
+                            </div>
+                            <div class='listing_right_adslot'>
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- Listing Page - Right Well -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-8149612001508185"
+                                 data-ad-slot="9375168558"
+                                 data-ad-format="auto"></ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                            </div>
                         </div>
                         <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
                             <div class="row">
                             <a href="?module=more_info" class="btn btn-secondary more-info">More <?php echo $title; ?> Info</a>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
