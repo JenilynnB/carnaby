@@ -168,18 +168,7 @@ if($module != "more_info" && $module != "reviews"):
                                     <?php echo render_category_info(); ?>
                                 </div>       
                             </div>
-                            <div class='listing_right_adslot'>
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- Listing Page - Right Well -->
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-8149612001508185"
-                                 data-ad-slot="9375168558"
-                                 data-ad-format="auto"></ins>
-                            <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                            </div>
+                            
                         </div>
                         <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
                             <div class="row">
