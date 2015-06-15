@@ -1581,7 +1581,7 @@ function render_category_size_info(){
 function render_customer_support_phone(){
    
     $support_phone = get_field('support_phone');
-    if(!empty($support_phone)) $html.= "<div class='listing-category-label'><i class='fa fa-phone'></i> Support Phone: </div><div class='listing-category-values'>".$support_phone."</div>";
+    if(!empty($support_phone)) $html.= "<div class='listing-category-label'><i class='fa fa-phone'></i> Customer Service Phone Number: </div><div class='listing-category-values'>".$support_phone."</div>";
     return $html;
 }
 
@@ -1589,7 +1589,7 @@ function render_customer_support_email(){
     $support_email = get_field('support_email');
     if(!empty($support_email)) {
         $html.= "<div class='listing-category-label'>"
-               . "  <i class='icon-envelope-open'></i> Support Email: "
+               . "  <i class='icon-envelope-open'></i> Customer Service Email: "
                . "</div>";
     
         
