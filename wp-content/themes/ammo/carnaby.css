@@ -862,6 +862,15 @@ Carnaby Listing Styles
     //margin-left: 15px;
 }
 
+.listing-tags{
+    background-color: #f6f6f6;
+    border: solid 1px #dedede;
+    padding: 15px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 20px;
+    //margin-left: 15px;
+}
 
 .wpbdp-listing .listing-products{
     margin: 30px;

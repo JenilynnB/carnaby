@@ -149,6 +149,27 @@ if($module != "more_info" && $module != "reviews"):
                                 </div>
 
                             </div>
+                            
+                            <?php 
+                            
+                            $tags_list = get_the_terms($listing_id, WPBDP_TAGS_TAX);
+                            if($tags_list && !empty($tags_list)){ ?>
+                            
+                            <div class="listing-tags">
+                                <i class="icon-tag"></i>&nbsp;&nbsp;
+                                <?php 
+                                $tag_links = array();
+                                
+                                foreach($tags_list as $tag){
+                                    
+                                    $tag_links[] =  "<a href='".get_term_link($tag, WPBDP_TAGS_TAX)."'>".$tag->name."</a>";
+                                }
+                                echo implode(", ", $tag_links);
+                                ?>
+                                
+                            </div>
+                            
+                            <?php }?>
 
                         </div>
                     
