@@ -1607,8 +1607,12 @@ function modify_wp_search_where( $where ) {
 
 			$where = preg_replace(
 			"/($wpdb->posts.post_title (LIKE '%{$wp->query_vars['s']}%'))/i",
-                        //"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' )",
-			"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' ) OR (t.name LIKE '%{$wp->query_vars['s']}%') ",
+                        //The commented out line below allows searching through metadata. 
+                        //This slows the search down, but searches more fields. 
+                        //To turn this back on, make sure to add in the lines to join in the metadata
+                        //tables in modify_wp_search_join
+			//"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' ) OR (t.name LIKE '%{$wp->query_vars['s']}%') ",
+                        "$0 OR (t.name LIKE '%{$wp->query_vars['s']}%') ",
 			$where
 			);
 
@@ -1618,8 +1622,9 @@ function modify_wp_search_where( $where ) {
 			for($i=0; $i<count($search_var); $i++){
 				$where = preg_replace(
 					"/($wpdb->posts.post_title (LIKE '%{$search_var[$i]}%'))/i",
-                                        //"$0 OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' )",
-					"$0) OR ( $wpdb->postmeta.meta_value LIKE '%{$search_var[$i]}%' ) OR (t.name LIKE '%{$search_var[$i]}%' ",
+                                        
+					//"$0) OR ( $wpdb->postmeta.meta_value LIKE '%{$search_var[$i]}%' ) OR (t.name LIKE '%{$search_var[$i]}%' ",
+                                        "$0) OR (t.name LIKE '%{$search_var[$i]}%' ",
 					$where
 					);
 			}
@@ -1647,14 +1652,14 @@ add_action( 'posts_where_request', 'modify_wp_search_where' );
 function modify_wp_search_join( $join ) {
 
 	global $wpdb;
-	
+	/*
 	if(strpos($join, "JOIN $wpdb->post_meta")){
             $join = preg_replace("/[LEFT |INNER ] JOIN $wpdb->postmeta ON ([a-z0-9_-])/i", 
                 " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ", $join);
         }else{
             $join .= " LEFT JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ";
         }
-        
+        */
 	$join .= " LEFT JOIN $wpdb->term_relationships tr ON ($wpdb->posts.ID = tr.object_id)";
         $join .= " LEFT JOIN $wpdb->term_taxonomy tt ON (tt.term_taxonomy_id=tr.term_taxonomy_id)";
         $join .= " LEFT JOIN $wpdb->terms t ON (t.term_id = tt.term_id)";
