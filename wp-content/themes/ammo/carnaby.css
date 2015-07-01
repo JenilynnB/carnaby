@@ -303,25 +303,37 @@ Carnaby Avatar Styles
 .btn-secondary,
 button,
 html input[type="button"],
-input[type="reset"],
+input[type="reset"] {
+    background-color: #000000;
+    color: #ffffff;
+}
+
 input[type="submit"] {
     background-color: #999999;
     color: #ffffff;
 }
+
+
 .btn-secondary:hover,
 button:hover,
 html input[type="button"]:hover,
 input[type="reset"]:hover,
-input[type="submit"]:hover,
 .btn-secondary:focus,
 button:focus,
 html input[type="button"]:focus,
-input[type="reset"]:focus,
+input[type="reset"]:focus{
+    background-color: #000000;
+    border-color: #40bfbf;
+    color: #d3d3d3;
+}
+
+input[type="submit"]:hover,
 input[type="submit"]:focus {
     background-color: #999999;
     //border-color: #40bfbf;
     color: #d3d3d3;
 }
+
 .user-stats{
     margin-top: 5px;
     margin-left: 8px;
@@ -1017,7 +1029,7 @@ Carnaby Listing Styles
     font-size: 14px;
 }
 
-.searchandfilter a:hover, a:focus{
+.searchandfilter a:hover, .searchandfilter a:focus{
     color: #fff;
     opacity: 0.75;
 }
