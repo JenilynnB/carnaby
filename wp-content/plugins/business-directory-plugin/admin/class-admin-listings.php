@@ -50,20 +50,22 @@ class WPBDP_Admin_Listings {
                 $field = get_standard_field($meta_key);
                 $meta_value = $_REQUEST[$meta_key];
                 $field_options = $field['choices'];
-                $dropdown = '<select name="'.$field["name"].'" id = "'.$field["name"].'" class="postform" >';
-                $dropdown .= '<option value="none" selected="selected">Show all '.$meta_key.'</option> ';
-                foreach($field_options as $option => $display_name){
-                    if($option==$meta_value){
-                        $selected = "selected";
-                    }else{
-                        $selected = "";
+                if(is_array($field_options) && !empty($field_options)){
+                    $dropdown = '<select name="'.$field["name"].'" id = "'.$field["name"].'" class="postform" >';
+                    $dropdown .= '<option value="none" selected="selected">Show all '.$meta_key.'</option> ';
+                    foreach($field_options as $option => $display_name){
+                        if($option==$meta_value){
+                            $selected = "selected";
+                        }else{
+                            $selected = "";
+                        }
+                        $dropdown .= '<option value="'.$option.'"  '.$selected.'>'.$display_name.'</option>';
                     }
-                    $dropdown .= '<option value="'.$option.'"  '.$selected.'>'.$display_name.'</option>';
+
+                    $dropdown .= '</select>';
+
+                    echo $dropdown;
                 }
-
-                $dropdown .= '</select>';
-
-                echo $dropdown;
             }
         }
         
