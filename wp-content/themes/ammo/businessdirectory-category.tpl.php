@@ -61,20 +61,19 @@ $class = "";
     $breadcrumbs = '';
     //$category_slug = WPBDP_Settings::get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
     
-    if($parent_term->term_id!=""){
+    if($parent_term->term_id!="" && $parent_term->term_id != 4){
         //$parent_base_url = site_url("site_categories");
         //$parent_url = $parent_base_url."/".$parent_term->slug;
         $parent_url = get_term_link( $parent_term->term_id, WPBDP_CATEGORY_TAX );
-        /*
+        
         $breadcrumbs .= "<a href='".$parent_url."'>".$parent_term->name."</a>";
         $breadcrumbs .= " > "; 
-         * 
-         */
         
     }
 
     $breadcrumbs .= $term_object->name;
-    if($parent_term->term_id!=""){
+    //If this is Girls, Boys or Baby, we don't want to go up one level to the parent (Kids & Baby)
+    if($parent_term->term_id!="" && $parent_term->term_id != 4){
         $term = $parent_term->name;
         $term_raw = $parent_term->slug;
     }else{
