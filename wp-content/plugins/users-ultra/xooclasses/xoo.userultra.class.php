@@ -2457,7 +2457,7 @@ class XooUserUltra
 				
 				
 				$params = array(
-						  'scope' => 'read_stream, email, friends_likes',
+						  'scope' => 'read_stream, email',
 						  'redirect_uri' => $web_url
 						);
 						
