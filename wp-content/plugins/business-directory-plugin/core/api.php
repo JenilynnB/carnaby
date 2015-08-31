@@ -1908,6 +1908,7 @@ function get_listing_outbound_link($id, $max_length = 0, $category = ""){
             $no_dub_url = substr($no_dub_url, 0, $max_length)."...";
         }
     }
+    /*
     if((get_shopstyle_retailer_id($id))!=''){
         if($cat_url!=""){
             $listing_url = '<a href="'.get_shopstyle_retailer_url($id, $cat_url).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
@@ -1915,6 +1916,8 @@ function get_listing_outbound_link($id, $max_length = 0, $category = ""){
             $listing_url = '<a href="'.get_shopstyle_retailer_url($id).'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
         }
     }else{
+     * 
+     */
         if($cat_url!=""){
             if (strcmp(substr($cat_url, 0, 7), "http://") !=0){
                 $url = "http://" . $cat_url;
@@ -1929,7 +1932,13 @@ function get_listing_outbound_link($id, $max_length = 0, $category = ""){
             }
         }
         $listing_url = '<a href="'.$url.'" target="_blank"><i class="fa fa-external-link"></i>&nbsp;&nbsp;&nbsp;&nbsp;Visit '.$no_dub_url.'</a>';
-    }
+    /*
+     * }
+     * 
+     */
+    
+    
+
     return $listing_url;
 }
 
