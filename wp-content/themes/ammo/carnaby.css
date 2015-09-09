@@ -1043,6 +1043,10 @@ Carnaby Listing Styles
     padding: 15px 20px;
 }
 
+.panel-body-carnaby li{
+    list-style-type: none;
+}
+
 .listings-results, .listings-excerpts{
     text-align: center;
 }
