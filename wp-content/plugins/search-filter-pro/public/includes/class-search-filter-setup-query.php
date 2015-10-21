@@ -613,7 +613,8 @@ class Search_Filter_Setup_Query
 				}
 				
 			}else{
-                            $query->set('orderby', 'title');
+                            //$query->set('orderby', 'title');
+                            $query->set('orderby', 'rating');
                             $query->set('order', 'ASC');
 			}
 		}
