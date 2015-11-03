@@ -465,9 +465,9 @@ class Search_Filter_Display_Shortcode {
                         
                         }
                 }
-                
+                $rules = array();
                 if($standard_fields){
-                    $rules = array();
+                    
                     foreach($standard_fields as $field){
                         
                         $field_key = $field['key'];

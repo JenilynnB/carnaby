@@ -26,6 +26,8 @@ class Search_Filter_Setup_Query
 		$this->plugin_slug = $plugin_slug;
 		
 		add_filter('pre_get_posts', array($this, 'filter_query'), 20);
+                add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+                
 		
 		$this->rel_query_args['post_types'] = array();
 		$this->rel_query_args['authors'] = array();
@@ -52,7 +54,7 @@ class Search_Filter_Setup_Query
 				$query = $this->filter_query_post_types($query);
 				$query = $this->filter_query_author($query);
 				$query = $this->filter_query_tax_meta($query);
-				$query = $this->filter_query_sort_order($query);
+				//$query = $this->filter_query_sort_order($query);
 				$query = $this->filter_query_post_date($query);
 				
 				if($sf_form_data->settings("enable_auto_count")==1)
@@ -90,7 +92,17 @@ class Search_Filter_Setup_Query
 		return $join;
 	}
 	
-	
+	function _posts_fields($fields, $query){
+            global $wpdb;
+            
+            
+            $rating_query = "(SELECT ROUND(AVG(rating)) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating, 
+                             (SELECT COUNT(rating) FROM {$wpdb->prefix}wpbdp_ratings WHERE listing_id = {$wpdb->posts}.ID) AS wpbdp_rating_count";
+            return $fields . ', ' . $rating_query;
+            
+            return $fields;
+        }
+        
 	function filter_meta_query_where($where = '')
 	{
 		global $wpdb; 
@@ -284,6 +296,7 @@ class Search_Filter_Setup_Query
 				$query->set( 'tax_query', $tax_query );
 			}
 			
+                        add_action('posts_fields', array( &$this, '_posts_fields'), 10, 2);
 			add_filter('posts_where', array($this, 'filter_meta_query_where'));
 			add_filter('posts_join' , array($this, 'filter_meta_join'));
 			
@@ -559,6 +572,7 @@ class Search_Filter_Setup_Query
 		
 	}
 	
+        /*
 	function filter_query_sort_order($query)
 	{
 		global $wp_query;
@@ -614,14 +628,37 @@ class Search_Filter_Setup_Query
 				
 			}else{
                             //$query->set('orderby', 'title');
-                            $query->set('orderby', 'rating');
-                            $query->set('order', 'ASC');
+                            //$query->set('order', 'ASC');
+                            
+                            //$query->set('orderby', array('wpbdp_rating' => 'DESC', 'wpbdp_rating_count'=> 'DESC'));
+                            //$query->set('orderby', 'wpbdp_rating');
+                            //$query->set('order', 'DESC');
+                            
+                            //$wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
+                            
+                            
 			}
 		}
 		
 		return $query;
 	}
+        
+        */
 	
+        function _posts_orderby($orderby, $query) {
+            
+            $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
+
+            if ( 'paid' == wpbdp_get_option( 'listings-order-by' ) ) {
+                //$orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
+                $orderby = 'wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
+            } else if ($wpbdp_orderby!='') {
+                $orderby = $wpbdp_orderby . ', ' . $orderby;
+            }
+            
+            return $orderby;
+        }
+        
 	
 	function limit_date_range_query( $where )
 	{
