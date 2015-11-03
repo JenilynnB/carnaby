@@ -26,7 +26,7 @@ class Search_Filter_Setup_Query
 		$this->plugin_slug = $plugin_slug;
 		
 		add_filter('pre_get_posts', array($this, 'filter_query'), 20);
-                add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+                
                 
 		
 		$this->rel_query_args['post_types'] = array();
@@ -55,7 +55,8 @@ class Search_Filter_Setup_Query
 				$query = $this->filter_query_author($query);
 				$query = $this->filter_query_tax_meta($query);
 				//$query = $this->filter_query_sort_order($query);
-				$query = $this->filter_query_post_date($query);
+				add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+                                $query = $this->filter_query_post_date($query);
 				
 				if($sf_form_data->settings("enable_auto_count")==1)
 				{
@@ -634,7 +635,6 @@ class Search_Filter_Setup_Query
                             //$query->set('orderby', 'wpbdp_rating');
                             //$query->set('order', 'DESC');
                             
-                            //$wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
                             
                             
 			}
@@ -648,14 +648,14 @@ class Search_Filter_Setup_Query
         function _posts_orderby($orderby, $query) {
             
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
-
+            
             if ( 'paid' == wpbdp_get_option( 'listings-order-by' ) ) {
                 //$orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
                 $orderby = 'wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
             } else if ($wpbdp_orderby!='') {
                 $orderby = $wpbdp_orderby . ', ' . $orderby;
             }
-            
+  
             return $orderby;
         }
         
