@@ -305,22 +305,22 @@ $kids_term_link = get_term_link( $kids_cat_id, WPBDP_CATEGORY_TAX );
                                     </a>
                                 </div>
                                 <div class='row quick-search-panel-content '>
-                                    <a href='<?php echo site_url("/men/?_sfm_good_for_men=wear_to_work");?>'>
+                                    <a href='<?php echo site_url("/stores/mens-office-apparel");?>'>
                                         <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/work.jpg");?>")'>
                                             <div class='quick-search-overlay'>Mens Office Attire</div>
                                         </div>
                                     </a>
-                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=maternity");?>'>
+                                    <a href='<?php echo site_url("/stores/maternity");?>'>
                                         <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bump.jpg");?>")'>
                                             <div class='quick-search-overlay'>Maternity</div>
                                         </div>
                                     </a>
-                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=weddings");?>'>
+                                    <a href='<?php echo site_url("/stores/womens-wedding");?>'>
                                         <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img' style='background-image:url("<?php echo site_url("/wp-content/uploads/bridal.jpg");?>")'>
                                             <div class='quick-search-overlay'>Bridal</div>    
                                         </div>
                                     </a>
-                                    <a href='<?php echo site_url("/women/?_sfm_good_for_women=beach_vacation");?>'>
+                                    <a href='<?php echo site_url("/stores/womens-swimwear");?>'>
                                         <div class='col-md-3 col-sm-6 col-xs-12 quick-search-img ' style='background-image:url("<?php echo site_url("/wp-content/uploads/swim.jpg");?>")'>                                       
                                            <div class='quick-search-overlay'>Womens Swimwear</div> 
                                         </div>
