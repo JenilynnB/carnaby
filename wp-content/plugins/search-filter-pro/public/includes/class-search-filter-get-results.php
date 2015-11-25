@@ -185,7 +185,8 @@ class Search_Filter_Get_Results
 						$where .= " AND (sf_meta_$meta_iter.meta_key = '".$meta_query['key']."'";
 						
 						//$where .= " AND CAST(sf_meta_$meta_iter.meta_value AS SIGNED) BETWEEN '".$meta_query['values'][0]."' AND '".$meta_query['values'][1]."')";
-                                                $where .= " AND sf_meta_$meta_iter.meta_value BETWEEN '".$meta_query['values'][0]."' AND '".$meta_query['values'][1]."')";
+                                                //$where .= " AND sf_meta_$meta_iter.meta_value BETWEEN '".$meta_query['values'][0]."' AND '".$meta_query['values'][1]."')";
+                                                $where .= " AND sf_meta_$meta_iter.meta_value BETWEEN ".$meta_query['values'][0]." AND ".$meta_query['values'][1].")";
 					}
 					
 					$meta_iter++;
