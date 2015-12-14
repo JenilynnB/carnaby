@@ -84,14 +84,14 @@ class WPBDP_Listing {
             wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
     }
 
-    /*
+    
     public function set_thumbnail_id( $image_id ) {
         if ( ! $image_id )
             return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
         
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
     }
-*/
+
     public function get_thumbnail_id($thumb_type = "") {
         
         $listing_id = $this->id;
