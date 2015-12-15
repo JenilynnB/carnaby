@@ -3628,11 +3628,11 @@ msgid " ERROR! Password should contain at least 7 alphanumeric characters "
 msgstr ""
 
 #: ../xooclasses/xoo.userultra.user.php:1131
-msgid " Success!! The new password has been sent to "
+msgid " Success!! Your password has been changed. "
 msgstr ""
 
 #: ../xooclasses/xoo.userultra.user.php:1212
-msgid " Sucess!! The new password has been sent to "
+msgid " Sucess!! Your password has been changed. "
 msgstr ""
 
 #: ../xooclasses/xoo.userultra.user.php:1214

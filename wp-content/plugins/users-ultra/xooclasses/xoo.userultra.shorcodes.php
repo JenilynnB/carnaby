@@ -311,32 +311,21 @@ class XooShortCode {
 		
 		if (isset($_GET['resskey'])&& $_GET['resskey']!="") 
 		{
-			//users is trying to reset passowrd
-			
-			return $xoouserultra->password_reset( $_GET['resskey'] );
-			
-			
-		
+                    //users is trying to reset passowrd
+                    return $xoouserultra->password_reset( $_GET['resskey'] );
 		}else{	
-			
-		
-			if (!is_user_logged_in()) 
-			{
+                    if (!is_user_logged_in()) 
+                    {
 				
-				
-				return $xoouserultra->login( $atts );
-				
-			}else{					
-				
-				
-				return $xoouserultra->show_usersultra_my_account( $atts );
-			}
-			
-		
-		
-		}
-		
-		
+                        wp_redirect(site_url('/'));
+                        //return $xoouserultra->login( $atts );
+
+                    }/*else{					
+
+
+                            return $xoouserultra->show_usersultra_my_account( $atts );
+                    }*/
+                }
 	}
 	
 	

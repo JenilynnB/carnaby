@@ -1466,6 +1466,24 @@ class XooUserLogin {
 		return $my_account_url;
 	
 	}
+        public function get_reset_password_direct_link()
+	{
+		global $xoouserultra, $wp_rewrite ;
+		
+		$wp_rewrite = new WP_Rewrite();
+		
+		require_once(ABSPATH . 'wp-includes/link-template.php');		
+		require_once(ABSPATH . 'wp-includes/pluggable.php');		
+		
+                
+		$reset_password_page_id = XooUserUltraCommon::get_option('xoousersultra_reset_password_page');
+		$reset_password_url = get_permalink($reset_password_page_id);
+				
+		return $reset_password_url;
+	
+	}
+        
+        
 		
 	 /*Handle Facebook Sign up*/
 	public function handle_social_facebook() 

@@ -1319,8 +1319,12 @@ class XooUserUltra
 		if ($use_in_sidebar) $sidebar_class = 'xoouserultra-sidebar';
 		
 		$display = null;
-		$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
-					<div class="xoouserultra-inner xoouserultra-login-wrapper">';
+		
+
+                
+                
+                //$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
+		//			<div class="xoouserultra-inner xoouserultra-login-wrapper">';
 		
 		//$display .= '<div class="xoouserultra-head">';
 		//    $display .='<div class="xoouserultra-left">';
@@ -1329,37 +1333,40 @@ class XooUserUltra
 		//    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
 		//$display .= '</div>';
 						
-						$display .='<div class="xoouserultra-main">';
-						
-						/*Display errors*/
-						if (isset($_GET['resskey']) && $_GET['resskey']!="")
-						{
-							
-							//check if valid 
-							$valid = $xoouserultra->userpanel->get_user_with_key($_GET['resskey']);
-							
-							if($valid)
-							{
-								$display .= $this->show_password_reset_form( $sidebar_class,  $args, $_GET['resskey']);
-							
-							}else{
-								
-								$display .= '<p>'.__('Oops! The link is not correct! ', 'xoousers').'</p>';
-							
-							
-							}
-							
-							
-						}
-						
-						
-						
-						
+                                //$display .='<div class="xoouserultra-main">';
 
-						$display .= '</div>
+                                /*Display errors*/
+                                if (isset($_GET['resskey']) && $_GET['resskey']!="")
+                                {
+
+                                        //check if valid 
+                                        $valid = $xoouserultra->userpanel->get_user_with_key($_GET['resskey']);
+
+                                        if($valid)
+                                        {
+                                                $display = '<div class="box-section">
+                                                    <h3> <?php  _e("Update Password","xoousers");?>  </h3>    ';
+                                                $display .= $this->show_password_reset_form( $sidebar_class,  $args, $_GET['resskey']);
+                                                $display .= '</div>';
+                                        }else{
+
+                                                $display .= '<div class="alert alert-danger" id="password_reset_error" >';
+                                                $display .= '<p>'.__('Oops! The link is not correct! ', 'xoousers').'</p>';
+                                                $display .= '</div>';
+
+                                        }
+
+
+                                }
+
+
+
+
+
+                                
 						
 					
-				</div>';
+				//</div>';
 
 		return $display;
 		
@@ -1380,6 +1387,8 @@ class XooUserUltra
 		$placeholder = "";
 		$login_btn_class = "";
 		
+                $display.='<div class="xoouserultra-signin-noti-block" id="uultra-reset-p-noti-box"> </div>';	
+                
 		//field 1
 		$display .= '<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">';		
 		$display .= '<label class="xoouserultra-field-type" for="'.$meta.'">'; 		 
@@ -1405,7 +1414,7 @@ class XooUserUltra
 		
 		$display .= '</br></br>';	
 		
-		$display.='<div class="xoouserultra-signin-noti-block" id="uultra-reset-p-noti-box"> </div>';	
+		
 		
 		$display .= '</form>';		
 		
@@ -2296,7 +2305,7 @@ class XooUserUltra
 		$modules = array();
 		$modules  = explode(',', $disable);
 		
-                require_once(xoousers_path.'/templates/'.xoousers_template."/myaccount.php");
+                //require_once(xoousers_path.'templates/'.xoousers_template."/myaccount.php");
 		//require_once(xoousers_path.'/templates/'.xoousers_template."/dashboard.php");
 	}
 	

@@ -1132,7 +1132,7 @@ class XooUserUser {
 					wp_set_password( $password1, $user_id ) ;
 					
 					//notify user					
-					$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
+					//$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
 					
 					//$html = "<div class='uupublic-ultra-success'>".__(" Success!! The new password has been sent to ".$user_email."  ", 'xoousers')."</div>";
 					$html = "success";
@@ -1168,8 +1168,8 @@ class XooUserUser {
 		
 				
 		//check redir		
-		$account_page_id = get_option('xoousersultra_my_account_page');
-		$my_account_url = get_permalink($account_page_id);
+		$login_page_id = XooUserUltraCommon::get_option('login_page_id');
+		$login_url = get_permalink($login_page_id);
 		
 		
 		
@@ -1214,11 +1214,11 @@ class XooUserUser {
 				
 				//notify user
 				
-				$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
+				//$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
 				
-				$html = "<div class='uupublic-ultra-success'>".__(" Sucess!! The new password has been sent to ".$user_email."  ", 'xoousers')."</div>";
+				$html = "<div class='uupublic-ultra-success'>Sucess!! Your new password has been set.</div>";
 				
-				$html .= "<div class=''>".__('<a href="'.$my_account_url.'" title="Login">CLICK HERE TO LOGIN</a>', 'xoousers')."</div>";
+				$html .= "<div class=''>".__('<a href="'.$login_url.'" title="Login">CLICK HERE TO LOGIN</a>', 'xoousers')."</div>";
 				
 								
 			}else{
@@ -1316,7 +1316,8 @@ class XooUserUser {
 			  $unique_key =  $xoouserultra->login->get_unique_verify_account_id();
 			  
 			  //web url
-			  $web_url = $xoouserultra->login->get_my_account_direct_link();
+			  $web_url = $xoouserultra->login->get_reset_password_direct_link();
+                          //$web_url = $xoouserultra->login->get_my_account_direct_link();
 			  
 			  $pos = strpos("page_id", $web_url);
 

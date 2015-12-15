@@ -420,6 +420,15 @@ $this->create_plugin_setting(
             __('Make sure you have the <code>[usersultra_my_account]</code> shortcode on this page.','xoousers'),
             __('This page is where users will view their account.','xoousers')
     );
+
+$this->create_plugin_setting(
+            'select',
+            'xoousersultra_reset_password_page',
+            __('Users Ultra Reset Password','xoousers'),
+            $this->get_all_sytem_pages(),
+            __('Make sure you have the <code>[usersultra_my_account]</code> shortcode on this page.','xoousers'),
+            __('This page is where users will reset their password.','xoousers')
+    );
 	
     $this->create_plugin_setting(
             'select',

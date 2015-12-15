@@ -854,6 +854,10 @@ class XooUserAdmin extends XooUserUltraCommon
                     {
                             //echo "Page : " . $value;
                              update_option('xoousersultra_my_account_page',$value);
+                    }else if($key=="xoousersultra_reset_password_page")
+                    {
+                            //echo "Page : " . $value;
+                             update_option('xoousersultra_reset_password_page',$value);
                     }     
 
                 }   
