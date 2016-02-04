@@ -113,7 +113,7 @@ if($module == "" || $module == "reviews"):
 
                             <div class="row">
                                 <!--Message for no reviews-->
-                                <?php if ($num_reviews = 0):?>
+                                <?php if ($num_reviews == 0):?>
                                     <p class="no-reviews-message"><?php _e('There are no reviews yet. Be the first!', 'wpbdp-ratings'); ?></p>
                                 <?php endif;?>
 
