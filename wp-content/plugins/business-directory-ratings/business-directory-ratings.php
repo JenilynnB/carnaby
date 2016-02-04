@@ -51,7 +51,8 @@ class BusinessDirectory_RatingsModule {
 
         add_action( 'wpbdp_register_fields', array( $this, 'register_fields' ) );
         add_action('wpbdp_before_single_view', array($this, '_process_form')); // single view
-        add_action('wpbdp_after_single_view', array($this, '_reviews_and_form')); // single view
+        //Removing this to put in the single listing template
+        //add_action('wpbdp_after_single_view', array($this, '_reviews_and_form')); // single view
 
         add_filter('wpbdp_search_where', array($this, '_search_where'), 10, 2);
 
@@ -597,15 +598,18 @@ class BusinessDirectory_RatingsModule {
     /*
      * Views.
      */
+    
+    /*Commenting out this function to put it in the single template -JLB
+
     public function _reviews_and_form($listing_id) {
         if (!$this->enabled() || ( apply_filters( 'wpbdp_listing_ratings_enabled', true, $listing_id ) == false ) )
             return;
         
         if(isset($_GET["module"])){	$module = $_GET["module"];	}
         if($module=="reviews"){
-            /*if we're on the mobile reviews page, show two pages of reviews at
-             * once because the user has already clicked "More Reviews" once
-             */
+            //if we're on the mobile reviews page, show two pages of reviews at
+            //  once because the user has already clicked "More Reviews" once
+             
             $num_reviews = NUM_REVIEWS_TO_PAGINTE * 2;
         }else{
             $num_reviews = NUM_REVIEWS_TO_PAGINTE;
@@ -621,7 +625,7 @@ class BusinessDirectory_RatingsModule {
 
         echo wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/ratings.tpl.php', $vars);
     }
-
+*/
 
     /*
      * AJAX

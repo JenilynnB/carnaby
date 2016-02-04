@@ -522,6 +522,36 @@ function wpbdp_render_listing_field($field_name,$post_id=null) {
     return $html;
 }
 
+/* Returns all review info for listing
+ * 
+ */
+
+function get_reviews_and_form($listing_id) {
+        global $wpbdp_ratings;    
+        if ( apply_filters( 'wpbdp_listing_ratings_enabled', true, $listing_id ) == false ) 
+            return;
+        
+        if(isset($_GET["module"])){	$module = $_GET["module"];	}
+        if($module=="reviews"){
+            //if we're on the mobile reviews page, show two pages of reviews at
+            //  once because the user has already clicked "More Reviews" once
+             
+            $num_reviews = NUM_REVIEWS_TO_PAGINTE * 2;
+        }else{
+            $num_reviews = NUM_REVIEWS_TO_PAGINTE;
+        }
+        
+        $vars = array();
+        //$vars['review_form'] = $this->can_post_review($listing_id, $reason) ? wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/form.tpl.php', $this->_form_state) : '';
+        $vars['review_form'] = wpbdp_render_page(TEMPLATEPATH . '/review-form.tpl.php', $wpbdp_ratings->_form_state);
+        $vars['reason'] = $reason;
+        $vars['success'] = $wpbdp_ratings->_form_state['success'];
+        $vars['ratings'] = $wpbdp_ratings->get_reviews_paginated($listing_id, $num_reviews);
+        $vars['num_reviews'] = $wpbdp_ratings->get_total_reviews($listing_id);
+
+        //return wpbdp_render_page(plugin_dir_path(__FILE__) . 'templates/ratings.tpl.php', $vars);
+        return wpbdp_render_page(TEMPLATEPATH.'/ratings.tpl.php', $vars);
+    }
 
 /* 
  * Returns information for all categories, formatted for the main listing

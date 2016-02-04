@@ -1,6 +1,7 @@
 <?php
 
 $module = "";
+$num_reviews = BusinessDirectory_RatingsModule::get_total_reviews(get_the_id());
 
 if(isset($_GET["module"])){	$module = $_GET["module"];	}
 if(isset($_GET["cat"])){	$category = $_GET["cat"];	}
@@ -81,6 +82,14 @@ if($module != "more_info" && $module != "reviews"):
          </div>
     </div>
 </section>
+
+<?php 
+if($num_reviews >0){
+    echo get_reviews_and_form($listing_id); 
+}
+?>
+
+
 <section class="primary section">
     <div class="container">
         <div class="content">                
@@ -203,6 +212,34 @@ if($module != "more_info" && $module != "reviews"):
         </div>
     </div>
     
+</section>
+
+<?php 
+if($num_reviews == 0){
+    echo get_reviews_and_form($listing_id); 
+}
+?>
+
+<section class="primary section wpbdp-listing">
+    <div class="container">
+        <div class="content">                
+            <div class="row">
+                <div class="col-md-12">
+                    <?php 
+                    $related = the_related($listing_id); 
+                    
+                    if($related){
+                    ?>
+                        <h2>Other Stores You Might Like</h2>
+                    <?php
+                        echo $related;
+                    }
+                    ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <?php
